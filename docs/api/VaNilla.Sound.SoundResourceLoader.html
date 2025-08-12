@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class SoundResourceLoader </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class SoundResourceLoader ">
+      
+      <meta name="description" content="サウンドリソースの非同期ロード・アンロード機能を提供するユーティリティクラスです。 サウンドファイルの非同期読み込み、ロード状態の確認、メモリからの解放を担当します。">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/develop/apiSpec/new?filename=VaNilla_Sound_SoundResourceLoader.md&amp;value=---%0Auid%3A%20VaNilla.Sound.SoundResourceLoader%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.Sound.SoundResourceLoader">
+
+
+
+  <h1 id="VaNilla_Sound_SoundResourceLoader" data-uid="VaNilla.Sound.SoundResourceLoader" class="text-break">
+Class SoundResourceLoader  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/SoundManager/Interface/SoundResourceLoader.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a>.<a class="xref" href="VaNilla.Sound.html">Sound</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>サウンドリソースの非同期ロード・アンロード機能を提供するユーティリティクラスです。
+サウンドファイルの非同期読み込み、ロード状態の確認、メモリからの解放を担当します。</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class SoundResourceLoader</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">SoundResourceLoader</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="VaNilla_Sound_SoundResourceLoader_IsLoaded_" data-uid="VaNilla.Sound.SoundResourceLoader.IsLoaded*"></a>
+
+  <h3 id="VaNilla_Sound_SoundResourceLoader_IsLoaded_VaNilla_Sound_SoundInfo_" data-uid="VaNilla.Sound.SoundResourceLoader.IsLoaded(VaNilla.Sound.SoundInfo)">
+  IsLoaded(SoundInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/SoundManager/Interface/SoundResourceLoader.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定されたサウンドリソースのロード完了状態を確認します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsLoaded(SoundInfo info)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>info</code> <a class="xref" href="VaNilla.Sound.SoundInfo.html">SoundInfo</a></dt>
+    <dd><p>ロード状態を確認するサウンド情報</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><ul><li><code>true</code>: サウンドリソースのロードが完了し、再生可能状態</li><li><code>false</code>: ロード中、またはロード未開始状態</li></ul>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_Sound_SoundResourceLoader_IsLoaded_VaNilla_Sound_SoundInfo__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>このメソッドはLoadメソッド呼び出し後のロード進行状況をポーリングするために使用します。</p>
+<p>ロードが完了していないサウンドを再生しようとすると警告ログが出力されます。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_Sound_SoundResourceLoader_Load_" data-uid="VaNilla.Sound.SoundResourceLoader.Load*"></a>
+
+  <h3 id="VaNilla_Sound_SoundResourceLoader_Load_VaNilla_Sound_SoundInfo_" data-uid="VaNilla.Sound.SoundResourceLoader.Load(VaNilla.Sound.SoundInfo)">
+  Load(SoundInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/SoundManager/Interface/SoundResourceLoader.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定されたサウンド情報を基にサウンドリソースの非同期ロードを開始します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static SoundResource Load(SoundInfo info)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>info</code> <a class="xref" href="VaNilla.Sound.SoundInfo.html">SoundInfo</a></dt>
+    <dd><p>ロードするサウンドの情報（ファイルパス、リソース種別など）</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Sound.SoundResource.html">SoundResource</a></dt>
+    <dd><p>ロード中のサウンドリソースハンドル。ロード完了前は無効値の状態</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_Sound_SoundResourceLoader_Load_VaNilla_Sound_SoundInfo__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>このAPIは即座に復帰し、バックグラウンドでロード処理を実行します。</p>
+<p>即座にサウンドが再生可能になるわけではありません。ロード完了までに数フレームから数秒かかる場合があります。</p>
+<p>ロードの進行状況を確認するには<a class="xref" href="VaNilla.Sound.SoundResourceLoader.html#VaNilla_Sound_SoundResourceLoader_IsLoaded_VaNilla_Sound_SoundInfo_">IsLoaded(SoundInfo)</a>メソッドを使用してください。</p>
+<p>ロード失敗時はエラーログが出力され、無効なリソースが返されます。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_Sound_SoundResourceLoader_Unload_" data-uid="VaNilla.Sound.SoundResourceLoader.Unload*"></a>
+
+  <h3 id="VaNilla_Sound_SoundResourceLoader_Unload_VaNilla_Sound_SoundInfo_" data-uid="VaNilla.Sound.SoundResourceLoader.Unload(VaNilla.Sound.SoundInfo)">
+  Unload(SoundInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/SoundManager/Interface/SoundResourceLoader.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定されたサウンドリソースをメモリから解放します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Unload(SoundInfo info)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>info</code> <a class="xref" href="VaNilla.Sound.SoundInfo.html">SoundInfo</a></dt>
+    <dd><p>解放するサウンド情報</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_Sound_SoundResourceLoader_Unload_VaNilla_Sound_SoundInfo__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>メモリ使用量を削減するため、使用しないサウンドリソースは積極的に解放してください。</p>
+<p>再生中のサウンドを解放すると、音声が即座に停止します。</p>
+<p>解放後に再度使用する場合は、再度Loadメソッドを呼び出す必要があります。</p>
+</div>
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/SoundManager/Interface/SoundResourceLoader.cs/#L10" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

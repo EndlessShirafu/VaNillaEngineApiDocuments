@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class KeyConfig </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class KeyConfig ">
+      
+      <meta name="description" content="キーコンフィグを管理するクラスです。">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/develop/apiSpec/new?filename=VaNilla_KeyConfig.md&amp;value=---%0Auid%3A%20VaNilla.KeyConfig%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.KeyConfig">
+
+
+
+  <h1 id="VaNilla_KeyConfig" data-uid="VaNilla.KeyConfig" class="text-break">
+Class KeyConfig  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>キーコンフィグを管理するクラスです。</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class KeyConfig</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">KeyConfig</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="VaNilla_KeyConfig_config_key" data-uid="VaNilla.KeyConfig.config_key">
+  config_key
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly Dictionary&lt;int, ReadOnlyCollection&lt;string&gt;&gt; config_key</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.readonlycollection-1">ReadOnlyCollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_KeyConfig_keyconf_dic" data-uid="VaNilla.KeyConfig.keyconf_dic">
+  keyconf_dic
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Dictionary&lt;string, object&gt; keyconf_dic</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="VaNilla_KeyConfig_DeleteConfig_" data-uid="VaNilla.KeyConfig.DeleteConfig*"></a>
+
+  <h3 id="VaNilla_KeyConfig_DeleteConfig" data-uid="VaNilla.KeyConfig.DeleteConfig">
+  DeleteConfig()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L201"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>キーコンフィグファイルの削除</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void DeleteConfig()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_KeyConfig_GetGamepadButton_" data-uid="VaNilla.KeyConfig.GetGamepadButton*"></a>
+
+  <h3 id="VaNilla_KeyConfig_GetGamepadButton_VaNilla_KeyConfig_Action_" data-uid="VaNilla.KeyConfig.GetGamepadButton(VaNilla.KeyConfig.Action)">
+  GetGamepadButton(Action)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L157"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>変換後ゲームパッドボタンの取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static (GamePadInputManager.Button, GamePadInputManager.Index) GetGamepadButton(KeyConfig.Action act_kind)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>act_kind</code> <a class="xref" href="VaNilla.KeyConfig.html">KeyConfig</a>.<a class="xref" href="VaNilla.KeyConfig.Action.html">Action</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt>(<a class="xref" href="VaNilla.GamePadInput.GamePadInputManager.html">GamePadInputManager</a>.<a class="xref" href="VaNilla.GamePadInput.GamePadInputManager.Button.html">Button</a>, <a class="xref" href="VaNilla.GamePadInput.GamePadInputManager.html">GamePadInputManager</a>.<a class="xref" href="VaNilla.GamePadInput.GamePadInputManager.Index.html">Index</a>)</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_KeyConfig_GetKeyboardInput_" data-uid="VaNilla.KeyConfig.GetKeyboardInput*"></a>
+
+  <h3 id="VaNilla_KeyConfig_GetKeyboardInput_VaNilla_KeyConfig_Action_" data-uid="VaNilla.KeyConfig.GetKeyboardInput(VaNilla.KeyConfig.Action)">
+  GetKeyboardInput(Action)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L140"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>変換後キーボードキーの取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static KeyCode GetKeyboardInput(KeyConfig.Action act_kind)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>act_kind</code> <a class="xref" href="VaNilla.KeyConfig.html">KeyConfig</a>.<a class="xref" href="VaNilla.KeyConfig.Action.html">Action</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.KeyboardInput.KeyCode.html">KeyCode</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_KeyConfig_GetMouseButton_" data-uid="VaNilla.KeyConfig.GetMouseButton*"></a>
+
+  <h3 id="VaNilla_KeyConfig_GetMouseButton_VaNilla_KeyConfig_Action_" data-uid="VaNilla.KeyConfig.GetMouseButton(VaNilla.KeyConfig.Action)">
+  GetMouseButton(Action)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L123"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>変換後マウスボタンの取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Button GetMouseButton(KeyConfig.Action act_kind)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>act_kind</code> <a class="xref" href="VaNilla.KeyConfig.html">KeyConfig</a>.<a class="xref" href="VaNilla.KeyConfig.Action.html">Action</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.MouseInput.Button.html">Button</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_KeyConfig_InitConfig_" data-uid="VaNilla.KeyConfig.InitConfig*"></a>
+
+  <h3 id="VaNilla_KeyConfig_InitConfig" data-uid="VaNilla.KeyConfig.InitConfig">
+  InitConfig()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L182"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>キーコンフィグの初期化</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void InitConfig()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_KeyConfig_InvalidateConf_" data-uid="VaNilla.KeyConfig.InvalidateConf*"></a>
+
+  <h3 id="VaNilla_KeyConfig_InvalidateConf" data-uid="VaNilla.KeyConfig.InvalidateConf">
+  InvalidateConf()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コンフィグ情報の無効値設定</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void InvalidateConf()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_KeyConfig_IsExistConfig_" data-uid="VaNilla.KeyConfig.IsExistConfig*"></a>
+
+  <h3 id="VaNilla_KeyConfig_IsExistConfig" data-uid="VaNilla.KeyConfig.IsExistConfig">
+  IsExistConfig()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L174"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ファイルが存在するか否か</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsExistConfig()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_KeyConfig_LoadConfig_" data-uid="VaNilla.KeyConfig.LoadConfig*"></a>
+
+  <h3 id="VaNilla_KeyConfig_LoadConfig" data-uid="VaNilla.KeyConfig.LoadConfig">
+  LoadConfig()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L230"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コンフィグのロード</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool LoadConfig()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_KeyConfig_ResetConf_" data-uid="VaNilla.KeyConfig.ResetConf*"></a>
+
+  <h3 id="VaNilla_KeyConfig_ResetConf" data-uid="VaNilla.KeyConfig.ResetConf">
+  ResetConf()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コンフィグ情報のリセット</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ResetConf()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_KeyConfig_SaveConfig_" data-uid="VaNilla.KeyConfig.SaveConfig*"></a>
+
+  <h3 id="VaNilla_KeyConfig_SaveConfig" data-uid="VaNilla.KeyConfig.SaveConfig">
+  SaveConfig()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L212"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コンフィグのセーブ</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SaveConfig()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_KeyConfig_SetGamepadButton_" data-uid="VaNilla.KeyConfig.SetGamepadButton*"></a>
+
+  <h3 id="VaNilla_KeyConfig_SetGamepadButton_VaNilla_KeyConfig_Action_VaNilla_GamePadInput_GamePadInputManager_Button_VaNilla_GamePadInput_GamePadInputManager_Index_" data-uid="VaNilla.KeyConfig.SetGamepadButton(VaNilla.KeyConfig.Action,VaNilla.GamePadInput.GamePadInputManager.Button,VaNilla.GamePadInput.GamePadInputManager.Index)">
+  SetGamepadButton(Action, Button, Index)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したアクションに紐づいたゲームパッドのボタンをコンフィグ</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetGamepadButton(KeyConfig.Action act, GamePadInputManager.Button pad_code, GamePadInputManager.Index Index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>act</code> <a class="xref" href="VaNilla.KeyConfig.html">KeyConfig</a>.<a class="xref" href="VaNilla.KeyConfig.Action.html">Action</a></dt>
+    <dd></dd>
+    <dt><code>pad_code</code> <a class="xref" href="VaNilla.GamePadInput.GamePadInputManager.html">GamePadInputManager</a>.<a class="xref" href="VaNilla.GamePadInput.GamePadInputManager.Button.html">Button</a></dt>
+    <dd></dd>
+    <dt><code>Index</code> <a class="xref" href="VaNilla.GamePadInput.GamePadInputManager.html">GamePadInputManager</a>.<a class="xref" href="VaNilla.GamePadInput.GamePadInputManager.Index.html">Index</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_KeyConfig_SetKeyboardInput_" data-uid="VaNilla.KeyConfig.SetKeyboardInput*"></a>
+
+  <h3 id="VaNilla_KeyConfig_SetKeyboardInput_VaNilla_KeyConfig_Action_VaNilla_KeyboardInput_KeyCode_" data-uid="VaNilla.KeyConfig.SetKeyboardInput(VaNilla.KeyConfig.Action,VaNilla.KeyboardInput.KeyCode)">
+  SetKeyboardInput(Action, KeyCode)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したアクションに紐づいたキーボードのキーをコンフィグ</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetKeyboardInput(KeyConfig.Action act, KeyCode keyboard_code)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>act</code> <a class="xref" href="VaNilla.KeyConfig.html">KeyConfig</a>.<a class="xref" href="VaNilla.KeyConfig.Action.html">Action</a></dt>
+    <dd></dd>
+    <dt><code>keyboard_code</code> <a class="xref" href="VaNilla.KeyboardInput.KeyCode.html">KeyCode</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_KeyConfig_SetMouseButton_" data-uid="VaNilla.KeyConfig.SetMouseButton*"></a>
+
+  <h3 id="VaNilla_KeyConfig_SetMouseButton_VaNilla_KeyConfig_Action_VaNilla_MouseInput_Button_" data-uid="VaNilla.KeyConfig.SetMouseButton(VaNilla.KeyConfig.Action,VaNilla.MouseInput.Button)">
+  SetMouseButton(Action, Button)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したアクションに紐づいたマウスボタンをコンフィグ</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetMouseButton(KeyConfig.Action act, Button mouse_button)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>act</code> <a class="xref" href="VaNilla.KeyConfig.html">KeyConfig</a>.<a class="xref" href="VaNilla.KeyConfig.Action.html">Action</a></dt>
+    <dd></dd>
+    <dt><code>mouse_button</code> <a class="xref" href="VaNilla.MouseInput.Button.html">Button</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/KeyConfig/Interface/KeyConfig.cs/#L21" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

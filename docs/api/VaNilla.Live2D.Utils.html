@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Utils </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Utils ">
+      
+      <meta name="description" content="Live2D描画・制御のためのパブリックAPI（Renderer.Utils.csパターンに準拠） VaNillaの統一インターフェイスとして、プラットフォーム非依存のLive2D操作を提供">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/develop/apiSpec/new?filename=VaNilla_Live2D_Utils.md&amp;value=---%0Auid%3A%20VaNilla.Live2D.Utils%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.Live2D.Utils">
+
+
+
+  <h1 id="VaNilla_Live2D_Utils" data-uid="VaNilla.Live2D.Utils" class="text-break">
+Class Utils  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a>.<a class="xref" href="VaNilla.Live2D.html">Live2D</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Live2D描画・制御のためのパブリックAPI（Renderer.Utils.csパターンに準拠）
+VaNillaの統一インターフェイスとして、プラットフォーム非依存のLive2D操作を提供</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[VaNillaModuleVersion(0, 0, 1, 0)]
+public static class Utils</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Utils</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="VaNilla_Live2D_Utils_ForceStateMachineState_" data-uid="VaNilla.Live2D.Utils.ForceStateMachineState*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_ForceStateMachineState_VaNilla_Object_System_String_" data-uid="VaNilla.Live2D.Utils.ForceStateMachineState(VaNilla.Object,System.String)">
+  ForceStateMachineState(Object, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L218"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>状態マシンの状態を強制変更</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ForceStateMachineState(Object object__, string stateName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>object__</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd></dd>
+    <dt><code>stateName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>遷移先状態名</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_GetModelBounds_" data-uid="VaNilla.Live2D.Utils.GetModelBounds*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_GetModelBounds_VaNilla_Live2D_Live2DModelHandle_" data-uid="VaNilla.Live2D.Utils.GetModelBounds(VaNilla.Live2D.Live2DModelHandle)">
+  GetModelBounds(Live2DModelHandle)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L234"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>モデルの描画境界を取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static PositionedRectangle GetModelBounds(Live2DModelHandle modelHandle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelHandle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>モデルインスタンスハンドル</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Live2D.PositionedRectangle.html">PositionedRectangle</a></dt>
+    <dd><p>描画境界（左上座標とサイズ）</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_GetParameter_" data-uid="VaNilla.Live2D.Utils.GetParameter*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_GetParameter_VaNilla_Live2D_Live2DModelResourceType_System_String_" data-uid="VaNilla.Live2D.Utils.GetParameter(VaNilla.Live2D.Live2DModelResourceType,System.String)">
+  GetParameter(Live2DModelResourceType, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L405"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>[非推奨] パラメータ取得（ModelResourceType版）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use GetParameterInstance for multiple instance support&quot;)]
+public static float GetParameter(Live2DModelResourceType modelType, string parameterId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelType</code> <a class="xref" href="VaNilla.Live2D.Live2DModelResourceType.html">Live2DModelResourceType</a></dt>
+    <dd></dd>
+    <dt><code>parameterId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_GetParameterInstance_" data-uid="VaNilla.Live2D.Utils.GetParameterInstance*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_GetParameterInstance_VaNilla_Live2D_Live2DModelHandle_System_String_" data-uid="VaNilla.Live2D.Utils.GetParameterInstance(VaNilla.Live2D.Live2DModelHandle,System.String)">
+  GetParameterInstance(Live2DModelHandle, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L154"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>パラメータ取得（インスタンスベース）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float GetParameterInstance(Live2DModelHandle modelHandle, string parameterId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelHandle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>モデルインスタンスハンドル</p>
+</dd>
+    <dt><code>parameterId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>パラメータID</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>パラメータ値</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_HitTest_" data-uid="VaNilla.Live2D.Utils.HitTest*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_HitTest_VaNilla_Live2D_Live2DModelHandle_VaNilla_Transform_Point2_System_String_" data-uid="VaNilla.Live2D.Utils.HitTest(VaNilla.Live2D.Live2DModelHandle,VaNilla.Transform.Point2,System.String)">
+  HitTest(Live2DModelHandle, Point2, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L252"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ヒットテスト（タッチ/クリック判定）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool HitTest(Live2DModelHandle modelHandle, Point2 screenPosition, string hitAreaName = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelHandle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>モデルインスタンスハンドル</p>
+</dd>
+    <dt><code>screenPosition</code> <a class="xref" href="VaNilla.Transform.Point2.html">Point2</a></dt>
+    <dd><p>スクリーン座標</p>
+</dd>
+    <dt><code>hitAreaName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>ヒットエリア名（nullで全エリア）</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>ヒットした場合true</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_IsMotionFinished_" data-uid="VaNilla.Live2D.Utils.IsMotionFinished*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_IsMotionFinished_VaNilla_Live2D_Live2DModelResourceType_" data-uid="VaNilla.Live2D.Utils.IsMotionFinished(VaNilla.Live2D.Live2DModelResourceType)">
+  IsMotionFinished(Live2DModelResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L347"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>[非推奨] モーション終了判定（ModelResourceType版）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use IsMotionFinishedInstance for multiple instance support&quot;)]
+public static bool IsMotionFinished(Live2DModelResourceType modelType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelType</code> <a class="xref" href="VaNilla.Live2D.Live2DModelResourceType.html">Live2DModelResourceType</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_IsMotionFinishedInstance_" data-uid="VaNilla.Live2D.Utils.IsMotionFinishedInstance*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_IsMotionFinishedInstance_VaNilla_Live2D_Live2DModelHandle_" data-uid="VaNilla.Live2D.Utils.IsMotionFinishedInstance(VaNilla.Live2D.Live2DModelHandle)">
+  IsMotionFinishedInstance(Live2DModelHandle)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L89"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>モーション終了判定（インスタンスベース）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsMotionFinishedInstance(Live2DModelHandle modelHandle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelHandle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>モデルインスタンスハンドル</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>モーションが終了している場合true</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_RenderModel_" data-uid="VaNilla.Live2D.Utils.RenderModel*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_RenderModel_VaNilla_Live2D_Live2DModelResourceType_VaNilla_Transform_Point2_VaNilla_Transform_Vector2_System_Single_System_Single_" data-uid="VaNilla.Live2D.Utils.RenderModel(VaNilla.Live2D.Live2DModelResourceType,VaNilla.Transform.Point2,VaNilla.Transform.Vector2,System.Single,System.Single)">
+  RenderModel(Live2DModelResourceType, Point2, Vector2, float, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L286"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>[非推奨] Live2Dモデルを描画（ModelResourceType版）
+同一モデルの複数インスタンス化ができないため、RenderModelInstanceの使用を推奨</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use RenderModelInstance for multiple instance support&quot;)]
+public static void RenderModel(Live2DModelResourceType modelType, Point2 position, Vector2 scale, float rotation = 0, float alpha = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelType</code> <a class="xref" href="VaNilla.Live2D.Live2DModelResourceType.html">Live2DModelResourceType</a></dt>
+    <dd></dd>
+    <dt><code>position</code> <a class="xref" href="VaNilla.Transform.Point2.html">Point2</a></dt>
+    <dd></dd>
+    <dt><code>scale</code> <a class="xref" href="VaNilla.Transform.Vector2.html">Vector2</a></dt>
+    <dd></dd>
+    <dt><code>rotation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>alpha</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_RenderModelInstance_" data-uid="VaNilla.Live2D.Utils.RenderModelInstance*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_RenderModelInstance_VaNilla_Live2D_Live2DModelHandle_VaNilla_Transform_Point2_VaNilla_Transform_Vector2_System_Single_System_Single_" data-uid="VaNilla.Live2D.Utils.RenderModelInstance(VaNilla.Live2D.Live2DModelHandle,VaNilla.Transform.Point2,VaNilla.Transform.Vector2,System.Single,System.Single)">
+  RenderModelInstance(Live2DModelHandle, Point2, Vector2, float, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Live2Dモデルインスタンスを描画</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RenderModelInstance(Live2DModelHandle modelHandle, Point2 position, Vector2 scale, float rotation = 0, float alpha = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelHandle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>モデルインスタンスハンドル</p>
+</dd>
+    <dt><code>position</code> <a class="xref" href="VaNilla.Transform.Point2.html">Point2</a></dt>
+    <dd><p>描画位置</p>
+</dd>
+    <dt><code>scale</code> <a class="xref" href="VaNilla.Transform.Vector2.html">Vector2</a></dt>
+    <dd><p>スケール</p>
+</dd>
+    <dt><code>rotation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>回転（ラジアン）</p>
+</dd>
+    <dt><code>alpha</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>アルファ値（0.0-1.0）</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_ResetPhysicsInstance_" data-uid="VaNilla.Live2D.Utils.ResetPhysicsInstance*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_ResetPhysicsInstance_VaNilla_Live2D_Live2DModelHandle_" data-uid="VaNilla.Live2D.Utils.ResetPhysicsInstance(VaNilla.Live2D.Live2DModelHandle)">
+  ResetPhysicsInstance(Live2DModelHandle)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L189"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>物理演算リセット（インスタンスベース）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ResetPhysicsInstance(Live2DModelHandle modelHandle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelHandle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>モデルインスタンスハンドル</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_SendStateMachineTrigger_" data-uid="VaNilla.Live2D.Utils.SendStateMachineTrigger*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_SendStateMachineTrigger_VaNilla_Object_VaNilla_Live2D_Live2DStateTrigger_" data-uid="VaNilla.Live2D.Utils.SendStateMachineTrigger(VaNilla.Object,VaNilla.Live2D.Live2DStateTrigger)">
+  SendStateMachineTrigger(Object, Live2DStateTrigger)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L204"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>状態マシンにトリガーを送信</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SendStateMachineTrigger(Object object__, Live2DStateTrigger trigger)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>object__</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd></dd>
+    <dt><code>trigger</code> <a class="xref" href="VaNilla.Live2D.Live2DStateTrigger.html">Live2DStateTrigger</a></dt>
+    <dd><p>トリガータイプ</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_SetExpression_" data-uid="VaNilla.Live2D.Utils.SetExpression*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_SetExpression_VaNilla_Live2D_Live2DModelResourceType_VaNilla_Live2D_Live2DExpressionType_System_Single_" data-uid="VaNilla.Live2D.Utils.SetExpression(VaNilla.Live2D.Live2DModelResourceType,VaNilla.Live2D.Live2DExpressionType,System.Single)">
+  SetExpression(Live2DModelResourceType, Live2DExpressionType, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L359"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>[非推奨] 表情設定（ModelResourceType版）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use SetExpressionInstance for multiple instance support&quot;)]
+public static void SetExpression(Live2DModelResourceType modelType, Live2DExpressionType expression, float fadeTime = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelType</code> <a class="xref" href="VaNilla.Live2D.Live2DModelResourceType.html">Live2DModelResourceType</a></dt>
+    <dd></dd>
+    <dt><code>expression</code> <a class="xref" href="VaNilla.Live2D.Live2DExpressionType.html">Live2DExpressionType</a></dt>
+    <dd></dd>
+    <dt><code>fadeTime</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_SetExpressionInstance_" data-uid="VaNilla.Live2D.Utils.SetExpressionInstance*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_SetExpressionInstance_VaNilla_Live2D_Live2DModelHandle_VaNilla_Live2D_Live2DExpressionType_System_Single_" data-uid="VaNilla.Live2D.Utils.SetExpressionInstance(VaNilla.Live2D.Live2DModelHandle,VaNilla.Live2D.Live2DExpressionType,System.Single)">
+  SetExpressionInstance(Live2DModelHandle, Live2DExpressionType, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>表情設定（インスタンスベース）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetExpressionInstance(Live2DModelHandle modelHandle, Live2DExpressionType expression, float fadeTime = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelHandle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>モデルインスタンスハンドル</p>
+</dd>
+    <dt><code>expression</code> <a class="xref" href="VaNilla.Live2D.Live2DExpressionType.html">Live2DExpressionType</a></dt>
+    <dd><p>表情タイプ</p>
+</dd>
+    <dt><code>fadeTime</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>フェード時間</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_SetParameter_" data-uid="VaNilla.Live2D.Utils.SetParameter*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_SetParameter_VaNilla_Live2D_Live2DModelResourceType_System_String_System_Single_" data-uid="VaNilla.Live2D.Utils.SetParameter(VaNilla.Live2D.Live2DModelResourceType,System.String,System.Single)">
+  SetParameter(Live2DModelResourceType, string, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L390"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>[非推奨] パラメータ設定（ModelResourceType版）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use SetParameterInstance for multiple instance support&quot;)]
+public static void SetParameter(Live2DModelResourceType modelType, string parameterId, float value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelType</code> <a class="xref" href="VaNilla.Live2D.Live2DModelResourceType.html">Live2DModelResourceType</a></dt>
+    <dd></dd>
+    <dt><code>parameterId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_SetParameterInstance_" data-uid="VaNilla.Live2D.Utils.SetParameterInstance*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_SetParameterInstance_VaNilla_Live2D_Live2DModelHandle_System_String_System_Single_" data-uid="VaNilla.Live2D.Utils.SetParameterInstance(VaNilla.Live2D.Live2DModelHandle,System.String,System.Single)">
+  SetParameterInstance(Live2DModelHandle, string, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L137"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>パラメータ設定（インスタンスベース）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetParameterInstance(Live2DModelHandle modelHandle, string parameterId, float value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelHandle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>モデルインスタンスハンドル</p>
+</dd>
+    <dt><code>parameterId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>パラメータID</p>
+</dd>
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>設定値</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_SetPartOpacity_" data-uid="VaNilla.Live2D.Utils.SetPartOpacity*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_SetPartOpacity_VaNilla_Live2D_Live2DModelHandle_System_String_System_Single_" data-uid="VaNilla.Live2D.Utils.SetPartOpacity(VaNilla.Live2D.Live2DModelHandle,System.String,System.Single)">
+  SetPartOpacity(Live2DModelHandle, string, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L269"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>パーツの不透明度設定</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetPartOpacity(Live2DModelHandle modelHandle, string partId, float opacity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelHandle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>モデルインスタンスハンドル</p>
+</dd>
+    <dt><code>partId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>パーツID</p>
+</dd>
+    <dt><code>opacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>不透明度（0.0-1.0）</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_StartMotion_" data-uid="VaNilla.Live2D.Utils.StartMotion*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_StartMotion_VaNilla_Live2D_Live2DModelResourceType_VaNilla_Live2D_Live2DMotionType_System_Single_System_Boolean_" data-uid="VaNilla.Live2D.Utils.StartMotion(VaNilla.Live2D.Live2DModelResourceType,VaNilla.Live2D.Live2DMotionType,System.Single,System.Boolean)">
+  StartMotion(Live2DModelResourceType, Live2DMotionType, float, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L303"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>[非推奨] モーション開始（ModelResourceType版）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use StartMotionInstance for multiple instance support&quot;)]
+public static void StartMotion(Live2DModelResourceType modelType, Live2DMotionType motion, float fadeInTime = 1, bool loop = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelType</code> <a class="xref" href="VaNilla.Live2D.Live2DModelResourceType.html">Live2DModelResourceType</a></dt>
+    <dd></dd>
+    <dt><code>motion</code> <a class="xref" href="VaNilla.Live2D.Live2DMotionType.html">Live2DMotionType</a></dt>
+    <dd></dd>
+    <dt><code>fadeInTime</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>loop</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_StartMotionInstance_" data-uid="VaNilla.Live2D.Utils.StartMotionInstance*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_StartMotionInstance_VaNilla_Live2D_Live2DModelHandle_VaNilla_Live2D_Live2DMotionType_System_Single_System_Boolean_" data-uid="VaNilla.Live2D.Utils.StartMotionInstance(VaNilla.Live2D.Live2DModelHandle,VaNilla.Live2D.Live2DMotionType,System.Single,System.Boolean)">
+  StartMotionInstance(Live2DModelHandle, Live2DMotionType, float, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>モーション開始（インスタンスベース）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void StartMotionInstance(Live2DModelHandle modelHandle, Live2DMotionType motion, float fadeInTime = 1, bool loop = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelHandle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>モデルインスタンスハンドル</p>
+</dd>
+    <dt><code>motion</code> <a class="xref" href="VaNilla.Live2D.Live2DMotionType.html">Live2DMotionType</a></dt>
+    <dd><p>モーションタイプ</p>
+</dd>
+    <dt><code>fadeInTime</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>フェードイン時間</p>
+</dd>
+    <dt><code>loop</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>ループ再生</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_StopMotion_" data-uid="VaNilla.Live2D.Utils.StopMotion*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_StopMotion_VaNilla_Live2D_Live2DModelResourceType_System_Single_" data-uid="VaNilla.Live2D.Utils.StopMotion(VaNilla.Live2D.Live2DModelResourceType,System.Single)">
+  StopMotion(Live2DModelResourceType, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L335"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>[非推奨] モーション停止（ModelResourceType版）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use StopMotionInstance for multiple instance support&quot;)]
+public static void StopMotion(Live2DModelResourceType modelType, float fadeOutTime = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelType</code> <a class="xref" href="VaNilla.Live2D.Live2DModelResourceType.html">Live2DModelResourceType</a></dt>
+    <dd></dd>
+    <dt><code>fadeOutTime</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_StopMotionInstance_" data-uid="VaNilla.Live2D.Utils.StopMotionInstance*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_StopMotionInstance_VaNilla_Live2D_Live2DModelHandle_System_Single_" data-uid="VaNilla.Live2D.Utils.StopMotionInstance(VaNilla.Live2D.Live2DModelHandle,System.Single)">
+  StopMotionInstance(Live2DModelHandle, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>モーション停止（インスタンスベース）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void StopMotionInstance(Live2DModelHandle modelHandle, float fadeOutTime = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelHandle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>モデルインスタンスハンドル</p>
+</dd>
+    <dt><code>fadeOutTime</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>フェードアウト時間</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Utils_UpdatePhysicsInstance_" data-uid="VaNilla.Live2D.Utils.UpdatePhysicsInstance*"></a>
+
+  <h3 id="VaNilla_Live2D_Utils_UpdatePhysicsInstance_VaNilla_Live2D_Live2DModelHandle_System_Single_System_Single_System_Single_System_Single_" data-uid="VaNilla.Live2D.Utils.UpdatePhysicsInstance(VaNilla.Live2D.Live2DModelHandle,System.Single,System.Single,System.Single,System.Single)">
+  UpdatePhysicsInstance(Live2DModelHandle, float, float, float, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L172"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>物理演算更新（インスタンスベース）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void UpdatePhysicsInstance(Live2DModelHandle modelHandle, float gravityScale = 1, float windStrength = 0, float windDirection = 0, float timeScale = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelHandle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>モデルインスタンスハンドル</p>
+</dd>
+    <dt><code>gravityScale</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>重力係数</p>
+</dd>
+    <dt><code>windStrength</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>風の強さ</p>
+</dd>
+    <dt><code>windDirection</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>風の方向</p>
+</dd>
+    <dt><code>timeScale</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>タイムスケール</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Utils.cs/#L9" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

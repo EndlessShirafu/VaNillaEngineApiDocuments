@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Enum EasingType </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Enum EasingType ">
+      
+      <meta name="description" content="使用可能なイージングアニメーションの種別を定義します。 各イージングは異なる加速・減速カーブを持ち、多様なアニメーション表現を実現します。">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/develop/apiSpec/new?filename=VaNilla_Movement_EasingType.md&amp;value=---%0Auid%3A%20VaNilla.Movement.EasingType%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.Movement.EasingType">
+
+
+
+
+  <h1 id="VaNilla_Movement_EasingType" data-uid="VaNilla.Movement.EasingType" class="text-break">
+Enum EasingType  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Movement/Interface/EasingMotion.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a>.<a class="xref" href="VaNilla.Movement.html">Movement</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>使用可能なイージングアニメーションの種別を定義します。
+各イージングは異なる加速・減速カーブを持ち、多様なアニメーション表現を実現します。</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum EasingType</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h2 id="fields">Fields
+</h2>
+  <dl class="parameters">
+    <dt id="VaNilla_Movement_EasingType_EaseInBack"><code>EaseInBack = 26</code></dt>
+  
+  <dd><p>オーバーシュートしながら加速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInBounce"><code>EaseInBounce = 24</code></dt>
+  
+  <dd><p>バウンスしながら加速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInCircular"><code>EaseInCircular = 20</code></dt>
+  
+  <dd><p>円関数で加速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInCubic"><code>EaseInCubic = 5</code></dt>
+  
+  <dd><p>3乗関数で加速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInElastic"><code>EaseInElastic = 29</code></dt>
+  
+  <dd><p>弾性的に加速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInExponential"><code>EaseInExponential = 17</code></dt>
+  
+  <dd><p>指数関数で加速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInOutBack"><code>EaseInOutBack = 28</code></dt>
+  
+  <dd><p>オーバーシュートしながら加速から減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInOutBounce"><code>EaseInOutBounce = 25</code></dt>
+  
+  <dd><p>バウンスしながら加速から減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInOutCircular"><code>EaseInOutCircular = 22</code></dt>
+  
+  <dd><p>円関数で加速から減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInOutCubic"><code>EaseInOutCubic = 7</code></dt>
+  
+  <dd><p>3乗関数で加速から減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInOutElastic"><code>EaseInOutElastic = 31</code></dt>
+  
+  <dd><p>弾性的に加速から減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInOutExponential"><code>EaseInOutExponential = 19</code></dt>
+  
+  <dd><p>指数関数で加速から減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInOutQuadratic"><code>EaseInOutQuadratic = 4</code></dt>
+  
+  <dd><p>2乗関数で加速から減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInOutQuartic"><code>EaseInOutQuartic = 10</code></dt>
+  
+  <dd><p>4乗関数で加速から減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInOutQuintic"><code>EaseInOutQuintic = 13</code></dt>
+  
+  <dd><p>5乗関数で加速から減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInOutSinusoidal"><code>EaseInOutSinusoidal = 16</code></dt>
+  
+  <dd><p>正弦波で加速から減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInQuadratic"><code>EaseInQuadratic = 2</code></dt>
+  
+  <dd><p>2乗関数で加速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInQuartic"><code>EaseInQuartic = 8</code></dt>
+  
+  <dd><p>4乗関数で加速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInQuintic"><code>EaseInQuintic = 11</code></dt>
+  
+  <dd><p>5乗関数で加速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseInSinusoidal"><code>EaseInSinusoidal = 14</code></dt>
+  
+  <dd><p>正弦波で加速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseOutBack"><code>EaseOutBack = 27</code></dt>
+  
+  <dd><p>オーバーシュートしながら減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseOutBounce"><code>EaseOutBounce = 23</code></dt>
+  
+  <dd><p>バウンスしながら減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseOutCircular"><code>EaseOutCircular = 21</code></dt>
+  
+  <dd><p>円関数で減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseOutCubic"><code>EaseOutCubic = 6</code></dt>
+  
+  <dd><p>3乗関数で減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseOutElastic"><code>EaseOutElastic = 30</code></dt>
+  
+  <dd><p>弾性的に減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseOutExponential"><code>EaseOutExponential = 18</code></dt>
+  
+  <dd><p>指数関数で減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseOutQuadratic"><code>EaseOutQuadratic = 3</code></dt>
+  
+  <dd><p>2乗関数で減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseOutQuartic"><code>EaseOutQuartic = 9</code></dt>
+  
+  <dd><p>4乗関数で減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseOutQuintic"><code>EaseOutQuintic = 12</code></dt>
+  
+  <dd><p>5乗関数で減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_EaseOutSinusoidal"><code>EaseOutSinusoidal = 15</code></dt>
+  
+  <dd><p>正弦波で減速</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_Linear"><code>Linear = 1</code></dt>
+  
+  <dd><p>等速直線移動</p>
+</dd>
+    <dt id="VaNilla_Movement_EasingType_None"><code>None = 0</code></dt>
+  
+  <dd><p>イージングなし</p>
+</dd>
+  </dl>
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Movement/Interface/EasingMotion.cs/#L10" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

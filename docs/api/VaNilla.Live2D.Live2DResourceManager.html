@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Live2DResourceManager </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Live2DResourceManager ">
+      
+      <meta name="description" content="Live2Dリソースの統一管理クラス（TextureResourceManagerパターンに準拠） モデルリソース（テンプレート）管理とインスタンス管理の両方を提供 同一モデルの複数インスタンス化に対応">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/develop/apiSpec/new?filename=VaNilla_Live2D_Live2DResourceManager.md&amp;value=---%0Auid%3A%20VaNilla.Live2D.Live2DResourceManager%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.Live2D.Live2DResourceManager">
+
+
+
+  <h1 id="VaNilla_Live2D_Live2DResourceManager" data-uid="VaNilla.Live2D.Live2DResourceManager" class="text-break">
+Class Live2DResourceManager  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a>.<a class="xref" href="VaNilla.Live2D.html">Live2D</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Live2Dリソースの統一管理クラス（TextureResourceManagerパターンに準拠）
+モデルリソース（テンプレート）管理とインスタンス管理の両方を提供
+同一モデルの複数インスタンス化に対応</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[VaNillaModuleVersion(0, 0, 1, 0)]
+public static class Live2DResourceManager</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Live2DResourceManager</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_CreateModelInstance_" data-uid="VaNilla.Live2D.Live2DResourceManager.CreateModelInstance*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_CreateModelInstance_VaNilla_Live2D_Live2DModelResourceType_" data-uid="VaNilla.Live2D.Live2DResourceManager.CreateModelInstance(VaNilla.Live2D.Live2DModelResourceType)">
+  CreateModelInstance(Live2DModelResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L105"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>モデルリソースからインスタンスを作成
+同一モデルを複数回呼び出すことで複数インスタンス化可能</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Live2DModelHandle CreateModelInstance(Live2DModelResourceType modelType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelType</code> <a class="xref" href="VaNilla.Live2D.Live2DModelResourceType.html">Live2DModelResourceType</a></dt>
+    <dd><p>モデルリソースタイプ</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>インスタンス固有のハンドル</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_DestroyModelInstance_" data-uid="VaNilla.Live2D.Live2DResourceManager.DestroyModelInstance*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_DestroyModelInstance_VaNilla_Live2D_Live2DModelHandle_" data-uid="VaNilla.Live2D.Live2DResourceManager.DestroyModelInstance(VaNilla.Live2D.Live2DModelHandle)">
+  DestroyModelInstance(Live2DModelHandle)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L155"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>モデルインスタンスを破棄</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void DestroyModelInstance(Live2DModelHandle handle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>handle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>インスタンスハンドル</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_Finalize_" data-uid="VaNilla.Live2D.Live2DResourceManager.Finalize*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_Finalize" data-uid="VaNilla.Live2D.Live2DResourceManager.Finalize">
+  Finalize()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>終了処理</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Finalize()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_GetMemoryInfo_" data-uid="VaNilla.Live2D.Live2DResourceManager.GetMemoryInfo*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_GetMemoryInfo" data-uid="VaNilla.Live2D.Live2DResourceManager.GetMemoryInfo">
+  GetMemoryInfo()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L317"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>メモリ使用状況を取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Live2DMemoryInfo GetMemoryInfo()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Live2D.Live2DMemoryInfo.html">Live2DMemoryInfo</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_GetModelInfo_" data-uid="VaNilla.Live2D.Live2DResourceManager.GetModelInfo*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_GetModelInfo_VaNilla_Live2D_Live2DModelResourceType_" data-uid="VaNilla.Live2D.Live2DResourceManager.GetModelInfo(VaNilla.Live2D.Live2DModelResourceType)">
+  GetModelInfo(Live2DModelResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>モデル情報を取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Live2DModelInfo GetModelInfo(Live2DModelResourceType modelType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelType</code> <a class="xref" href="VaNilla.Live2D.Live2DModelResourceType.html">Live2DModelResourceType</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Live2D.Live2DModelInfo.html">Live2DModelInfo</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_GetModelInstance_" data-uid="VaNilla.Live2D.Live2DResourceManager.GetModelInstance*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_GetModelInstance_VaNilla_Live2D_Live2DModelHandle_" data-uid="VaNilla.Live2D.Live2DResourceManager.GetModelInstance(VaNilla.Live2D.Live2DModelHandle)">
+  GetModelInstance(Live2DModelHandle)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L188"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>インスタンス情報を取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Live2DModelInstance GetModelInstance(Live2DModelHandle handle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>handle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>インスタンスハンドル</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Live2D.Live2DModelInstance.html">Live2DModelInstance</a></dt>
+    <dd><p>インスタンス情報</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_GetModelResource_" data-uid="VaNilla.Live2D.Live2DResourceManager.GetModelResource*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_GetModelResource_VaNilla_Live2D_Live2DModelResourceType_" data-uid="VaNilla.Live2D.Live2DResourceManager.GetModelResource(VaNilla.Live2D.Live2DModelResourceType)">
+  GetModelResource(Live2DModelResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したモデルリソースを取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Live2DModelResource GetModelResource(Live2DModelResourceType modelType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelType</code> <a class="xref" href="VaNilla.Live2D.Live2DModelResourceType.html">Live2DModelResourceType</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Live2D.Live2DModelResource.html">Live2DModelResource</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_GetNativeHandle_" data-uid="VaNilla.Live2D.Live2DResourceManager.GetNativeHandle*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_GetNativeHandle_VaNilla_Live2D_Live2DModelHandle_" data-uid="VaNilla.Live2D.Live2DResourceManager.GetNativeHandle(VaNilla.Live2D.Live2DModelHandle)">
+  GetNativeHandle(Live2DModelHandle)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L172"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>インスタンスのネイティブハンドルを取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Live2DNativeHandle GetNativeHandle(Live2DModelHandle handle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>handle</code> <a class="xref" href="VaNilla.Live2D.Live2DModelHandle.html">Live2DModelHandle</a></dt>
+    <dd><p>インスタンスハンドル</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Live2D.Live2DNativeHandle.html">Live2DNativeHandle</a></dt>
+    <dd><p>ネイティブハンドル</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_Initialize_" data-uid="VaNilla.Live2D.Live2DResourceManager.Initialize*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_Initialize" data-uid="VaNilla.Live2D.Live2DResourceManager.Initialize">
+  Initialize()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>初期化（SupremeArbiterから呼び出し）</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Initialize()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_LoadModelResource_" data-uid="VaNilla.Live2D.Live2DResourceManager.LoadModelResource*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_LoadModelResource_VaNilla_Live2D_Live2DModelCategory_System_Boolean_" data-uid="VaNilla.Live2D.Live2DResourceManager.LoadModelResource(VaNilla.Live2D.Live2DModelCategory,System.Boolean)">
+  LoadModelResource(Live2DModelCategory, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L199"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>カテゴリ単位でモデルをロード</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void LoadModelResource(Live2DModelCategory category, bool sync_load = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>category</code> <a class="xref" href="VaNilla.Live2D.Live2DModelCategory.html">Live2DModelCategory</a></dt>
+    <dd></dd>
+    <dt><code>sync_load</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_LoadModelResource_" data-uid="VaNilla.Live2D.Live2DResourceManager.LoadModelResource*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_LoadModelResource_VaNilla_Live2D_Live2DModelResourceType_System_Boolean_" data-uid="VaNilla.Live2D.Live2DResourceManager.LoadModelResource(VaNilla.Live2D.Live2DModelResourceType,System.Boolean)">
+  LoadModelResource(Live2DModelResourceType, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L218"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定モデルをロード</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void LoadModelResource(Live2DModelResourceType modelType, bool sync_load = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelType</code> <a class="xref" href="VaNilla.Live2D.Live2DModelResourceType.html">Live2DModelResourceType</a></dt>
+    <dd></dd>
+    <dt><code>sync_load</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_LoadPreloadModels_" data-uid="VaNilla.Live2D.Live2DResourceManager.LoadPreloadModels*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_LoadPreloadModels" data-uid="VaNilla.Live2D.Live2DResourceManager.LoadPreloadModels">
+  LoadPreloadModels()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L299"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>プリロード指定されたモデルを自動ロード</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void LoadPreloadModels()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_UnloadAllResources_" data-uid="VaNilla.Live2D.Live2DResourceManager.UnloadAllResources*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_UnloadAllResources" data-uid="VaNilla.Live2D.Live2DResourceManager.UnloadAllResources">
+  UnloadAllResources()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L288"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>すべてのリソースをアンロード</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void UnloadAllResources()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_UnloadModelResource_" data-uid="VaNilla.Live2D.Live2DResourceManager.UnloadModelResource*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_UnloadModelResource_VaNilla_Live2D_Live2DModelCategory_" data-uid="VaNilla.Live2D.Live2DResourceManager.UnloadModelResource(VaNilla.Live2D.Live2DModelCategory)">
+  UnloadModelResource(Live2DModelCategory)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L244"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>カテゴリ単位でアンロード</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void UnloadModelResource(Live2DModelCategory category)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>category</code> <a class="xref" href="VaNilla.Live2D.Live2DModelCategory.html">Live2DModelCategory</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Live2D_Live2DResourceManager_UnloadModelResource_" data-uid="VaNilla.Live2D.Live2DResourceManager.UnloadModelResource*"></a>
+
+  <h3 id="VaNilla_Live2D_Live2DResourceManager_UnloadModelResource_VaNilla_Live2D_Live2DModelResourceType_" data-uid="VaNilla.Live2D.Live2DResourceManager.UnloadModelResource(VaNilla.Live2D.Live2DModelResourceType)">
+  UnloadModelResource(Live2DModelResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L263"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定モデルをアンロード</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void UnloadModelResource(Live2DModelResourceType modelType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modelType</code> <a class="xref" href="VaNilla.Live2D.Live2DModelResourceType.html">Live2DModelResourceType</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Live2D/Interface/Live2DResourceManager.cs/#L12" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

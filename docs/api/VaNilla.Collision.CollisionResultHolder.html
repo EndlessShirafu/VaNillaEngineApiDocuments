@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class CollisionResultHolder </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class CollisionResultHolder ">
+      
+      <meta name="description" content="衝突情報をポーリング方式で管理するためのクラス HasCollision, HasCollisionsで主に利用する">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/develop/apiSpec/new?filename=VaNilla_Collision_CollisionResultHolder.md&amp;value=---%0Auid%3A%20VaNilla.Collision.CollisionResultHolder%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.Collision.CollisionResultHolder">
+
+
+
+  <h1 id="VaNilla_Collision_CollisionResultHolder" data-uid="VaNilla.Collision.CollisionResultHolder" class="text-break">
+Class CollisionResultHolder  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a>.<a class="xref" href="VaNilla.Collision.html">Collision</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>衝突情報をポーリング方式で管理するためのクラス
+HasCollision, HasCollisionsで主に利用する</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class CollisionResultHolder</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">CollisionResultHolder</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="VaNilla_Collision_CollisionResultHolder__ctor_" data-uid="VaNilla.Collision.CollisionResultHolder.#ctor*"></a>
+
+  <h3 id="VaNilla_Collision_CollisionResultHolder__ctor_VaNilla_Collision_CollisionResultHolder_CollisionResultHoldPredicate_System_Int32_System_Boolean_" data-uid="VaNilla.Collision.CollisionResultHolder.#ctor(VaNilla.Collision.CollisionResultHolder.CollisionResultHoldPredicate,System.Int32,System.Boolean)">
+  CollisionResultHolder(CollisionResultHoldPredicate, int, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コンストラクタ</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CollisionResultHolder(CollisionResultHolder.CollisionResultHoldPredicate predicate = null, int max_queue_size = 30, bool volatile_per_frame = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>predicate</code> <a class="xref" href="VaNilla.Collision.CollisionResultHolder.html">CollisionResultHolder</a>.<a class="xref" href="VaNilla.Collision.CollisionResultHolder.CollisionResultHoldPredicate.html">CollisionResultHoldPredicate</a></dt>
+    <dd><p>衝突対象に含めるか否かを検査するための叙述関数。null指定の場合、コリジョンを保持しない</p>
+</dd>
+    <dt><code>max_queue_size</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>保持可能な最大キュー長。キュー長を超えた場合、古いデータから先に消える（後着優先）</p>
+</dd>
+    <dt><code>volatile_per_frame</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>1フレームごとに前回のキュー内容を消すか否か</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="VaNilla_Collision_CollisionResultHolder_IsDequeuable_" data-uid="VaNilla.Collision.CollisionResultHolder.IsDequeuable*"></a>
+
+  <h3 id="VaNilla_Collision_CollisionResultHolder_IsDequeuable" data-uid="VaNilla.Collision.CollisionResultHolder.IsDequeuable">
+  IsDequeuable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L182"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>衝突状態の返却をデキュー可能か否か</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsDequeuable { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Collision_CollisionResultHolder_MaxQueueSize_" data-uid="VaNilla.Collision.CollisionResultHolder.MaxQueueSize*"></a>
+
+  <h3 id="VaNilla_Collision_CollisionResultHolder_MaxQueueSize" data-uid="VaNilla.Collision.CollisionResultHolder.MaxQueueSize">
+  MaxQueueSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>キューの最大長</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MaxQueueSize { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Collision_CollisionResultHolder_NumQueueingElements_" data-uid="VaNilla.Collision.CollisionResultHolder.NumQueueingElements*"></a>
+
+  <h3 id="VaNilla_Collision_CollisionResultHolder_NumQueueingElements" data-uid="VaNilla.Collision.CollisionResultHolder.NumQueueingElements">
+  NumQueueingElements
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L187"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>衝突対象のキューイング数</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int NumQueueingElements { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Collision_CollisionResultHolder_Predicate_" data-uid="VaNilla.Collision.CollisionResultHolder.Predicate*"></a>
+
+  <h3 id="VaNilla_Collision_CollisionResultHolder_Predicate" data-uid="VaNilla.Collision.CollisionResultHolder.Predicate">
+  Predicate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CollisionResultHolder.CollisionResultHoldPredicate Predicate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Collision.CollisionResultHolder.html">CollisionResultHolder</a>.<a class="xref" href="VaNilla.Collision.CollisionResultHolder.CollisionResultHoldPredicate.html">CollisionResultHoldPredicate</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Collision_CollisionResultHolder_Volatility_" data-uid="VaNilla.Collision.CollisionResultHolder.Volatility*"></a>
+
+  <h3 id="VaNilla_Collision_CollisionResultHolder_Volatility" data-uid="VaNilla.Collision.CollisionResultHolder.Volatility">
+  Volatility
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>1フレームごとに前回のキュー内容を消すか否か</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Volatility { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="VaNilla_Collision_CollisionResultHolder_Dequeue_" data-uid="VaNilla.Collision.CollisionResultHolder.Dequeue*"></a>
+
+  <h3 id="VaNilla_Collision_CollisionResultHolder_Dequeue" data-uid="VaNilla.Collision.CollisionResultHolder.Dequeue">
+  Dequeue()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L193"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>衝突中コリジョンの取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (CollisionBase, Time) Dequeue()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt>(<a class="xref" href="VaNilla.Collision.CollisionBase.html">CollisionBase</a>, <a class="xref" href="VaNilla.Time.Time.html">Time</a>)</dt>
+    <dd><p>衝突情報</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Collision_CollisionResultHolder_Execute_" data-uid="VaNilla.Collision.CollisionResultHolder.Execute*"></a>
+
+  <h3 id="VaNilla_Collision_CollisionResultHolder_Execute_VaNilla_Time_Time__" data-uid="VaNilla.Collision.CollisionResultHolder.Execute(VaNilla.Time.Time@)">
+  Execute(in Time)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L140"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>現フレームの処理を実施</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Execute(in Time current_time)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>current_time</code> <a class="xref" href="VaNilla.Time.Time.html">Time</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Collision_CollisionResultHolder_Finalize_" data-uid="VaNilla.Collision.CollisionResultHolder.Finalize*"></a>
+
+  <h3 id="VaNilla_Collision_CollisionResultHolder_Finalize" data-uid="VaNilla.Collision.CollisionResultHolder.Finalize">
+  ~CollisionResultHolder()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L68"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ~CollisionResultHolder()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Collision_CollisionResultHolder_Hold_" data-uid="VaNilla.Collision.CollisionResultHolder.Hold*"></a>
+
+  <h3 id="VaNilla_Collision_CollisionResultHolder_Hold_VaNilla_Collision_CollisionBase_" data-uid="VaNilla.Collision.CollisionResultHolder.Hold(VaNilla.Collision.CollisionBase)">
+  Hold(CollisionBase)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>継続衝突監視対象としてホールドする。
+OnCollisionEnter内から呼ばれることを想定。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Hold(CollisionBase collision)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collision</code> <a class="xref" href="VaNilla.Collision.CollisionBase.html">CollisionBase</a></dt>
+    <dd><p>衝突対象</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>ホールドできたか否か すでにホールド済みの場合にもtrue</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Collision_CollisionResultHolder_Release_" data-uid="VaNilla.Collision.CollisionResultHolder.Release*"></a>
+
+  <h3 id="VaNilla_Collision_CollisionResultHolder_Release_VaNilla_Collision_CollisionBase_" data-uid="VaNilla.Collision.CollisionResultHolder.Release(VaNilla.Collision.CollisionBase)">
+  Release(CollisionBase)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L118"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>継続衝突監視対象から外す。
+OnCollisionExit内から呼ばれることを想定。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Release(CollisionBase collision)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collision</code> <a class="xref" href="VaNilla.Collision.CollisionBase.html">CollisionBase</a></dt>
+    <dd><p>衝突対象</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Collision_CollisionResultHolder_Reset_" data-uid="VaNilla.Collision.CollisionResultHolder.Reset*"></a>
+
+  <h3 id="VaNilla_Collision_CollisionResultHolder_Reset" data-uid="VaNilla.Collision.CollisionResultHolder.Reset">
+  Reset()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>衝突状態のリセット</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Reset()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Collision/Interface/CollisionResultHolder.cs/#L10" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

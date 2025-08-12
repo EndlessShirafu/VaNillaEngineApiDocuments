@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Control </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Control ">
+      
+      <meta name="description" content="すべてのGUIコントロールの基底クラスです。 位置、サイズ、外観、イベント処理などの基本機能を提供します。">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/develop/apiSpec/new?filename=VaNilla_GUI_Control.md&amp;value=---%0Auid%3A%20VaNilla.GUI.Control%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.GUI.Control">
+
+
+
+  <h1 id="VaNilla_GUI_Control" data-uid="VaNilla.GUI.Control" class="text-break">
+Class Control  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a>.<a class="xref" href="VaNilla.GUI.html">GUI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>すべてのGUIコントロールの基底クラスです。
+位置、サイズ、外観、イベント処理などの基本機能を提供します。</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Control : ICloneable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Control</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icloneable">ICloneable</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="VaNilla.GUI.Button.html">Button</a></div>
+      <div><a class="xref" href="VaNilla.GUI.Form.html">Form</a></div>
+      <div><a class="xref" href="VaNilla.GUI.Label.html">Label</a></div>
+      <div><a class="xref" href="VaNilla.GUI.ListControl-1.html">ListControl&lt;Type&gt;</a></div>
+      <div><a class="xref" href="VaNilla.GUI.ScrollBar.html">ScrollBar</a></div>
+      <div><a class="xref" href="VaNilla.GUI.TextBox.html">TextBox</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="VaNilla_GUI_Control__ctor_" data-uid="VaNilla.GUI.Control.#ctor*"></a>
+
+  <h3 id="VaNilla_GUI_Control__ctor" data-uid="VaNilla.GUI.Control.#ctor">
+  Control()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L329"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Controlクラスの新しいインスタンスを初期化します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Control()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="VaNilla_GUI_Control_Controls" data-uid="VaNilla.GUI.Control.Controls">
+  Controls
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>このコントロールが保持する子コントロールのリストです。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;Control&gt; Controls</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="VaNilla.GUI.Control.html">Control</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_Dict" data-uid="VaNilla.GUI.Control.Dict">
+  Dict
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ID文字列によるコントロール検索用の辞書です。
+InitializeDictionaryメソッドで初期化する必要があります。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Dictionary&lt;string, int&gt; Dict</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_Label" data-uid="VaNilla.GUI.Control.Label">
+  Label
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールのラベル（内部使用）です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string Label</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_Message" data-uid="VaNilla.GUI.Control.Message">
+  Message
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>このコントロールが受信したGUIメッセージを保持します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected GUIMessage Message</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.GUIMessage.html">GUIMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_MoveControl_Mode_Absolute" data-uid="VaNilla.GUI.Control.MoveControl_Mode_Absolute">
+  MoveControl_Mode_Absolute
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>MoveControlメソッドで絶対移動を指定する定数です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int MoveControl_Mode_Absolute = 1</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_MoveControl_Mode_Relative" data-uid="VaNilla.GUI.Control.MoveControl_Mode_Relative">
+  MoveControl_Mode_Relative
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>MoveControlメソッドで相対移動を指定する定数です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int MoveControl_Mode_Relative = 0</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_ParentControl" data-uid="VaNilla.GUI.Control.ParentControl">
+  ParentControl
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>このコントロールの親コントロールです。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Control ParentControl</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_TextColor" data-uid="VaNilla.GUI.Control.TextColor">
+  TextColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールのテキスト色を指定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color3 TextColor</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Renderer.Color3.html">Color3</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control__skin" data-uid="VaNilla.GUI.Control._skin">
+  _skin
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールのスキン（外観）設定を保持します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ControlSkin _skin</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.ControlSkin.html">ControlSkin</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="VaNilla_GUI_Control_BaseMargin_" data-uid="VaNilla.GUI.Control.BaseMargin*"></a>
+
+  <h3 id="VaNilla_GUI_Control_BaseMargin" data-uid="VaNilla.GUI.Control.BaseMargin">
+  BaseMargin
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールの周囲のマージン（ピクセル単位）を取得または設定します。
+デフォルト値は4ピクセルです。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int BaseMargin { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Enable_" data-uid="VaNilla.GUI.Control.Enable*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Enable" data-uid="VaNilla.GUI.Control.Enable">
+  Enable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L284"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールが有効（操作可能）かどうかを取得または設定します。
+注意：プロパティ名はEnableです（Enabledではありません）。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Enable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Focused_" data-uid="VaNilla.GUI.Control.Focused*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Focused" data-uid="VaNilla.GUI.Control.Focused">
+  Focused
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L267"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールがフォーカスを持っているかどうかを取得します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Focused { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Item_" data-uid="VaNilla.GUI.Control.Item*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Item_System_Int32_" data-uid="VaNilla.GUI.Control.Item(System.Int32)">
+  this[int]
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L678"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>インデックスを使用して子コントロールにアクセスします。
+セッターは未実装です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Control this[int index] { get; set; }</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>子コントロールのインデックス</p>
+</dd>
+  </dl>
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+    <dd><p>指定したインデックスのコントロール</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Item_" data-uid="VaNilla.GUI.Control.Item*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Item_System_String_" data-uid="VaNilla.GUI.Control.Item(System.String)">
+  this[string]
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L693"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ID文字列を使用して子コントロールにアクセスします。
+セッターは未実装です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Control this[string index] { get; set; }</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>ID文字列</p>
+</dd>
+  </dl>
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+    <dd><p>指定したIDのコントロール</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Location_" data-uid="VaNilla.GUI.Control.Location*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Location" data-uid="VaNilla.GUI.Control.Location">
+  Location
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L250"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>親コントロールからの相対位置を取得または設定します。
+設定時には子コントロールの位置も連動して更新されます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Point2 Location { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Transform.Point2.html">Point2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Pointed_" data-uid="VaNilla.GUI.Control.Pointed*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Pointed" data-uid="VaNilla.GUI.Control.Pointed">
+  Pointed
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L272"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>マウスカーソルがコントロールの上にあるかどうかを取得します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Pointed { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Position_" data-uid="VaNilla.GUI.Control.Position*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Position" data-uid="VaNilla.GUI.Control.Position">
+  Position
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールの絶対位置を取得または設定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Point2 Position { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Transform.Point2.html">Point2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Size_" data-uid="VaNilla.GUI.Control.Size*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Size" data-uid="VaNilla.GUI.Control.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールのサイズ（幅と高さ）を取得または設定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Point2 Size { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Transform.Point2.html">Point2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Skin_" data-uid="VaNilla.GUI.Control.Skin*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Skin" data-uid="VaNilla.GUI.Control.Skin">
+  Skin
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L295"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールのスキン設定を取得または設定します。
+9パッチレンダリングでコントロールの外観をカスタマイズできます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual ControlSkin Skin { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.ControlSkin.html">ControlSkin</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Text_" data-uid="VaNilla.GUI.Control.Text*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Text" data-uid="VaNilla.GUI.Control.Text">
+  Text
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L289"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールに表示されるテキストを取得または設定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string Text { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Visible_" data-uid="VaNilla.GUI.Control.Visible*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Visible" data-uid="VaNilla.GUI.Control.Visible">
+  Visible
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L278"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールが表示されているかどうかを取得または設定します。
+falseの場合、コントロールとその子コントロールは描画されません。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Visible { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="VaNilla_GUI_Control_AddChild_" data-uid="VaNilla.GUI.Control.AddChild*"></a>
+
+  <h3 id="VaNilla_GUI_Control_AddChild_VaNilla_GUI_Control_" data-uid="VaNilla.GUI.Control.AddChild(VaNilla.GUI.Control)">
+  AddChild(Control)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L419"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>子コントロールを追加します。
+追加されたコントロールの親は自動的にこのコントロールに設定されます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void AddChild(Control control)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>control</code> <a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+    <dd><p>追加する子コントロール</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_AddDictionary_" data-uid="VaNilla.GUI.Control.AddDictionary*"></a>
+
+  <h3 id="VaNilla_GUI_Control_AddDictionary_System_String_System_Int32_" data-uid="VaNilla.GUI.Control.AddDictionary(System.String,System.Int32)">
+  AddDictionary(string, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L361"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ID検索用の辞書にエントリを追加します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddDictionary(string Key, int Value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>ID文字列</p>
+</dd>
+    <dt><code>Value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>子コントロールのインデックス</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Clone_" data-uid="VaNilla.GUI.Control.Clone*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Clone" data-uid="VaNilla.GUI.Control.Clone">
+  Clone()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L308"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>このコントロールのコピーを作成します。
+イベントハンドラはデフォルト値にリセットされます。
+子コントロールのリストは浅いコピーとなります。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual object Clone()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>コピーされたコントロールオブジェクト</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Focus_" data-uid="VaNilla.GUI.Control.Focus*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Focus_VaNilla_GUI_Control_VaNilla_GUI_EventArguments_" data-uid="VaNilla.GUI.Control.Focus(VaNilla.GUI.Control,VaNilla.GUI.EventArguments)">
+  Focus(Control, EventArguments)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L620"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールにフォーカスを設定します。
+GotFocusイベントのデフォルトハンドラとして使用されます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Focus(Control sender, EventArguments args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sender</code> <a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+    <dd><p>イベントの送信元</p>
+</dd>
+    <dt><code>args</code> <a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+    <dd><p>イベント引数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_GetControl_" data-uid="VaNilla.GUI.Control.GetControl*"></a>
+
+  <h3 id="VaNilla_GUI_Control_GetControl_System_Int32_" data-uid="VaNilla.GUI.Control.GetControl(System.Int32)">
+  GetControl(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L644"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したインデックスの子コントロールを取得します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Control GetControl(int index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>子コントロールのインデックス。-1の場合は自身を返します</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+    <dd><p>指定したインデックスのコントロール。存在しない場合はnull</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_GetControl_" data-uid="VaNilla.GUI.Control.GetControl*"></a>
+
+  <h3 id="VaNilla_GUI_Control_GetControl_System_String_" data-uid="VaNilla.GUI.Control.GetControl(System.String)">
+  GetControl(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L664"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したID文字列に対応する子コントロールを取得します。
+InitializeDictionaryとAddDictionaryで事前にIDを登録する必要があります。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Control GetControl(string id)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>ID文字列</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+    <dd><p>指定したIDのコントロール。存在しない場合はnull</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_GetParent_" data-uid="VaNilla.GUI.Control.GetParent*"></a>
+
+  <h3 id="VaNilla_GUI_Control_GetParent" data-uid="VaNilla.GUI.Control.GetParent">
+  GetParent()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L396"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>このコントロールの親コントロールを取得します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Control GetParent()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+    <dd><p>親コントロール</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_InitializeDictionary_" data-uid="VaNilla.GUI.Control.InitializeDictionary*"></a>
+
+  <h3 id="VaNilla_GUI_Control_InitializeDictionary" data-uid="VaNilla.GUI.Control.InitializeDictionary">
+  InitializeDictionary()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L342"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ID検索用の辞書を初期化します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void InitializeDictionary()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_InitializeDictionary_" data-uid="VaNilla.GUI.Control.InitializeDictionary*"></a>
+
+  <h3 id="VaNilla_GUI_Control_InitializeDictionary_System_Int32_" data-uid="VaNilla.GUI.Control.InitializeDictionary(System.Int32)">
+  InitializeDictionary(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L351"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ID検索用の辞書を指定した容量で初期化します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void InitializeDictionary(int Capacity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Capacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>辞書の初期容量</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_InvokeEvent_" data-uid="VaNilla.GUI.Control.InvokeEvent*"></a>
+
+  <h3 id="VaNilla_GUI_Control_InvokeEvent_VaNilla_GUI_EventHandler_VaNilla_GUI_Control_VaNilla_GUI_EventArguments_" data-uid="VaNilla.GUI.Control.InvokeEvent(VaNilla.GUI.EventHandler,VaNilla.GUI.Control,VaNilla.GUI.EventArguments)">
+  InvokeEvent(EventHandler, Control, EventArguments)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L408"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Null例外を避けるイベントInvokeメソッドです。
+イベントはこれを経由してInvokeすることを推奨します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void InvokeEvent(EventHandler e, Control sender, EventArguments args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>e</code> <a class="xref" href="VaNilla.GUI.EventHandler.html">EventHandler</a></dt>
+    <dd><p>発生させるイベントハンドラ</p>
+</dd>
+    <dt><code>sender</code> <a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+    <dd><p>イベントの送信元コントロール</p>
+</dd>
+    <dt><code>args</code> <a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+    <dd><p>イベント引数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_MoveControl_" data-uid="VaNilla.GUI.Control.MoveControl*"></a>
+
+  <h3 id="VaNilla_GUI_Control_MoveControl_VaNilla_Transform_Point2_System_Int32_" data-uid="VaNilla.GUI.Control.MoveControl(VaNilla.Transform.Point2,System.Int32)">
+  MoveControl(Point2, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L603"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールを移動します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void MoveControl(Point2 amount, int mode)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>amount</code> <a class="xref" href="VaNilla.Transform.Point2.html">Point2</a></dt>
+    <dd><p>移動先座標（絶対モード）または移動量（相対モード）</p>
+</dd>
+    <dt><code>mode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>MoveControl_Mode_Absolute(1)=絶対移動、MoveControl_Mode_Relative(0)=相対移動</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_OnClick_" data-uid="VaNilla.GUI.Control.OnClick*"></a>
+
+  <h3 id="VaNilla_GUI_Control_OnClick_VaNilla_GUI_EventArguments_" data-uid="VaNilla.GUI.Control.OnClick(VaNilla.GUI.EventArguments)">
+  OnClick(EventArguments)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L131"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clickイベントを発生させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnClick(EventArguments args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>args</code> <a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+    <dd><p>イベント引数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_OnGotFocus_" data-uid="VaNilla.GUI.Control.OnGotFocus*"></a>
+
+  <h3 id="VaNilla_GUI_Control_OnGotFocus_VaNilla_GUI_EventArguments_" data-uid="VaNilla.GUI.Control.OnGotFocus(VaNilla.GUI.EventArguments)">
+  OnGotFocus(EventArguments)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L145"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>GotFocusイベントを発生させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnGotFocus(EventArguments args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>args</code> <a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+    <dd><p>イベント引数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_OnLostFocus_" data-uid="VaNilla.GUI.Control.OnLostFocus*"></a>
+
+  <h3 id="VaNilla_GUI_Control_OnLostFocus_VaNilla_GUI_EventArguments_" data-uid="VaNilla.GUI.Control.OnLostFocus(VaNilla.GUI.EventArguments)">
+  OnLostFocus(EventArguments)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L158"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>LostFocusイベントを発生させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnLostFocus(EventArguments args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>args</code> <a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+    <dd><p>イベント引数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_OnMouseHover_" data-uid="VaNilla.GUI.Control.OnMouseHover*"></a>
+
+  <h3 id="VaNilla_GUI_Control_OnMouseHover_VaNilla_GUI_EventArguments_" data-uid="VaNilla.GUI.Control.OnMouseHover(VaNilla.GUI.EventArguments)">
+  OnMouseHover(EventArguments)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L171"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>MouseHoverイベントを発生させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnMouseHover(EventArguments args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>args</code> <a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+    <dd><p>イベント引数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_OnMouseLeave_" data-uid="VaNilla.GUI.Control.OnMouseLeave*"></a>
+
+  <h3 id="VaNilla_GUI_Control_OnMouseLeave_VaNilla_GUI_EventArguments_" data-uid="VaNilla.GUI.Control.OnMouseLeave(VaNilla.GUI.EventArguments)">
+  OnMouseLeave(EventArguments)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L184"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>MouseLeaveイベントを発生させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnMouseLeave(EventArguments args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>args</code> <a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+    <dd><p>イベント引数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_OnMouseMove_" data-uid="VaNilla.GUI.Control.OnMouseMove*"></a>
+
+  <h3 id="VaNilla_GUI_Control_OnMouseMove_VaNilla_GUI_EventArguments_" data-uid="VaNilla.GUI.Control.OnMouseMove(VaNilla.GUI.EventArguments)">
+  OnMouseMove(EventArguments)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L197"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>MouseMoveイベントを発生させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnMouseMove(EventArguments args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>args</code> <a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+    <dd><p>イベント引数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_OnMouseWheel_" data-uid="VaNilla.GUI.Control.OnMouseWheel*"></a>
+
+  <h3 id="VaNilla_GUI_Control_OnMouseWheel_VaNilla_GUI_EventArguments_" data-uid="VaNilla.GUI.Control.OnMouseWheel(VaNilla.GUI.EventArguments)">
+  OnMouseWheel(EventArguments)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L210"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>MouseWheelイベントを発生させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnMouseWheel(EventArguments args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>args</code> <a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+    <dd><p>イベント引数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_OnMove_" data-uid="VaNilla.GUI.Control.OnMove*"></a>
+
+  <h3 id="VaNilla_GUI_Control_OnMove_VaNilla_GUI_EventArguments_" data-uid="VaNilla.GUI.Control.OnMove(VaNilla.GUI.EventArguments)">
+  OnMove(EventArguments)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L223"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Moveイベントを発生させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnMove(EventArguments args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>args</code> <a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+    <dd><p>イベント引数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_OnPaint_" data-uid="VaNilla.GUI.Control.OnPaint*"></a>
+
+  <h3 id="VaNilla_GUI_Control_OnPaint_VaNilla_GUI_EventArguments_" data-uid="VaNilla.GUI.Control.OnPaint(VaNilla.GUI.EventArguments)">
+  OnPaint(EventArguments)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L236"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Paintイベントを発生させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnPaint(EventArguments args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>args</code> <a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+    <dd><p>イベント引数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_ProcessMessage_" data-uid="VaNilla.GUI.Control.ProcessMessage*"></a>
+
+  <h3 id="VaNilla_GUI_Control_ProcessMessage" data-uid="VaNilla.GUI.Control.ProcessMessage">
+  ProcessMessage()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L560"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>受信したGUIメッセージを処理し、適切なイベントを発生させます。
+マウスクリック、カーソル移動、フォーカス管理などを処理します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int ProcessMessage()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>常に0を返します</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_RemoveChild_" data-uid="VaNilla.GUI.Control.RemoveChild*"></a>
+
+  <h3 id="VaNilla_GUI_Control_RemoveChild_VaNilla_GUI_Control_" data-uid="VaNilla.GUI.Control.RemoveChild(VaNilla.GUI.Control)">
+  RemoveChild(Control)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L430"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>子コントロールを削除します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void RemoveChild(Control control)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>control</code> <a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+    <dd><p>削除する子コントロール</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Render_" data-uid="VaNilla.GUI.Control.Render*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Render" data-uid="VaNilla.GUI.Control.Render">
+  Render()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L510"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールを描画します。
+スキンが設定されている場合は9パッチ描画を行い、Paintイベントを発生させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int Render()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>常に0を返します</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_SendMessage_" data-uid="VaNilla.GUI.Control.SendMessage*"></a>
+
+  <h3 id="VaNilla_GUI_Control_SendMessage_VaNilla_GUI_GUIMessage_" data-uid="VaNilla.GUI.Control.SendMessage(VaNilla.GUI.GUIMessage)">
+  SendMessage(GUIMessage)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L445"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>GUIメッセージをこのコントロールとすべての子コントロールに送信します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void SendMessage(GUIMessage message)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>message</code> <a class="xref" href="VaNilla.GUI.GUIMessage.html">GUIMessage</a></dt>
+    <dd><p>送信するGUIメッセージ</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_SetBounds_" data-uid="VaNilla.GUI.Control.SetBounds*"></a>
+
+  <h3 id="VaNilla_GUI_Control_SetBounds_System_Int32_System_Int32_System_Int32_System_Int32_" data-uid="VaNilla.GUI.Control.SetBounds(System.Int32,System.Int32,System.Int32,System.Int32)">
+  SetBounds(int, int, int, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L461"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールの位置とサイズを一度に設定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void SetBounds(int x, int y, int width, int height)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>x</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>X座標</p>
+</dd>
+    <dt><code>y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Y座標</p>
+</dd>
+    <dt><code>width</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>幅</p>
+</dd>
+    <dt><code>height</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>高さ</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_SetParenet_" data-uid="VaNilla.GUI.Control.SetParenet*"></a>
+
+  <h3 id="VaNilla_GUI_Control_SetParenet_VaNilla_GUI_Control_" data-uid="VaNilla.GUI.Control.SetParenet(VaNilla.GUI.Control)">
+  SetParenet(Control)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L386"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>このコントロールの親コントロールを設定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetParenet(Control parent)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parent</code> <a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+    <dd><p>親コントロール</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_SetSkin_" data-uid="VaNilla.GUI.Control.SetSkin*"></a>
+
+  <h3 id="VaNilla_GUI_Control_SetSkin_System_String_" data-uid="VaNilla.GUI.Control.SetSkin(System.String)">
+  SetSkin(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L493"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>文字列からTextureResourceTypeを取得してスキンを設定します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void SetSkin(string textureName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>textureName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>テクスチャリソース名</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_SetSkin_" data-uid="VaNilla.GUI.Control.SetSkin*"></a>
+
+  <h3 id="VaNilla_GUI_Control_SetSkin_VaNilla_GUI_ControlSkin_" data-uid="VaNilla.GUI.Control.SetSkin(VaNilla.GUI.ControlSkin)">
+  SetSkin(ControlSkin)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L472"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ControlSkinを使用してスキンを設定します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void SetSkin(ControlSkin skin)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>skin</code> <a class="xref" href="VaNilla.GUI.ControlSkin.html">ControlSkin</a></dt>
+    <dd><p>設定するスキン</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_SetSkin_" data-uid="VaNilla.GUI.Control.SetSkin*"></a>
+
+  <h3 id="VaNilla_GUI_Control_SetSkin_VaNilla_Texture_TextureResourceType_" data-uid="VaNilla.GUI.Control.SetSkin(VaNilla.Texture.TextureResourceType)">
+  SetSkin(TextureResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L481"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>TextureResourceTypeからControlSkinを作成してスキンを設定します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void SetSkin(TextureResourceType textureType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>textureType</code> <a class="xref" href="VaNilla.Texture.TextureResourceType.html">TextureResourceType</a></dt>
+    <dd><p>テクスチャリソースタイプ</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_GUI_Control_Unfocus_" data-uid="VaNilla.GUI.Control.Unfocus*"></a>
+
+  <h3 id="VaNilla_GUI_Control_Unfocus_VaNilla_GUI_Control_VaNilla_GUI_EventArguments_" data-uid="VaNilla.GUI.Control.Unfocus(VaNilla.GUI.Control,VaNilla.GUI.EventArguments)">
+  Unfocus(Control, EventArguments)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L632"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールからフォーカスを解除します。
+LostFocusイベントのデフォルトハンドラとして使用されます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Unfocus(Control sender, EventArguments args)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sender</code> <a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+    <dd><p>イベントの送信元</p>
+</dd>
+    <dt><code>args</code> <a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+    <dd><p>イベント引数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="VaNilla_GUI_Control_Click" data-uid="VaNilla.GUI.Control.Click">
+  Click
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L84"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールがクリックされたときに発生します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler Click</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_GotFocus" data-uid="VaNilla.GUI.Control.GotFocus">
+  GotFocus
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L89"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールがフォーカスを取得したときに発生します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler GotFocus</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_LostFocus" data-uid="VaNilla.GUI.Control.LostFocus">
+  LostFocus
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールがフォーカスを失ったときに発生します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler LostFocus</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_MouseHover" data-uid="VaNilla.GUI.Control.MouseHover">
+  MouseHover
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>マウスがコントロール上にあるときに継続的に発生します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler MouseHover</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_MouseLeave" data-uid="VaNilla.GUI.Control.MouseLeave">
+  MouseLeave
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>マウスがコントロールから離れたときに発生します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler MouseLeave</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_MouseMove" data-uid="VaNilla.GUI.Control.MouseMove">
+  MouseMove
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>マウスがコントロール上で移動したときに発生します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler MouseMove</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_MouseWheel" data-uid="VaNilla.GUI.Control.MouseWheel">
+  MouseWheel
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L114"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>マウスホイールが操作されたときに発生します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler MouseWheel</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_Move" data-uid="VaNilla.GUI.Control.Move">
+  Move
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L119"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールが移動したときに発生します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler Move</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_GUI_Control_Paint" data-uid="VaNilla.GUI.Control.Paint">
+  Paint
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L124"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コントロールが描画されるときに発生します。カスタム描画処理に使用します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler Paint</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.GUI.EventHandler.html">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Gui/Interface/Control.cs/#L14" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
