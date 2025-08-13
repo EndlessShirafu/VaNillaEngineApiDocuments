@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Moving Path Editor ユーザーマニュアル </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Moving Path Editor ユーザーマニュアル ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTools/MovingPathEditor/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="moving-path-editor-ユーザーマニュアル">Moving Path Editor ユーザーマニュアル</h1>
+
+<h2 id="概要">概要</h2>
+<p>Moving Path Editorは、ゲーム内のキャラクターやオブジェクトの移動経路を視覚的に編集できるツールです。
+直線や曲線を組み合わせて複雑な動きのパスを作成し、JSON形式で保存・読み込みができます。</p>
+<h2 id="画面構成">画面構成</h2>
+<h3 id="1-メインキャンバス左側">1. メインキャンバス（左側）</h3>
+<ul>
+<li><strong>白い領域</strong>: ゲーム画面内の領域</li>
+<li><strong>グレーの領域</strong>: 画面外の領域（マイナス座標を含む拡張エリア）</li>
+<li><strong>赤い線</strong>: 原点（0,0）を示す軸線</li>
+<li><strong>グリッド</strong>: 50ピクセル単位の補助線</li>
+</ul>
+<h3 id="2-inspector右側">2. Inspector（右側）</h3>
+<p>選択中の要素の詳細設定を行うパネル</p>
+<h3 id="3-コマンドボタン下部">3. コマンドボタン（下部）</h3>
+<p>主要な操作ボタン</p>
+<h3 id="4-ステータスバー最下部">4. ステータスバー（最下部）</h3>
+<p>現在のマウス座標や操作状態を表示</p>
+<h2 id="基本操作">基本操作</h2>
+<h3 id="パスの作成">パスの作成</h3>
+<h4 id="点を追加">点を追加</h4>
+<ol>
+<li>キャンバス上の任意の位置を<strong>左クリック</strong></li>
+<li>2つ目の点をクリックすると、自動的に線分（パス）が作成されます</li>
+<li>続けてクリックすることで、連続したパスを作成できます</li>
+</ol>
+<h4 id="点を移動">点を移動</h4>
+<ul>
+<li>既存の点を<strong>左ドラッグ</strong>で移動</li>
+<li>ドラッグ中、ステータスバーとInspectorにリアルタイムで座標が表示されます</li>
+</ul>
+<h4 id="点を削除">点を削除</h4>
+<ul>
+<li>制御点（グレーの点）を<strong>右クリック</strong>で削除</li>
+<li>パスの中間点付近を<strong>クリック</strong>で削除</li>
+</ul>
+<h3 id="パスの種類と変換">パスの種類と変換</h3>
+<h4 id="line直線">Line（直線）</h4>
+<ul>
+<li>デフォルトのパスタイプ</li>
+<li>始点と終点を直線で結ぶ</li>
+</ul>
+<h4 id="bezier22次ベジェ曲線">Bezier2（2次ベジェ曲線）</h4>
+<ul>
+<li><strong>Ctrl+左ドラッグ</strong>または<strong>中ボタンドラッグ</strong>でLineから自動変換</li>
+<li>1つの制御点で曲線を調整</li>
+</ul>
+<h4 id="bezier33次ベジェ曲線">Bezier3（3次ベジェ曲線）</h4>
+<ul>
+<li>Inspectorから手動で設定</li>
+<li>2つの制御点でより複雑な曲線を作成</li>
+</ul>
+<h3 id="高度な編集機能">高度な編集機能</h3>
+<h4 id="矩形選択">矩形選択</h4>
+<ol>
+<li><strong>Shift+ドラッグ</strong>で複数の点を矩形選択</li>
+<li>選択された点は黄色でハイライト表示</li>
+<li>選択した点群をまとめて移動可能</li>
+</ol>
+<h4 id="自由変形モード">自由変形モード</h4>
+<ol>
+<li>点を矩形選択</li>
+<li><strong>右クリック</strong> → **「自由変形」**を選択</li>
+<li>変形ハンドルが表示される：
+<ul>
+<li><strong>角ハンドル</strong>: 拡大・縮小</li>
+<li><strong>辺ハンドル</strong>: 一方向の拡大・縮小</li>
+<li><strong>回転ハンドル</strong>: 回転</li>
+<li><strong>中央</strong>: 移動</li>
+</ul>
+</li>
+<li><strong>Enter</strong>または<strong>右クリック</strong>で確定</li>
+<li><strong>Escape</strong>でキャンセル</li>
+</ol>
+<h4 id="パスの接続">パスの接続</h4>
+<ol>
+<li>2つの端点（パスの始点または終点）を選択</li>
+<li><strong>右クリック</strong> → <strong>「パスを接続」</strong></li>
+<li>選択した端点間に新しい線分が追加されます
+<ul>
+<li>区間削除で切れた端点も接続可能</li>
+</ul>
+</li>
+</ol>
+<h3 id="ズーム機能">ズーム機能</h3>
+<h4 id="マウスホイール">マウスホイール</h4>
+<ul>
+<li><strong>Ctrl+ホイール上</strong>: 拡大</li>
+<li><strong>Ctrl+ホイール下</strong>: 縮小</li>
+</ul>
+<h4 id="ボタン操作">ボタン操作</h4>
+<ul>
+<li><strong>拡大ボタン</strong>: 110%ずつ拡大</li>
+<li><strong>縮小ボタン</strong>: 90%ずつ縮小</li>
+<li><strong>100%ボタン</strong>: ズームをリセット</li>
+</ul>
+<p>ズーム範囲: 10% ～ 500%</p>
+<h3 id="区間の設定">区間の設定</h3>
+<h4 id="区間を選択">区間を選択</h4>
+<ul>
+<li>パスの線上を<strong>クリック</strong>で区間を選択（オレンジ色でハイライト）</li>
+</ul>
+<h4 id="区間タイプの変更">区間タイプの変更</h4>
+<p>Inspectorの「区間設定」で変更：</p>
+<ul>
+<li><strong>Line</strong>: 直線</li>
+<li><strong>Bezier2</strong>: 2次ベジェ曲線</li>
+<li><strong>Bezier3</strong>: 3次ベジェ曲線</li>
+</ul>
+<h4 id="イージングの設定">イージングの設定</h4>
+<p>動きの加減速を設定：</p>
+<ul>
+<li><strong>Linear</strong>: 等速</li>
+<li><strong>EaseIn</strong>: ゆっくり始まって加速</li>
+<li><strong>EaseOut</strong>: 減速して止まる</li>
+<li><strong>EaseInOut</strong>: ゆっくり始まってゆっくり終わる</li>
+<li><strong>EaseInQuad/OutQuad/InOutQuad</strong>: 2次関数的な加減速</li>
+<li><strong>EaseInCubic/OutCubic/InOutCubic</strong>: 3次関数的な加減速</li>
+<li><strong>EaseOutBounce</strong>: バウンド効果</li>
+<li><strong>EaseOutElastic</strong>: 弾性効果</li>
+</ul>
+<h4 id="時間の設定">時間の設定</h4>
+<ul>
+<li>区間の移動にかかる時間（秒）を設定</li>
+</ul>
+<h3 id="ループ設定">ループ設定</h3>
+<h4 id="ループタイプ">ループタイプ</h4>
+<ul>
+<li><strong>None</strong>: ループなし</li>
+<li><strong>Repeat</strong>: 指定区間を繰り返し</li>
+<li><strong>Reverse</strong>: 往復運動</li>
+<li><strong>Stop</strong>: 指定位置で停止</li>
+</ul>
+<h4 id="ループ範囲の設定">ループ範囲の設定</h4>
+<ol>
+<li>区間を選択</li>
+<li>**「ループ開始に設定」**ボタンをクリック</li>
+<li>別の区間を選択</li>
+<li>**「ループ終了に設定」**ボタンをクリック</li>
+</ol>
+<h4 id="ループ回数">ループ回数</h4>
+<ul>
+<li>0: 無限ループ</li>
+<li>1以上: 指定回数でループ</li>
+</ul>
+<h3 id="イベント送信機能">イベント送信機能</h3>
+<p>各点で特定のタイミングでイベントを発火できます：</p>
+<ol>
+<li>点を選択</li>
+<li>Inspectorで**「イベント送信」**にチェック</li>
+<li>イベントパラメータ（最大4つの文字列）を入力</li>
+<li>ゲーム側でこのイベントを受け取って処理</li>
+</ol>
+<h3 id="ファイル操作">ファイル操作</h3>
+<h4 id="保存">保存</h4>
+<ol>
+<li>**「保存」**ボタンをクリック</li>
+<li>ファイル名を指定（.json形式）</li>
+<li>パス情報がJSON形式で保存されます</li>
+</ol>
+<h4 id="読込">読込</h4>
+<ol>
+<li>**「読込」**ボタンをクリック</li>
+<li>保存済みのJSONファイルを選択</li>
+<li>パスが復元されます</li>
+</ol>
+<h4 id="新規作成">新規作成</h4>
+<ol>
+<li>**「新規」**ボタンをクリック</li>
+<li>編集中のパスがある場合は確認ダイアログが表示</li>
+<li>「はい」で新規作成、「いいえ」で編集継続</li>
+</ol>
+<h3 id="アンドゥリドゥ">アンドゥ・リドゥ</h3>
+<h4 id="キーボードショートカット">キーボードショートカット</h4>
+<ul>
+<li><strong>Ctrl+Z</strong>: 元に戻す（アンドゥ）</li>
+<li><strong>Ctrl+Y</strong>: やり直し（リドゥ）</li>
+</ul>
+<h4 id="ボタン操作-1">ボタン操作</h4>
+<ul>
+<li>**「元に戻す」**ボタン</li>
+<li>**「やり直し」**ボタン</li>
+</ul>
+<p>最大50回まで操作履歴を保持</p>
+<h3 id="再生機能">再生機能</h3>
+<p>**「再生」**ボタンをクリックすると：</p>
+<ul>
+<li>作成したパスに沿ってプレビュー（緑の点）が移動</li>
+<li>ループ設定も反映されます</li>
+<li>もう一度クリックで停止</li>
+</ul>
+<h2 id="設定項目">設定項目</h2>
+<h3 id="パス設定inspector">パス設定（Inspector）</h3>
+<ul>
+<li><strong>画面幅/高さ</strong>: ゲーム画面のサイズ（デフォルト: 1920×1080）</li>
+<li><strong>ループタイプ</strong>: ループの種類</li>
+<li><strong>ループ回数</strong>: 繰り返し回数</li>
+<li><strong>ループ範囲</strong>: 開始・終了区間のインデックス</li>
+</ul>
+<h3 id="点の設定inspector">点の設定（Inspector）</h3>
+<ul>
+<li><strong>X座標/Y座標</strong>: 選択中の点の座標（-2000～6000）</li>
+<li><strong>イベント送信</strong>: イベント発火の有無</li>
+<li><strong>イベントパラメータ</strong>: 送信するパラメータ（最大4つ）</li>
+</ul>
+<h3 id="区間設定inspector">区間設定（Inspector）</h3>
+<ul>
+<li><strong>区間タイプ</strong>: Line/Bezier2/Bezier3</li>
+<li><strong>イージング</strong>: 動きの加減速パターン</li>
+<li><strong>時間（秒）</strong>: 移動にかかる時間（0.01～10.0秒）</li>
+</ul>
+<h2 id="tips">Tips</h2>
+<h3 id="効率的な編集">効率的な編集</h3>
+<ul>
+<li>大まかな形を直線で作成してから、必要な部分だけ曲線に変換</li>
+<li>矩形選択で複数の点をまとめて移動・変形</li>
+<li>ズーム機能を活用して細かい調整</li>
+</ul>
+<h3 id="スムーズな動きの作成">スムーズな動きの作成</h3>
+<ul>
+<li>イージングを使って自然な加減速を演出</li>
+<li>Bezier曲線で滑らかなカーブを作成</li>
+<li>時間設定で速度を調整</li>
+</ul>
+<h3 id="複雑なパスの作成">複雑なパスの作成</h3>
+<ul>
+<li>ループ機能で繰り返し動作を簡単に実現</li>
+<li>イベント送信で特定タイミングでの処理を実装</li>
+<li>画面外の座標も使用可能（-2000～6000の範囲）</li>
+</ul>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="q-点が追加できない">Q: 点が追加できない</h3>
+<p>A: 既存の点や線の近くをクリックしていないか確認してください。空いている場所をクリックしてください。</p>
+<h3 id="q-スクロール位置がリセットされる">Q: スクロール位置がリセットされる</h3>
+<p>A: 最新バージョンでは修正されています。問題が続く場合はアプリケーションを再起動してください。</p>
+<h3 id="q-パスが表示されない">Q: パスが表示されない</h3>
+<p>A: 最低2つの点が必要です。1つ目の点を配置した後、2つ目の点をクリックしてください。</p>
+<h3 id="q-変形モードから抜けられない">Q: 変形モードから抜けられない</h3>
+<p>A: Escapeキーを押すか、右クリックで確定/キャンセルできます。</p>
+<h3 id="q-ループが機能しない">Q: ループが機能しない</h3>
+<p>A: ループ開始・終了区間が正しく設定されているか、Inspectorで確認してください。</p>
+<h2 id="データ形式">データ形式</h2>
+<p>保存されるJSONファイルには以下の情報が含まれます：</p>
+<ul>
+<li>各区間の始点・終点座標</li>
+<li>区間タイプ（Line/Bezier2/Bezier3）</li>
+<li>制御点の座標</li>
+<li>イージングタイプ</li>
+<li>各区間の時間</li>
+<li>ループ設定</li>
+<li>イベント情報</li>
+<li>画面サイズ</li>
+</ul>
+<p>このデータはゲームエンジン側で読み込んで、実際のキャラクター移動に使用できます。</p>
+<hr>
+<h2 id="更新履歴">更新履歴</h2>
+<h3 id="version-10">Version 1.0</h3>
+<ul>
+<li>基本的なパス編集機能</li>
+<li>Line/Bezier曲線のサポート</li>
+<li>ループ機能</li>
+<li>ファイルの保存・読み込み</li>
+<li>アンドゥ・リドゥ</li>
+<li>ズーム機能</li>
+<li>矩形選択と自由変形</li>
+<li>パスの接続機能</li>
+<li>イベント送信機能</li>
+<li>リアルタイム座標表示</li>
+<li>スクロール位置の保持改善</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTools/MovingPathEditor/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

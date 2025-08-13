@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Movement モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Movement モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Movement/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="movement-モジュール">Movement モジュール</h1>
+
+<p>Movementモジュールは、VaNillaエンジンでオブジェクトの様々な運動パターンを実現するExpresserComponentセットです。等速直線運動から複雑なイージング運動まで、ゲーム開発で必要な多彩な移動システムを提供します。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>基本運動</strong>: 等速直線運動、等速回転運動、等加速度運動</li>
+<li><strong>高度な運動</strong>: 等速円運動、抵抗付き運動、カスタム運動</li>
+<li><strong>イージング運動</strong>: 包括的なイージング関数による滑らかな移動</li>
+<li><strong>リピート機能</strong>: ループ、ピンポン、インターバル付きリピート</li>
+<li><strong>極座標対応</strong>: 角度と速度による直感的な運動制御</li>
+<li><strong>メソッドチェーン</strong>: 流暢なAPIによる設定</li>
+</ul>
+<h2 id="実装状況">実装状況</h2>
+<p>✅ <strong>完了</strong>: 全ての運動コンポーネントが実装済みです。</p>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="1-linearuniformmotion等速直線運動">1. LinearUniformMotion（等速直線運動）</h3>
+<p>一定の速度で直線移動を行うコンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+[RequiredExpresserComponent(typeof(VaNilla.Transform.HasPosition), auto_member_generate: true)]
+public partial class LinearUniformMotion : IExpresserComponent
+{
+    // ベクトル設定
+    public VaNilla.Transform.Vector2 ConstantVector { get; set; }
+    
+    // 速度設定
+    public float Speed { get; set; }
+    
+    // 角度設定（ラジアン）
+    public float Radian { get; set; }
+    
+    // 極座標系での設定
+    public void SetConstantVectorFromPolarCoordinate(float velocity_value, Transform.Radian angle_value_radian);
+}
+</code></pre>
+<h3 id="2-rotaryuniformmotion等速回転運動">2. RotaryUniformMotion（等速回転運動）</h3>
+<p>一定の角速度で回転を行うコンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+[RequiredExpresserComponent(typeof(VaNilla.Transform.HasRotation))]
+public class RotaryUniformMotion : IExpresserComponent
+{
+    /// &lt;summary&gt;
+    /// 角速度(ラジアン)
+    /// &lt;/summary&gt;
+    public Transform.Radian RotaryVelocity { get; set; } = 0;
+}
+</code></pre>
+<h3 id="3-accelarateduniformmotion等加速度直線運動">3. AccelaratedUniformMotion（等加速度直線運動）</h3>
+<p>加速度による速度変化を持つ運動コンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+[RequiredExpresserComponent(typeof(VaNilla.Transform.HasPosition), auto_member_generate: true)]
+public partial class AccelaratedUniformMotion : IExpresserComponent
+{
+    public VaNilla.Transform.Vector2 VelocityVector { get; set; }
+    public VaNilla.Transform.Vector2 AccelVector { get; set; }
+    
+    // 極座標系での加速度設定
+    public void SetAccelaratedVectorFromPolarCoordinate(float accel_value, Transform.Radian angle_value_radian);
+    
+    // リセット機能
+    public void ResetAccel();
+    public void ResetVelocity();
+}
+</code></pre>
+<h3 id="4-circularuniformmotion等速円運動">4. CircularUniformMotion（等速円運動）</h3>
+<p>円形または楕円軌道での運動コンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+[RequiredExpresserComponent(typeof(VaNilla.Transform.HasTransform), auto_member_generate: true)]
+public partial class CircularUniformMotion : IExpresserComponent
+{
+    public Transform.Point2 CenterPoint { get; set; }      // 中心点
+    public float XRadius { get; set; }                     // X軸半径
+    public float YRadius { get; set; }                     // Y軸半径
+    public Transform.Radian RotaryVelocity { get; set; }   // 角速度
+    public bool IsMoveXAxis { get; set; }                  // X軸移動有効
+    public bool IsMoveYAxis { get; set; }                  // Y軸移動有効
+    public Transform.Radian Phase { get; set; }            // 現在位相
+}
+</code></pre>
+<h3 id="5-resisteduniformmotion抵抗付き運動">5. ResistedUniformMotion（抵抗付き運動）</h3>
+<p>摩擦や空気抵抗による減速効果を持つ運動コンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+[RequiredExpresserComponent(typeof(VaNilla.Transform.HasPosition), auto_member_generate: true)]
+public partial class ResistedUniformMotion : IExpresserComponent
+{
+    public VaNilla.Transform.Vector2 VelocityVector { get; set; }
+    public float ResistRate { get; set; } = 0.99f;  // 抵抗係数
+    
+    // 極座標系での設定
+    public void SetVelocityVectorFromPolarCoordinate(float speed, Transform.Radian angle_value_radian, float resist_rate = 0.99f);
+    public void ResetVelocity();
+}
+</code></pre>
+<h3 id="6-desiredmotionカスタム運動">6. DesiredMotion（カスタム運動）</h3>
+<p>デリゲートによる任意の運動パターンを実現するコンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+[RequiredExpresserComponent(typeof(HasTransform), auto_member_generate:true)]
+public partial class DesiredMotion : IExpresserComponent
+{
+    public delegate bool DesiredFunc(Object object__, HasTransform hasTransform, in VaNilla.Time.Time current_time);
+    public DesiredFunc desiredFunc { get; set; } = null;
+}
+</code></pre>
+<h3 id="7-イージング運動コンポーネント">7. イージング運動コンポーネント</h3>
+<p>包括的なイージング機能を提供するコンポーネント群です。</p>
+<ul>
+<li><strong>EasingMotionXPosition</strong>: X座標のイージング</li>
+<li><strong>EasingMotionYPosition</strong>: Y座標のイージング</li>
+<li><strong>EasingMotionXYPosition</strong>: XY座標の同時イージング</li>
+</ul>
+<pre><code class="lang-csharp">// 42種類のイージングタイプをサポート
+public enum EasingType
+{
+    None, Linear,
+    EaseInQuadratic, EaseOutQuadratic, EaseInOutQuadratic,
+    EaseInCubic, EaseOutCubic, EaseInOutCubic,
+    EaseInQuartic, EaseOutQuartic, EaseInOutQuartic,
+    EaseInQuintic, EaseOutQuintic, EaseInOutQuintic,
+    EaseInSinusoidal, EaseOutSinusoidal, EaseInOutSinusoidal,
+    EaseInExponential, EaseOutExponential, EaseInOutExponential,
+    EaseInCircular, EaseOutCircular, EaseInOutCircular,
+    EaseOutBounce, EaseInBounce, EaseInOutBounce,
+    EaseInBack, EaseOutBack, EaseInOutBack,
+    EaseInElastic, EaseOutElastic, EaseInOutElastic,
+}
+
+// リピートタイプ
+public enum RepeatType
+{
+    None,     // 繰り返しなし
+    Loop,     // 順方向にループ
+    PingPong, // ピンポン
+}
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的な等速直線運動">基本的な等速直線運動</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(LinearUniformMotion), auto_member_generate: true)]
+public partial class MovingBullet : Object
+{
+    public override bool SetUp()
+    {
+        var motion = GetExpresserComponent&lt;LinearUniformMotion&gt;();
+        
+        // 角度と速度で設定
+        linearUniformMotion.SetConstantVectorFromPolarCoordinate(300.0f, Math.Util.PI_F / 4.0f); // 右上45度、速度300
+        
+        // または直接ベクトルで設定
+        linearUniformMotion.ConstantVector = new Vector2(200.0f, 0.0f); // 右方向、速度200
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="回転するオブジェクト">回転するオブジェクト</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasRotation), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(RotaryUniformMotion), auto_member_generate: true)]
+public partial class RotatingFan : Object
+{
+    public override bool SetUp()
+    {
+        rotaryUniformMotion.RotaryVelocity = Math.Util.PI_F; // 1秒で180度回転
+        return true;
+    }
+}
+</code></pre>
+<h3 id="物理的な投射物">物理的な投射物</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(AccelaratedUniformMotion), auto_member_generate: true)]
+public partial class PhysicsProjectile : Object
+{
+    public override bool SetUp()
+    {
+        // 初期速度を設定（放物線運動）
+        accelaratedUniformMotion.VelocityVector = new Vector2(150.0f, 200.0f);
+        
+        // 重力加速度を設定
+        accelaratedUniformMotion.AccelVector = new Vector2(0.0f, -9.8f);
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="円運動パターン">円運動パターン</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasTransform), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(CircularUniformMotion), auto_member_generate: true)]
+public partial class OrbitingPlanet : Object
+{
+    public override bool SetUp()
+    {
+        circularUniformMotion.CenterPoint = new Point2(400, 300);        // 中心点
+        circularUniformMotion.XRadius = 100.0f;                          // X軸半径
+        circularUniformMotion.YRadius = 60.0f;                           // Y軸半径（楕円軌道）
+        circularUniformMotion.RotaryVelocity = Math.Util.PI_F / 2.0f;    // 90度/秒
+        circularUniformMotion.Phase = 0.0f;                              // 開始位相
+        circularUniformMotion.IsMoveXAxis = true;
+        circularUniformMotion.IsMoveYAxis = true;
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="摩擦付き運動">摩擦付き運動</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(ResistedUniformMotion), auto_member_generate: true)]
+public partial class SlidingObject : Object
+{
+    public override bool SetUp()
+    {
+        // 初期速度と抵抗率を設定
+        resistedUniformMotion.SetVelocityVectorFromPolarCoordinate(
+            200.0f,                    // 初期速度
+            0.0f,                      // 右方向
+            0.95f                      // 抵抗率（毎フレーム5%減速）
+        );
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="カスタム運動パターン">カスタム運動パターン</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasTransform), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(DesiredMotion), auto_member_generate: true)]
+public partial class CustomMovingObject : Object
+{
+    public override bool SetUp()
+    {
+        // 正弦波運動のカスタム関数
+        desiredMotion.desiredFunc = (obj, transform, time) =&gt;
+        {
+            float amplitude = 50.0f;
+            float frequency = 2.0f;
+            
+            transform.Position = new Point2(
+                transform.Position.X + 1.0f,                                    // 右に移動
+                300.0f + amplitude * Math.Util.Sin(time.current_time * frequency) // 正弦波
+            );
+            
+            return true;
+        };
+        
+        return true;
+    }
+}
+</code></pre>
+<h2 id="イージング運動の活用">イージング運動の活用</h2>
+<h3 id="基本的なイージング移動">基本的なイージング移動</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(EasingMotionXYPosition), auto_member_generate: true)]
+public partial class EasedMovement : Object
+{
+    public override bool SetUp()
+    {
+        // メソッドチェーンによる設定
+        easingMotionXYPosition.StartPos(new Point2(100, 100))
+                             .EndPos(new Point2(500, 300))
+                             .EaseTypeX(EasingType.EaseOutQuadratic)
+                             .EaseTypeY(EasingType.EaseInCubic)
+                             .DurationTime(2.0f)
+                             .Start();
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="繰り返しイージング">繰り返しイージング</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(EasingMotionXPosition), auto_member_generate: true)]
+public partial class RepeatingEasing : Object
+{
+    public override bool SetUp()
+    {
+        // ピンポン運動の設定
+        easingMotionXPosition.StartMove(
+            EasingType.EaseInOutQuadratic,     // イージングタイプ
+            100.0f,                            // 開始X座標
+            400.0f,                            // 終了X座標
+            1.5f,                              // 移動時間
+            RepeatType.PingPong,               // ピンポンリピート
+            0,                                 // 無限リピート
+            0.5f,                              // 0.5秒インターバル
+            (obj) =&gt; {                         // 完了コールバック
+                Logger.Log(&quot;Easing completed!&quot;);
+            }
+        );
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="複雑なイージングパターン">複雑なイージングパターン</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(EasingMotionXPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(EasingMotionYPosition), auto_member_generate: true)]
+public partial class ComplexEasing : Object
+{
+    public override bool SetUp()
+    {
+        // X軸: バウンス効果
+        easingMotionXPosition.EaseType(EasingType.EaseOutBounce)
+               .StartX(100.0f)
+               .EndX(500.0f)
+               .DurationTime(3.0f)
+               .RepeatingType(RepeatType.Loop)
+               .RepeatTime(3)
+               .RepeatInterval(1.0f)
+                             .Start();
+        
+        // Y軸: エラスティック効果
+        easingMotionYPosition.EaseType(EasingType.EaseOutElastic)
+               .StartY(200.0f)
+               .EndY(400.0f)
+               .DurationTime(2.5f)
+               .RepeatingType(RepeatType.PingPong)
+               .RepeatTime(5)
+                             .Start();
+        
+        // エラスティックパラメータ調整
+        easingMotionYPosition.ElasticAmplitude = 1.0f;
+        easingMotionYPosition.ElasticPeriod = 0.3f;
+        
+        return true;
+    }
+}
+</code></pre>
+<h2 id="ゲーム開発での実用例">ゲーム開発での実用例</h2>
+<h3 id="プレイヤーキャラクターの移動">プレイヤーキャラクターの移動</h3>
+<pre><code class="lang-csharp">public class PlayerMovement : IExpresserComponent
+{
+    private LinearUniformMotion movement;
+    private KeyboardInputComponent keyboard;
+    
+    private float moveSpeed = 200.0f;
+    
+    public bool SetUp(Object object__)
+    {
+        movement = object__.GetExpresserComponent&lt;LinearUniformMotion&gt;();
+        keyboard = object__.GetExpresserComponent&lt;KeyboardInputComponent&gt;();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        Vector2 inputVector = Vector2.Zero;
+        
+        if (keyboard.IsKeyDown(Key.W)) inputVector.Y += 1.0f;
+        if (keyboard.IsKeyDown(Key.S)) inputVector.Y -= 1.0f;
+        if (keyboard.IsKeyDown(Key.A)) inputVector.X -= 1.0f;
+        if (keyboard.IsKeyDown(Key.D)) inputVector.X += 1.0f;
+        
+        // 正規化して一定速度に
+        if (inputVector.GetLength() &gt; 0)
+        {
+            inputVector = inputVector.GetNormalized();
+            movement.ConstantVector = inputVector * moveSpeed;
+        }
+        else
+        {
+            movement.ConstantVector = Vector2.Zero;
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="エネミーのai移動パターン">エネミーのAI移動パターン</h3>
+<pre><code class="lang-csharp">public class EnemyAI : IExpresserComponent
+{
+    private CircularUniformMotion orbit;
+    private LinearUniformMotion linear;
+    private Transform.Point2 targetPosition;
+    private AIState currentState = AIState.Orbiting;
+    
+    private enum AIState { Orbiting, Chasing, Returning }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        switch (currentState)
+        {
+            case AIState.Orbiting:
+                // 円運動で巡回
+                orbit.Active = true;
+                linear.Active = false;
+                
+                if (DetectPlayer())
+                {
+                    currentState = AIState.Chasing;
+                    SwitchToLinearMovement();
+                }
+                break;
+                
+            case AIState.Chasing:
+                // プレイヤーを直線追跡
+                orbit.Active = false;
+                linear.Active = true;
+                
+                UpdateChaseTarget();
+                
+                if (LostPlayer())
+                {
+                    currentState = AIState.Returning;
+                }
+                break;
+                
+            case AIState.Returning:
+                // 元の位置に戻る
+                if (ReachedOriginalPosition())
+                {
+                    currentState = AIState.Orbiting;
+                    SwitchToOrbitMovement();
+                }
+                break;
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="ui要素のアニメーション">UI要素のアニメーション</h3>
+<pre><code class="lang-csharp">public class UIButtonAnimation : IExpresserComponent
+{
+    private EasingMotionYPosition easingY;
+    private EasingMotionXPosition easingX;
+    private bool isHovered = false;
+    
+    public bool SetUp(Object object__)
+    {
+        easingY = object__.GetExpresserComponent&lt;EasingMotionYPosition&gt;();
+        easingX = object__.GetExpresserComponent&lt;EasingMotionXPosition&gt;();
+        return true;
+    }
+    
+    public void OnMouseEnter()
+    {
+        if (!isHovered)
+        {
+            isHovered = true;
+            
+            // ホバー時のバウンス効果
+            easingY.StartMove(
+                EasingType.EaseOutBounce,
+                GetCurrentY(),
+                GetCurrentY() - 5.0f,  // 5ピクセル上に
+                0.3f
+            );
+        }
+    }
+    
+    public void OnMouseExit()
+    {
+        if (isHovered)
+        {
+            isHovered = false;
+            
+            // 元の位置に戻る
+            easingY.StartMove(
+                EasingType.EaseOutQuadratic,
+                GetCurrentY(),
+                GetOriginalY(),
+                0.2f
+            );
+        }
+    }
+    
+    public void OnClick()
+    {
+        // クリック時のスケール効果（X軸で表現）
+        easingX.StartMove(
+            EasingType.EaseInOutBack,
+            GetCurrentX(),
+            GetCurrentX() + 10.0f,    // 一時的に拡大
+            0.1f,
+            RepeatType.PingPong,
+            1,                        // 1回だけピンポン
+            0.0f,
+            (obj) =&gt; {
+                // アニメーション完了後の処理
+                ExecuteButtonAction();
+            }
+        );
+        
+        // バック効果のパラメータ調整
+        easingX.EaseBackRate = 1.70158f;
+    }
+}
+</code></pre>
+<h3 id="パーティクルシステムとの連携">パーティクルシステムとの連携</h3>
+<pre><code class="lang-csharp">public class ParticleMovement : IExpresserComponent
+{
+    private ResistedUniformMotion resistedMotion;
+    private AccelaratedUniformMotion acceleration;
+    private float lifetime = 0.0f;
+    private float maxLifetime = 5.0f;
+    
+    public bool SetUp(Object object__)
+    {
+        resistedMotion = object__.GetExpresserComponent&lt;ResistedUniformMotion&gt;();
+        acceleration = object__.GetExpresserComponent&lt;AccelaratedUniformMotion&gt;();
+        
+        // ランダムな初期速度
+        float angle = RandomNumberGenerator.GetValue(Math.Util.PI_F * 2.0f);
+        float speed = RandomNumberGenerator.Range(50.0f, 200.0f);
+        
+        resistedMotion.SetVelocityVectorFromPolarCoordinate(speed, angle, 0.98f);
+        
+        // 重力効果
+        acceleration.AccelVector = new Vector2(0.0f, -50.0f);
+        
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        lifetime += current_time.DeltaTime;
+        
+        if (lifetime &gt;= maxLifetime)
+        {
+            object__.Destroy();
+            return false;
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>効率的な計算</strong>: フレーム毎の最小限の計算による高速処理</li>
+<li><strong>メモリ管理</strong>: 自動生成されるコンポーネント参照による効率的なアクセス</li>
+<li><strong>ガベージ回避</strong>: Vector2やPoint2の再利用によるGC負荷軽減</li>
+<li><strong>条件分岐最適化</strong>: Active フラグによる不要な処理のスキップ</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<h3 id="フレームレート依存">フレームレート依存</h3>
+<ul>
+<li>一部のコンポーネントはフレームレートに依存します</li>
+<li>時間ベースの計算が必要な場合は current_time.DeltaTime を使用してください</li>
+</ul>
+<h3 id="コンポーネント依存関係">コンポーネント依存関係</h3>
+<ul>
+<li>各運動コンポーネントは適切なTransformコンポーネントが必要です</li>
+<li>RequiredExpresserComponent 属性で自動的に依存関係が解決されます</li>
+</ul>
+<h3 id="イージング完了の検知">イージング完了の検知</h3>
+<ul>
+<li>イージング完了はコールバックまたは手動チェックで検知してください</li>
+<li>rate &gt;= 1.0f で完了判定が行われます</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../Transform/README.html">Transform</a> - HasPosition、HasRotation、HasTransform、Vector2、Point2</li>
+<li><a href="../MathUtil/README.html">MathUtil</a> - 三角関数、数学計算</li>
+<li><a href="../Easing/README.html">Easing</a> - イージング関数</li>
+<li><a href="../TimeManager/README.html">TimeManager</a> - 時間管理</li>
+<li><a href="../ExpresserComponent/README.html">ExpresserComponent</a> - コンポーネントシステム</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../Physics/README.html">Physics</a> - 物理演算システム</li>
+<li><a href="../Animation/README.md">Animation</a> - アニメーションシステム</li>
+<li><a href="../Input/README.md">Input</a> - 入力による移動制御</li>
+<li><a href="../AI/README.md">AI</a> - AI駆動の移動パターン</li>
+</ul>
+<p>このモジュールにより、VaNillaエンジンで多彩で滑らかなオブジェクト移動を簡単に実装できます。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントについては、以下のリンクを参照してください：</p>
+<p><a href="https://your-docfx-site.github.io/api/VaNilla.Movement.html">VaNilla.Movement Namespace API Reference</a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Movement/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

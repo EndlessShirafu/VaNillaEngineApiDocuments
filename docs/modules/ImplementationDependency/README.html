@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ImplementationDependency </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ImplementationDependency ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ImplementationDependency/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="implementationdependency">ImplementationDependency</h1>
+
+<p>VaNillaエンジンの最下層に位置し、各プラットフォーム実装が直接依存するサードパーティライブラリや
+外部DLLを集中管理するモジュールです。このモジュールは、プラットフォーム固有の依存関係を
+整理し、バージョン管理と配布を容易にすることを目的としています。</p>
+<h2 id="概要">概要</h2>
+<p>ImplementationDependencyは、VaNillaのアーキテクチャにおいて特殊な位置を占めるモジュールです。
+通常のVaNillaモジュールとは異なり、これは外部ライブラリのバイナリやラッパーコードを
+保管・管理するための「倉庫」として機能します。</p>
+<h3 id="アーキテクチャ上の位置づけ">アーキテクチャ上の位置づけ</h3>
+<pre><code>VaNillaアプリケーション層
+    ↓
+VaNilla Interface層（プラットフォーム非依存）
+    ↓
+VaNilla Implementation層（DxLib/Unity）
+    ↓
+ImplementationDependency（サードパーティライブラリ）
+    ↓
+OS/プラットフォーム
+</code></pre>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="依存ライブラリの管理">依存ライブラリの管理</h3>
+<table>
+<thead>
+<tr>
+<th>カテゴリ</th>
+<th>説明</th>
+<th>対象ライブラリ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>バイナリ管理</strong></td>
+<td>DLL、SO、Dylibファイルの保管</td>
+<td>DxLibW.dll、その他ネイティブライブラリ</td>
+</tr>
+<tr>
+<td><strong>ラッパー管理</strong></td>
+<td>P/Invokeラッパーコード</td>
+<td>DxDLLW.cs（DxLib C#バインディング）</td>
+</tr>
+<tr>
+<td><strong>バージョン管理</strong></td>
+<td>ライブラリバージョンの追跡</td>
+<td>各ライブラリの更新履歴</td>
+</tr>
+<tr>
+<td><strong>配布管理</strong></td>
+<td>プラットフォーム別の配布設定</td>
+<td>x86/x64、Windows/Mac/Linux</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ディレクトリ構造">ディレクトリ構造</h2>
+<pre><code>ImplementationDependency/
+├── Implementation/          # プラットフォーム別実装
+│   └── DxLib/              # DxLib用実装
+│       └── DxDLLW.cs       # シンボリックリンク（実体はResource内）
+├── Resource/               # 実際のライブラリファイル
+│   └── DxLib/             # DxLibライブラリ群
+│       └── DxLibDotNet/   # DxLib .NET版
+│           ├── DxDLLW.cs          # C#ラッパー（P/Invoke定義）
+│           ├── DxLibW.dll         # 32bit版DxLibコアDLL
+│           ├── DxLibW_x64.dll     # 64bit版DxLibコアDLL
+│           └── DxLibWDotNet.dll   # .NET用アダプターDLL
+└── README.md
+</code></pre>
+<h2 id="管理対象ライブラリ">管理対象ライブラリ</h2>
+<h3 id="dxlibdxライブラリ">DxLib（DXライブラリ）</h3>
+<p>DxLibは、ゲーム開発用のマルチメディアライブラリで、VaNillaのDxLib実装の基盤となっています。</p>
+<pre><code class="lang-csharp">// DxDLLW.cs の一部
+namespace DxLibDLL
+{
+    public static class DX
+    {
+        // 定数定義
+        public const int TRUE = 1;
+        public const int FALSE = 0;
+        
+        // リソース上限
+        public const int MAX_IMAGE_NUM = 262144;
+        public const int MAX_SOUND_NUM = 32768;
+        public const int MAX_FONT_NUM = 256;
+        
+        // P/Invoke宣言
+        [DllImport(&quot;DxLibW.dll&quot;, CharSet = CharSet.Unicode)]
+        public static extern int DxLib_Init();
+        
+        [DllImport(&quot;DxLibW.dll&quot;, CharSet = CharSet.Unicode)]
+        public static extern int ProcessMessage();
+        // ... 多数のAPI定義
+    }
+}
+</code></pre>
+<h3 id="その他のライブラリ将来的な拡張">その他のライブラリ（将来的な拡張）</h3>
+<ul>
+<li><strong>物理エンジン</strong>: Box2D、Bullet Physics</li>
+<li><strong>オーディオ</strong>: OpenAL、FMOD</li>
+<li><strong>ネットワーク</strong>: ENet、RakNet</li>
+<li><strong>画像処理</strong>: FreeImage、stb_image</li>
+<li><strong>動画再生</strong>: FFmpeg、Theoraplay</li>
+</ul>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的な使用パターン">基本的な使用パターン</h3>
+<p>ImplementationDependencyは、通常のVaNillaモジュールとは異なり、直接使用されることはありません。
+代わりに、Implementation層のモジュールがこれらのライブラリを参照します。</p>
+<pre><code class="lang-csharp">// BasicRenderer/Implementation/DxLib/BasicRendererNative.cs での使用例
+using DxLibDLL;  // ImplementationDependencyからのラッパー
+
+public class BasicRendererNative : IBasicRenderer
+{
+    public void DrawTexture(int handle, float x, float y)
+    {
+        // DxLibのAPIを直接呼び出し
+        DX.DrawGraph((int)x, (int)y, handle, DX.TRUE);
+    }
+}
+</code></pre>
+<h3 id="プロジェクト設定">プロジェクト設定</h3>
+<h4 id="visual-studioプロジェクトでの参照設定">Visual Studioプロジェクトでの参照設定</h4>
+<pre><code class="lang-xml">&lt;Project&gt;
+  &lt;ItemGroup&gt;
+    &lt;!-- DxLibラッパーの参照 --&gt;
+    &lt;Compile Include=&quot;..\..\ImplementationDependency\Resource\DxLib\DxLibDotNet\DxDLLW.cs&quot;&gt;
+      &lt;Link&gt;External\DxDLLW.cs&lt;/Link&gt;
+    &lt;/Compile&gt;
+  &lt;/ItemGroup&gt;
+  
+  &lt;ItemGroup&gt;
+    &lt;!-- DLLファイルのコピー設定 --&gt;
+    &lt;Content Include=&quot;..\..\ImplementationDependency\Resource\DxLib\DxLibDotNet\DxLibW_x64.dll&quot;&gt;
+      &lt;CopyToOutputDirectory&gt;PreserveNewest&lt;/CopyToOutputDirectory&gt;
+    &lt;/Content&gt;
+  &lt;/ItemGroup&gt;
+&lt;/Project&gt;
+</code></pre>
+<h4 id="unity-プロジェクトでの設定">Unity プロジェクトでの設定</h4>
+<p>Unityプロジェクトでは、通常UnityのネイティブAPIを使用するため、
+ImplementationDependencyのライブラリは不要です。ただし、特殊なケースでは
+以下のように配置します：</p>
+<pre><code>Assets/
+├── Plugins/
+│   ├── x86/
+│   │   └── native_library.dll
+│   └── x86_64/
+│       └── native_library.dll
+└── Scripts/
+    └── NativeWrapper.cs
+</code></pre>
+<h2 id="ライブラリ更新手順">ライブラリ更新手順</h2>
+<h3 id="1-バージョン確認">1. バージョン確認</h3>
+<pre><code class="lang-powershell"># 現在のDLLバージョンを確認
+$dll = [System.Reflection.Assembly]::LoadFrom(&quot;DxLibW_x64.dll&quot;)
+$dll.GetName().Version
+</code></pre>
+<h3 id="2-新バージョンの配置">2. 新バージョンの配置</h3>
+<ol>
+<li>公式サイトから最新版をダウンロード</li>
+<li><code>Resource/[ライブラリ名]/</code>に配置</li>
+<li>必要に応じてラッパーコードを更新</li>
+</ol>
+<h3 id="3-互換性テスト">3. 互換性テスト</h3>
+<pre><code class="lang-csharp">public static class CompatibilityTest
+{
+    public static bool TestDxLibCompatibility()
+    {
+        try
+        {
+            // 基本的なAPI呼び出しテスト
+            int result = DX.SetOutApplicationLogValidFlag(DX.FALSE);
+            return result == 0;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($&quot;互換性エラー: {ex.Message}&quot;);
+            return false;
+        }
+    }
+}
+</code></pre>
+<h2 id="プラットフォーム別の考慮事項">プラットフォーム別の考慮事項</h2>
+<h3 id="windowsdxlib">Windows（DxLib）</h3>
+<pre><code class="lang-csharp">public static class WindowsPlatformSetup
+{
+    public static void ConfigureDxLib()
+    {
+        // 64bit/32bit自動選択
+        string dllName = Environment.Is64BitProcess ? 
+            &quot;DxLibW_x64.dll&quot; : &quot;DxLibW.dll&quot;;
+        
+        // DLLサーチパスの設定
+        string dllPath = Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory, 
+            &quot;Dependencies&quot;, 
+            dllName
+        );
+        
+        // Windows固有の設定
+        SetDllDirectory(Path.GetDirectoryName(dllPath));
+    }
+    
+    [DllImport(&quot;kernel32.dll&quot;, CharSet = CharSet.Unicode)]
+    private static extern bool SetDllDirectory(string lpPathName);
+}
+</code></pre>
+<h3 id="macoslinux将来対応">macOS/Linux（将来対応）</h3>
+<pre><code class="lang-csharp">public static class UnixPlatformSetup
+{
+    public static void ConfigureNativeLibraries()
+    {
+        // .so/.dylibファイルのロードパス設定
+        string libraryPath = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ?
+            &quot;libgame.dylib&quot; : &quot;libgame.so&quot;;
+        
+        // 環境変数でライブラリパスを設定
+        Environment.SetEnvironmentVariable(
+            RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? 
+                &quot;DYLD_LIBRARY_PATH&quot; : &quot;LD_LIBRARY_PATH&quot;,
+            Path.GetDirectoryName(libraryPath)
+        );
+    }
+}
+</code></pre>
+<h2 id="セキュリティ考慮事項">セキュリティ考慮事項</h2>
+<h3 id="dllハイジャック対策">DLLハイジャック対策</h3>
+<pre><code class="lang-csharp">public static class SecureDllLoader
+{
+    public static void LoadSecurely()
+    {
+        // 1. 絶対パスでのロード
+        string trustedPath = Path.GetFullPath(&quot;./Dependencies/&quot;);
+        
+        // 2. デジタル署名の検証
+        if (!VerifyAuthenticodeSignature(dllPath))
+        {
+            throw new SecurityException(&quot;信頼できないDLLです&quot;);
+        }
+        
+        // 3. ハッシュ値の検証
+        string expectedHash = &quot;SHA256:ABC123...&quot;;
+        if (!VerifyFileHash(dllPath, expectedHash))
+        {
+            throw new SecurityException(&quot;DLLが改ざんされています&quot;);
+        }
+    }
+}
+</code></pre>
+<h3 id="権限管理">権限管理</h3>
+<pre><code class="lang-csharp">public static class PermissionManager
+{
+    public static void ConfigureMinimalPermissions()
+    {
+        // 最小権限の原則
+        var permissionSet = new PermissionSet(PermissionState.None);
+        
+        // 必要な権限のみ追加
+        permissionSet.AddPermission(
+            new FileIOPermission(FileIOPermissionAccess.Read, dllPath));
+        
+        // サンドボックス内で実行
+        AppDomain.CurrentDomain.SetAppDomainPolicy(
+            PolicyLevel.CreateAppDomainLevel());
+    }
+}
+</code></pre>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="よくある問題">よくある問題</h3>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>原因</th>
+<th>解決方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DllNotFoundException</td>
+<td>DLLが見つからない</td>
+<td>出力ディレクトリにコピー設定を確認</td>
+</tr>
+<tr>
+<td>BadImageFormatException</td>
+<td>32/64bitミスマッチ</td>
+<td>プラットフォームターゲットを確認</td>
+</tr>
+<tr>
+<td>EntryPointNotFoundException</td>
+<td>APIバージョン不一致</td>
+<td>ラッパーコードとDLLバージョンを同期</td>
+</tr>
+<tr>
+<td>AccessViolationException</td>
+<td>メモリアクセス違反</td>
+<td>APIの使用方法を確認</td>
+</tr>
+</tbody>
+</table>
+<h3 id="デバッグ支援">デバッグ支援</h3>
+<pre><code class="lang-csharp">public static class DependencyDebugger
+{
+    public static void DiagnoseDependencies()
+    {
+        Console.WriteLine(&quot;=== 依存関係診断 ===&quot;);
+        
+        // アセンブリ情報
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        foreach (var assembly in assemblies)
+        {
+            Console.WriteLine($&quot;アセンブリ: {assembly.FullName}&quot;);
+        }
+        
+        // ネイティブDLL情報
+        var modules = Process.GetCurrentProcess().Modules;
+        foreach (ProcessModule module in modules)
+        {
+            if (module.FileName.EndsWith(&quot;.dll&quot;))
+            {
+                Console.WriteLine($&quot;DLL: {module.FileName} (v{module.FileVersionInfo.FileVersion})&quot;);
+            }
+        }
+        
+        // 環境情報
+        Console.WriteLine($&quot;プラットフォーム: {Environment.OSVersion}&quot;);
+        Console.WriteLine($&quot;64bit OS: {Environment.Is64BitOperatingSystem}&quot;);
+        Console.WriteLine($&quot;64bit プロセス: {Environment.Is64BitProcess}&quot;);
+    }
+}
+</code></pre>
+<h2 id="ベストプラクティス">ベストプラクティス</h2>
+<h3 id="バージョン管理">バージョン管理</h3>
+<ol>
+<li><strong>明示的なバージョン記録</strong>: 各ライブラリのバージョンをREADMEに記載</li>
+<li><strong>更新ログの維持</strong>: CHANGELOG.mdでの更新履歴管理</li>
+<li><strong>後方互換性の確保</strong>: 古いAPIのサポート期間を設定</li>
+</ol>
+<h3 id="ライブラリの選定基準">ライブラリの選定基準</h3>
+<ol>
+<li><strong>ライセンス互換性</strong>: MIT、BSD、zlibなどの寛容なライセンス</li>
+<li><strong>パフォーマンス</strong>: ゲーム用途に適した高速性</li>
+<li><strong>安定性</strong>: 実績のある成熟したライブラリ</li>
+<li><strong>メンテナンス状況</strong>: 活発に開発が続いているか</li>
+</ol>
+<h3 id="配布時の注意点">配布時の注意点</h3>
+<pre><code class="lang-xml">&lt;!-- ビルド後イベントでの依存ファイルコピー --&gt;
+&lt;Target Name=&quot;CopyDependencies&quot; AfterTargets=&quot;Build&quot;&gt;
+  &lt;ItemGroup&gt;
+    &lt;DependencyFiles Include=&quot;$(ProjectDir)..\..\ImplementationDependency\Resource\**\*.dll&quot; /&gt;
+  &lt;/ItemGroup&gt;
+  &lt;Copy SourceFiles=&quot;@(DependencyFiles)&quot; 
+        DestinationFolder=&quot;$(OutputPath)Dependencies\%(RecursiveDir)&quot; /&gt;
+&lt;/Target&gt;
+</code></pre>
+<h2 id="技術仕様">技術仕様</h2>
+<ul>
+<li><strong>管理方式</strong>: フォルダベースの静的管理</li>
+<li><strong>参照方式</strong>: プロジェクトファイルでの直接参照</li>
+<li><strong>バージョニング</strong>: Gitでのバイナリ管理（Git LFS推奨）</li>
+<li><strong>プラットフォーム</strong>: Windows（x86/x64）、将来的にmacOS/Linux対応</li>
+</ul>
+<hr>
+<p>ImplementationDependencyは、VaNillaエンジンの基盤となる外部ライブラリを
+適切に管理することで、安定したマルチプラットフォーム対応を実現します。
+このモジュールの慎重な管理により、VaNillaアプリケーションの
+移植性と保守性が大幅に向上します。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ImplementationDependency/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

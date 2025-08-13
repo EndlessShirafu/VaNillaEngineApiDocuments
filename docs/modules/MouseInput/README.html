@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>MouseInput モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="MouseInput モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/MouseInput/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="mouseinput-モジュール">MouseInput モジュール</h1>
+
+<p>MouseInputモジュールは、マウス入力の検出・管理機能を提供するモジュールです。ボタン状態の取得、座標情報の管理、ホイール操作、カーソル制御などの包括的なマウス機能をサポートします。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>マウスボタン入力</strong>: 左・中・右ボタンの押下状態検出</li>
+<li><strong>座標管理</strong>: カーソル位置の取得・設定</li>
+<li><strong>ホイール操作</strong>: 縦横スクロールホイールの検出</li>
+<li><strong>カーソル制御</strong>: 表示・非表示、移動制限、速度調整</li>
+<li><strong>ExpresserComponent統合</strong>: オブジェクト指向のマウス入力処理</li>
+</ul>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.MouseInput.html">VaNilla MouseInput APIリファレンス</a>をご覧ください。</p>
+<h2 id="対応プラットフォーム">対応プラットフォーム</h2>
+<ul>
+<li>✅ <strong>DxLib</strong>: フル機能実装済</li>
+<li>⚠️ <strong>Unity</strong>: 開発途中。Unity Input System統合</li>
+</ul>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="mouseinput-クラス静的api">MouseInput クラス（静的API）</h3>
+<p>システム全体のマウス入力を管理する静的クラスです。</p>
+<pre><code class="lang-csharp">public static class MouseInput
+{
+    // 初期化・更新
+    public static void Initialize();
+    public static void UpdateMouseState();
+    
+    // ボタン状態取得
+    public static bool JustDown(Button btn);    // 現フレームで押された
+    public static bool Down(Button btn);        // 押されている
+    public static bool JustUp(Button btn);      // 現フレームで離された
+    
+    // 座標取得・設定
+    public static float GetCursorX();
+    public static float GetCursorY();
+    public static Point2 GetCursor();
+    public static void SetCursorX(float x);
+    public static void SetCursorY(float y);
+    public static void SetCursor(Point2 point);
+    
+    // ホイール
+    public static float GetWheelScroll();           // 縦スクロール
+    public static float GetHorizontalWheelScroll(); // 横スクロール
+    
+    // カーソル制御
+    public static void SetForceCursorInnerWindow(bool flag);
+    public static bool GetForceCursorInnerWindow();
+    public static void SetMouseDispFlag(bool flag);
+    public static bool GetMouseDispFlag();
+    public static bool SetMouseCursorSpeed(float speed);
+    public static float GetMouseCursorSpeed();
+}
+</code></pre>
+<h3 id="button-列挙体">Button 列挙体</h3>
+<pre><code class="lang-csharp">public enum Button
+{
+    Left,    // 左ボタン
+    Middle,  // 中央ボタン（ホイールクリック）
+    Right,   // 右ボタン
+    NoUse,   // 未使用
+    MaxNum   // 最大数
+}
+</code></pre>
+<h3 id="mouseinputcomponentexpressercomponent">MouseInputComponent（ExpresserComponent）</h3>
+<p>オブジェクト指向のマウス入力処理を提供するコンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public class MouseInputComponent : IExpresserComponent
+{
+    // 静的APIのラッパー関数
+    public static bool JustDown(Button btn);
+    public static bool Down(Button btn);
+    public static bool JustUp(Button btn);
+    public static float GetCursorX();
+    public static float GetCursorY();
+    public static Point2 GetCursor();
+}
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的な使用例">基本的な使用例</h3>
+<pre><code class="lang-csharp">// ゲーム初期化時（一度のみ）
+MouseInput.Initialize();
+
+// 毎フレーム実行
+MouseInput.UpdateMouseState();
+
+// ボタン状態の確認
+if (MouseInput.JustDown(Button.Left))
+{
+    Logger.Log(&quot;左ボタンが押された&quot;);
+}
+
+if (MouseInput.Down(Button.Right))
+{
+    Logger.Log(&quot;右ボタンが押されている&quot;);
+}
+
+if (MouseInput.JustUp(Button.Middle))
+{
+    Logger.Log(&quot;中央ボタンが離された&quot;);
+}
+
+// 座標の取得
+float mouseX = MouseInput.GetCursorX();
+float mouseY = MouseInput.GetCursorY();
+Point2 mousePos = MouseInput.GetCursor();
+
+Logger.Log($&quot;マウス座標: ({mouseX}, {mouseY})&quot;);
+
+// ホイール操作の検出
+float wheelScroll = MouseInput.GetWheelScroll();
+if (wheelScroll &gt; 0)
+{
+    Logger.Log(&quot;ホイールを奥に回した&quot;);
+}
+else if (wheelScroll &lt; 0)
+{
+    Logger.Log(&quot;ホイールを手前に回した&quot;);
+}
+</code></pre>
+<h3 id="expressercomponentとしての使用">ExpresserComponentとしての使用</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(MouseInputComponent), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasClickHandler), auto_member_generate: true)]
+public partial class ClickableObject : Object
+{
+    public override bool SetUp()
+    {
+        return true;
+    }
+}
+
+[RequiredExpresserComponent(typeof(MouseInputComponent))]
+[RequiredExpresserComponent(typeof(HasPosition))]
+public class HasClickHandler : IExpresserComponent
+{
+    public bool Execute(Object object__, in Time current_time)
+    {
+        if (MouseInputComponent.JustDown(Button.Left))
+        {
+            var position = object__.GetExpresserComponent&lt;HasPosition&gt;();
+            var mousePos = MouseInputComponent.GetCursor();
+            
+            if (IsPointInObject(mousePos, position))
+            {
+                OnClicked();
+            }
+        }
+        return true;
+    }
+    
+    private void OnClicked()
+    {
+        Logger.Log(&quot;オブジェクトがクリックされた&quot;);
+    }
+}
+</code></pre>
+<h3 id="ドラッグドロップの実装例">ドラッグ&amp;ドロップの実装例</h3>
+<pre><code class="lang-csharp">public class DraggableComponent : IExpresserComponent
+{
+    private bool isDragging = false;
+    private Point2 dragOffset;
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        var position = object__.GetExpresserComponent&lt;HasPosition&gt;();
+        var mousePos = MouseInputComponent.GetCursor();
+        
+        if (MouseInputComponent.JustDown(Button.Left) &amp;&amp; IsPointInObject(mousePos, position))
+        {
+            isDragging = true;
+            dragOffset = new Point2(
+                mousePos.x - position.X,
+                mousePos.y - position.Y
+            );
+        }
+        
+        if (isDragging)
+        {
+            if (MouseInputComponent.Down(Button.Left))
+            {
+                // ドラッグ中の移動
+                position.X = mousePos.x - dragOffset.x;
+                position.Y = mousePos.y - dragOffset.y;
+            }
+            else
+            {
+                // ドラッグ終了
+                isDragging = false;
+            }
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="マウスカーソル制御">マウスカーソル制御</h3>
+<pre><code class="lang-csharp">// カーソルを非表示にする
+MouseInput.SetMouseDispFlag(false);
+
+// カーソルをウィンドウ内に制限
+MouseInput.SetForceCursorInnerWindow(true);
+
+// マウス感度を調整
+MouseInput.SetMouseCursorSpeed(0.5f); // 半分の速度
+
+// 特定の位置にカーソルを設定
+MouseInput.SetCursor(new Point2(100, 50));
+</code></pre>
+<h3 id="ホイール操作の詳細例">ホイール操作の詳細例</h3>
+<pre><code class="lang-csharp">// 縦スクロール（通常のホイール）
+float verticalScroll = MouseInput.GetWheelScroll();
+if (Math.Abs(verticalScroll) &gt;= 1.0f)
+{
+    if (verticalScroll &gt; 0)
+    {
+        ZoomIn(verticalScroll);
+    }
+    else
+    {
+        ZoomOut(-verticalScroll);
+    }
+}
+
+// 横スクロール（チルトホイール）
+float horizontalScroll = MouseInput.GetHorizontalWheelScroll();
+if (Math.Abs(horizontalScroll) &gt;= 1.0f)
+{
+    ScrollHorizontally(horizontalScroll);
+}
+</code></pre>
+<h2 id="注意事項">注意事項</h2>
+<h3 id="フレーム管理">フレーム管理</h3>
+<ul>
+<li><code>UpdateMouseState()</code>は毎フレーム<strong>最初</strong>に呼び出す必要があります</li>
+<li><code>JustDown</code>/<code>JustUp</code>は1フレームのみtrueを返します</li>
+</ul>
+<h3 id="座標系">座標系</h3>
+<ul>
+<li>座標はウィンドウのクライアント領域基準（左上が原点）</li>
+<li>DxLibとUnityで座標系の違いに注意</li>
+</ul>
+<h3 id="パフォーマンス">パフォーマンス</h3>
+<ul>
+<li>マウス状態の更新は軽量ですが、座標取得は必要な時のみ行うことを推奨</li>
+<li>ホイール値は現フレームでの変化量（累積値ではない）</li>
+</ul>
+<h2 id="プラットフォーム固有の特徴">プラットフォーム固有の特徴</h2>
+<h3 id="dxlib実装">DxLib実装</h3>
+<ul>
+<li>Windows APIを直接使用</li>
+<li>高精度なマウス入力対応</li>
+<li>ウィンドウフォーカス状態の自動管理</li>
+</ul>
+<h3 id="unity実装">Unity実装</h3>
+<ul>
+<li>Unity Input Systemとの統合</li>
+<li>マルチプラットフォーム対応</li>
+<li>UnityのUIシステムとの協調</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../Transform/README.html">Transform</a> - Point2型の座標表現</li>
+<li><a href="../TimeManager/README.html">TimeManager</a> - フレーム同期</li>
+<li><a href="../ExpresserComponent/README.html">ExpresserComponent</a> - コンポーネントシステム</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../ClickableRegion/README.html">ClickableRegion</a> - クリック可能領域管理</li>
+<li><a href="../MouseReact/README.html">MouseReact</a> - マウス反応コンポーネント</li>
+<li><a href="../PlayerInput/README.html">PlayerInput</a> - 抽象化された入力管理</li>
+</ul>
+<h2 id="拡張可能性">拡張可能性</h2>
+<ul>
+<li><strong>マルチマウス対応</strong>: 複数マウスデバイスの同時サポート</li>
+<li><strong>ジェスチャー認識</strong>: スワイプ、ピンチなどのマウスジェスチャー</li>
+<li><strong>カーソル画像変更</strong>: 状況に応じたカーソル画像の切り替え</li>
+<li><strong>入力履歴</strong>: マウス操作の記録・再生機能</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/MouseInput/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Action モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Action モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Action/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="action-モジュール">Action モジュール</h1>
+
+<p>Actionモジュールは、VaNillaオブジェクトにコールバック機能を提供するExpresserComponentです。特定の条件でコールバック関数を実行したり、ステータス変更時の処理を定義できます。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>アクションコールバック</strong>: 指定したフレーム範囲やステータスでコールバック関数を実行</li>
+<li><strong>ステータス変更コールバック</strong>: オブジェクトのステータスが変更された時のコールバック</li>
+<li><strong>属性ベースのコールバック収集</strong>: 属性を使用したコールバック関数の自動検索・登録</li>
+</ul>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="hasactioncallback">HasActionCallback</h3>
+<p>オブジェクトにアクションコールバック機能を付与するExpresserComponentです。</p>
+<p><strong>依存関係:</strong></p>
+<ul>
+<li><code>VaNilla.Time.HasFrameCounter</code> - フレームカウント管理</li>
+<li><code>VaNilla.Time.HasTimeSinceSetup</code> - セットアップからの経過時間管理</li>
+</ul>
+<h3 id="actioncallbackfunc-デリゲート">ActionCallbackFunc デリゲート</h3>
+<pre><code class="lang-csharp">public delegate void ActionCallbackFunc(
+    Object object__, 
+    in VaNilla.Time.Time current_time,
+    float time_since_setup,
+    int current_status__, 
+    int current_frame__);
+</code></pre>
+<p>アクション実行時に呼び出されるコールバック関数の型定義です。</p>
+<h3 id="statuschangedcallback-デリゲート">StatusChangedCallback デリゲート</h3>
+<pre><code class="lang-csharp">public delegate void StatusChangedCallback(
+    Object object__, 
+    in VaNilla.Time.Time current_time,
+    int past_status__,
+    int current_status__);
+</code></pre>
+<p>ステータス変更時に呼び出されるコールバック関数の型定義です。</p>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的な使用例">基本的な使用例</h3>
+<pre><code class="lang-csharp">// オブジェクトにHasActionCallbackコンポーネントを追加
+var hasActionCallback = myObject.GetExpresserComponent&lt;HasActionCallback&gt;();
+
+// アクションコールバックの追加
+hasActionCallback.AddActionCallback(
+    callback_func: MyActionCallback,
+    startFrame: 10,           // 10フレーム目から開始
+    endFrame: 100,            // 100フレーム目まで実行
+    callInterval: 5,          // 5フレーム間隔で実行
+    targetStatus: new List&lt;int&gt; { 1, 2 } // ステータス1または2の時のみ実行
+);
+
+// ステータス変更コールバックの追加
+hasActionCallback.AddStatusChangedCallback(MyStatusChangedCallback);
+
+void MyActionCallback(Object obj, in Time current_time, float time_since_setup, int status, int frame)
+{
+    // アクション実行時の処理
+    Logger.Log($&quot;Action executed at frame {frame}, status {status}&quot;);
+}
+
+void MyStatusChangedCallback(Object obj, in Time current_time, int past_status, int current_status)
+{
+    // ステータス変更時の処理
+    Logger.Log($&quot;Status changed from {past_status} to {current_status}&quot;);
+}
+</code></pre>
+<h3 id="ステータス制御">ステータス制御</h3>
+<pre><code class="lang-csharp">// ステータスを変更（自動的にStatusChangedCallbackが呼ばれる）
+hasActionCallback.CurrentStatus = 2;
+</code></pre>
+<h2 id="属性">属性</h2>
+<h3 id="actioncallbackattribute">ActionCallbackAttribute</h3>
+<p>クラスのメソッドにアクションコールバックとして自動登録させるための属性です。</p>
+<h3 id="statuschangedcallbackattribute">StatusChangedCallbackAttribute</h3>
+<p>クラスのメソッドにステータス変更コールバックとして自動登録させるための属性です。</p>
+<h2 id="実行条件">実行条件</h2>
+<p>アクションコールバックは以下の条件をすべて満たす場合に実行されます：</p>
+<ol>
+<li><strong>フレーム範囲</strong>: <code>startFrame</code> &lt;= 現在のフレーム &lt; <code>endFrame</code>（endFrame=0の場合は無制限）</li>
+<li><strong>呼び出し間隔</strong>: 現在のフレーム数が<code>callInterval</code>で割り切れる</li>
+<li><strong>ステータス</strong>: <code>targetStatus</code>が指定されている場合、現在のステータスがリストに含まれる</li>
+<li><strong>アクティブ状態</strong>: コンポーネントがアクティブである</li>
+</ol>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../TimeManager/README.html">TimeManager</a> - 時間管理</li>
+<li><a href="../ExpresserComponent/README.html">ExpresserComponent</a> - コンポーネントシステム</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<ul>
+<li>コールバック関数内で重い処理を行うとフレームレートに影響する可能性があります</li>
+<li>ステータス変更時のコールバックは即座に実行されるため、無限ループを避けるよう注意してください</li>
+<li>コールバック登録は動的に行えますが、実行中の変更には注意が必要です</li>
+</ul>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントについては、以下のリンクを参照してください：</p>
+<p><a href="https://your-docfx-site.github.io/api/VaNilla.ExecutingAction.html">VaNilla.ExecutingAction Namespace API Reference</a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Action/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

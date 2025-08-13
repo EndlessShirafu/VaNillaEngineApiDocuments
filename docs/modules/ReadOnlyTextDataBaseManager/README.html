@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ReadOnlyTextDataBaseManager モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ReadOnlyTextDataBaseManager モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ReadOnlyTextDataBaseManager/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="readonlytextdatabasemanager-モジュール">ReadOnlyTextDataBaseManager モジュール</h1>
+
+<p>ReadOnlyTextDataBaseManagerモジュールは、VaNillaエンジンの多言語対応テキストデータベース管理システムです。CSVファイルベースのテキストデータベースを管理し、enum型によるタイプセーフなテキスト取得とLocalizationシステムとの連携を提供します。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>多言語テキストデータベース</strong>: CSVファイルからの多言語テキスト管理</li>
+<li><strong>型安全なアクセス</strong>: enum型によるタイプセーフなテキストキー管理</li>
+<li><strong>自動コード生成</strong>: YAMLからの自動enum・データベース定義生成</li>
+<li><strong>Localization連携</strong>: VaNilla.Localizationモジュールとの完全統合</li>
+<li><strong>高速アクセス</strong>: Dictionary-based高速テキスト検索</li>
+</ul>
+<h2 id="実装状況">実装状況</h2>
+<p>✅ <strong>完了</strong>: 自動生成されたコードによる基本的なテキストデータベース機能が実装済みです。</p>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="readonlytextdatabasemanager-クラス">ReadOnlyTextDataBaseManager クラス</h3>
+<p>自動生成される静的クラスでテキストデータベース管理機能を提供します。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public static class ReadOnlyTextDataBaseManager
+{
+    /// &lt;summary&gt;
+    /// 読み取り専用テキストデータベースのenum定義です。
+    /// &lt;/summary&gt;
+    public enum DataBaseKind : int 
+    {
+        hoge,
+        piyo
+    }
+
+    /// &lt;summary&gt;
+    /// 読み取り専用テキストデータベースのキーを指定するenum定義群です。
+    /// &lt;/summary&gt;
+    public enum hoge : int
+    {
+        test0,
+        test1
+    }
+
+    public enum piyo : int
+    {
+        a,
+        b
+    }
+
+    /// &lt;summary&gt;
+    /// データベースの初期化処理です。
+    /// &lt;/summary&gt;
+    public static void Initialize();
+
+    /// &lt;summary&gt;
+    /// データベースの種別を指定してテキストを取得します。
+    /// &lt;/summary&gt;
+    public static string GetText(DataBaseKind db_kind, string key, VaNilla.Localization.LanguageType lang_type);
+
+    /// &lt;summary&gt;
+    /// データベースの種別をenum型で指定してテキストを取得します。
+    /// &lt;/summary&gt;
+    public static string GetText&lt;DataBaseKeyEnum&gt;(DataBaseKeyEnum key, VaNilla.Localization.LanguageType lang_type) 
+        where DataBaseKeyEnum : Enum;
+}
+</code></pre>
+<h2 id="データ構造">データ構造</h2>
+<h3 id="データベース定義構造">データベース定義構造</h3>
+<pre><code class="lang-csharp">// データベース情報マッピング
+static Dictionary&lt;int, VaNilla.Localization.LanguageTextDataBase&gt; database_info =
+new Dictionary&lt;int, VaNilla.Localization.LanguageTextDataBase&gt;()
+{
+    { (int)DataBaseKind.hoge, new VaNilla.Localization.LanguageTextDataBase(&quot;text/hoge.csv&quot;, &quot;hoge&quot;) },
+    { (int)DataBaseKind.piyo, new VaNilla.Localization.LanguageTextDataBase(&quot;text/piyo.csv&quot;, &quot;piyo&quot;) }
+};
+
+// enum型からデータベース情報への直接マッピング
+readonly static Dictionary&lt;Type, VaNilla.Localization.LanguageTextDataBase&gt; key_enum_type_database_info =
+new Dictionary&lt;Type, VaNilla.Localization.LanguageTextDataBase&gt;()
+{
+    { typeof(hoge), database_info[(int)DataBaseKind.hoge] },
+    { typeof(piyo), database_info[(int)DataBaseKind.piyo] }
+};
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的なテキスト取得">基本的なテキスト取得</h3>
+<pre><code class="lang-csharp">using VaNilla.DataBase;
+using VaNilla.Localization;
+
+// データベース初期化
+ReadOnlyTextDataBaseManager.Initialize();
+
+// DataBaseKind指定でのテキスト取得
+string text1 = ReadOnlyTextDataBaseManager.GetText(
+    ReadOnlyTextDataBaseManager.DataBaseKind.hoge, 
+    &quot;test0&quot;, 
+    LanguageType.Japanese
+);
+
+// enum型指定でのタイプセーフなテキスト取得（推奨）
+string text2 = ReadOnlyTextDataBaseManager.GetText(
+    ReadOnlyTextDataBaseManager.hoge.test1, 
+    LanguageType.English
+);
+
+string text3 = ReadOnlyTextDataBaseManager.GetText(
+    ReadOnlyTextDataBaseManager.piyo.a, 
+    LanguageType.Japanese
+);
+</code></pre>
+<h3 id="ゲーム開発での実用例">ゲーム開発での実用例</h3>
+<pre><code class="lang-csharp">public class LocalizedTextDisplay : IExpresserComponent
+{
+    private HasText textComponent;
+    private LanguageType currentLanguage = LanguageType.Japanese;
+    
+    // 表示するテキストキー
+    public ReadOnlyTextDataBaseManager.hoge TextKey { get; set; } = ReadOnlyTextDataBaseManager.hoge.test0;
+    
+    public bool SetUp(Object object__)
+    {
+        textComponent = object__.GetExpresserComponent&lt;HasText&gt;();
+        
+        // 初期テキスト設定
+        UpdateText();
+        
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        // 言語が変更されたかチェック
+        var newLanguage = LocalizationManager.GetCurrentLanguage();
+        if (newLanguage != currentLanguage)
+        {
+            currentLanguage = newLanguage;
+            UpdateText();
+        }
+        
+        return true;
+    }
+    
+    private void UpdateText()
+    {
+        string localizedText = ReadOnlyTextDataBaseManager.GetText(TextKey, currentLanguage);
+        textComponent.Text = localizedText;
+    }
+    
+    public void SetTextKey(ReadOnlyTextDataBaseManager.hoge newKey)
+    {
+        TextKey = newKey;
+        UpdateText();
+    }
+}
+</code></pre>
+<h3 id="ui要素での多言語対応">UI要素での多言語対応</h3>
+<pre><code class="lang-csharp">public class LocalizedButton : IExpresserComponent
+{
+    private HasText buttonText;
+    private ReadOnlyTextDataBaseManager.piyo buttonTextKey;
+    
+    public bool SetUp(Object object__)
+    {
+        buttonText = object__.GetExpresserComponent&lt;HasText&gt;();
+        buttonTextKey = ReadOnlyTextDataBaseManager.piyo.a; // デフォルトテキスト
+        
+        RefreshButtonText();
+        return true;
+    }
+    
+    public void SetButtonText(ReadOnlyTextDataBaseManager.piyo textKey)
+    {
+        buttonTextKey = textKey;
+        RefreshButtonText();
+    }
+    
+    private void RefreshButtonText()
+    {
+        var currentLang = LocalizationManager.GetCurrentLanguage();
+        buttonText.Text = ReadOnlyTextDataBaseManager.GetText(buttonTextKey, currentLang);
+    }
+    
+    // 言語変更イベントハンドラ
+    public void OnLanguageChanged(LanguageType newLanguage)
+    {
+        RefreshButtonText();
+    }
+}
+</code></pre>
+<h3 id="ダイアログシステムでの活用">ダイアログシステムでの活用</h3>
+<pre><code class="lang-csharp">public class DialogSystem : IExpresserComponent
+{
+    private HasText dialogText;
+    private Queue&lt;ReadOnlyTextDataBaseManager.hoge&gt; dialogQueue;
+    private LanguageType currentLanguage;
+    
+    public bool SetUp(Object object__)
+    {
+        dialogText = object__.GetExpresserComponent&lt;HasText&gt;();
+        dialogQueue = new Queue&lt;ReadOnlyTextDataBaseManager.hoge&gt;();
+        currentLanguage = LocalizationManager.GetCurrentLanguage();
+        
+        return true;
+    }
+    
+    public void AddDialog(ReadOnlyTextDataBaseManager.hoge dialogKey)
+    {
+        dialogQueue.Enqueue(dialogKey);
+    }
+    
+    public void ShowNextDialog()
+    {
+        if (dialogQueue.Count &gt; 0)
+        {
+            var nextDialog = dialogQueue.Dequeue();
+            string dialogContent = ReadOnlyTextDataBaseManager.GetText(nextDialog, currentLanguage);
+            dialogText.Text = dialogContent;
+        }
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        // 言語変更検知
+        var newLanguage = LocalizationManager.GetCurrentLanguage();
+        if (newLanguage != currentLanguage)
+        {
+            currentLanguage = newLanguage;
+            // 現在表示中のダイアログを更新
+            RefreshCurrentDialog();
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<h2 id="csvデータファイル形式">CSVデータファイル形式</h2>
+<h3 id="texthogecsv">text/hoge.csv</h3>
+<pre><code class="lang-csv">Key,Japanese,English,Chinese
+test0,テストメッセージ0,Test Message 0,测试消息0
+test1,テストメッセージ1,Test Message 1,测试消息1
+</code></pre>
+<h3 id="textpiyocsv">text/piyo.csv</h3>
+<pre><code class="lang-csv">Key,Japanese,English,Chinese
+a,オプションA,Option A,选项A
+b,オプションB,Option B,选项B
+</code></pre>
+<h2 id="自動コード生成">自動コード生成</h2>
+<p>このモジュールのコードは、YAML設定ファイルから自動生成されます。</p>
+<h3 id="設定例生成元yaml">設定例（生成元YAML）</h3>
+<pre><code class="lang-yaml">databases:
+  - name: &quot;hoge&quot;
+    csv_path: &quot;text/hoge.csv&quot;
+    keys:
+      - &quot;test0&quot;
+      - &quot;test1&quot;
+      
+  - name: &quot;piyo&quot;
+    csv_path: &quot;text/piyo.csv&quot;
+    keys:
+      - &quot;a&quot;
+      - &quot;b&quot;
+
+generation_settings:
+  namespace: &quot;VaNilla.DataBase&quot;
+  class_name: &quot;ReadOnlyTextDataBaseManager&quot;
+  output_path: &quot;ReadOnlyTextDataBaseManager/Interface/ReadOnlyTextDataBaseManager.cs&quot;
+</code></pre>
+<h3 id="コード生成プロセス">コード生成プロセス</h3>
+<pre><code class="lang-csharp">// CodeGeneratorによる自動生成
+public static class DatabaseCodeGenerator
+{
+    public static void GenerateFromYaml(string yamlPath, string outputPath)
+    {
+        var config = LoadYamlConfig(yamlPath);
+        
+        var code = GenerateManagerClass(config);
+        File.WriteAllText(outputPath, code);
+    }
+    
+    private static string GenerateManagerClass(DatabaseConfig config)
+    {
+        var sb = new StringBuilder();
+        
+        // ファイルヘッダー
+        sb.AppendLine(&quot;/// &lt;summary&gt;&quot;);
+        sb.AppendLine(&quot;/// ===== このファイルはプログラムによって生成されたコードです ===== ///&quot;);
+        sb.AppendLine(&quot;/// ===== 上書きされる恐れがあるので直接書き替えないでください ===== ///&quot;);
+        sb.AppendLine(&quot;/// &lt;/summary&gt;&quot;);
+        
+        // enum定義生成
+        foreach (var db in config.Databases)
+        {
+            GenerateEnumDefinition(sb, db);
+        }
+        
+        // Dictionary生成
+        GenerateDatabaseMappings(sb, config.Databases);
+        
+        // メソッド生成
+        GenerateMethods(sb);
+        
+        return sb.ToString();
+    }
+}
+</code></pre>
+<h2 id="高度な使用例">高度な使用例</h2>
+<h3 id="動的テキスト切り替えシステム">動的テキスト切り替えシステム</h3>
+<pre><code class="lang-csharp">public class DynamicTextSwitcher : IExpresserComponent
+{
+    private HasText textDisplay;
+    private Dictionary&lt;string, Enum&gt; textKeyMappings;
+    private string currentContext = &quot;default&quot;;
+    
+    public bool SetUp(Object object__)
+    {
+        textDisplay = object__.GetExpresserComponent&lt;HasText&gt;();
+        
+        // コンテキスト別テキストキーマッピング
+        textKeyMappings = new Dictionary&lt;string, Enum&gt;
+        {
+            { &quot;menu&quot;, ReadOnlyTextDataBaseManager.piyo.a },
+            { &quot;dialog&quot;, ReadOnlyTextDataBaseManager.hoge.test0 },
+            { &quot;error&quot;, ReadOnlyTextDataBaseManager.hoge.test1 }
+        };
+        
+        return true;
+    }
+    
+    public void SwitchContext(string context)
+    {
+        if (textKeyMappings.ContainsKey(context))
+        {
+            currentContext = context;
+            UpdateDisplayText();
+        }
+    }
+    
+    private void UpdateDisplayText()
+    {
+        var textKey = textKeyMappings[currentContext];
+        var currentLang = LocalizationManager.GetCurrentLanguage();
+        
+        string text = &quot;&quot;;
+        
+        // 型によって適切なGetTextメソッドを呼び出し
+        if (textKey is ReadOnlyTextDataBaseManager.hoge hogeKey)
+        {
+            text = ReadOnlyTextDataBaseManager.GetText(hogeKey, currentLang);
+        }
+        else if (textKey is ReadOnlyTextDataBaseManager.piyo piyoKey)
+        {
+            text = ReadOnlyTextDataBaseManager.GetText(piyoKey, currentLang);
+        }
+        
+        textDisplay.Text = text;
+    }
+}
+</code></pre>
+<h3 id="テキストプリロードシステム">テキストプリロードシステム</h3>
+<pre><code class="lang-csharp">public static class TextPreloader
+{
+    private static Dictionary&lt;Enum, Dictionary&lt;LanguageType, string&gt;&gt; preloadedTexts;
+    
+    public static void PreloadAllTexts()
+    {
+        preloadedTexts = new Dictionary&lt;Enum, Dictionary&lt;LanguageType, string&gt;&gt;();
+        
+        // 全てのhoge enumをプリロード
+        foreach (ReadOnlyTextDataBaseManager.hoge key in Enum.GetValues&lt;ReadOnlyTextDataBaseManager.hoge&gt;())
+        {
+            var langTexts = new Dictionary&lt;LanguageType, string&gt;();
+            foreach (LanguageType lang in Enum.GetValues&lt;LanguageType&gt;())
+            {
+                langTexts[lang] = ReadOnlyTextDataBaseManager.GetText(key, lang);
+            }
+            preloadedTexts[key] = langTexts;
+        }
+        
+        // 全てのpiyo enumをプリロード
+        foreach (ReadOnlyTextDataBaseManager.piyo key in Enum.GetValues&lt;ReadOnlyTextDataBaseManager.piyo&gt;())
+        {
+            var langTexts = new Dictionary&lt;LanguageType, string&gt;();
+            foreach (LanguageType lang in Enum.GetValues&lt;LanguageType&gt;())
+            {
+                langTexts[lang] = ReadOnlyTextDataBaseManager.GetText(key, lang);
+            }
+            preloadedTexts[key] = langTexts;
+        }
+    }
+    
+    public static string GetPreloadedText(Enum key, LanguageType language)
+    {
+        if (preloadedTexts?.ContainsKey(key) == true)
+        {
+            return preloadedTexts[key].GetValueOrDefault(language, &quot;&quot;);
+        }
+        
+        // フォールバック：直接取得
+        return key switch
+        {
+            ReadOnlyTextDataBaseManager.hoge hogeKey =&gt; ReadOnlyTextDataBaseManager.GetText(hogeKey, language),
+            ReadOnlyTextDataBaseManager.piyo piyoKey =&gt; ReadOnlyTextDataBaseManager.GetText(piyoKey, language),
+            _ =&gt; &quot;&quot;
+        };
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>高速辞書アクセス</strong>: Dictionary-basedによる O(1) テキスト検索</li>
+<li><strong>型安全性</strong>: enum使用による実行時エラーの回避</li>
+<li><strong>メモリ効率</strong>: 必要に応じたテキストのオンデマンド読み込み</li>
+<li><strong>キャッシュシステム</strong>: 頻繁にアクセスされるテキストのキャッシュ</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<h3 id="コード生成について">コード生成について</h3>
+<ul>
+<li>このクラスは自動生成されるため、直接編集してはいけません</li>
+<li>変更が必要な場合は元のYAML設定ファイルを修正してください</li>
+<li>再生成時に手動変更は失われます</li>
+</ul>
+<h3 id="enum型の使用">enum型の使用</h3>
+<ul>
+<li>テキストキーは常にenum型で指定することを推奨</li>
+<li>文字列での直接指定も可能ですが、タイプセーフティが失われます</li>
+<li>新しいテキストキーを追加する場合は、YAML設定を更新して再生成してください</li>
+</ul>
+<h3 id="csvファイル形式">CSVファイル形式</h3>
+<ul>
+<li>最初の列は必ず&quot;Key&quot;列である必要があります</li>
+<li>各言語の列名はLanguageTypeのenum値と一致している必要があります</li>
+<li>欠損した翻訳は空文字列として扱われます</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../Localization/README.html">Localization</a> - LanguageTextDataBase、LanguageType</li>
+<li><strong>VaNilla Core</strong> - 基本的なエンジン機能</li>
+<li><strong>CodeGenerator.py</strong> - 自動コード生成システム</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../Localization/README.html">Localization</a> - 多言語対応システム</li>
+<li><a href="../ExpresserComponent/README.html">ExpresserComponent</a> - コンポーネントシステム</li>
+<li><a href="../Text/README.md">Text</a> - テキスト表示機能</li>
+</ul>
+<p>このモジュールにより、多言語対応ゲームでのテキスト管理を型安全かつ効率的に行うことができます。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ReadOnlyTextDataBaseManager/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/CodeModifier/Nkf.Net/readme.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<h2 id="nkfnet">Nkf.Net</h2>
+<p>ものすごく古い漢字コード変換プログラムである nkf を .NET から簡単に利用するためのライブラリです.</p>
+<h2 id="機能">機能</h2>
+<p>Windows  x86/x64 / Linux x64 環境で 動作します。</p>
+<p>入力された日本語テキストが JIS SJIS EUC UTF-8 等を 自動的に認識して読み取りする事ができます。</p>
+<p>プログラムの中で そのファイルの エンコードを気にする事なく 日本語ファイルを読み込む事ができます。</p>
+<h2 id="コード例">コード例</h2>
+<h3 id="事前準備">事前準備</h3>
+<p><code>Nkf.Net</code> nuget パッケージを追加してください。</p>
+<h3 id="ファイルから読み込み">ファイルから読み込み</h3>
+<pre><code class="lang-C#">using (var sr = new Nkf.Net.NkfTextReader(fileName))
+{
+    string s = sr.ReadLine();
+    while(s != null) {
+        Console.WriteLine(s);
+        s = sr.ReadLine();
+    }
+}
+</code></pre>
+<h3 id="エンコードを気にせず-バイト配列を-日本語に変換します">エンコードを気にせず バイト配列を 日本語に変換します</h3>
+<pre><code class="lang-C#">
+string s = &quot;漢字テスト&quot;;
+
+byte[] bUTF8 = System.Text.Encoding.UTF8.GetBytes(s);
+byte[] bSJIS = System.Text.Encoding.GetEncoding(&quot;SJIS&quot;).GetBytes(s);
+byte[] bEUC = System.Text.Encoding.GetEncoding(&quot;EUC-JP&quot;).GetBytes(s);
+
+// どんなエンコードのバイト配列でも自動認識して文字を取得できます。
+Nkf.Net.NkfEncoding enc = new Nkf.Net.NkfEncoding();
+
+string s1 = enc.GetString(bUTF8);
+string s2 = enc.GetString(bSJIS);
+string s3 = enc.GetString(bEUC);
+
+Console.WriteLine(s1);
+Console.WriteLine(s2);
+Console.WriteLine(s3);
+</code></pre>
+<h3 id="nkf-の機能を直接利用してファイル変換する">nkf の機能を直接利用してファイル変換する</h3>
+<pre><code class="lang-C#">// ファイルをUTF8 変換（入力ファイルのエンコードは未指定）
+Nkf.Net.WrapNkf.SetNkfOption(&quot;-w&quot;);	// UTF-8
+Nkf.Net.WrapNkf.FileConvert2(inFile, outFile);
+</code></pre>
+<h2 id="ライセンス">ライセンス</h2>
+<p>This software is released under the MIT License, see LICENSE.txt.
+このソフトウェアは、MITライセンスのもとで公開されています。</p>
+<p>LICENSE.txtをご覧ください。</p>
+<p>同梱の nkf32.dll は gzip ライセンスのもと公開されています。</p>
+<p>同梱の nkf32.dll はオリジナルの nkf32.dll</p>
+<p><a href="http://sourceforge.jp/projects/nkf/">http://sourceforge.jp/projects/nkf/</a></p>
+<p>に「マルチスレッド対応」「x86/x64どちらでも動作可能」の機能を追加したバージョンを利用しています。</p>
+<p>機能追加版のソース管理URL</p>
+<p><a href="https://github.com/kkato233/nkf">https://github.com/kkato233/nkf</a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/CodeModifier/Nkf.Net/readme.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

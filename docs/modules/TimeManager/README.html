@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>TimeManager </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="TimeManager ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/TimeManager/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="timemanager">TimeManager</h1>
+
+<p>VaNillaエンジン内において時間を管理するためのモジュールです。<br>
+また、時間に関するユーティリティも提供します。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.Time.html">VaNilla TimeManager APIリファレンス</a>をご覧ください。</p>
+<h3 id="用途と特徴">用途と特徴</h3>
+<p>VaNillaエンジン内部のコード上で取り扱う時間情報は、すべて本モジュールの <code>TimeManager</code> クラスから得られた情報を原資とします。<code>TimeManager</code> は抽象化されたstatic なAPIを提供しており、ユーザーは下回りの時間管理実装がどのようになっているかを気にする必要はありません。</p>
+<p>また、VaNillaエンジンのコード上のどこからでも<code>TimeManager.GetCurrentTime()</code> を参照することができます。</p>
+<h3 id="主な機能">主な機能</h3>
+<ul>
+<li>エンジン内での時間管理</li>
+<li>現在時刻の取得</li>
+<li>時刻情報の更新</li>
+<li>ある時間Aからある時間Bまで間の時間帯について、現在時刻がA-B内の時間帯内に存在するか否かを検査する機能</li>
+<li>任意のタイミングで開始・一時停止・停止を制御できるユーザ定義タイマー</li>
+</ul>
+<h3 id="時間スパン機能">時間スパン機能</h3>
+<p>ある時間Aからある時間Bまで間の時間帯について、現在時刻がA-B内の時間帯内に存在するか否かを検査する機能です。
+本機能を利用することで、カジュアルに時間に関する制御を行うことが可能です。</p>
+<p>さらに高度な時間制御を行いたい場合には、<a href="../Task/README.html">VaNilla.VaNillaAsyncTask</a> の利用をお勧めします。</p>
+<h4 id="使い方">使い方</h4>
+<p>以下に、疑似コードで時間スパン機能の典型的な使い方を示します。</p>
+<pre><code class="lang-csharp">
+namespace PseudoApplication /* アプリケーション用の名前空間。特別な意味はない */
+{
+    [AutoGenerateConstructor]
+    public partial class TimeSpanTest : Object /* Objectを継承したテスト用のオブジェクト */
+    {
+        private VaNilla.TimeSpan time_span; /* 時間スパン変数。初期状態ではIsActivated() == false */
+
+        ///&lt;summary&gt;
+        ///生成処理関数です。
+        ///&lt;/summary&gt;
+        public override bool SetUp()
+        {
+            /* ここでは例として、1秒後に時間スパン終了とする */
+            time_span = new TimeSpan(TimeManager.GetCurrentTime(), 1.0f);
+            return true;
+        }
+        
+        ///&lt;summary&gt;
+        ///定期処理関数です。
+        ///&lt;/summary&gt;
+        public override bool Execute(in Time current_time)
+        {
+            if (time_span.IsActivated() &amp;&amp; time_span.IsSpanEnd(current_time))
+            {
+                /* 時間スパンが終了したらやる処理を記述する */
+                /* 例：Objectの破棄 */
+                ObjectActivator.Deactivate(this);
+                return false;
+            }
+            return true;
+        }
+        ///&lt;summary&gt;
+        ///破棄処理関数です。
+        ///&lt;/summary&gt;
+        public override void TearDown(){
+
+            return;
+        }
+    }
+}
+</code></pre>
+<h3 id="ユーザ定義タイマー">ユーザ定義タイマー</h3>
+<p>任意のタイミングでの開始・一時停止・停止を制御できるタイマーを複数個作成し、管理することが出来る機能です。
+このタイマーを「ユーザ定義タイマー」と呼びます。</p>
+<p>ユーザ定義タイマーを生成するためには、あらかじめ<code>UserTimerType</code>のenum定義をyamlから生成しておく必要があります。
+<code>Fixture/Script/convert.py</code>は、ユーザ定義タイマーのyamlから<code>UserTimerType</code>のenum定義を生成するためのpythonスクリプトです。
+上記スクリプトで<code>UserTimerType</code>のenum定義を事前生成しない場合、コンパイルエラーとなるので注意が必要です。</p>
+<p><code>UserTimerManager</code>は、ユーザ定義タイマーを管理するためのstaticクラスです。
+<code>UserTimerType</code>を指定してユーザ定義タイマーを登録することができます。
+登録したユーザ定義タイマーは、以後<code>GetRegisteredUserTimer</code> APIで自由に参照することが可能です。</p>
+<p>登録したユーザ定義タイマーは、<code>Start</code>/<code>Stop</code>/<code>Pause</code> APIで自由に制御することができます。
+上記APIの呼び出しによって、ユーザ定義タイマーの状態が変化します。</p>
+<h4 id="状態">状態</h4>
+<p>下記に、ユーザ定義タイマーの状態について示します。</p>
+<ul>
+<li>Stopped 状態
+<ul>
+<li>登録直後の初期状態です。</li>
+<li>本状態では、ユーザ定義タイマーから取得される<code>frame_count</code>や<code>current_time</code>などのフィールドはすべて<code>0</code>となります。</li>
+<li>本状態では、タイマー内部の時間が経過することはありません。</li>
+</ul>
+</li>
+<li>Started 状態
+<ul>
+<li>Stopped状態から遷移可能な状態です。</li>
+<li>本状態では、ユーザ定義タイマーから取得される<code>frame_count</code>や<code>current_time</code>などのフィールドは常に加算され続けます。</li>
+<li>フィールドの加算幅は<code>TimeManager</code>から取得されるタイマーの増分に従います。</li>
+<li>本状態からは、Stopped状態かPause状態に遷移可能です。</li>
+</ul>
+</li>
+<li>Paused状態
+<ul>
+<li>Started状態から遷移可能な状態です。一時停止状態を示します。</li>
+<li>本状態では、<code>frame_count</code>や<code>current_time</code>などのフィールドは<code>Pause</code>APIを呼ぶ直前の値が保持され続けます。</li>
+<li>本状態から<code>Start</code>APIを実行すると、フィールドの値を保持した状況から時刻の加算を再開し、Started状態に遷移します。</li>
+<li>本状態から<code>Stop</code> APIを実行すると、フィールドの値は初期値に戻り、Stopped状態に遷移します。</li>
+</ul>
+</li>
+</ul>
+<h4 id="使い方-1">使い方</h4>
+<p>以下に、疑似コードでユーザ定義タイマー機能の典型的な使い方を示します。</p>
+<pre><code class="lang-csharp">
+/* VaNilla.Async による使用部分のみ抜粋して記載 */
+
+/* テスト用タスクその1 */
+private async VaNillaAsyncTask test_task_01()
+{
+    /* ユーザ定義タイマーの登録(UserTimerType.TestTimer01という定義がある前提) */
+    UserTimer user_timer =  UserTimerManager.RegisterUserTimer(UserTimerType.TestTimer01);
+
+    Time current_time = user_timer.GetCurrentTime(); /* 初期時刻の取得(current_time == 0, frame_count == 0) */
+    user_timer.Start(); /* ユーザ定義タイマーの開始 */
+
+    await new WaitForTimeSpanEnd(1.0f); /* 1.0f秒待つ */
+
+    user_timer.Pause(); /* ユーザー定義タイマーの一時中断 */
+    current_time = user_timer.GetCurrentTime(); /* ポーズ直後の時刻の取得 */
+
+    await new WaitForTimeSpanEnd(1.0f); /* 1.0f秒待つ */
+    current_time = user_timer.GetCurrentTime(); /* ポーズ中は時間が経過しても、取得される時間は変化しない */
+
+    user_timer.Start(); /* 中断された箇所から「再開」 */
+    await new WaitForTimeSpanEnd(1.0f); /* 1.0f秒待つ */
+    current_time = user_timer.GetCurrentTime(); /* 再開後、1.0f秒経過後の時間が取得される */
+
+    user_timer.Stop(); /* ユーザ定義タイマーの完全停止 */
+}
+
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/TimeManager/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

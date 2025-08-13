@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Renderer </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Renderer ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Renderer/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="renderer">Renderer</h1>
+
+<p>VaNillaエンジンの中核となる描画システムモジュールです。プラットフォームに依存しない統一されたAPIを通じて、2D/3Dグラフィックスの描画を行います。</p>
+<h2 id="概要">概要</h2>
+<p>Rendererモジュールは、VaNillaエンジンの描画哲学である「明示的描画」を実現する静的APIを提供します。従来のゲームエンジンのようなオブジェクトベースの自動描画ではなく、開発者が描画タイミングと内容を完全にコントロールできる設計になっています。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.Renderer.html">VaNilla Renderer APIリファレンス</a>をご覧ください。</p>
+<h3 id="アーキテクチャ">アーキテクチャ</h3>
+<pre><code>Renderer/
+├── Interface/          # プラットフォーム非依存のAPI定義
+│   ├── Utils.cs       # 主要な描画API (静的メソッド群)
+│   ├── DrawObject.cs  # 描画オブジェクトパターン実装
+│   ├── Color3.cs      # RGB色構造体
+│   └── Color4.cs      # RGBA色構造体
+└── Implementation/     # プラットフォーム固有実装
+    ├── DxLib/         # DxLibバックエンド
+    └── Unity/         # Unityバックエンド
+</code></pre>
+<h2 id="設計思想">設計思想</h2>
+<h3 id="明示的描画-explicit-rendering">明示的描画 (Explicit Rendering)</h3>
+<p>VaNillaエンジンでは、「描画命令を明示的に発行した場合だけ、描画を行う」という考え方を採用しています。</p>
+<p><strong>従来のゲームエンジン:</strong></p>
+<ul>
+<li>オブジェクトにマテリアルを割り当て</li>
+<li>レンダラーコンポーネントを追加</li>
+<li>エンジンが自動的に描画</li>
+</ul>
+<p><strong>VaNillaエンジン:</strong></p>
+<ul>
+<li>描画タイミングを完全制御</li>
+<li><code>Object</code>の存在は不要</li>
+<li>描画命令の直接発行</li>
+</ul>
+<p>この設計により、以下が可能になります：</p>
+<ul>
+<li>複雑な描画ロジックの実装</li>
+<li>動的な描画内容の変更</li>
+<li>パフォーマンスの最適化</li>
+<li>特殊なエフェクトの実現</li>
+</ul>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="1-テクスチャ描画">1. テクスチャ描画</h3>
+<p>基本的な描画から高度な描画まで、豊富なオーバーロードを提供：</p>
+<pre><code class="lang-csharp">// シンプルな描画
+Utils.Draw(x, y, textureType);
+
+// 詳細なパラメータ指定
+Utils.Draw(
+    x: 100, y: 200,
+    texture_type: TextureResourceType.Player,
+    origin: DrawOrigin.Center,
+    shader: ShaderManager.ShaderEnum.ALPHA,
+    rot_radian: MathUtil.DegreeToRadian(45),
+    extend_rate_x: 2.0f, extend_rate_y: 2.0f,
+    red: 1.0f, green: 0.5f, blue: 0.5f, alpha: 0.8f,
+    reverse_x: false, reverse_y: true
+);
+
+// 色構造体を使用した描画
+Utils.Draw(x, y, texture, new Color4(1, 0, 0, 0.5f));
+</code></pre>
+<h3 id="2-高度な描画機能">2. 高度な描画機能</h3>
+<h4 id="任意軸回転描画">任意軸回転描画</h4>
+<pre><code class="lang-csharp">Utils.DrawRot(x, y, texture,
+    rot_radian_x: 0.5f,
+    rot_radian_y: 1.0f,
+    rot_radian_z: 0.3f
+);
+</code></pre>
+<h4 id="4点座標指定描画">4点座標指定描画</h4>
+<pre><code class="lang-csharp">// 自由変形描画
+Utils.Draw(
+    x0, y0,  // 左上
+    x1, y1,  // 右上
+    x2, y2,  // 右下
+    x3, y3,  // 左下
+    textureType
+);
+</code></pre>
+<h4 id="バッチ描画">バッチ描画</h4>
+<pre><code class="lang-csharp">// 大量のスプライトを効率的に描画
+Point2[] positions = /* ... */;
+Point2[] uvs = /* ... */;
+Utils.Draw(positions, uvs, texture,
+    primitive_type: DrawPrimitiveType.TriangleList
+);
+</code></pre>
+<h3 id="3-プリミティブ描画">3. プリミティブ描画</h3>
+<pre><code class="lang-csharp">// 矩形
+Utils.DrawBox(x, y, width, height,
+    origin: DrawOrigin.Center,
+    fill_flag: true,
+    color: Color4.red
+);
+
+// 円
+Utils.DrawCircle(centerX, centerY, radius,
+    fill_flag: false,  // 輪郭のみ
+    color: new Color4(0, 1, 0, 0.5f)
+);
+
+// 線
+Utils.DrawLine(startX, startY, endX, endY,
+    thickness: 3.0f,
+    color: Color4.blue
+);
+
+// 三角形
+Utils.DrawTriangle(x0, y0, x1, y1, x2, y2,
+    fill_flag: true,
+    color: Color4.white
+);
+</code></pre>
+<h3 id="4-文字列描画">4. 文字列描画</h3>
+<pre><code class="lang-csharp">// 基本的な文字列描画
+Utils.DrawString(x, y, &quot;Hello VaNilla!&quot;,
+    font_type: FontResourceType.Default
+);
+
+// ルビ付き日本語描画
+Utils.DrawString(x, y, &quot;振り仮名|ふりがな|付きテキスト&quot;,
+    font_type: FontResourceType.Japanese,
+    analyze_japanese_ruby: true,
+    japanese_ruby_font: rubyFont
+);
+</code></pre>
+<h3 id="5-特殊効果">5. 特殊効果</h3>
+<h4 id="円形ゲージ">円形ゲージ</h4>
+<pre><code class="lang-csharp">// HPバーやタイマーなどに使用
+Utils.DrawCircleGauge(x, y, gaugeTexture,
+    gauge_percentage: 0.75f,    // 75%表示
+    start_percentage: 0.0f,     // 開始位置
+    extend_rate: 1.5f
+);
+</code></pre>
+<h2 id="描画パラメータ詳細">描画パラメータ詳細</h2>
+<h3 id="draworigin-描画原点">DrawOrigin (描画原点)</h3>
+<ul>
+<li><code>UpLeft</code>: 左上を原点として描画</li>
+<li><code>Center</code>: 中央を原点として描画</li>
+</ul>
+<h3 id="shaderenum-合成モード">ShaderEnum (合成モード)</h3>
+<ul>
+<li><code>ALPHA</code>: アルファブレンド（標準）</li>
+<li><code>ADD</code>: 加算合成</li>
+<li><code>MULTIPLY</code>: 乗算合成</li>
+<li><code>SUBTRACT</code>: 減算合成</li>
+<li><code>SCREEN</code>: スクリーン合成</li>
+<li><code>INVSRC</code>: 反転合成</li>
+</ul>
+<h3 id="色指定">色指定</h3>
+<ul>
+<li><code>Color3</code>: RGB値（0.0～1.0）</li>
+<li><code>Color4</code>: RGBA値（0.0～1.0）</li>
+<li>定義済み色定数: <code>Color4.red</code>, <code>Color4.green</code>, <code>Color4.blue</code>, <code>Color4.black</code>, <code>Color4.white</code></li>
+</ul>
+<h2 id="パフォーマンス機能">パフォーマンス機能</h2>
+<h3 id="ドローコール監視">ドローコール監視</h3>
+<pre><code class="lang-csharp">int drawCalls = Utils.GetDrawCallCount();
+</code></pre>
+<h3 id="drawobjectパターン実験的機能">DrawObjectパターン（実験的機能）</h3>
+<p><code>ENABLE_DRAW_OBJECT_TEST</code>定義時に利用可能な、Fluent APIスタイルの描画：</p>
+<pre><code class="lang-csharp">DrawObjectCache.GetTextureObject()
+    .Clear()
+    .Texture(texture)
+    .Shader(ShaderManager.ShaderEnum.ADD)
+    .Color(1, 0.5f, 0.5f)
+    .Alpha(0.8f)
+    .Draw(x, y, rotation);
+</code></pre>
+<h2 id="使用例">使用例</h2>
+<h3 id="基本的なゲームオブジェクトの描画">基本的なゲームオブジェクトの描画</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(PlayerRenderComponent), auto_member_generate: true)]
+public partial class Player : VaNilla.Object
+{
+    public override bool SetUp()
+    {
+        hasPosition.Position = new Point2(320, 240);
+        return true;
+    }
+}
+
+[RequiredExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
+public partial class PlayerRenderComponent : IExpresserComponent
+{
+    public bool Active { get; set; }
+    public Execute.ExecuteType ExecuteType { get; set; }
+    
+    private float currentHp = 100f;
+    private float maxHp = 100f;
+
+    public bool Execute(Object associated_object, in Time.Time current_time)
+    {
+        // プレイヤーの描画
+        Utils.Draw(
+            hasPosition.Position.X, hasPosition.Position.Y,
+            TextureResourceType.Player,
+            origin: DrawOrigin.Center
+        );
+        
+        // HPバーの描画
+        float hpRatio = currentHp / maxHp;
+        Utils.DrawBox(
+            hasPosition.Position.X - 50, hasPosition.Position.Y - 60,
+            100 * hpRatio, 10,
+            origin: DrawOrigin.UpLeft,
+            color: new Color4(1 - hpRatio, hpRatio, 0)
+        );
+        
+        return true;
+    }
+    
+    public bool SetUp(Object associated_object) { return true; }
+    public void TearDown(Object associated_object) { }
+    public void HoldAssociatedObject(Object associated_object) { }
+    public void ReleaseAssociatedObject(Object associated_object) { }
+    public void GetComponentForSetUp(Object associated_object) { }
+    public void ReleaseComponentForTearDown(Object associated_object) { }
+}
+</code></pre>
+<h3 id="エフェクトの描画">エフェクトの描画</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(ParticleEffectComponent), auto_member_generate: true)]
+public partial class ParticleEffect : VaNilla.Object
+{
+    public override bool SetUp()
+    {
+        return true;
+    }
+}
+
+public class ParticleEffectComponent : IExpresserComponent
+{
+    public bool Active { get; set; }
+    public Execute.ExecuteType ExecuteType { get; set; }
+    
+    private List&lt;Particle&gt; particles = new List&lt;Particle&gt;();
+
+    public bool Execute(Object associated_object, in Time.Time current_time)
+    {
+        // 加算合成で光るエフェクト
+        foreach (var particle in particles)
+        {
+            Utils.Draw(
+                particle.X, particle.Y,
+                TextureResourceType.Particle,
+                shader: ShaderManager.ShaderEnum.ADD,
+                alpha: particle.Life,
+                extend_rate_x: particle.Scale,
+                extend_rate_y: particle.Scale
+            );
+        }
+        
+        return true;
+    }
+    
+    public bool SetUp(Object associated_object) { return true; }
+    public void TearDown(Object associated_object) { }
+    public void HoldAssociatedObject(Object associated_object) { }
+    public void ReleaseAssociatedObject(Object associated_object) { }
+    public void GetComponentForSetUp(Object associated_object) { }
+    public void ReleaseComponentForTearDown(Object associated_object) { }
+}
+</code></pre>
+<h3 id="動的な描画パラメータ制御">動的な描画パラメータ制御</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(IsChangeableAlpha), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(IsChangeableColor), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(DynamicRenderComponent), auto_member_generate: true)]
+public partial class FadingObject : Object
+{
+    public override bool SetUp()
+    {
+        hasPosition.Position = new Point2(100, 100);
+        isChangeableAlpha.Alpha = 1.0f;
+        isChangeableColor.Color = new Color3(1, 1, 1);
+        return true;
+    }
+}
+
+[RequiredExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
+[RequiredExpresserComponent(typeof(IsChangeableAlpha), auto_member_generate: true)]
+[RequiredExpresserComponent(typeof(IsChangeableColor), auto_member_generate: true)]
+public partial class DynamicRenderComponent : IExpresserComponent
+{
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; } = Execute.ExecuteType.Render;
+    
+    public bool Execute(Object associated_object, in Time.Time current_time)
+    {
+        // フェードアウト効果
+        isChangeableAlpha.Alpha -= 0.01f * current_time.DeltaTime;
+        if (isChangeableAlpha.Alpha &lt;= 0) isChangeableAlpha.Alpha = 0;
+        
+        // 色の変化
+        isChangeableColor.Color = new Color3(
+            MathF.Sin(current_time.TotalTime) * 0.5f + 0.5f,
+            MathF.Cos(current_time.TotalTime) * 0.5f + 0.5f,
+            1.0f
+        );
+        
+        // 描画
+        Utils.Draw(
+            hasPosition.Position.X, hasPosition.Position.Y,
+            TextureResourceType.TestSprite,
+            origin: BasicRenderer.DrawOrigin.Center,
+            red: isChangeableColor.Color.R,
+            green: isChangeableColor.Color.G,
+            blue: isChangeableColor.Color.B,
+            alpha: isChangeableAlpha.Alpha
+        );
+        
+        return true;
+    }
+    
+    public bool SetUp(Object associated_object) { return true; }
+    public void TearDown(Object associated_object) { }
+    public void HoldAssociatedObject(Object associated_object) { }
+    public void ReleaseAssociatedObject(Object associated_object) { }
+    public void GetComponentForSetUp(Object associated_object) { }
+    public void ReleaseComponentForTearDown(Object associated_object) { }
+}
+</code></pre>
+<h2 id="注意事項">注意事項</h2>
+<ol>
+<li><strong>描画順序</strong>: 描画命令は呼び出し順序で実行されます</li>
+<li><strong>座標系</strong>: スクリーン座標系を使用（左上が原点）</li>
+<li><strong>回転</strong>: ラジアン単位で指定</li>
+<li><strong>色値</strong>: 0.0～1.0の範囲で指定（0～255ではない）</li>
+<li><strong>パフォーマンス</strong>: バッチ描画APIを使用することで、大量のスプライト描画を最適化可能</li>
+</ol>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../TextureResourceManager/README.html">TextureResourceManager</a> - テクスチャリソース管理</li>
+<li><a href="../ShaderFactory/README.html">ShaderFactory</a> - シェーダー管理</li>
+<li><a href="../FontResourceManager/README.html">FontResourceManager</a> - フォントリソース管理</li>
+<li><a href="../BasicRenderer/README.md">BasicRenderer</a> - ExpresserComponentベースの自動描画</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Renderer/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

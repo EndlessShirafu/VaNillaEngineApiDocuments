@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>STEP 0: 開発準備 &amp; 基本操作 </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="STEP 0: 開発準備 &amp; 基本操作 ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTutorial/BasicShootEmUp/STEP0_DevelopmentPreparation/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="step-0-開発準備--基本操作">STEP 0: 開発準備 &amp; 基本操作</h1>
+
+<p>VaNillaエンジンで2Dシューティングゲームを作る最初のステップへようこそ！
+このステップでは、開発環境の準備とVaNillaエンジンの正しいアーキテクチャを学びます。</p>
+<h2 id="-このステップで学ぶこと">🎯 このステップで学ぶこと</h2>
+<ul>
+<li>VaNillaエンジンのプロジェクト構成</li>
+<li>正しいObjectクラスの継承方法</li>
+<li>ExpresserComponentシステムの基本</li>
+<li>最初のプログラムの実行方法</li>
+</ul>
+<h2 id="-プロジェクト構成">📁 プロジェクト構成</h2>
+<p>VaNillaプロジェクトは以下の構造を持ちます：</p>
+<pre><code>STEP0_DevelopmentPreparation/
+├── src/                          # ソースコード
+│   ├── Main.cs                  # エントリーポイント
+│   ├── Game.cs                  # ゲームオブジェクト
+│   └── GameLogicComponent.cs    # ゲームロジック（ExpresserComponent）
+├── assets/                       # ゲームで使用するリソース
+│   ├── image/                   # 画像ファイル
+│   └── sound/                   # 音声ファイル
+├── VaNillaSettings/             # エンジン設定
+│   └── VaNillaSettings.yaml     # 設定ファイル
+└── README.md                    # このファイル
+</code></pre>
+<h2 id="-はじめてのvanillaプログラム">🚀 はじめてのVaNillaプログラム</h2>
+<h3 id="1-gamecs---ゲームオブジェクトの作成">1. Game.cs - ゲームオブジェクトの作成</h3>
+<p><code>src/Game.cs</code>を以下の内容で作成します：</p>
+<pre><code class="lang-csharp">using System;
+using VaNilla;
+
+namespace Tutorial
+{
+    /// &lt;summary&gt;
+    /// ゲームのメインクラス
+    /// VaNillaでは、Objectクラスを直接継承します（BasicObjectは使用しません）
+    /// [AutoGenerateConstructor]属性により、コンストラクタが自動生成されます
+    /// [DefaultExpresserComponent]属性により、GameLogicComponentが自動的に追加されます
+    /// &lt;/summary&gt;
+    [AutoGenerateConstructor]
+    [DefaultExpresserComponent(typeof(GameLogicComponent), auto_member_generate: true)]
+    public partial class Game : Object
+    {
+        /// &lt;summary&gt;
+        /// オブジェクト生成時の処理
+        /// VaNillaではSetUp()メソッドを実装する（Setup(), Update(), Draw()は存在しません）
+        /// &lt;/summary&gt;
+        public override bool SetUp()
+        {
+            Logger.Log(&quot;STEP0: VaNillaエンジンの基本動作確認&quot;);
+            Logger.Log(&quot;ESCキーで終了してください&quot;);
+            return true;
+        }
+
+        /// &lt;summary&gt;
+        /// オブジェクト破棄時の処理
+        /// VaNillaではTearDown()メソッドを実装する
+        /// &lt;/summary&gt;
+        public override void TearDown()
+        {
+            Logger.Log(&quot;ゲームオブジェクトを終了&quot;);
+        }
+    }
+}
+</code></pre>
+<h3 id="2-gamelogiccomponentcs---ゲームロジックの実装">2. GameLogicComponent.cs - ゲームロジックの実装</h3>
+<p>VaNillaでは、実際のUpdate/Draw処理はExpresserComponentで実装します：</p>
+<pre><code class="lang-csharp">using VaNilla;
+using VaNilla.Renderer;
+using VaNilla.Keyboard;
+using VaNilla.Time;
+
+namespace Tutorial
+{
+    /// &lt;summary&gt;
+    /// ゲームロジックを担当するExpresserComponent
+    /// VaNillaでは、Update/Draw等の処理はExpresserComponentで実装する
+    /// &lt;/summary&gt;
+    public class GameLogicComponent : IExpresserComponent
+    {
+        public bool Active { get; set; }
+        public Execute.ExecuteType ExecuteType { get; set; }
+
+        /// &lt;summary&gt;
+        /// 毎フレーム実行される処理
+        /// &lt;/summary&gt;
+        public bool Execute(Object associated_object, in Time.Time current_time)
+        {
+            // 画面をクリア（暗い青色）
+            Utils.ClearScreen((20, 20, 60));
+            
+            // ESCキーで終了
+            if (KeyboardInput.IsPushedMoment(KeyCode.Escape))
+            {
+                Logger.Log(&quot;ESCキーが押されました。終了します。&quot;);
+                VaNilla.SupremeArbiter.SupremeArbiter.Shutdown();
+                return false;
+            }
+            
+            // ウェルカムメッセージを描画
+            Utils.DrawString(
+                &quot;Welcome to VaNilla Tutorial!&quot;, 
+                100, 100,
+                (255, 255, 255)
+            );
+            
+            return true;
+        }
+
+        // その他の必要なメソッド（簡略化）
+        public bool SetUp(Object associated_object) { return true; }
+        public void TearDown(Object associated_object) { }
+        public void HoldAssociatedObject(Object associated_object) { }
+        public void ReleaseAssociatedObject(Object associated_object) { }
+        public void GetComponentForSetUp(Object associated_object) { }
+        public void ReleaseComponentForTearDown(Object associated_object) { }
+    }
+}
+</code></pre>
+<h3 id="3-maincs---エントリーポイント">3. Main.cs - エントリーポイント</h3>
+<p><code>src/Main.cs</code>を作成します：</p>
+<pre><code class="lang-csharp">using System;
+using VaNilla;
+
+namespace Tutorial
+{
+    static class Program
+    {
+        static void Main()
+        {
+            // VaNillaエンジンを初期化
+            VaNilla.SupremeArbiter.SupremeArbiter.Execute();
+            
+            // [DefaultExpresserComponent]属性により、GameLogicComponentが自動的に追加される
+            // ObjectActivatorを使ってGameオブジェクトをアクティベート
+            var game = ObjectActivator.Activate&lt;Game&gt;();
+            
+            // メインループ
+            while (VaNilla.SupremeArbiter.SupremeArbiter.IsRunning())
+            {
+                VaNilla.SupremeArbiter.SupremeArbiter.Execute();
+            }
+            
+            // 終了処理
+            ObjectActivator.Deactivate(game);
+            VaNilla.SupremeArbiter.SupremeArbiter.End();
+        }
+    }
+}
+</code></pre>
+<h3 id="4-vanillasettingsyamlの設定">4. VaNillaSettings.yamlの設定</h3>
+<p><code>VaNillaSettings/VaNillaSettings.yaml</code>を作成します：</p>
+<pre><code class="lang-yaml"># ゲームの基本設定
+supreme_arbiter_setting:
+  target_fps: 60.0                    # フレームレート
+  window_title: &quot;VaNilla Tutorial&quot;    # ウィンドウタイトル
+
+# ウィンドウサイズ設定
+window_size:
+  - [640, 480]    # 640x480ピクセル
+
+# 画面解像度設定
+screen_resolution:
+  - [[640, 480], [4, 3]]
+
+# ビューポート解像度
+viewport_resolution: [640, 480]
+
+# オブジェクトリスト（ゲームで使用するオブジェクトを定義）
+object_list:
+  Game:
+    object_num: 1      # 作成する数
+    type: Tutorial.Game # クラスの完全修飾名
+</code></pre>
+<h2 id="-vanillaの正しいアーキテクチャ">💡 VaNillaの正しいアーキテクチャ</h2>
+<h3 id="-よくある間違い">❌ よくある間違い</h3>
+<pre><code class="lang-csharp">// これは間違い！BasicObjectは使用しません
+public class Game : BasicObject
+{
+    public override void Setup() { }    // ❌ 存在しません
+    public override void Update() { }   // ❌ 存在しません  
+    public override void Draw() { }     // ❌ 存在しません
+}
+</code></pre>
+<h3 id="-正しい実装">✅ 正しい実装</h3>
+<pre><code class="lang-csharp">// VaNillaではObjectクラスを直接継承
+// [AutoGenerateConstructor]でコンストラクタを自動生成
+// [DefaultExpresserComponent]で必要なコンポーネントを自動追加
+[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(GameLogicComponent), auto_member_generate: true)]
+public partial class Game : Object
+{
+    public override bool SetUp() { return true; }    // ✅ 正しい
+    public override void TearDown() { }               // ✅ 正しい
+}
+</code></pre>
+<h3 id="vanillaの核心expressercomponentシステム">VaNillaの核心：ExpresserComponentシステム</h3>
+<p>VaNillaエンジンの核心は**「表象要素指向プログラミング」**です：</p>
+<ol>
+<li><strong>Objectクラス</strong>: エンティティ（オブジェクト本体）</li>
+<li><strong>ExpresserComponent</strong>: 機能（コンポーネント）</li>
+<li><strong>ObjectActivator</strong>: オブジェクト管理</li>
+</ol>
+<h4 id="expressercomponentの役割">ExpresserComponentの役割</h4>
+<ul>
+<li><code>Execute()</code>: 毎フレーム実行される処理（従来のUpdate + Draw）</li>
+<li><code>SetUp()</code>: コンポーネント初期化</li>
+<li><code>TearDown()</code>: コンポーネント破棄</li>
+</ul>
+<h4 id="オブジェクト生成の流れ">オブジェクト生成の流れ</h4>
+<ol>
+<li><strong>[DefaultExpresserComponent]属性を使用</strong> → 必要なコンポーネントを自動登録</li>
+<li><strong>ObjectActivator.Activate<t>()でオブジェクト生成</t></strong> → 引数なしで簡潔に</li>
+<li><strong>オブジェクトに自動的にコンポーネントが追加される</strong> → 属性ベースの自動化</li>
+<li><strong>SupremeArbiter.Execute()でメインループ実行</strong> → エンジンの制御</li>
+</ol>
+<h4 id="defaultexpressercomponent属性の利点">DefaultExpresserComponent属性の利点</h4>
+<ul>
+<li><strong>ボイラープレートコードの削除</strong> → 手動コンポーネントリスト不要</li>
+<li><strong>宣言的な設計</strong> → クラス定義で必要なコンポーネントを明示</li>
+<li><strong>auto_member_generate: true</strong> → コンポーネントへのアクセサが自動生成される</li>
+<li><strong>保守性の向上</strong> → コンポーネントの追加/削除が属性の修正のみで可能</li>
+</ul>
+<h3 id="座標系">座標系</h3>
+<ul>
+<li>左上が原点 (0, 0)</li>
+<li>X軸：右方向が正</li>
+<li>Y軸：下方向が正</li>
+</ul>
+<h3 id="色の指定">色の指定</h3>
+<p>RGB形式で指定します：</p>
+<ul>
+<li>(255, 0, 0) = 赤</li>
+<li>(0, 255, 0) = 緑</li>
+<li>(0, 0, 255) = 青</li>
+<li>(255, 255, 255) = 白</li>
+<li>(0, 0, 0) = 黒</li>
+</ul>
+<h2 id="-実行方法">▶️ 実行方法</h2>
+<ol>
+<li>コマンドラインでプロジェクトディレクトリに移動</li>
+<li>VaNillaエンジンの設定ファイルが配置されていることを確認</li>
+<li>ビルドと実行：
+<pre><code class="lang-bash">dotnet build
+dotnet run
+</code></pre>
+</li>
+</ol>
+<h2 id="-完成">🎉 完成！</h2>
+<p>暗い青色の画面に &quot;Welcome to VaNilla Tutorial!&quot; と白い文字が表示され、ESCキーで終了できれば成功です！</p>
+<h2 id="-学んだこと">📝 学んだこと</h2>
+<p>✅ VaNillaプロジェクトの基本構造<br>
+✅ <strong>Objectクラス</strong>の正しい継承方法<br>
+✅ <strong>ExpresserComponentシステム</strong>の基本概念<br>
+✅ <strong>SetUp()、TearDown()メソッド</strong>の役割<br>
+✅ <strong>ObjectActivator</strong>によるオブジェクト管理<br>
+✅ <strong>SupremeArbiter</strong>によるメインループ制御</p>
+<h2 id="-重要なポイント">🔑 重要なポイント</h2>
+<ul>
+<li><strong>BasicObjectは使用しない</strong> → Objectクラスを直接継承</li>
+<li><strong>[AutoGenerateConstructor]属性を使用</strong> → コンストラクタが自動生成される</li>
+<li><strong>[DefaultExpresserComponent]属性を使用</strong> → 必要なコンポーネントが自動追加される</li>
+<li><strong>partialクラスにする</strong> → 自動生成属性が正しく動作する</li>
+<li><strong>Setup/Update/Drawメソッドは存在しない</strong> → ExpresserComponentのExecute()を使用</li>
+<li><strong>ExpresserComponentで機能を実装</strong> → モジュラー設計の実現</li>
+<li><strong>ObjectActivator.Activate<t>()</t></strong> → 手動でコンポーネントリストを渡す必要なし</li>
+</ul>
+<h2 id="-次のステップ">⏭️ 次のステップ</h2>
+<p>STEP 1では、ExpresserComponentシステムを使って実際にプレイヤーキャラクターの画像を画面に表示する方法を学びます。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTutorial/BasicShootEmUp/STEP0_DevelopmentPreparation/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

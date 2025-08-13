@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Shape モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Shape モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Shape/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="shape-モジュール">Shape モジュール</h1>
+
+<p>Shapeモジュールは、2D幾何学的図形の定義・操作・判定機能を提供するモジュールです。矩形、円、多角形などの基本図形から、軸並行境界ボックス（AABB）などの特殊な形状まで、ゲーム開発で必要な幾何計算をサポートします。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>基本図形</strong>: 矩形、円、線分、多角形の定義と操作</li>
+<li><strong>境界ボックス</strong>: 軸並行境界ボックス（AABB）による効率的な範囲計算</li>
+<li><strong>幾何演算</strong>: 交差判定、内外判定、距離計算</li>
+<li><strong>図形変換</strong>: 移動、回転、拡縮変換</li>
+<li><strong>ユーティリティ</strong>: Unity連携機能とプラットフォーム固有の最適化</li>
+</ul>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="axisalignedboundingboxaabb">AxisAlignedBoundingBox（AABB）</h3>
+<p>軸並行境界ボックスの実装で、高速な衝突判定や範囲チェックに使用されます。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 2, 0)]
+public partial class AxisAlignedBoundingBox : IRectangle
+{
+    public Point2 Min { get; }
+    public Point2 Max { get; }
+    public Point2 Center { get; set; }
+    public float Width { get; set; }
+    public float Height { get; set; }
+    
+    // コンストラクタ
+    public AxisAlignedBoundingBox(Point2 center, float width, float height);
+    public AxisAlignedBoundingBox(Point2 min, Point2 max);
+    public AxisAlignedBoundingBox(in AxisAlignedBoundingBox aabb);
+    
+    // 設定・更新
+    public void SetAabb(Point2 min, Point2 max);
+    public void SetAabb(Point2 center, float width, float height);
+    public void SetAabb(in AxisAlignedBoundingBox aabb);
+    
+    // 比較
+    public bool EqualsAabb(in AxisAlignedBoundingBox aabb);
+}
+</code></pre>
+<h3 id="rectangle">Rectangle</h3>
+<p>基本的な矩形の実装です。</p>
+<pre><code class="lang-csharp">public class Rectangle : IRectangle
+{
+    public float X { get; set; }
+    public float Y { get; set; }
+    public float Width { get; set; }
+    public float Height { get; set; }
+    
+    public Point2 TopLeft { get; }
+    public Point2 TopRight { get; }
+    public Point2 BottomLeft { get; }
+    public Point2 BottomRight { get; }
+    public Point2 Center { get; set; }
+    
+    // 判定メソッド
+    public bool Contains(Point2 point);
+    public bool Contains(float x, float y);
+    public bool Intersects(Rectangle other);
+    public Rectangle GetIntersection(Rectangle other);
+}
+</code></pre>
+<h3 id="axisalignedboundingboxutil">AxisAlignedBoundingBoxUtil</h3>
+<p>AABBに関するユーティリティ機能を提供します。</p>
+<pre><code class="lang-csharp">public static class AxisAlignedBoundingBoxUtil
+{
+    // 交差判定
+    public static bool Intersects(in AxisAlignedBoundingBox a, in AxisAlignedBoundingBox b);
+    
+    // 内包判定
+    public static bool Contains(in AxisAlignedBoundingBox container, in AxisAlignedBoundingBox contained);
+    public static bool Contains(in AxisAlignedBoundingBox aabb, Point2 point);
+    
+    // 距離計算
+    public static float Distance(in AxisAlignedBoundingBox a, in AxisAlignedBoundingBox b);
+    public static float DistanceSquared(in AxisAlignedBoundingBox a, in AxisAlignedBoundingBox b);
+    
+    // 結合・拡張
+    public static AxisAlignedBoundingBox Union(in AxisAlignedBoundingBox a, in AxisAlignedBoundingBox b);
+    public static AxisAlignedBoundingBox Expand(in AxisAlignedBoundingBox aabb, float margin);
+    
+    // 最近接点
+    public static Point2 ClosestPoint(in AxisAlignedBoundingBox aabb, Point2 point);
+}
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的なaabbの使用">基本的なAABBの使用</h3>
+<pre><code class="lang-csharp">// 中心と幅・高さから作成
+var aabb1 = new AxisAlignedBoundingBox(
+    center: new Point2(100, 100),
+    width: 50,
+    height: 30
+);
+
+// Min/Maxから作成
+var aabb2 = new AxisAlignedBoundingBox(
+    min: new Point2(75, 75),
+    max: new Point2(125, 125)
+);
+
+// プロパティの操作
+aabb1.Center = new Point2(200, 200); // 中心を移動
+aabb1.Width = 100;  // 幅を変更（中心は維持）
+aabb1.Height = 60;  // 高さを変更（中心は維持）
+
+Console.WriteLine($&quot;AABB: {aabb1}&quot;); // &quot;(175, 170), (225, 230)&quot;
+</code></pre>
+<h3 id="衝突判定と幾何演算">衝突判定と幾何演算</h3>
+<pre><code class="lang-csharp">var playerAABB = new AxisAlignedBoundingBox(new Point2(100, 100), 32, 32);
+var enemyAABB = new AxisAlignedBoundingBox(new Point2(120, 110), 24, 24);
+
+// 交差判定
+if (AxisAlignedBoundingBoxUtil.Intersects(playerAABB, enemyAABB))
+{
+    Logger.Log(&quot;プレイヤーと敵が衝突しました&quot;);
+}
+
+// 点の内包判定
+var mousePosition = new Point2(115, 105);
+if (AxisAlignedBoundingBoxUtil.Contains(playerAABB, mousePosition))
+{
+    Logger.Log(&quot;マウスがプレイヤーの上にあります&quot;);
+}
+
+// 距離計算
+float distance = AxisAlignedBoundingBoxUtil.Distance(playerAABB, enemyAABB);
+Logger.Log($&quot;プレイヤーと敵の距離: {distance}&quot;);
+
+// 境界ボックスの結合
+var combinedAABB = AxisAlignedBoundingBoxUtil.Union(playerAABB, enemyAABB);
+Logger.Log($&quot;結合されたAABB: {combinedAABB}&quot;);
+</code></pre>
+<h3 id="expressercomponentとの統合">ExpresserComponentとの統合</h3>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// オブジェクトにAABB境界を持たせるコンポーネント
+/// &lt;/summary&gt;
+[RequiredExpresserComponent(typeof(HasPosition))]
+public class HasBoundingBox : IExpresserComponent
+{
+    private AxisAlignedBoundingBox boundingBox;
+    
+    public float Width { get; set; } = 32;
+    public float Height { get; set; } = 32;
+    public AxisAlignedBoundingBox BoundingBox =&gt; boundingBox;
+    
+    public bool SetUp(Object object__)
+    {
+        var position = object__.GetExpresserComponent&lt;HasPosition&gt;();
+        boundingBox = new AxisAlignedBoundingBox(
+            new Point2(position.X, position.Y),
+            Width, Height
+        );
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        // 位置に合わせてAABBを更新
+        var position = object__.GetExpresserComponent&lt;HasPosition&gt;();
+        boundingBox.Center = new Point2(position.X, position.Y);
+        return true;
+    }
+    
+    public bool IsIntersecting(HasBoundingBox other)
+    {
+        return AxisAlignedBoundingBoxUtil.Intersects(this.boundingBox, other.boundingBox);
+    }
+    
+    // IExpresserComponentの実装
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; }
+    public void TearDown(Object object__) { }
+}
+</code></pre>
+<h3 id="rectangle-クラスの使用">Rectangle クラスの使用</h3>
+<pre><code class="lang-csharp">// 矩形の作成
+var rect = new Rectangle
+{
+    X = 50,
+    Y = 50,
+    Width = 100,
+    Height = 80
+};
+
+// 点の内包判定
+if (rect.Contains(new Point2(75, 60)))
+{
+    Logger.Log(&quot;点が矩形内にあります&quot;);
+}
+
+// 矩形同士の交差判定
+var otherRect = new Rectangle { X = 100, Y = 75, Width = 60, Height = 50 };
+if (rect.Intersects(otherRect))
+{
+    var intersection = rect.GetIntersection(otherRect);
+    Logger.Log($&quot;交差領域: {intersection.Width} x {intersection.Height}&quot;);
+}
+</code></pre>
+<h2 id="unity連携機能">Unity連携機能</h2>
+<h3 id="axisalignedboundingboxunityutil">AxisAlignedBoundingBoxUnityUtil</h3>
+<p>Unity特有の最適化されたAABB操作を提供します。</p>
+<pre><code class="lang-csharp">#if UNITY_EDITOR || UNITY_STANDALONE
+public static class AxisAlignedBoundingBoxUnityUtil
+{
+    // Unity Boundsとの変換
+    public static UnityEngine.Bounds ToUnityBounds(in AxisAlignedBoundingBox aabb);
+    public static AxisAlignedBoundingBox FromUnityBounds(UnityEngine.Bounds bounds);
+    
+    // Unity Rectとの変換
+    public static UnityEngine.Rect ToUnityRect(in AxisAlignedBoundingBox aabb);
+    public static AxisAlignedBoundingBox FromUnityRect(UnityEngine.Rect rect);
+    
+    // Unity特有の最適化
+    public static bool FastIntersects(in AxisAlignedBoundingBox a, in AxisAlignedBoundingBox b);
+    public static AxisAlignedBoundingBox OptimizedUnion(List&lt;AxisAlignedBoundingBox&gt; aabbs);
+}
+#endif
+</code></pre>
+<h2 id="高度な幾何演算">高度な幾何演算</h2>
+<h3 id="複数aabb操作">複数AABB操作</h3>
+<pre><code class="lang-csharp">public static class AdvancedAABBOperations
+{
+    /// &lt;summary&gt;
+    /// 複数のAABBを包含する最小のAABBを計算
+    /// &lt;/summary&gt;
+    public static AxisAlignedBoundingBox EnclosingAABB(IEnumerable&lt;AxisAlignedBoundingBox&gt; aabbs)
+    {
+        if (!aabbs.Any()) return new AxisAlignedBoundingBox(Point2.Zero, 0, 0);
+        
+        var first = aabbs.First();
+        var result = new AxisAlignedBoundingBox(first);
+        
+        foreach (var aabb in aabbs.Skip(1))
+        {
+            result = AxisAlignedBoundingBoxUtil.Union(result, aabb);
+        }
+        
+        return result;
+    }
+    
+    /// &lt;summary&gt;
+    /// AABBの配列から特定の点に最も近いAABBを検索
+    /// &lt;/summary&gt;
+    public static AxisAlignedBoundingBox FindClosest(Point2 point, IEnumerable&lt;AxisAlignedBoundingBox&gt; aabbs)
+    {
+        return aabbs.OrderBy(aabb =&gt; 
+        {
+            var closest = AxisAlignedBoundingBoxUtil.ClosestPoint(aabb, point);
+            return Vector2.DistanceSquared(point, closest);
+        }).FirstOrDefault();
+    }
+}
+</code></pre>
+<h3 id="動的境界ボックス">動的境界ボックス</h3>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// 時間経過で変化するAABB
+/// &lt;/summary&gt;
+public class DynamicAABB
+{
+    private AxisAlignedBoundingBox currentAABB;
+    private Point2 velocity;
+    private float expansionRate;
+    
+    public AxisAlignedBoundingBox CurrentAABB =&gt; currentAABB;
+    
+    public void Update(float deltaTime)
+    {
+        // 移動
+        var newCenter = currentAABB.Center + velocity * deltaTime;
+        currentAABB.Center = newCenter;
+        
+        // 拡張・縮小
+        if (expansionRate != 0)
+        {
+            currentAABB.Width += expansionRate * deltaTime;
+            currentAABB.Height += expansionRate * deltaTime;
+        }
+    }
+    
+    /// &lt;summary&gt;
+    /// 指定時間後のAABBを予測
+    /// &lt;/summary&gt;
+    public AxisAlignedBoundingBox PredictAABB(float futureTime)
+    {
+        var predictedCenter = currentAABB.Center + velocity * futureTime;
+        var predictedWidth = currentAABB.Width + expansionRate * futureTime;
+        var predictedHeight = currentAABB.Height + expansionRate * futureTime;
+        
+        return new AxisAlignedBoundingBox(predictedCenter, predictedWidth, predictedHeight);
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス最適化">パフォーマンス最適化</h2>
+<h3 id="高速な交差判定">高速な交差判定</h3>
+<pre><code class="lang-csharp">public static class FastAABBOperations
+{
+    /// &lt;summary&gt;
+    /// インライン展開された高速交差判定
+    /// &lt;/summary&gt;
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool FastIntersects(in AxisAlignedBoundingBox a, in AxisAlignedBoundingBox b)
+    {
+        return !(a.Max.X &lt; b.Min.X || a.Min.X &gt; b.Max.X ||
+                 a.Max.Y &lt; b.Min.Y || a.Min.Y &gt; b.Max.Y);
+    }
+    
+    /// &lt;summary&gt;
+    /// 大量のAABBに対する効率的な検索
+    /// &lt;/summary&gt;
+    public static List&lt;AxisAlignedBoundingBox&gt; FindIntersecting(
+        in AxisAlignedBoundingBox query, 
+        ReadOnlySpan&lt;AxisAlignedBoundingBox&gt; candidates)
+    {
+        var result = new List&lt;AxisAlignedBoundingBox&gt;();
+        
+        for (int i = 0; i &lt; candidates.Length; i++)
+        {
+            if (FastIntersects(query, candidates[i]))
+            {
+                result.Add(candidates[i]);
+            }
+        }
+        
+        return result;
+    }
+}
+</code></pre>
+<h2 id="デバッグ可視化">デバッグ・可視化</h2>
+<pre><code class="lang-csharp">#if DEBUG
+public static class ShapeDebugRenderer
+{
+    public static void DrawAABB(in AxisAlignedBoundingBox aabb, Color color)
+    {
+        // デバッグ描画の実装（プラットフォーム依存）
+        DrawRectangle(aabb.Min, aabb.Max, color);
+    }
+    
+    public static void DrawAABBWithInfo(in AxisAlignedBoundingBox aabb, string label)
+    {
+        DrawAABB(aabb, Color.Green);
+        DrawText(aabb.Center, $&quot;{label}\nSize: {aabb.Width:F1}x{aabb.Height:F1}&quot;);
+    }
+    
+    public static void HighlightIntersection(in AxisAlignedBoundingBox a, in AxisAlignedBoundingBox b)
+    {
+        if (AxisAlignedBoundingBoxUtil.Intersects(a, b))
+        {
+            DrawAABB(a, Color.Red);
+            DrawAABB(b, Color.Red);
+        }
+        else
+        {
+            DrawAABB(a, Color.Blue);
+            DrawAABB(b, Color.Blue);
+        }
+    }
+}
+#endif
+</code></pre>
+<h2 id="設定例yaml">設定例（YAML）</h2>
+<pre><code class="lang-yaml">shape_module:
+  precision:
+    float_comparison_epsilon: 0.0001
+    
+  performance:
+    enable_simd: true
+    use_fast_math: true
+    cache_bounding_boxes: true
+    
+  debug:
+    enable_shape_visualization: true
+    default_debug_color: &quot;Green&quot;
+    intersection_highlight_color: &quot;Red&quot;
+    
+  validation:
+    check_invalid_dimensions: true
+    auto_fix_inverted_bounds: true
+    log_warnings: true
+</code></pre>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../Transform/README.html">Transform</a> - Point2、Vector2型</li>
+<li><a href="../DebugLogger/README.html">DebugLogger</a> - ログ出力</li>
+<li><strong>Unity Engine</strong>（Unity実装の場合） - Bounds、Rect型との連携</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../Collision/README.html">Collision</a> - 衝突検出システム</li>
+<li><a href="../Region/README.html">Region</a> - 領域管理</li>
+<li><a href="../Transform/README.html">Transform</a> - 座標変換</li>
+<li><a href="../Renderer/README.html">Renderer</a> - 描画システム</li>
+</ul>
+<h2 id="特徴と利点">特徴と利点</h2>
+<h3 id="高精度高性能">高精度・高性能</h3>
+<ul>
+<li>浮動小数点数の精度に配慮した実装</li>
+<li>インライン最適化による高速な演算</li>
+<li>プラットフォーム固有の最適化</li>
+</ul>
+<h3 id="安全性">安全性</h3>
+<ul>
+<li>不正な値の自動補正機能</li>
+<li>詳細なエラーログ出力</li>
+<li>デバッグビルドでの追加検証</li>
+</ul>
+<h3 id="柔軟性">柔軟性</h3>
+<ul>
+<li>多様な作成方法をサポート</li>
+<li>プロパティベースの直感的な操作</li>
+<li>Unity等の外部システムとの連携</li>
+</ul>
+<p>このモジュールにより、ゲーム開発で必要な2D幾何計算を効率的かつ安全に実行できます。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントについては、以下のリンクを参照してください：</p>
+<p><a href="https://your-docfx-site.github.io/api/VaNilla.Shape.html">VaNilla.Shape Namespace API Reference</a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Shape/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Task </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Task ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Task/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="task">Task</h1>
+
+<p>VaNillaエンジンにおける「非同期タスク」を表現するためのモジュールです。<br>
+下記に特徴と使い方を示します。</p>
+<h2 id="特徴">特徴</h2>
+<ul>
+<li>ほぼ Unity のコルーチン同様の感覚で利用できる。</li>
+<li>C# の async / await 構文による制御を採用。コルーチンよりもモダン、かつ直観的な記述が可能。</li>
+<li><strong>タスクはマルチスレッド動作せず、メインスレッド上で非同期に実行される。</strong>
+<ul>
+<li>スレッド間で情報の同期を取るなどの心配をする必要がない</li>
+</ul>
+</li>
+<li>1フレーム待つ、指定の時間分待つ、条件式が満たされるまで待つ、など様々なAwaiterを提供。</li>
+</ul>
+<h2 id="アーキテクチャ詳細">アーキテクチャ詳細</h2>
+<h3 id="設計思想">設計思想</h3>
+<p>本モジュールは、C#標準の<code>System.Threading.Tasks</code>を使用せず、ゲームエンジン向けに最適化された独自のasync/await実装を提供します。これにより：</p>
+<ul>
+<li>マルチスレッドの複雑さを排除</li>
+<li>フレーム単位での予測可能な実行</li>
+<li>ゲーム特有の待機パターンのネイティブサポート</li>
+</ul>
+<h3 id="主要コンポーネント">主要コンポーネント</h3>
+<h4 id="vanillaasynctask">VaNillaAsyncTask</h4>
+<ul>
+<li>カスタムタスク型で、タスクの状態（完了、キャンセル、一時停止）を管理</li>
+<li><code>AsyncMethodBuilder</code>属性により、async/await構文での使用が可能</li>
+</ul>
+<h4 id="asyncrunner">AsyncRunner</h4>
+<ul>
+<li>すべての非同期タスクの実行を管理する中央マネージャー</li>
+<li><code>SupremeArbiter</code>によって毎フレーム<code>Execute()</code>が呼び出される</li>
+<li>タスクのライフサイクル（開始、実行、キャンセル、一時停止）を制御</li>
+</ul>
+<h4 id="awaiters">Awaiters</h4>
+<p>ゲーム開発に特化した各種Awaiterを提供：</p>
+<table>
+<thead>
+<tr>
+<th>Awaiter</th>
+<th>説明</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WaitForReady</code></td>
+<td>タスクの初期化完了を待機</td>
+<td><code>await new WaitForReady();</code></td>
+</tr>
+<tr>
+<td><code>WaitForEndOfFrame</code></td>
+<td>1フレーム待機</td>
+<td><code>await new WaitForEndOfFrame();</code></td>
+</tr>
+<tr>
+<td><code>WaitForFrames</code></td>
+<td>指定フレーム数待機</td>
+<td><code>await new WaitForFrames(60);</code></td>
+</tr>
+<tr>
+<td><code>WaitForTimeSpanEnd</code></td>
+<td>指定秒数待機</td>
+<td><code>await new WaitForTimeSpanEnd(2.5f);</code></td>
+</tr>
+<tr>
+<td><code>WaitUntil</code></td>
+<td>条件がtrueになるまで待機</td>
+<td><code>await new WaitUntil(() =&gt; isReady);</code></td>
+</tr>
+<tr>
+<td><code>WaitWhile</code></td>
+<td>条件がtrueの間待機</td>
+<td><code>await new WaitWhile(() =&gt; isLoading);</code></td>
+</tr>
+<tr>
+<td><code>WaitForTimeWithProc</code></td>
+<td>指定時間、処理を繰り返し実行</td>
+<td><code>await new WaitForTimeWithProc(3.0f, UpdateProgress);</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="使い方">使い方</h2>
+<p>以下に、疑似コードで本モジュールの典型的な使い方を示します。</p>
+<pre><code class="lang-csharp">using VaNilla.Async; /* 本モジュールは VaNilla.Async 名前空間内に配置 */
+
+namespace PseudoApplication /* アプリケーション用の名前空間。特別な意味はない */
+{
+    [AutoGenerateConstructor]
+    [DefaultExpresserComponent(typeof(TaskTestComponent), auto_member_generate: true)]
+    public partial class TaskTest : Object /* Objectを継承したタスクテスト用のオブジェクト */
+    {
+        ///&lt;summary&gt;
+        ///生成処理関数です。
+        ///&lt;/summary&gt;
+        public override bool SetUp()
+        {
+            return true;
+        }
+        
+        ///&lt;summary&gt;
+        ///破棄処理関数です。
+        ///&lt;/summary&gt;
+        public override void TearDown()
+        {
+            // 破棄処理
+        }
+    }
+
+    /// &lt;summary&gt;
+    /// タスクテスト用のExpresserComponent
+    /// &lt;/summary&gt;
+    public class TaskTestComponent : IExpresserComponent
+    {
+        public bool Active { get; set; }
+        public Execute.ExecuteType ExecuteType { get; set; }
+        
+        private bool is_task02_end = false; /* test_task_02 が終了したことを示すフラグ */
+        
+        /* テスト用タスクその1 */
+        private async VaNillaAsyncTask test_task_01() /* タスクは async VaNillaAsyncTask を戻り値とする */
+        {
+            await new WaitForEndOfFrame(); /* 1フレーム待つ */
+            await new WaitForTimeSpanEnd(1.0f); /* 1.0f秒待つ */
+            await new WaitUntil(() =&gt; is_task02_end);
+            /* is_task02_end == true になるまで待つ */
+            VaNilla.Debug.Logger.Log(&quot;test_task_01 end.&quot;);
+        }
+        
+        /* テスト用タスクその2 */
+        private async VaNillaAsyncTask test_task_02()
+        {
+            await new WaitForFrames(5); /* 5フレーム待つ */
+            is_task02_end = true; /* test_task_01 の WaitUntil が先に進むようになる */
+            VaNilla.Debug.Logger.Log(&quot;test_task_02 end.&quot;);
+        }
+        
+        /* static な メソッドもタスクにできる */
+        private static async VaNillaAsyncTask test_static_task()
+        {
+            await new WaitForEndOfFrame(); /* 1フレーム待つ */
+            VaNilla.Debug.Logger.Log(&quot;test_static_task end.&quot;);
+        }
+
+        public bool SetUp(Object associated_object)
+        {
+            is_task02_end = false;
+            /* AsyncRunner.Run でタスクを指定して実行 */
+            VaNilla.Async.AsyncRunner.Run(test_task_01);
+            /* 戻り値としてタスクの実行状態を受け取ることができる */
+            Async.VaNillaAsyncTask invoked_task = VaNilla.Async.AsyncRunner.Run(test_task_02);
+            VaNilla.Async.AsyncRunner.Run(test_static_task);
+            
+            /* タスクが終わったかどうかを判定できる */
+            VaNilla.Debug.Logger.Log(invoked_task.IsTaskCompleted.ToString()); /* false */
+            
+            return true;
+        }
+
+        public bool Execute(Object associated_object, in Time.Time current_time)
+        {
+            // 毎フレーム実行される処理
+            return true;
+        }
+
+        public void TearDown(Object associated_object)
+        {
+            // 破棄処理
+        }
+
+        public void HoldAssociatedObject(Object associated_object) { }
+        public void ReleaseAssociatedObject(Object associated_object) { }
+        public void GetComponentForSetUp(Object associated_object) { }
+        public void ReleaseComponentForTearDown(Object associated_object) { }
+    }
+}
+</code></pre>
+<h2 id="高度な使用方法">高度な使用方法</h2>
+<h3 id="タスクのキャンセル">タスクのキャンセル</h3>
+<pre><code class="lang-csharp">// タスクを開始
+var task = AsyncRunner.Run(LongRunningTask);
+
+// 条件に応じてタスクをキャンセル
+if (shouldCancel)
+{
+    AsyncRunner.Cancel(task);
+}
+</code></pre>
+<h3 id="タスクの一時停止と再開">タスクの一時停止と再開</h3>
+<pre><code class="lang-csharp">var task = AsyncRunner.Run(PausableTask);
+
+// ゲームポーズ時に一時停止
+AsyncRunner.Pause(task);
+
+// ゲーム再開時に復帰
+AsyncRunner.Unpause(task);
+</code></pre>
+<h3 id="executetypeの活用">ExecuteTypeの活用</h3>
+<p>特定の実行コンテキストでのみ動作するタスクを作成：</p>
+<pre><code class="lang-csharp">// ゲームプレイ中のみ進行するタスク
+await new WaitForEndOfFrame(ExecuteType.Gameplay);
+
+// メニュー画面でのみ動作するタスク
+await new WaitForTimeSpanEnd(1.0f, ExecuteType.Menu);
+</code></pre>
+<h3 id="引数付きタスクの実行">引数付きタスクの実行</h3>
+<pre><code class="lang-csharp">// Objectを引数として渡す
+AsyncRunner.Run(ProcessObject, targetObject);
+
+// 複数のオブジェクトを渡す
+AsyncRunner.Run(ProcessMultipleObjects, objectList);
+
+// 任意の型を渡す
+AsyncRunner.Run(ProcessData, dataObject);
+</code></pre>
+<h3 id="実用的なタスク例">実用的なタスク例</h3>
+<h4 id="フェードインフェードアウト効果">フェードイン・フェードアウト効果</h4>
+<pre><code class="lang-csharp">private async VaNillaAsyncTask FadeOut(float duration)
+{
+    float startAlpha = 1.0f;
+    await new WaitForTimeWithProc(duration, (progress) =&gt; 
+    {
+        float alpha = startAlpha * (1.0f - progress);
+        SetUIAlpha(alpha);
+    });
+}
+</code></pre>
+<h4 id="アニメーション処理">アニメーション処理</h4>
+<pre><code class="lang-csharp">private async VaNillaAsyncTask AnimateMovement(Vector2 startPos, Vector2 endPos, float duration)
+{
+    await new WaitForTimeWithProc(duration, (progress) =&gt; 
+    {
+        Vector2 currentPos = Vector2.Lerp(startPos, endPos, progress);
+        transform.Position = currentPos;
+    });
+}
+</code></pre>
+<h4 id="条件待ちタスク">条件待ちタスク</h4>
+<pre><code class="lang-csharp">private async VaNillaAsyncTask WaitForPlayerReady()
+{
+    // プレイヤーの準備が完了するまで待機
+    await new WaitUntil(() =&gt; player.IsReady &amp;&amp; input.IsConnected);
+    
+    VaNilla.Debug.Logger.Log(&quot;Player is ready!&quot;);
+}
+</code></pre>
+<h2 id="注意事項とベストプラクティス">注意事項とベストプラクティス</h2>
+<h3 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h3>
+<ol>
+<li><strong>大量タスク</strong>: 同時実行タスク数がフレームレートに影響する場合があります</li>
+<li><strong>重い処理</strong>: <code>WaitForTimeWithProc</code>内での重い処理は避けてください</li>
+<li><strong>メモリ管理</strong>: タスクは完了またはキャンセル時に自動クリーンアップされます</li>
+</ol>
+<h3 id="実行タイミング">実行タイミング</h3>
+<ul>
+<li>タスクは<code>SupremeArbiter</code>の実行サイクル内で、<code>ObjectExecutor</code>の後に実行されます</li>
+<li>フレーム単位での確定的な実行順序が保証されます</li>
+</ul>
+<h3 id="デバッグ機能">デバッグ機能</h3>
+<pre><code class="lang-csharp">// タスクの状態確認
+VaNilla.Debug.Logger.Log($&quot;Task completed: {task.IsTaskCompleted}&quot;);
+VaNilla.Debug.Logger.Log($&quot;Task cancelled: {task.IsTaskCancelled}&quot;);
+
+// 実行中タスク数の監視
+int runningTasks = AsyncRunner.GetRunningTaskCount();
+VaNilla.Debug.Logger.Log($&quot;Running tasks: {runningTasks}&quot;);
+</code></pre>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><strong>SupremeArbiter</strong>: タスクの実行を管理</li>
+<li><strong>ExecuteManager</strong>: ExecuteTypeによる実行制御</li>
+<li><strong>TimeManager</strong>: 時間ベースのAwaiterで使用</li>
+<li><strong>ObjectExecutor</strong>: オブジェクトとの実行順序調整</li>
+</ul>
+<p>以上</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Task/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

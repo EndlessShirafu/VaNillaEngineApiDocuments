@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>TextInput Unit Tests </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="TextInput Unit Tests ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/TextInput/Test/TextInputTest/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="textinput-unit-tests">TextInput Unit Tests</h1>
+
+<p>このプロジェクトはVaNillaのTextInputシステムの単体テストです。</p>
+<h2 id="テストの実行方法">テストの実行方法</h2>
+<pre><code class="lang-bash"># プロジェクトディレクトリに移動
+cd /mnt/d/temp/VaNillaClaude/VaNilla/TextInput/Test/TextInputTest
+
+# テストを実行
+dotnet test
+</code></pre>
+<h2 id="テストクラス">テストクラス</h2>
+<h3 id="textinputloggertests">TextInputLoggerTests</h3>
+<ul>
+<li>TextInputLoggerクラスの基本機能をテスト</li>
+<li>コンストラクタ、Start/Stop、テキスト操作、カーソル位置、選択範囲など</li>
+</ul>
+<h3 id="textinputmanagertests">TextInputManagerTests</h3>
+<ul>
+<li>TextInputManagerクラスのGUI統合機能をテスト</li>
+<li>コントロールとの連携、複数コントロール管理、コンテキスト管理など</li>
+</ul>
+<h3 id="textinputsettingstests">TextInputSettingsTests</h3>
+<ul>
+<li>TextInputSettings構造体と入力モードをテスト</li>
+<li>デフォルト設定、カスタム設定、各種入力モードの確認</li>
+</ul>
+<h3 id="textinputnativetests">TextInputNativeTests</h3>
+<ul>
+<li>ネイティブレイヤーの機能をテスト</li>
+<li>文字入力可否判定、クリップボード操作、IME位置設定など</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<ul>
+<li>これらのテストはDxLib実装に依存しない部分のみをテストしています</li>
+<li>実際のキー入力やIME動作はモックされています</li>
+<li>GUI環境が必要なテストは含まれていません</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/TextInput/Test/TextInputTest/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

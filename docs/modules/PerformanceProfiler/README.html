@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>PerformanceProfiler </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="PerformanceProfiler ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/PerformanceProfiler/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="performanceprofiler">PerformanceProfiler</h1>
+
+<p>VaNillaエンジンのパフォーマンス監視モジュールです。ゲームの動作が重い、メモリが足りない、処理が遅いなどの問題を調べるときに使います。</p>
+<h2 id="どんな時に使うの">どんな時に使うの？</h2>
+<ul>
+<li><strong>ゲームが重い時</strong>: どこに負荷がかかっているか調べたい</li>
+<li><strong>メモリ不足</strong>: どのくらいメモリを使っているか知りたい</li>
+<li><strong>フレームレート低下</strong>: なぜカクカクするのか原因を探したい</li>
+<li><strong>最適化前後の比較</strong>: 改善効果を数値で確認したい</li>
+</ul>
+<h2 id="機能一覧">機能一覧</h2>
+<h3 id="-メモリ監視">📊 メモリ監視</h3>
+<ul>
+<li><strong>マネージドヒープ</strong>: C#オブジェクトが使用するメモリ</li>
+<li><strong>物理メモリ</strong>: システム全体のメモリ使用量</li>
+<li><strong>プライベートメモリ</strong>: アプリケーション専用メモリ</li>
+</ul>
+<h3 id="-ガベージコレクションgc監視">🗑️ ガベージコレクション（GC）監視</h3>
+<ul>
+<li><strong>GC発生回数</strong>: メモリ掃除が何回実行されたか</li>
+<li><strong>世代別GC</strong>: Gen0、Gen1、Gen2それぞれの発生回数</li>
+<li><strong>GC実行時間</strong>: メモリ掃除にかかった時間</li>
+</ul>
+<h3 id="-描画負荷監視">🎨 描画負荷監視</h3>
+<ul>
+<li><strong>描画API呼び出し回数</strong>: 画面に描画する命令の回数</li>
+<li><strong>フレーム時間</strong>: 1フレームの処理にかかった時間</li>
+</ul>
+<h3 id="-統計情報">📈 統計情報</h3>
+<ul>
+<li><strong>履歴管理</strong>: 過去のデータを内部で保存して変化を追跡</li>
+<li><strong>統計計算</strong>: 平均値/最大値を自動計算（詳細レポートに含まれる）</li>
+<li><strong>レポート生成</strong>: すべての統計情報をまとめてテキストで出力</li>
+</ul>
+<h2 id="基本的な使い方">基本的な使い方</h2>
+<h3 id="1-監視を開始する">1. 監視を開始する</h3>
+<pre><code class="lang-csharp">// まずプロファイリングを開始
+PerformanceProfiler.StartProfiling();
+
+// ここでゲームを実行...
+
+// 監視を停止
+PerformanceProfiler.StopProfiling();
+</code></pre>
+<h3 id="2-リアルタイムでメトリクスを確認">2. リアルタイムでメトリクスを確認</h3>
+<pre><code class="lang-csharp">// 現在のメモリ使用量を取得（バイト単位）
+long managedMemory = PerformanceProfiler.GetManagedMemoryBytes();
+long totalMemory = PerformanceProfiler.GetTotalMemoryBytes();
+long privateMemory = PerformanceProfiler.GetPrivateMemoryBytes();
+
+Console.WriteLine($&quot;マネージドメモリ: {managedMemory / 1024 / 1024} MB&quot;);
+Console.WriteLine($&quot;総メモリ使用量: {totalMemory / 1024 / 1024} MB&quot;);
+Console.WriteLine($&quot;プライベートメモリ: {privateMemory / 1024 / 1024} MB&quot;);
+
+// GCの発生回数と実行時間を取得
+int gen0GC = PerformanceProfiler.GetGCCount(0);  // Gen0 GC回数
+int gen1GC = PerformanceProfiler.GetGCCount(1);  // Gen1 GC回数
+int gen2GC = PerformanceProfiler.GetGCCount(2);  // Gen2 GC回数
+double gcTime = PerformanceProfiler.GetLastGCElapsedTime();  // 最後のGC実行時間
+
+Console.WriteLine($&quot;Gen0 GC: {gen0GC}回, Gen1 GC: {gen1GC}回, Gen2 GC: {gen2GC}回&quot;);
+Console.WriteLine($&quot;最後のGC実行時間: {gcTime} ms&quot;);
+
+// 描画API呼び出し回数
+int drawCalls = PerformanceProfiler.GetDrawCallCount();
+Console.WriteLine($&quot;描画回数: {drawCalls}&quot;);
+
+// 平均フレーム時間（ミリ秒）
+double avgFrameTime = PerformanceProfiler.GetAverageFrameTime();
+Console.WriteLine($&quot;平均フレーム時間: {avgFrameTime} ms&quot;);
+</code></pre>
+<h3 id="3-詳細レポートを表示">3. 詳細レポートを表示</h3>
+<pre><code class="lang-csharp">// 全ての情報をまとめたレポートを取得
+string report = PerformanceProfiler.GetDetailedReport();
+Console.WriteLine(report);
+
+// またはファイルに保存
+System.IO.File.WriteAllText(&quot;performance_report.txt&quot;, report);
+</code></pre>
+<h2 id="応用的な使い方">応用的な使い方</h2>
+<h3 id="監視間隔を調整する">監視間隔を調整する</h3>
+<pre><code class="lang-csharp">// 100ミリ秒ごとにデータを収集（デフォルト）
+PerformanceProfiler.SetSamplingInterval(100);
+
+// より詳細に監視したい場合は間隔を短くする
+PerformanceProfiler.SetSamplingInterval(50);  // 50ミリ秒ごと
+
+// 負荷を減らしたい場合は間隔を長くする
+PerformanceProfiler.SetSamplingInterval(500); // 500ミリ秒ごと
+</code></pre>
+<h3 id="履歴保持期間を設定する">履歴保持期間を設定する</h3>
+<pre><code class="lang-csharp">// 300フレーム分の履歴を保持（デフォルト）
+PerformanceProfiler.SetHistorySize(300);
+
+// より長期間の履歴を保持したい場合
+PerformanceProfiler.SetHistorySize(1000);
+
+// メモリを節約したい場合
+PerformanceProfiler.SetHistorySize(100);
+</code></pre>
+<h3 id="カウンターをリセットする">カウンターをリセットする</h3>
+<pre><code class="lang-csharp">// すべてのカウンターと履歴をリセット
+PerformanceProfiler.ResetCounters();
+
+// リセット後も監視は継続される
+</code></pre>
+<h2 id="実践例ゲームの重い部分を特定する">実践例：ゲームの重い部分を特定する</h2>
+<pre><code class="lang-csharp">public class GameOptimizationExample
+{
+    public void FindBottlenecks()
+    {
+        // 1. 監視開始
+        PerformanceProfiler.StartProfiling();
+        PerformanceProfiler.SetSamplingInterval(50); // 詳細監視
+        
+        // 2. 重い処理の前後でメトリクスを記録
+        long memoryBefore = PerformanceProfiler.GetManagedMemoryBytes();
+        int gcBefore = PerformanceProfiler.GetGCCount(0);
+        
+        // 3. 疑わしい処理を実行
+        SuspiciousHeavyFunction();
+        
+        // 4. 処理後のメトリクスを確認
+        long memoryAfter = PerformanceProfiler.GetManagedMemoryBytes();
+        int gcAfter = PerformanceProfiler.GetGCCount(0);
+        
+        // 5. 変化量を計算
+        long memoryDiff = memoryAfter - memoryBefore;
+        int gcDiff = gcAfter - gcBefore;
+        
+        Console.WriteLine($&quot;メモリ増加量: {memoryDiff / 1024} KB&quot;);
+        Console.WriteLine($&quot;GC発生回数: {gcDiff} 回&quot;);
+        
+        // 6. 詳細レポートで全体像を把握
+        string report = PerformanceProfiler.GetDetailedReport();
+        System.IO.File.WriteAllText($&quot;analysis_{DateTime.Now:yyyyMMdd_HHmmss}.txt&quot;, report);
+        
+        PerformanceProfiler.StopProfiling();
+    }
+    
+    private void SuspiciousHeavyFunction()
+    {
+        // 重い処理をここに記述
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス監視のコツ">パフォーマンス監視のコツ</h2>
+<h3 id="-監視対象を絞る">🎯 監視対象を絞る</h3>
+<ul>
+<li>最初から全部監視せず、疑わしい部分に集中</li>
+<li>処理の前後でメトリクスを比較</li>
+</ul>
+<h3 id="-適切な監視間隔を選ぶ">⏰ 適切な監視間隔を選ぶ</h3>
+<ul>
+<li><strong>リアルタイム監視</strong>: 50-100ms間隔</li>
+<li><strong>通常の調査</strong>: 100-200ms間隔</li>
+<li><strong>長期監視</strong>: 500ms-1秒間隔</li>
+</ul>
+<h3 id="-データの見方">📊 データの見方</h3>
+<ul>
+<li><strong>メモリ使用量</strong>: 急激な増加はメモリリークの兆候</li>
+<li><strong>GC回数</strong>: 頻繁なGCはパフォーマンス低下の原因</li>
+<li><strong>描画回数</strong>: 多すぎる描画命令は最適化の余地あり</li>
+</ul>
+<h3 id="-問題の切り分け">🔍 問題の切り分け</h3>
+<ol>
+<li><strong>メモリ問題</strong>: 使用量とGC回数を重点的にチェック</li>
+<li><strong>描画問題</strong>: 描画回数とフレーム時間を確認</li>
+<li><strong>CPU問題</strong>: 全体的な処理時間を分析</li>
+</ol>
+<h2 id="注意事項">注意事項</h2>
+<h3 id="パフォーマンスへの影響">パフォーマンスへの影響</h3>
+<ul>
+<li><strong>監視停止時</strong>: ほぼ影響なし（空の関数呼び出しのみ）</li>
+<li><strong>監視中</strong>: 軽微な影響（設定した間隔でのサンプリング）</li>
+<li><strong>推奨</strong>: 開発・デバッグ時のみ使用し、リリース版では無効化</li>
+</ul>
+<h3 id="現在の制約">現在の制約</h3>
+<ul>
+<li><strong>描画カウンター</strong>: Renderer.Utils.GetDrawCallCount()に依存</li>
+<li><strong>フレーム時間</strong>: FpsCalculatorモジュールと連携して測定</li>
+<li><strong>履歴データ</strong>: 内部管理されており、詳細レポートとしてのみアクセス可能</li>
+<li><strong>Update</strong>: 内部メソッドのため、SupremeArbiterから自動的に呼び出される</li>
+</ul>
+<h2 id="よくある質問">よくある質問</h2>
+<p><strong>Q: 監視を有効にするとゲームが重くなりますか？</strong>
+A: 最小限の影響しかありません。サンプリング間隔を調整することで負荷をコントロールできます。</p>
+<p><strong>Q: どのくらいの期間監視すれば良いですか？</strong>
+A: 問題が発生する場面を含む数分間が目安です。長時間監視する場合は履歴サイズを調整してください。</p>
+<p><strong>Q: 詳細な履歴データにアクセスできますか？</strong>
+A: 現在のAPIでは履歴データは内部管理されており、GetDetailedReport()で統計情報として確認できます。</p>
+<p><strong>Q: メモリリークを検出できますか？</strong>
+A: はい。メモリ使用量が継続的に増加し続ける場合はメモリリークの可能性があります。</p>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="メトリクスが0になる場合">メトリクスが0になる場合</h3>
+<pre><code class="lang-csharp">// プロファイリングが開始されているか確認
+if (!PerformanceProfiler.IsActive())
+{
+    PerformanceProfiler.StartProfiling();
+}
+</code></pre>
+<h2 id="依存関係">依存関係</h2>
+<h3 id="外部依存">外部依存</h3>
+<ul>
+<li><strong>System.Diagnostics</strong>: プロセス情報取得</li>
+<li><strong>System.GC</strong>: ガベージコレクション情報取得</li>
+</ul>
+<h3 id="vanilla内部依存">VaNilla内部依存</h3>
+<ul>
+<li><strong>VaNilla.Renderer</strong>: 描画カウント取得（Utils.GetDrawCallCount）</li>
+<li><strong>VaNilla.Time</strong>: 時間管理とフレーム更新</li>
+<li><strong>FpsCalculator</strong>: 平均フレーム時間計測</li>
+<li><strong>SupremeArbiter</strong>: Update()メソッドの自動呼び出し</li>
+</ul>
+<h2 id="バージョン情報">バージョン情報</h2>
+<ul>
+<li><strong>Current</strong>: v0.1.0 (基本機能実装完了)</li>
+<li><strong>Next</strong>: v0.2.0 (VaNilla描画API統合予定)</li>
+<li><strong>Future</strong>: v0.3.0 (Unity/DxLib詳細統計予定)</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/PerformanceProfiler/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

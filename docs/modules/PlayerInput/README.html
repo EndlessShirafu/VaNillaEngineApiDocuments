@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>PlayerInput モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="PlayerInput モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/PlayerInput/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="playerinput-モジュール">PlayerInput モジュール</h1>
+
+<p>PlayerInputモジュールは、プレイヤーの入力を抽象化して管理するモジュールです。手動入力、オートパイロット、ランダム操作など、異なる入力方式を統一的に処理し、入力の記録・再生機能も提供します。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>入力抽象化</strong>: 手動、自動、ランダムなど異なる入力方式の統一管理</li>
+<li><strong>入力記録・再生</strong>: プレイヤー操作の記録と再現機能</li>
+<li><strong>入力モード切り替え</strong>: 実行時の入力方式変更</li>
+<li><strong>時刻同期入力</strong>: フレーム単位での正確な入力タイミング管理</li>
+</ul>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.Input.html">VaNilla PlayerInput APIリファレンス</a>をご覧ください。</p>
+<h2 id="入力方式">入力方式</h2>
+<h3 id="inputkind-列挙体">InputKind 列挙体</h3>
+<pre><code class="lang-csharp">public enum InputKind
+{
+    MANUAL,       // ユーザーキー操作（手動入力）
+    AUTO_PILOT,   // オートパイロット（AI制御）
+    RANDOM_MOVE   // ランダムウォーク（ランダム入力）
+}
+</code></pre>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="playerabstractinputメインコンポーネント">PlayerAbstractInput（メインコンポーネント）</h3>
+<p>プレイヤーの抽象的な入力を管理するExpresserComponentです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public class PlayerAbstractInput : IExpresserComponent
+{
+    // 入力方式の設定
+    public void SetInputKind(InputKind kind);
+    
+    // 現在の入力情報を取得
+    public InputInfoStruct GetNowInput(float now_time__);
+    
+    // 現在の入力情報を設定（記録用）
+    public void SetNowInput(float now_time__, InputInfoStruct inputinfo);
+}
+</code></pre>
+<h3 id="関連クラスvanillaenginemanagerで自動生成">関連クラス（VaNillaEngineManagerで自動生成）</h3>
+<h4 id="inputinfostruct入力データ構造体">InputInfoStruct（入力データ構造体）</h4>
+<pre><code class="lang-csharp">// key_configのYAML設定から自動生成される構造体
+public struct InputInfoStruct
+{
+    // 生成されるフィールド例（key_configの定義に基づく）：
+    public bool MoveUp;
+    public bool MoveDown;
+    public bool MoveLeft;
+    public bool MoveRight;
+    public bool Action;
+    public bool Jump;
+    public bool Cancel;
+    public bool Menu;
+    // その他、key_configで定義されたすべての入力
+}
+</code></pre>
+<h4 id="staticinputinfo現在フレームの入力取得">StaticInputInfo（現在フレームの入力取得）</h4>
+<pre><code class="lang-csharp">// 現在のフレームでの実際の入力状態を取得する静的クラス
+public static class StaticInputInfo
+{
+    // 現在のキーボード、マウス、ゲームパッドの入力状態を
+    // InputInfoStruct形式で取得する
+    public static InputInfoStruct GetStaticInfo();
+}
+</code></pre>
+<p><strong>StaticInputInfoの役割：</strong></p>
+<ul>
+<li>現在のフレームでの実際の物理入力（キーボード、マウス、ゲームパッド）を取得</li>
+<li>key_configで定義されたマッピングに基づいて、各入力の状態を判定</li>
+<li>PlayerAbstractInputのMANUALモードで内部的に使用される</li>
+<li>入力記録時の生の入力データソースとして機能</li>
+</ul>
+<p><strong>使用例：</strong></p>
+<pre><code class="lang-csharp">// 現在の実際の入力状態を取得
+var currentInput = StaticInputInfo.GetStaticInfo();
+
+// 各入力の状態をチェック
+if (currentInput.Jump)
+{
+    // ジャンプキーが押されている
+}
+
+if (currentInput.MoveLeft || currentInput.MoveRight)
+{
+    // 左右どちらかの移動キーが押されている
+}
+</code></pre>
+<h4 id="userdatainputrecorder入力記録">UserDataInputRecorder（入力記録）</h4>
+<pre><code class="lang-csharp">// プレイヤーの入力を記録するクラス
+public class UserDataInputRecorder
+{
+    public bool IsInitialized();
+    public void SetNowInput(float time, InputInfoStruct input);
+}
+</code></pre>
+<h4 id="userdatainputinterpreter入力再生">UserDataInputInterpreter（入力再生）</h4>
+<pre><code class="lang-csharp">// 記録された入力を再生するクラス
+public class UserDataInputInterpreter
+{
+    public InputInfoStruct GetInput(float time);
+}
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的な使用例">基本的な使用例</h3>
+<pre><code class="lang-csharp">// プレイヤーオブジェクトに入力コンポーネントを追加
+// 方法1: ObjectActivatorで生成時に追加
+var player = ObjectActivator.Activate&lt;PlayerCharacter&gt;(
+    additional_components: new IExpresserComponent[] { new PlayerAbstractInput() }
+);
+
+// 方法2: DefaultExpresserComponent属性を使用（PlayerCharacterクラス定義時）
+[DefaultExpresserComponent(typeof(PlayerAbstractInput))]
+public class PlayerCharacter : VaNilla.Object { }
+
+// コンポーネントの取得
+var playerInput = player.GetExpresserComponent&lt;PlayerAbstractInput&gt;();
+
+// 入力方式を設定
+playerInput.SetInputKind(InputKind.MANUAL);
+
+// ゲームループ内で入力を取得
+public bool Execute(Object object__, in Time current_time)
+{
+    var inputComponent = object__.GetExpresserComponent&lt;PlayerAbstractInput&gt;();
+    var currentInput = inputComponent.GetNowInput(current_time.ToSeconds());
+    
+    // 入力に基づく処理
+    ProcessPlayerInput(currentInput);
+    
+    return true;
+}
+</code></pre>
+<h3 id="入力記録再生システム">入力記録・再生システム</h3>
+<pre><code class="lang-csharp">// 入力記録の開始
+var recorder = new UserDataInputRecorder();
+var playerInput = player.GetExpresserComponent&lt;PlayerAbstractInput&gt;();
+
+// 毎フレーム入力を記録
+// StaticInputInfoから現在の物理入力を取得して記録
+var currentInput = StaticInputInfo.GetStaticInfo();
+recorder.SetNowInput(currentTime, currentInput);
+
+// 入力再生の実行
+var interpreter = new UserDataInputInterpreter();
+playerInput.SetInputKind(InputKind.AUTO_PILOT);
+
+// 記録された入力を再生
+// PlayerAbstractInputは内部でUserDataInputInterpreterを使用
+var replayInput = playerInput.GetNowInput(currentTime);
+</code></pre>
+<h3 id="staticinputinfoの直接使用">StaticInputInfoの直接使用</h3>
+<pre><code class="lang-csharp">// PlayerAbstractInputを使わずに直接入力を取得する例
+public class DirectInputHandler : IExpresserComponent
+{
+    public bool Execute(Object object__, in Time current_time)
+    {
+        // StaticInputInfoから現在の入力を直接取得
+        var input = StaticInputInfo.GetStaticInfo();
+        
+        // 入力に基づく処理
+        if (input.Jump &amp;&amp; object__.IsGrounded())
+        {
+            object__.ApplyJumpForce();
+        }
+        
+        float moveX = 0;
+        if (input.MoveLeft) moveX = -1;
+        if (input.MoveRight) moveX = 1;
+        object__.SetVelocityX(moveX * moveSpeed);
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="入力方式の動的切り替え">入力方式の動的切り替え</h3>
+<pre><code class="lang-csharp">public class AdaptivePlayerInput : IExpresserComponent
+{
+    private PlayerAbstractInput playerInput;
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        // 条件に応じて入力方式を切り替え
+        if (IsPlayerIdle())
+        {
+            playerInput.SetInputKind(InputKind.AUTO_PILOT);
+        }
+        else if (IsDebugMode())
+        {
+            playerInput.SetInputKind(InputKind.RANDOM_MOVE);
+        }
+        else
+        {
+            playerInput.SetInputKind(InputKind.MANUAL);
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<h2 id="設定例yaml">設定例（YAML）</h2>
+<p>VaNillaSettings.yamlのkey_config設定：</p>
+<pre><code class="lang-yaml"># VaNillaSettings.yaml
+key_config:
+  # 移動入力
+  MoveUp:
+    default_keyboard: &quot;W&quot;
+    default_pad: &quot;DPadUp&quot;
+  
+  MoveDown:
+    default_keyboard: &quot;S&quot;
+    default_pad: &quot;DPadDown&quot;
+  
+  MoveLeft:
+    default_keyboard: &quot;A&quot;
+    default_pad: &quot;DPadLeft&quot;
+  
+  MoveRight:
+    default_keyboard: &quot;D&quot;
+    default_pad: &quot;DPadRight&quot;
+  
+  # アクション入力
+  Action:
+    default_keyboard: &quot;Space&quot;
+    default_pad: &quot;Button0&quot;
+    default_mouse: &quot;Left&quot;
+  
+  Jump:
+    default_keyboard: &quot;Shift&quot;
+    default_pad: &quot;Button1&quot;
+  
+  Cancel:
+    default_keyboard: &quot;X&quot;
+    default_pad: &quot;Button2&quot;
+    default_mouse: &quot;Right&quot;
+  
+  Menu:
+    default_keyboard: &quot;Escape&quot;
+    default_pad: &quot;Button6&quot;
+</code></pre>
+<p>この設定から、VaNillaEngineManagerによって<code>InputInfoStruct</code>などが自動生成されます。</p>
+<h2 id="高度な機能">高度な機能</h2>
+<h3 id="ai入力システム">AI入力システム</h3>
+<pre><code class="lang-csharp">public class AIInputController
+{
+    private AIBehaviorTree behaviorTree;
+    
+    public InputInfoStruct GenerateAIInput(GameState gameState)
+    {
+        var decision = behaviorTree.Evaluate(gameState);
+        return ConvertToInputStruct(decision);
+    }
+}
+
+public class AutoPilotPlayerInput : PlayerAbstractInput
+{
+    private AIInputController aiController;
+    
+    public override InputInfoStruct GetNowInput(float now_time__)
+    {
+        if (input_kind == InputKind.AUTO_PILOT)
+        {
+            var gameState = AnalyzeCurrentGameState();
+            return aiController.GenerateAIInput(gameState);
+        }
+        return base.GetNowInput(now_time__);
+    }
+}
+</code></pre>
+<h3 id="入力分析統計">入力分析・統計</h3>
+<pre><code class="lang-csharp">public class InputAnalyzer
+{
+    public struct InputStatistics
+    {
+        public float AverageReactionTime;
+        public int TotalKeyPresses;
+        public Dictionary&lt;string, int&gt; ButtonUsageCount;
+        public float AccuracyPercentage;
+    }
+    
+    public InputStatistics AnalyzeRecordedInput(List&lt;TimedInputData&gt; inputHistory);
+    public void GenerateInputReport(InputStatistics stats);
+}
+</code></pre>
+<h3 id="リプレイシステム">リプレイシステム</h3>
+<pre><code class="lang-csharp">public class ReplayManager
+{
+    private List&lt;TimedInputData&gt; replayData;
+    private float replayStartTime;
+    
+    public void LoadReplay(string replayFilePath);
+    public void StartReplay();
+    public void PauseReplay();
+    public void SetReplaySpeed(float speed);
+    public bool IsReplayFinished();
+}
+</code></pre>
+<h2 id="アクセシビリティ機能">アクセシビリティ機能</h2>
+<h3 id="入力アシスト">入力アシスト</h3>
+<pre><code class="lang-csharp">public class InputAssistant
+{
+    public InputInfoStruct ApplyInputAssist(InputInfoStruct rawInput)
+    {
+        // 入力補正・アシスト機能
+        var assistedInput = rawInput;
+        
+        // 連打アシスト
+        if (autoRepeatEnabled)
+        {
+            assistedInput = ApplyAutoRepeat(assistedInput);
+        }
+        
+        // 入力ホールド
+        if (inputHoldEnabled)
+        {
+            assistedInput = ApplyInputHold(assistedInput);
+        }
+        
+        return assistedInput;
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>入力ポーリング</strong>: 毎フレーム呼び出されるため軽量な実装が重要</li>
+<li><strong>記録バッファ</strong>: 長時間録画時のメモリ使用量に注意</li>
+<li><strong>時刻精度</strong>: フレーム単位での正確な時刻管理が必要</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../TimeManager/README.html">TimeManager</a> - 時間管理</li>
+<li><a href="../KeyboardInput/README.html">KeyboardInput</a> - キーボード入力</li>
+<li><a href="../MouseInput/README.html">MouseInput</a> - マウス入力</li>
+<li><a href="../GamePadInput/README.html">GamePadInput</a> - ゲームパッド入力</li>
+<li><strong>VaNillaEngineManager</strong> - InputInfoStruct生成</li>
+</ul>
+<h2 id="生成されるファイル">生成されるファイル</h2>
+<p>VaNillaEngineManagerのCodeGeneratorによって以下のファイルが生成されます：</p>
+<ul>
+<li><code>InputInfoStruct.cs</code> - 入力データ構造体</li>
+<li><code>StaticInputInfo.cs</code> - 静的入力情報管理</li>
+<li><code>UserDataInputRecorder.cs</code> - 入力記録クラス</li>
+<li><code>UserDataInputInterpreter.cs</code> - 入力再生クラス</li>
+</ul>
+<h2 id="使用シーン">使用シーン</h2>
+<h3 id="ゲーム開発">ゲーム開発</h3>
+<ul>
+<li><strong>デバッグ</strong>: オートパイロットによる自動テスト</li>
+<li><strong>バランス調整</strong>: ランダム入力での耐久テスト</li>
+<li><strong>リプレイ機能</strong>: プレイヤー操作の記録・再生</li>
+</ul>
+<h3 id="教育分析">教育・分析</h3>
+<ul>
+<li><strong>プレイスタイル分析</strong>: 入力パターンの統計解析</li>
+<li><strong>UI/UX改善</strong>: ユーザー操作の傾向分析</li>
+<li><strong>アクセシビリティ</strong>: 入力補助機能の提供</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../KeyboardInput/README.html">KeyboardInput</a> - キーボード入力</li>
+<li><a href="../MouseInput/README.html">MouseInput</a> - マウス入力</li>
+<li><a href="../GamePadInput/README.html">GamePadInput</a> - ゲームパッド入力</li>
+<li><a href="../TimeManager/README.html">TimeManager</a> - 時間管理</li>
+<li><a href="../VaNillaEngineManager/README.html">VaNillaEngineManager</a> - コード生成</li>
+</ul>
+<h2 id="拡張可能性">拡張可能性</h2>
+<ul>
+<li><strong>ネットワーク入力</strong>: オンラインマルチプレイでの入力同期</li>
+<li><strong>モーション入力</strong>: Kinectやカメラを使用した体感入力</li>
+<li><strong>音声入力</strong>: 音声認識による入力制御</li>
+<li><strong>機械学習</strong>: プレイヤー行動パターンの学習とAI生成</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/PlayerInput/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

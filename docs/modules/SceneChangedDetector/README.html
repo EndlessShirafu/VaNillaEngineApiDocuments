@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>SceneChangedDetector モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="SceneChangedDetector モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/SceneChangedDetector/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="scenechangeddetector-モジュール">SceneChangedDetector モジュール</h1>
+
+<p>SceneChangedDetectorモジュールは、VaNillaエンジンのSceneStateManagerと連携してシーン状態の変化を検出するモジュールです。前フレームと現在フレームのシーン状態を比較し、シーン変更やシーングループ変更を検知する機能を提供します。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>シーン変更検出</strong>: 前フレームと現在フレームのシーン状態比較</li>
+<li><strong>シーングループ変更検出</strong>: シーングループレベルでの変化検知</li>
+<li><strong>1フレーム有効な変更検知</strong>: フレーム単位での正確な変更タイミング検出</li>
+<li><strong>SceneStateManager連携</strong>: VaNillaのシーン管理システムとの完全統合</li>
+</ul>
+<h2 id="実装状況">実装状況</h2>
+<p>✅ <strong>完了</strong>: シーン状態変更検出機能が実装済みです。</p>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="scenechangeddetector-クラス">SceneChangedDetector クラス</h3>
+<p>SceneStateManagerと連携してシーン変更を検出する静的クラスです。</p>
+<pre><code class="lang-csharp">namespace VaNilla.Scene
+{
+    public static class SceneChangedDetector
+    {
+        // 内部状態管理
+        static SceneStateManager.SceneState past_scene_state;
+        static SceneStateManager.SceneState current_scene_state;
+        static SceneStateManager.SceneStateGroup past_scene_group;
+        static SceneStateManager.SceneStateGroup current_scene_group;
+        
+        /// &lt;summary&gt;
+        /// 初期化処理
+        /// &lt;/summary&gt;
+        public static void Initialize();
+        
+        /// &lt;summary&gt;
+        /// フレーム更新処理
+        /// &lt;/summary&gt;
+        public static void Execute();
+        
+        /// &lt;summary&gt;
+        /// シーンが変化したことを検知。1フレームの間有効。
+        /// &lt;/summary&gt;
+        public static bool IsSceneChaged(
+            out SceneStateManager.SceneState past_scene_state__,
+            out SceneStateManager.SceneState current_scene_state__);
+        
+        /// &lt;summary&gt;
+        /// シーングループが変化したことを検知。1フレームの間有効。
+        /// &lt;/summary&gt;
+        public static bool IsGroupChaged(
+            out SceneStateManager.SceneStateGroup past_scene_group__,
+            out SceneStateManager.SceneStateGroup current_scene_group__);
+    }
+}
+</code></pre>
+<h2 id="動作原理">動作原理</h2>
+<h3 id="状態追跡メカニズム">状態追跡メカニズム</h3>
+<pre><code class="lang-csharp">// 初期化時
+public static void Initialize()
+{
+    past_scene_state = SceneStateManager.GetCurrentSceneStateInfo().scene_state;
+    current_scene_state = SceneStateManager.GetCurrentSceneStateInfo().scene_state;
+    past_scene_group = SceneStateManager.GetCurrentSceneStateInfo().scene_state_group;
+    current_scene_group = SceneStateManager.GetCurrentSceneStateInfo().scene_state_group;
+}
+
+// フレーム更新時
+public static void Execute()
+{
+    // 前フレームの状態を保存
+    past_scene_state = current_scene_state;
+    past_scene_group = current_scene_group;
+
+    // 現在の状態を取得
+    SceneStateInfo scene_info = SceneStateManager.GetCurrentSceneStateInfo();
+    current_scene_state = scene_info.scene_state;
+    current_scene_group = scene_info.scene_state_group;
+}
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的な使用パターン">基本的な使用パターン</h3>
+<pre><code class="lang-csharp">using VaNilla.Scene;
+
+public class GameManager : IExpresserComponent
+{
+    public bool SetUp(Object object__)
+    {
+        // 初期化
+        SceneChangedDetector.Initialize();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        // フレーム毎の更新
+        SceneChangedDetector.Execute();
+        
+        // シーン変更をチェック
+        if (SceneChangedDetector.IsSceneChaged(out var pastScene, out var currentScene))
+        {
+            HandleSceneChange(pastScene, currentScene);
+        }
+        
+        // シーングループ変更をチェック
+        if (SceneChangedDetector.IsGroupChaged(out var pastGroup, out var currentGroup))
+        {
+            HandleGroupChange(pastGroup, currentGroup);
+        }
+        
+        return true;
+    }
+    
+    private void HandleSceneChange(
+        SceneStateManager.SceneState from, 
+        SceneStateManager.SceneState to)
+    {
+        Logger.Log($&quot;シーン変更: {from} -&gt; {to}&quot;);
+        
+        switch (to)
+        {
+            case SceneStateManager.SceneState.InitialLoading:
+                InitializeLoadingScene();
+                break;
+            case SceneStateManager.SceneState.Title:
+                InitializeTitleScene();
+                break;
+            case SceneStateManager.SceneState.RootConsole:
+                InitializeConsoleScene();
+                break;
+            case SceneStateManager.SceneState.Tutorial:
+                InitializeTutorialScene();
+                break;
+            case SceneStateManager.SceneState.Config:
+                InitializeConfigScene();
+                break;
+        }
+    }
+    
+    private void HandleGroupChange(
+        SceneStateManager.SceneStateGroup from,
+        SceneStateManager.SceneStateGroup to)
+    {
+        Logger.Log($&quot;シーングループ変更: {from} -&gt; {to}&quot;);
+        
+        // グループ変更時の処理（メモリクリア、リソース管理など）
+        CleanupPreviousGroup(from);
+        InitializeNewGroup(to);
+    }
+}
+</code></pre>
+<h3 id="シーン変更に反応するコンポーネント">シーン変更に反応するコンポーネント</h3>
+<pre><code class="lang-csharp">public class SceneReactiveObject : IExpresserComponent
+{
+    private bool initialized = false;
+    
+    public bool SetUp(Object object__)
+    {
+        if (!initialized)
+        {
+            SceneChangedDetector.Initialize();
+            initialized = true;
+        }
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        SceneChangedDetector.Execute();
+        
+        // シーン変更検知
+        if (SceneChangedDetector.IsSceneChaged(out var pastScene, out var currentScene))
+        {
+            OnSceneChanged(pastScene, currentScene);
+        }
+        
+        return true;
+    }
+    
+    private void OnSceneChanged(
+        SceneStateManager.SceneState from,
+        SceneStateManager.SceneState to)
+    {
+        // 特定のシーンでのみ反応
+        if (to == SceneStateManager.SceneState.Title)
+        {
+            ShowTitleUI();
+        }
+        else if (to == SceneStateManager.SceneState.Config)
+        {
+            ShowConfigUI();
+        }
+        else
+        {
+            HideUI();
+        }
+    }
+}
+</code></pre>
+<h3 id="オーディオ管理での活用">オーディオ管理での活用</h3>
+<pre><code class="lang-csharp">public class SceneAudioManager : IExpresserComponent
+{
+    private Dictionary&lt;SceneStateManager.SceneState, string&gt; sceneBGM;
+    
+    public bool SetUp(Object object__)
+    {
+        SceneChangedDetector.Initialize();
+        
+        // シーン別BGM設定
+        sceneBGM = new Dictionary&lt;SceneStateManager.SceneState, string&gt;
+        {
+            { SceneStateManager.SceneState.Title, &quot;BGM/title.ogg&quot; },
+            { SceneStateManager.SceneState.RootConsole, &quot;BGM/console.ogg&quot; },
+            { SceneStateManager.SceneState.Tutorial, &quot;BGM/tutorial.ogg&quot; },
+            { SceneStateManager.SceneState.Config, &quot;BGM/config.ogg&quot; }
+        };
+        
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        SceneChangedDetector.Execute();
+        
+        if (SceneChangedDetector.IsSceneChaged(out var pastScene, out var currentScene))
+        {
+            ChangeBGM(pastScene, currentScene);
+        }
+        
+        return true;
+    }
+    
+    private void ChangeBGM(
+        SceneStateManager.SceneState from,
+        SceneStateManager.SceneState to)
+    {
+        // 前のBGMを停止
+        AudioManager.StopBGM();
+        
+        // 新しいBGMを再生
+        if (sceneBGM.TryGetValue(to, out var bgmPath))
+        {
+            AudioManager.PlayBGM(bgmPath);
+        }
+    }
+}
+</code></pre>
+<h3 id="リソース管理での活用">リソース管理での活用</h3>
+<pre><code class="lang-csharp">public class SceneResourceManager : IExpresserComponent
+{
+    private Dictionary&lt;SceneStateManager.SceneStateGroup, List&lt;string&gt;&gt; groupResources;
+    
+    public bool SetUp(Object object__)
+    {
+        SceneChangedDetector.Initialize();
+        
+        // グループ別リソース定義
+        groupResources = new Dictionary&lt;SceneStateManager.SceneStateGroup, List&lt;string&gt;&gt;
+        {
+            {
+                SceneStateManager.SceneStateGroup.GROUP_0,
+                new List&lt;string&gt; { &quot;Textures/Loading/&quot;, &quot;Audio/System/&quot; }
+            },
+            {
+                SceneStateManager.SceneStateGroup.GROUP_1,
+                new List&lt;string&gt; { &quot;Textures/Title/&quot;, &quot;Audio/Title/&quot; }
+            },
+            {
+                SceneStateManager.SceneStateGroup.GROUP_2,
+                new List&lt;string&gt; { &quot;Textures/Game/&quot;, &quot;Audio/Game/&quot; }
+            }
+        };
+        
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        SceneChangedDetector.Execute();
+        
+        // グループ変更時のリソース管理
+        if (SceneChangedDetector.IsGroupChaged(out var pastGroup, out var currentGroup))
+        {
+            HandleResourceGroupChange(pastGroup, currentGroup);
+        }
+        
+        return true;
+    }
+    
+    private void HandleResourceGroupChange(
+        SceneStateManager.SceneStateGroup from,
+        SceneStateManager.SceneStateGroup to)
+    {
+        // 前のグループのリソースをアンロード
+        if (groupResources.TryGetValue(from, out var oldResources))
+        {
+            foreach (var resource in oldResources)
+            {
+                ResourceManager.UnloadGroup(resource);
+            }
+        }
+        
+        // 新しいグループのリソースをロード
+        if (groupResources.TryGetValue(to, out var newResources))
+        {
+            foreach (var resource in newResources)
+            {
+                ResourceManager.LoadGroup(resource);
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="高度な使用例">高度な使用例</h2>
+<h3 id="カスタムシーン変更ハンドラ">カスタムシーン変更ハンドラ</h3>
+<pre><code class="lang-csharp">public class CustomSceneHandler : IExpresserComponent
+{
+    private Dictionary&lt;(SceneStateManager.SceneState, SceneStateManager.SceneState), Action&gt; transitionHandlers;
+    
+    public bool SetUp(Object object__)
+    {
+        SceneChangedDetector.Initialize();
+        
+        // 特定のシーン遷移に対するハンドラを定義
+        transitionHandlers = new Dictionary&lt;(SceneStateManager.SceneState, SceneStateManager.SceneState), Action&gt;
+        {
+            // InitialLoading -&gt; CircleLogo
+            {
+                (SceneStateManager.SceneState.InitialLoading, SceneStateManager.SceneState.CircleLogo),
+                () =&gt; StartLogoAnimation()
+            },
+            // CircleLogo -&gt; Title
+            {
+                (SceneStateManager.SceneState.CircleLogo, SceneStateManager.SceneState.Title),
+                () =&gt; InitializeTitleScreen()
+            },
+            // Title -&gt; RootConsole
+            {
+                (SceneStateManager.SceneState.Title, SceneStateManager.SceneState.RootConsole),
+                () =&gt; StartGameSession()
+            }
+        };
+        
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        SceneChangedDetector.Execute();
+        
+        if (SceneChangedDetector.IsSceneChaged(out var pastScene, out var currentScene))
+        {
+            var transitionKey = (pastScene, currentScene);
+            if (transitionHandlers.TryGetValue(transitionKey, out var handler))
+            {
+                handler.Invoke();
+            }
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="スタック対応シーン管理">スタック対応シーン管理</h3>
+<pre><code class="lang-csharp">public class StackAwareSceneHandler : IExpresserComponent
+{
+    private Stack&lt;SceneStateManager.SceneState&gt; sceneHistory;
+    
+    public bool SetUp(Object object__)
+    {
+        SceneChangedDetector.Initialize();
+        sceneHistory = new Stack&lt;SceneStateManager.SceneState&gt;();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        SceneChangedDetector.Execute();
+        
+        if (SceneChangedDetector.IsSceneChaged(out var pastScene, out var currentScene))
+        {
+            HandleSceneStackChange(pastScene, currentScene);
+        }
+        
+        return true;
+    }
+    
+    private void HandleSceneStackChange(
+        SceneStateManager.SceneState from,
+        SceneStateManager.SceneState to)
+    {
+        // シーングループが同じ場合はPush/Pop操作の可能性
+        var fromInfo = SceneStateManager.GetSceneInfo(from);
+        var toInfo = SceneStateManager.GetSceneInfo(to);
+        
+        if (fromInfo.scene_state_group == toInfo.scene_state_group)
+        {
+            // Push操作の検知
+            if (IsPushTransition(from, to))
+            {
+                sceneHistory.Push(from);
+                OnScenePushed(from, to);
+            }
+            // Pop操作の検知
+            else if (sceneHistory.Count &gt; 0 &amp;&amp; sceneHistory.Peek() == to)
+            {
+                sceneHistory.Pop();
+                OnScenePopped(from, to);
+            }
+        }
+        else
+        {
+            // グループ変更時はスタッククリア
+            sceneHistory.Clear();
+            OnSceneGroupChanged(from, to);
+        }
+    }
+}
+</code></pre>
+<h3 id="デバッグ用シーン変更ログ">デバッグ用シーン変更ログ</h3>
+<pre><code class="lang-csharp">#if DEBUG
+public class SceneChangeLogger : IExpresserComponent
+{
+    private struct SceneChangeLog
+    {
+        public SceneStateManager.SceneState From;
+        public SceneStateManager.SceneState To;
+        public SceneStateManager.SceneStateGroup FromGroup;
+        public SceneStateManager.SceneStateGroup ToGroup;
+        public DateTime Timestamp;
+    }
+    
+    private List&lt;SceneChangeLog&gt; changeHistory;
+    
+    public bool SetUp(Object object__)
+    {
+        SceneChangedDetector.Initialize();
+        changeHistory = new List&lt;SceneChangeLog&gt;();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        SceneChangedDetector.Execute();
+        
+        bool sceneChanged = SceneChangedDetector.IsSceneChaged(out var pastScene, out var currentScene);
+        bool groupChanged = SceneChangedDetector.IsGroupChaged(out var pastGroup, out var currentGroup);
+        
+        if (sceneChanged || groupChanged)
+        {
+            var log = new SceneChangeLog
+            {
+                From = pastScene,
+                To = currentScene,
+                FromGroup = pastGroup,
+                ToGroup = currentGroup,
+                Timestamp = DateTime.Now
+            };
+            
+            changeHistory.Add(log);
+            
+            if (sceneChanged)
+            {
+                Logger.Debug($&quot;[SceneChange] {pastScene} -&gt; {currentScene}&quot;);
+            }
+            
+            if (groupChanged)
+            {
+                Logger.Debug($&quot;[GroupChange] {pastGroup} -&gt; {currentGroup}&quot;);
+            }
+        }
+        
+        return true;
+    }
+    
+    public void PrintChangeHistory()
+    {
+        Logger.Debug(&quot;=== Scene Change History ===&quot;);
+        foreach (var log in changeHistory)
+        {
+            Logger.Debug($&quot;{log.Timestamp:HH:mm:ss.fff} | {log.From}({log.FromGroup}) -&gt; {log.To}({log.ToGroup})&quot;);
+        }
+    }
+}
+#endif
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>軽量な状態比較</strong>: enum値の単純比較による高速判定</li>
+<li><strong>フレーム単位更新</strong>: 1フレームに1回のExecute呼び出しで効率的</li>
+<li><strong>メモリ効率</strong>: 最小限の状態保持（4つのenum値のみ）</li>
+<li><strong>ガベージフリー</strong>: 新規オブジェクト生成なしの実装</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<h3 id="使用順序">使用順序</h3>
+<ol>
+<li><code>Initialize()</code>: ゲーム開始時またはモジュール初期化時に1回呼び出し</li>
+<li><code>Execute()</code>: 毎フレーム呼び出し（SceneStateManagerの更新後）</li>
+<li><code>IsSceneChaged()</code> / <code>IsGroupChaged()</code>: Execute後に変更をチェック</li>
+</ol>
+<h3 id="変更検知のタイミング">変更検知のタイミング</h3>
+<ul>
+<li>変更検知は1フレームのみ有効</li>
+<li>同じフレーム内で複数回チェックしても同じ結果を返す</li>
+<li>次のExecute()呼び出し後に状態がリセットされる</li>
+</ul>
+<h3 id="scenestatemanagerとの依存関係">SceneStateManagerとの依存関係</h3>
+<ul>
+<li>SceneStateManagerが適切に初期化されている必要があります</li>
+<li>SceneStateManager.GetCurrentSceneStateInfo()が正常に動作する必要があります</li>
+</ul>
+<h2 id="設定例yaml">設定例（YAML）</h2>
+<pre><code class="lang-yaml">scene_changed_detector:
+  auto_initialize: true
+  debug_logging: false
+  
+  # パフォーマンス設定
+  performance:
+    cache_scene_info: true
+    skip_same_frame_checks: false
+    
+  # デバッグ設定
+  debug:
+    log_all_changes: false
+    log_group_changes: true
+    history_size: 100
+</code></pre>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../SceneStateManager/README.html">SceneStateManager</a> - シーン状態管理、SceneStateInfo取得</li>
+<li><strong>VaNilla Core</strong> - 基本的なエンジン機能</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../SceneStateManager/README.html">SceneStateManager</a> - シーン状態管理</li>
+<li><a href="../ExpresserComponent/README.html">ExpresserComponent</a> - コンポーネントシステム</li>
+<li><a href="../TimeManager/README.html">TimeManager</a> - 時間管理</li>
+</ul>
+<p>このモジュールにより、VaNillaエンジンでのシーン変更を正確にタイミングよく検出し、シーン遷移に応じた処理を効率的に実装できます。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/SceneChangedDetector/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

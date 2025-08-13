@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>DebugUtil モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="DebugUtil モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/DebugUtil/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="debugutil-モジュール">DebugUtil モジュール</h1>
+
+<p>DebugUtilモジュールは、VaNillaエンジンでのデバッグ作業を支援するユーティリティセットです。開発時とリリース時で動作を切り替えるアセンブリ状態の判定機能を提供し、効率的なデバッグ環境を構築できます。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>アセンブリ状態判定</strong>: DEBUG/RELEASEビルドの自動判定</li>
+<li><strong>コンパイル時分岐</strong>: プリプロセッサディレクティブによる最適化</li>
+<li><strong>デバッグ用ユーティリティ</strong>: 開発支援機能の基盤</li>
+<li><strong>コマンドライン引数解析</strong>: デバッグ機能の有効化制御（YAML設定から自動生成）</li>
+<li><strong>軽量実装</strong>: オーバーヘッドのない状態判定</li>
+<li><strong>シンプルAPI</strong>: 直感的で使いやすいインターフェース</li>
+</ul>
+<h2 id="実装状況">実装状況</h2>
+<p>✅ <strong>完了</strong>: アセンブリ状態判定機能が実装済みです。
+✅ <strong>完了</strong>: コマンドライン引数解析機能（YAML設定から自動生成）</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.Debug.html">VaNilla DebugUtil APIリファレンス</a>をご覧ください。</p>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="debugarguments-クラス自動生成">DebugArguments クラス（自動生成）</h3>
+<p>コマンドライン引数からデバッグ機能を制御するクラスです。YAMLファイルの設定から自動生成されます。</p>
+<pre><code class="lang-csharp">namespace VaNilla.Debug
+{
+    public static class DebugArguments
+    {
+        // デバッグモードが有効かどうか
+        public static bool IsDebugMode { get; }
+        
+        // デバッグモードのタイプ
+        public static DebugModeTypeEnum DebugModeType { get; }
+        
+        // コマンドライン引数を解析
+        public static void Hold(string[] args)
+        
+        // 特定のデバッグ機能が有効かチェック
+        public static bool GetDebugFeature(DebugFeatureEnum feature)
+    }
+}
+</code></pre>
+<h4 id="yaml設定例">YAML設定例</h4>
+<pre><code class="lang-yaml"># VaNillaSettings.yaml
+debug_arguments:
+  mode_types:
+    Feature:
+      short: &quot;-d&quot;
+      long: &quot;--debug&quot;
+      description: &quot;Enable debug features mode&quot;
+    Stage:
+      short: &quot;-ds&quot;
+      long: &quot;--debug_stage&quot;
+      description: &quot;Debug stage mode with stage parameter&quot;
+      requires_value: true
+  
+  features:
+    Invincible:
+      short: &quot;-iv&quot;
+      long: &quot;--invincible&quot;
+      description: &quot;Makes player invincible&quot;
+    ShowCollision:
+      short: &quot;-sc&quot;
+      long: &quot;--show_collision&quot;
+      description: &quot;Shows collision bounds&quot;
+    UnlimitedResources:
+      short: &quot;-ur&quot;
+      long: &quot;--unlimited_resources&quot;
+      description: &quot;Unlimited resources&quot;
+</code></pre>
+<h4 id="使用例">使用例</h4>
+<pre><code class="lang-csharp">// ゲーム起動時
+public static void Main(string[] args)
+{
+    // コマンドライン引数を解析
+    DebugArguments.Hold(args);
+    
+    // デバッグモードの確認
+    if (DebugArguments.IsDebugMode)
+    {
+        Debug.Logger.Log(&quot;Debug mode enabled&quot;);
+    }
+}
+
+// ゲーム内での使用
+public class Player : Object
+{
+    public override bool SetUp()
+    {
+        // 無敵モードのチェック
+        if (DebugArguments.GetDebugFeature(DebugFeatureEnum.Invincible))
+        {
+            SetInvincible(true);
+        }
+        
+        return true;
+    }
+}
+
+// コマンドライン実行例
+// game.exe -d -iv          # デバッグモード＋無敵
+// game.exe --debug --show_collision  # デバッグモード＋衝突表示
+// game.exe -ds stage_01    # ステージデバッグモード
+</code></pre>
+<h3 id="assemblystate-クラス">AssemblyState クラス</h3>
+<p>アセンブリのビルド状態を判定する内部クラスです。</p>
+<pre><code class="lang-csharp">namespace VaNilla.Debug
+{
+    /// &lt;summary&gt;
+    /// DEBUG が有効の場合には true, そうでない場合には false を返します。
+    /// &lt;/summary&gt;
+    internal static class AssemblyState
+    {
+        public static bool IsDebug =&gt;
+        #if DEBUG
+        true;
+        #else
+        false;
+        #endif
+    }
+}
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的なデバッグ判定">基本的なデバッグ判定</h3>
+<pre><code class="lang-csharp">using VaNilla.Debug;
+
+public class GameManager : IExpresserComponent
+{
+    public bool SetUp(Object object__)
+    {
+        if (AssemblyState.IsDebug)
+        {
+            // デバッグモードでのみ実行される処理
+            InitializeDebugFeatures();
+            EnableDebugUI();
+            LoadDebugSettings();
+        }
+        
+        return true;
+    }
+    
+    private void InitializeDebugFeatures()
+    {
+        // デバッグ機能の初期化
+        Logger.LogLevel = LogLevel.Debug;
+        EnablePerformanceMonitoring();
+        SetupDebugInput();
+    }
+}
+</code></pre>
+<h3 id="条件付きデバッグ処理">条件付きデバッグ処理</h3>
+<pre><code class="lang-csharp">public class PerformanceMonitor : IExpresserComponent
+{
+    private float frameTime = 0.0f;
+    private int frameCount = 0;
+    private float fps = 0.0f;
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        // リリースビルドでは何もしない
+        if (!AssemblyState.IsDebug)
+            return true;
+            
+        // デバッグビルドでのみパフォーマンス監視
+        frameTime += current_time.DeltaTime;
+        frameCount++;
+        
+        if (frameTime &gt;= 1.0f)
+        {
+            fps = frameCount / frameTime;
+            Logger.Debug($&quot;FPS: {fps:F1}&quot;);
+            
+            frameTime = 0.0f;
+            frameCount = 0;
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="デバッグ機能の有効化制御">デバッグ機能の有効化制御</h3>
+<pre><code class="lang-csharp">public class DebugRenderer : IExpresserComponent
+{
+    private List&lt;DebugShape&gt; debugShapes = new List&lt;DebugShape&gt;();
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        // デバッグビルドでのみ描画処理を実行
+        if (AssemblyState.IsDebug)
+        {
+            RenderDebugShapes();
+            RenderPerformanceOverlay();
+            RenderCollisionBounds();
+        }
+        
+        return true;
+    }
+    
+    public void AddDebugShape(DebugShape shape)
+    {
+        // デバッグビルドでのみ追加
+        if (AssemblyState.IsDebug)
+        {
+            debugShapes.Add(shape);
+        }
+    }
+}
+</code></pre>
+<h2 id="デバッグユーティリティの活用例">デバッグユーティリティの活用例</h2>
+<h3 id="デバッグログシステム">デバッグログシステム</h3>
+<pre><code class="lang-csharp">public static class DebugLogger
+{
+    public static void Log(string message)
+    {
+        if (AssemblyState.IsDebug)
+        {
+            Console.WriteLine($&quot;[DEBUG] {DateTime.Now:HH:mm:ss.fff} {message}&quot;);
+        }
+    }
+    
+    public static void LogWarning(string message)
+    {
+        if (AssemblyState.IsDebug)
+        {
+            Console.WriteLine($&quot;[WARNING] {DateTime.Now:HH:mm:ss.fff} {message}&quot;);
+        }
+    }
+    
+    public static void LogError(string message)
+    {
+        if (AssemblyState.IsDebug)
+        {
+            Console.WriteLine($&quot;[ERROR] {DateTime.Now:HH:mm:ss.fff} {message}&quot;);
+        }
+    }
+    
+    public static void LogPerformance(string operation, float time)
+    {
+        if (AssemblyState.IsDebug)
+        {
+            Console.WriteLine($&quot;[PERF] {operation}: {time:F3}ms&quot;);
+        }
+    }
+}
+</code></pre>
+<h3 id="デバッグ入力ハンドラ">デバッグ入力ハンドラ</h3>
+<pre><code class="lang-csharp">public class DebugInputHandler : IExpresserComponent
+{
+    private KeyboardInput.KeyboardInputComponent keyboard;
+    
+    public bool SetUp(Object object__)
+    {
+        // デバッグビルドでのみ有効
+        if (!AssemblyState.IsDebug)
+            return false;
+            
+        keyboard = object__.GetExpresserComponent&lt;KeyboardInput.KeyboardInputComponent&gt;();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        if (!AssemblyState.IsDebug)
+            return true;
+            
+        // F1: デバッグ情報表示/非表示
+        if (keyboard.IsKeyPressed(Key.F1))
+        {
+            ToggleDebugInfo();
+        }
+        
+        // F2: フレームレート表示
+        if (keyboard.IsKeyPressed(Key.F2))
+        {
+            ToggleFPSDisplay();
+        }
+        
+        // F3: 衝突判定可視化
+        if (keyboard.IsKeyPressed(Key.F3))
+        {
+            ToggleCollisionVisualization();
+        }
+        
+        // F4: ワイヤーフレーム表示
+        if (keyboard.IsKeyPressed(Key.F4))
+        {
+            ToggleWireframeMode();
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="メモリ使用量監視">メモリ使用量監視</h3>
+<pre><code class="lang-csharp">public class MemoryMonitor : IExpresserComponent
+{
+    private float monitorInterval = 5.0f; // 5秒間隔
+    private float timeSinceLastCheck = 0.0f;
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        if (!AssemblyState.IsDebug)
+            return true;
+            
+        timeSinceLastCheck += current_time.DeltaTime;
+        
+        if (timeSinceLastCheck &gt;= monitorInterval)
+        {
+            CheckMemoryUsage();
+            timeSinceLastCheck = 0.0f;
+        }
+        
+        return true;
+    }
+    
+    private void CheckMemoryUsage()
+    {
+        long memoryUsage = GC.GetTotalMemory(false);
+        float memoryMB = memoryUsage / (1024.0f * 1024.0f);
+        
+        DebugLogger.LogPerformance($&quot;Memory Usage&quot;, memoryMB);
+        
+        if (memoryMB &gt; 500.0f) // 500MB以上で警告
+        {
+            DebugLogger.LogWarning($&quot;High memory usage: {memoryMB:F1}MB&quot;);
+        }
+    }
+}
+</code></pre>
+<h3 id="デバッグコマンドシステム">デバッグコマンドシステム</h3>
+<pre><code class="lang-csharp">public static class DebugCommandSystem
+{
+    private static Dictionary&lt;string, Action&lt;string[]&gt;&gt; commands;
+    
+    static DebugCommandSystem()
+    {
+        if (AssemblyState.IsDebug)
+        {
+            InitializeCommands();
+        }
+    }
+    
+    private static void InitializeCommands()
+    {
+        commands = new Dictionary&lt;string, Action&lt;string[]&gt;&gt;
+        {
+            [&quot;help&quot;] = ShowHelp,
+            [&quot;fps&quot;] = ToggleFPS,
+            [&quot;memory&quot;] = ShowMemoryInfo,
+            [&quot;gc&quot;] = ForceGarbageCollection,
+            [&quot;spawn&quot;] = SpawnDebugObject,
+            [&quot;teleport&quot;] = TeleportPlayer,
+            [&quot;god&quot;] = ToggleGodMode,
+            [&quot;speed&quot;] = SetGameSpeed
+        };
+    }
+    
+    public static void ExecuteCommand(string commandLine)
+    {
+        if (!AssemblyState.IsDebug)
+            return;
+            
+        string[] parts = commandLine.Split(' ');
+        string command = parts[0].ToLower();
+        
+        if (commands.TryGetValue(command, out var action))
+        {
+            try
+            {
+                action(parts.Skip(1).ToArray());
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.LogError($&quot;Command execution failed: {ex.Message}&quot;);
+            }
+        }
+        else
+        {
+            DebugLogger.LogWarning($&quot;Unknown command: {command}&quot;);
+        }
+    }
+    
+    private static void ShowHelp(string[] args)
+    {
+        DebugLogger.Log(&quot;Available commands:&quot;);
+        foreach (var cmd in commands.Keys)
+        {
+            DebugLogger.Log($&quot;  {cmd}&quot;);
+        }
+    }
+    
+    private static void ForceGarbageCollection(string[] args)
+    {
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        DebugLogger.Log(&quot;Garbage collection forced&quot;);
+    }
+}
+</code></pre>
+<h2 id="ゲーム開発での実用例">ゲーム開発での実用例</h2>
+<h3 id="デバッグ可視化システム">デバッグ可視化システム</h3>
+<pre><code class="lang-csharp">public class DebugVisualization : IExpresserComponent
+{
+    private List&lt;DebugLine&gt; debugLines = new List&lt;DebugLine&gt;();
+    private List&lt;DebugText&gt; debugTexts = new List&lt;DebugText&gt;();
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        if (!AssemblyState.IsDebug)
+            return true;
+            
+        RenderDebugElements();
+        ClearExpiredElements();
+        
+        return true;
+    }
+    
+    public static void DrawLine(Vector2 start, Vector2 end, Color color, float duration = 0.0f)
+    {
+        if (!AssemblyState.IsDebug)
+            return;
+            
+        Instance.debugLines.Add(new DebugLine
+        {
+            Start = start,
+            End = end,
+            Color = color,
+            Duration = duration,
+            TimeRemaining = duration
+        });
+    }
+    
+    public static void DrawText(string text, Vector2 position, Color color, float duration = 0.0f)
+    {
+        if (!AssemblyState.IsDebug)
+            return;
+            
+        Instance.debugTexts.Add(new DebugText
+        {
+            Text = text,
+            Position = position,
+            Color = color,
+            Duration = duration,
+            TimeRemaining = duration
+        });
+    }
+}
+</code></pre>
+<h3 id="デバッグカメラ制御">デバッグカメラ制御</h3>
+<pre><code class="lang-csharp">public class DebugCameraController : IExpresserComponent
+{
+    private HasPosition cameraPosition;
+    private KeyboardInput.KeyboardInputComponent keyboard;
+    private MouseInput.MouseInputComponent mouse;
+    
+    public float MoveSpeed { get; set; } = 200.0f;
+    public bool IsEnabled { get; set; } = false;
+    
+    public bool SetUp(Object object__)
+    {
+        if (!AssemblyState.IsDebug)
+            return false;
+            
+        cameraPosition = object__.GetExpresserComponent&lt;HasPosition&gt;();
+        keyboard = object__.GetExpresserComponent&lt;KeyboardInput.KeyboardInputComponent&gt;();
+        mouse = object__.GetExpresserComponent&lt;MouseInput.MouseInputComponent&gt;();
+        
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        if (!AssemblyState.IsDebug || !IsEnabled)
+            return true;
+            
+        HandleMovement(current_time);
+        HandleZoom();
+        
+        return true;
+    }
+    
+    private void HandleMovement(Time current_time)
+    {
+        Vector2 movement = Vector2.Zero;
+        
+        if (keyboard.IsKeyDown(Key.W)) movement.Y += 1;
+        if (keyboard.IsKeyDown(Key.S)) movement.Y -= 1;
+        if (keyboard.IsKeyDown(Key.A)) movement.X -= 1;
+        if (keyboard.IsKeyDown(Key.D)) movement.X += 1;
+        
+        if (movement != Vector2.Zero)
+        {
+            movement = Vector2.Normalize(movement);
+            cameraPosition.Position += movement * MoveSpeed * current_time.DeltaTime;
+        }
+    }
+}
+</code></pre>
+<h3 id="プロファイリングシステム">プロファイリングシステム</h3>
+<pre><code class="lang-csharp">public static class Profiler
+{
+    private static Dictionary&lt;string, ProfileData&gt; profiles;
+    private static Stack&lt;string&gt; activeProfiles;
+    
+    static Profiler()
+    {
+        if (AssemblyState.IsDebug)
+        {
+            profiles = new Dictionary&lt;string, ProfileData&gt;();
+            activeProfiles = new Stack&lt;string&gt;();
+        }
+    }
+    
+    public static void BeginProfile(string name)
+    {
+        if (!AssemblyState.IsDebug)
+            return;
+            
+        if (!profiles.ContainsKey(name))
+        {
+            profiles[name] = new ProfileData { Name = name };
+        }
+        
+        profiles[name].StartTime = DateTime.UtcNow;
+        activeProfiles.Push(name);
+    }
+    
+    public static void EndProfile(string name)
+    {
+        if (!AssemblyState.IsDebug)
+            return;
+            
+        if (activeProfiles.Count &gt; 0 &amp;&amp; activeProfiles.Peek() == name)
+        {
+            activeProfiles.Pop();
+            var profile = profiles[name];
+            var elapsed = (DateTime.UtcNow - profile.StartTime).TotalMilliseconds;
+            
+            profile.TotalTime += elapsed;
+            profile.CallCount++;
+            profile.AverageTime = profile.TotalTime / profile.CallCount;
+            
+            if (elapsed &gt; profile.MaxTime)
+                profile.MaxTime = elapsed;
+        }
+    }
+    
+    public static void PrintReport()
+    {
+        if (!AssemblyState.IsDebug)
+            return;
+            
+        DebugLogger.Log(&quot;=== Profiler Report ===&quot;);
+        foreach (var profile in profiles.Values.OrderByDescending(p =&gt; p.TotalTime))
+        {
+            DebugLogger.Log($&quot;{profile.Name}: &quot; +
+                          $&quot;Total={profile.TotalTime:F2}ms, &quot; +
+                          $&quot;Avg={profile.AverageTime:F2}ms, &quot; +
+                          $&quot;Max={profile.MaxTime:F2}ms, &quot; +
+                          $&quot;Calls={profile.CallCount}&quot;);
+        }
+    }
+}
+
+// 使用例
+public class GameUpdateLoop : IExpresserComponent
+{
+    public bool Execute(Object object__, in Time current_time)
+    {
+        Profiler.BeginProfile(&quot;GameUpdate&quot;);
+        
+        // ゲームロジックの実行
+        UpdatePhysics();
+        UpdateInput();
+        UpdateAI();
+        
+        Profiler.EndProfile(&quot;GameUpdate&quot;);
+        
+        return true;
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>ゼロオーバーヘッド</strong>: リリースビルドでは完全に除去される</li>
+<li><strong>コンパイル時最適化</strong>: プリプロセッサディレクティブによる分岐</li>
+<li><strong>条件付き実行</strong>: 不要な処理の回避</li>
+<li><strong>効率的な判定</strong>: 軽量な状態チェック</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<h3 id="ビルド設定">ビルド設定</h3>
+<ul>
+<li>DEBUGシンボルの定義が必要</li>
+<li>コンパイル時に適切なフラグを設定</li>
+<li>リリースビルドでは自動的に無効化</li>
+</ul>
+<h3 id="使用方針">使用方針</h3>
+<ul>
+<li>デバッグ機能は<code>AssemblyState.IsDebug</code>で必ず制御</li>
+<li>リリース版に不要なコードを含めない</li>
+<li>パフォーマンスへの影響を最小限に抑制</li>
+</ul>
+<h3 id="セキュリティ">セキュリティ</h3>
+<ul>
+<li>デバッグ情報の漏洩防止</li>
+<li>機密データのログ出力禁止</li>
+<li>リリース環境での無効化確認</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><strong>.NET Standard</strong> - プリプロセッサディレクティブ</li>
+<li><strong>VaNilla Core</strong> - 基本的なエンジン機能</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../Logger/README.md">Logger</a> - ログ出力システム</li>
+<li><a href="../Input/README.md">Input</a> - デバッグ入力処理</li>
+<li><a href="../Graphics/README.md">Graphics</a> - デバッグ描画</li>
+<li><a href="../Performance/README.md">Performance</a> - パフォーマンス監視</li>
+</ul>
+<p>このモジュールにより、開発効率を大幅に向上させるデバッグ環境を構築できます。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/DebugUtil/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

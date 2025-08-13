@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNillaTools モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNillaTools モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTools/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanillatools-モジュール">VaNillaTools モジュール</h1>
+
+<p>VaNillaToolsモジュールは、VaNillaエンジンの開発・運用を支援するツール群を提供するモジュールです。プロジェクトテンプレート生成、シーンエディタ、パッチシステム、テクスチャエディタなど、開発効率を向上させる様々なツールが含まれています。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下のツール群を提供します：</p>
+<ul>
+<li><strong>プロジェクトテンプレート生成</strong>: 新規VaNillaプロジェクトの雛形作成</li>
+<li><strong>シーンエディタ</strong>: ビジュアルなシーン状態管理エディタ</li>
+<li><strong>パッチシステム</strong>: ゲームアップデート用のパッチ作成・適用ツール</li>
+<li><strong>テクスチャリソースエディタ</strong>: テクスチャ管理用のGUIエディタ</li>
+<li><strong>YAML操作ツール</strong>: 設定ファイルの読み書きユーティリティ</li>
+</ul>
+<h2 id="実装状況">実装状況</h2>
+<p>🔶 <strong>部分実装</strong>: 基本的なツールは実装済みですが、継続的な機能拡張が行われています。</p>
+<h2 id="主要ツール">主要ツール</h2>
+<h3 id="1-projecttemplategenerator">1. ProjectTemplateGenerator</h3>
+<p>新規VaNillaプロジェクトのテンプレートを生成するPythonスクリプトです。</p>
+<pre><code class="lang-python"># ProjectTemplateGenerator.py の実行例
+python ProjectTemplateGenerator.py --project-name &quot;MyGame&quot; --template-type &quot;2DAction&quot;
+</code></pre>
+<p><strong>生成されるファイル構造:</strong></p>
+<pre><code>MyGame/
+├── project/
+│   ├── MyGame.csproj
+│   ├── MyGame.sln
+│   └── NuGet.Config
+├── code/
+│   ├── Main/
+│   │   ├── GameInitializer.cs
+│   │   └── MainLoop.cs
+│   ├── Scene/
+│   │   ├── Title.cs
+│   │   ├── GameMain.cs
+│   │   └── GameResult.cs
+│   └── Background/
+├── configuration/
+│   └── VaNillaSettings.yaml
+└── dependency/
+    └── DxLibDotNet/
+</code></pre>
+<h3 id="2-scenestateeditor">2. SceneStateEditor</h3>
+<p>ImGuiベースのビジュアルシーンエディタです。ノードベースでシーン遷移を設計できます。</p>
+<p><strong>機能:</strong></p>
+<ul>
+<li>ドラッグ&amp;ドロップによるシーン配置</li>
+<li>ビジュアルな遷移線の描画</li>
+<li>シーン設定のリアルタイム編集</li>
+<li>YAML形式でのエクスポート/インポート</li>
+</ul>
+<p><strong>使用方法:</strong></p>
+<pre><code class="lang-bash">cd SceneStateEditor
+ImGui_Node2.exe
+</code></pre>
+<h3 id="3-vanillapatcher">3. VaNillaPatcher</h3>
+<p>ゲームのアップデート用パッチシステムです。</p>
+<h4 id="patchmakerパッチ作成">PatchMaker（パッチ作成）</h4>
+<pre><code class="lang-bash"># ディレクトリ差分からパッチファイルを作成
+python directory_patch_maker.py --old-dir &quot;game_v1.0&quot; --new-dir &quot;game_v1.1&quot; --output &quot;patch_v1.1.zip&quot;
+
+# 暗号化されたバージョンファイルの作成
+python encrypted_version_file_maker.py --version &quot;1.1.0&quot; --key &quot;secret_key&quot;
+</code></pre>
+<h4 id="patcherパッチ適用">Patcher（パッチ適用）</h4>
+<pre><code class="lang-bash"># パッチファイルのダウンロード
+python patch_file_downloader.py --url &quot;https://updates.example.com/patch_v1.1.zip&quot;
+
+# パッチの適用
+python recursive_patcher.py --patch-file &quot;patch_v1.1.zip&quot; --target-dir &quot;game&quot;
+</code></pre>
+<h3 id="4-textureresourceeditor">4. TextureResourceEditor</h3>
+<p>WPFベースのテクスチャリソース管理ツールです。</p>
+<p><strong>機能:</strong></p>
+<ul>
+<li>テクスチャファイルのサムネイル表示</li>
+<li>カテゴリ別の整理</li>
+<li>領域（Region）の可視化・編集</li>
+<li>アニメーション設定</li>
+<li>YAML設定ファイルの自動生成</li>
+</ul>
+<p><strong>起動方法:</strong></p>
+<pre><code class="lang-bash">cd project/VaNillaTools
+dotnet run --project TextureResourceEditor
+</code></pre>
+<h3 id="5-yaml操作ツール">5. YAML操作ツール</h3>
+<h4 id="yamlreader">YamlReader</h4>
+<pre><code class="lang-csharp">// YAML読み込みの使用例
+var yamlData = YamlReader.LoadFromFile(&quot;config.yaml&quot;);
+var textureSettings = yamlData[&quot;texture_settings&quot;];
+</code></pre>
+<h4 id="yamlwriter">YamlWriter</h4>
+<pre><code class="lang-csharp">// YAML書き出しの使用例
+var data = new Dictionary&lt;string, object&gt;
+{
+    [&quot;project_name&quot;] = &quot;MyGame&quot;,
+    [&quot;version&quot;] = &quot;1.0.0&quot;,
+    [&quot;settings&quot;] = new { width = 800, height = 600 }
+};
+
+YamlWriter.SaveToFile(data, &quot;output.yaml&quot;);
+</code></pre>
+<h2 id="開発支援機能">開発支援機能</h2>
+<h3 id="プロジェクトテンプレート機能">プロジェクトテンプレート機能</h3>
+<pre><code class="lang-yaml"># テンプレート設定例
+template_config:
+  project_name: &quot;#PROJECT_NAME&quot;  # 置換される変数
+  target_framework: &quot;net9.0-windows&quot;
+  
+  scene_types:
+    - &quot;Title&quot;
+    - &quot;GameMain&quot; 
+    - &quot;GameResult&quot;
+    
+  default_components:
+    - &quot;HasPosition&quot;
+    - &quot;HasTexture&quot;
+    - &quot;BasicRenderer&quot;
+    
+  dependencies:
+    - &quot;DxLibDotNet&quot;
+    - &quot;VaNillaSourceGenerator&quot;
+</code></pre>
+<h3 id="自動化スクリプト">自動化スクリプト</h3>
+<pre><code class="lang-bash"># プロジェクト全体のセットアップ
+./update_all_vanilla_resource.bat
+
+# Source Generatorのインストール
+./install_vanilla_source_generator.bat
+
+# ネイティブAOTでのパブリッシュ
+./NativeAOT_Publish.bat
+</code></pre>
+<h2 id="gui-エディタの使用">GUI エディタの使用</h2>
+<h3 id="textureresourceeditor-の操作">TextureResourceEditor の操作</h3>
+<ol>
+<li><strong>プロジェクトを開く</strong>: VaNillaSettings.yamlファイルを選択</li>
+<li><strong>テクスチャを追加</strong>: ドラッグ&amp;ドロップまたはファイル選択</li>
+<li><strong>カテゴリ設定</strong>: 用途別にテクスチャを分類</li>
+<li><strong>領域設定</strong>: スプライトシート内の個別領域を定義</li>
+<li><strong>設定保存</strong>: YAML形式で設定を出力</li>
+</ol>
+<h3 id="シーンエディタの操作">シーンエディタの操作</h3>
+<ol>
+<li><strong>新規シーン作成</strong>: ノードツールバーから追加</li>
+<li><strong>遷移設定</strong>: ノード間を線で接続</li>
+<li><strong>条件設定</strong>: 遷移条件をプロパティパネルで設定</li>
+<li><strong>プレビュー</strong>: シーン遷移の動作確認</li>
+<li><strong>エクスポート</strong>: C#コードまたはYAMLで出力</li>
+</ol>
+<h2 id="パッチシステムの詳細">パッチシステムの詳細</h2>
+<h3 id="パッチ作成プロセス">パッチ作成プロセス</h3>
+<pre><code class="lang-mermaid">graph LR
+    A[旧バージョン] --&gt; C[差分解析]
+    B[新バージョン] --&gt; C
+    C --&gt; D[パッチファイル生成]
+    D --&gt; E[暗号化・圧縮]
+    E --&gt; F[配信用パッケージ]
+</code></pre>
+<h3 id="パッチ適用プロセス">パッチ適用プロセス</h3>
+<pre><code class="lang-mermaid">graph LR
+    A[パッチダウンロード] --&gt; B[整合性チェック]
+    B --&gt; C[バックアップ作成]
+    C --&gt; D[ファイル適用]
+    D --&gt; E[検証]
+    E --&gt; F[完了]
+</code></pre>
+<h3 id="セキュリティ機能">セキュリティ機能</h3>
+<pre><code class="lang-csharp">public class PatchSecurity
+{
+    // デジタル署名による改ざん検出
+    public static bool VerifyPatchSignature(byte[] patchData, byte[] signature);
+    
+    // 暗号化されたパッチファイルの復号
+    public static byte[] DecryptPatch(byte[] encryptedData, string key);
+    
+    // チェックサム検証
+    public static bool VerifyChecksum(string filePath, string expectedHash);
+}
+</code></pre>
+<h2 id="開発ワークフロー">開発ワークフロー</h2>
+<h3 id="新規プロジェクト作成">新規プロジェクト作成</h3>
+<pre><code class="lang-bash"># 1. テンプレート生成
+python ProjectTemplateGenerator.py --name &quot;MyGame&quot; --type &quot;DanmakuSTG&quot;
+
+# 2. プロジェクトセットアップ
+cd MyGame
+./update_all_vanilla_resource.bat
+
+# 3. ビルド
+dotnet build
+
+# 4. 実行
+dotnet run
+</code></pre>
+<h3 id="アップデート配信">アップデート配信</h3>
+<pre><code class="lang-bash"># 1. パッチ作成
+python directory_patch_maker.py --old game_v1.0 --new game_v1.1
+
+# 2. 暗号化・署名
+python encrypted_version_file_maker.py --version 1.1.0
+
+# 3. アップロード
+upload_patch.py --patch patch_v1.1.zip --server updates.example.com
+
+# 4. 配信開始
+enable_patch.py --version 1.1.0
+</code></pre>
+<h2 id="カスタマイズ拡張">カスタマイズ・拡張</h2>
+<h3 id="テンプレートのカスタマイズ">テンプレートのカスタマイズ</h3>
+<pre><code class="lang-python"># custom_template.py
+class CustomProjectTemplate(ProjectTemplate):
+    def generate_main_class(self, project_name):
+        # カスタムのメインクラス生成
+        return f&quot;&quot;&quot;
+        public class {project_name}Main : VaNilla.Object
+        {{
+            // カスタム実装
+        }}
+        &quot;&quot;&quot;
+    
+    def setup_dependencies(self):
+        # カスタム依存関係の設定
+        self.add_dependency(&quot;CustomLibrary&quot;, &quot;1.0.0&quot;)
+</code></pre>
+<h3 id="エディタプラグイン">エディタプラグイン</h3>
+<pre><code class="lang-csharp">// TextureEditorプラグイン例
+public interface ITextureEditorPlugin
+{
+    string Name { get; }
+    void Initialize(ITextureEditor editor);
+    void ProcessTexture(TextureInfo texture);
+}
+
+public class AutoTrimPlugin : ITextureEditorPlugin
+{
+    public string Name =&gt; &quot;自動トリミング&quot;;
+    
+    public void ProcessTexture(TextureInfo texture)
+    {
+        // 透明部分の自動除去
+        var trimmedRegion = CalculateTrimmedRegion(texture);
+        texture.Region = trimmedRegion;
+    }
+}
+</code></pre>
+<h2 id="設定例">設定例</h2>
+<h3 id="ツール設定yaml">ツール設定（YAML）</h3>
+<pre><code class="lang-yaml">vanilla_tools:
+  editors:
+    texture_editor:
+      thumbnail_size: 128
+      max_texture_size: 2048
+      auto_save: true
+      backup_count: 5
+      
+    scene_editor:
+      grid_size: 20
+      snap_to_grid: true
+      auto_layout: false
+      
+  patch_system:
+    compression_level: 9
+    encryption_enabled: true
+    backup_before_patch: true
+    verify_checksums: true
+    
+  project_templates:
+    default_namespace: &quot;VaNilla.Game&quot;
+    include_samples: true
+    auto_setup_git: true
+</code></pre>
+<h2 id="システム要件">システム要件</h2>
+<h3 id="開発環境">開発環境</h3>
+<ul>
+<li><strong>.NET 9.0 SDK</strong> - C#プロジェクトのビルド</li>
+<li><strong>Python 3.7+</strong> - スクリプトツールの実行</li>
+<li><strong>Visual Studio 2022</strong> または <strong>VS Code</strong> - 統合開発環境</li>
+</ul>
+<h3 id="ランタイム">ランタイム</h3>
+<ul>
+<li><strong>Windows 10/11</strong> - 主要サポートプラットフォーム</li>
+<li><strong>.NET Framework 4.8</strong> または <strong>.NET 9.0</strong> - 実行環境</li>
+</ul>
+<h3 id="推奨ツール">推奨ツール</h3>
+<ul>
+<li><strong>Git</strong> - バージョン管理</li>
+<li><strong>NuGet</strong> - パッケージ管理</li>
+<li><strong>DocFX</strong> - ドキュメント生成</li>
+</ul>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="よくある問題">よくある問題</h3>
+<p><strong>Q: ProjectTemplateGeneratorが動作しない</strong></p>
+<pre><code class="lang-bash"># Python依存関係の確認
+pip install -r requirements.txt
+
+# 実行権限の確認
+chmod +x ProjectTemplateGenerator.py
+</code></pre>
+<p><strong>Q: TextureEditorでサムネイルが表示されない</strong></p>
+<pre><code class="lang-xml">&lt;!-- app.configに追加 --&gt;
+&lt;configuration&gt;
+  &lt;runtime&gt;
+    &lt;AppContextSwitchOverrides value=&quot;Switch.System.Drawing.DontSupportPngFramesInIcons=false&quot; /&gt;
+  &lt;/runtime&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p><strong>Q: パッチ適用が失敗する</strong></p>
+<pre><code class="lang-bash"># 権限の確認
+run_as_administrator.bat
+
+# ファイルロックの確認
+check_file_locks.py
+</code></pre>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../VaNillaEngineManager/README.html">VaNillaEngineManager</a> - コード生成システム</li>
+<li><strong>YamlDotNet</strong> - YAML解析ライブラリ</li>
+<li><strong>WPF</strong> - Windows Presentation Foundation（GUIツール用）</li>
+<li><strong>ImGui</strong> - ネイティブGUIライブラリ（シーンエディタ用）</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../VaNillaEngineManager/README.html">VaNillaEngineManager</a> - プロジェクト管理</li>
+<li><a href="../AssetManipulator/README.html">AssetManipulator</a> - ファイル管理</li>
+<li><a href="../TextureResourceManager/README.html">TextureResourceManager</a> - テクスチャ管理</li>
+</ul>
+<h2 id="将来の拡張予定">将来の拡張予定</h2>
+<h3 id="計画中の機能">計画中の機能</h3>
+<ul>
+<li><strong>アニメーションエディタ</strong> - スプライトアニメーションの可視化編集</li>
+<li><strong>サウンドエディタ</strong> - 音声ファイルの管理・編集</li>
+<li><strong>ローカライゼーションツール</strong> - 多言語対応支援</li>
+<li><strong>パフォーマンスプロファイラ</strong> - 実行時性能解析</li>
+<li><strong>オンラインエディタ</strong> - Webベースの軽量エディタ</li>
+</ul>
+<h3 id="長期的なビジョン">長期的なビジョン</h3>
+<ul>
+<li>クラウドベースのコラボレーション機能</li>
+<li>AIアシスト機能（自動最適化、提案機能）</li>
+<li>モバイルデバイス対応</li>
+<li>リアルタイムマルチプレイヤーデバッグ</li>
+</ul>
+<p>VaNillaToolsは、VaNillaエンジンの開発効率を大幅に向上させる包括的なツールセットです。GUI的な操作とコマンドライン両方をサポートし、様々な開発スタイルに対応しています。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTools/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>FpsCalculator </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="FpsCalculator ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/FpsCalculator/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="fpscalculator">FpsCalculator</h1>
+
+<p>VaNillaエンジンのFPS計測・パフォーマンス分析モジュールです。リアルタイムのフレームレート計測と詳細な性能統計を提供します。</p>
+<h2 id="概要">概要</h2>
+<p>FpsCalculatorは、ゲームのパフォーマンスを監視するための軽量かつ高機能なFPS計測システムです。<br>
+基本的なFPS表示から、フレームタイムの統計分析まで、デバッグと最適化に必要な情報を提供します。</p>
+<h3 id="主な特徴">主な特徴</h3>
+<ul>
+<li>🎯 <strong>リアルタイムFPS計測</strong> - 0.5秒間隔で更新される滑らかなFPS表示</li>
+<li>📊 <strong>詳細な統計情報</strong> - 最小/最大/平均FPS、フレームタイムをミリ秒単位で計測</li>
+<li>🔧 <strong>プラットフォーム非依存</strong> - Unity/DxLib関係なく動作する純粋なC#実装</li>
+<li>⚡ <strong>軽量設計</strong> - ゲームパフォーマンスへの影響を最小限に抑制</li>
+</ul>
+<h2 id="使い方">使い方</h2>
+<h3 id="基本的な使用方法">基本的な使用方法</h3>
+<pre><code class="lang-csharp">// 初期化（ゲーム開始時）
+FpsCalculator.Initialize(60.0f);  // 目標FPSを60に設定
+
+// 更新（毎フレーム呼び出し）
+FpsCalculator.Update(TimeManager.GetCurrentTime());
+
+// FPS取得
+float currentFps = FpsCalculator.GetFps();
+float targetFps = FpsCalculator.GetTargetFps();
+</code></pre>
+<h3 id="高機能計測モード">高機能計測モード</h3>
+<p>詳細なパフォーマンス分析が必要な場合：</p>
+<pre><code class="lang-csharp">// 計測開始
+FpsCalculator.StartMeasurement();
+
+// ... ゲームを実行 ...
+
+// 統計情報の取得
+float avgFps = FpsCalculator.GetAverageFps();
+float minFps = FpsCalculator.GetMinFps();
+float maxFps = FpsCalculator.GetMaxFps();
+float avgFrameTime = FpsCalculator.GetAverageFrameTimeMs();  // ミリ秒
+
+// 詳細レポートの出力
+string report = FpsCalculator.GetDetailedInfo();
+Debug.Logger.Log(report);
+
+// 計測停止
+FpsCalculator.StopMeasurement();
+</code></pre>
+<h3 id="expressercomponentとの連携例">ExpresserComponentとの連携例</h3>
+<pre><code class="lang-csharp">[DefaultExpresserComponent(typeof(FpsDisplay))]
+public partial class DebugOverlay : Object
+{
+    private FpsDisplay fpsDisplay;
+    
+    public override bool SetUp()
+    {
+        fpsDisplay.Position = new Point2(10, 10);
+        fpsDisplay.FontSize = 16;
+        fpsDisplay.Color = Color.Green;
+        return true;
+    }
+}
+</code></pre>
+<h2 id="api-リファレンス">API リファレンス</h2>
+<h3 id="基本機能">基本機能</h3>
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>説明</th>
+<th>戻り値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Initialize(float fps)</code></td>
+<td>目標FPSを設定して初期化</td>
+<td>void</td>
+</tr>
+<tr>
+<td><code>Update(float currentTime)</code></td>
+<td>フレームごとに呼び出し（時刻を渡す）</td>
+<td>void</td>
+</tr>
+<tr>
+<td><code>GetFps()</code></td>
+<td>現在のFPSを取得</td>
+<td>float</td>
+</tr>
+<tr>
+<td><code>GetTargetFps()</code></td>
+<td>目標FPSを取得</td>
+<td>float</td>
+</tr>
+</tbody>
+</table>
+<h3 id="高機能計測">高機能計測</h3>
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>説明</th>
+<th>戻り値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>StartMeasurement()</code></td>
+<td>詳細計測を開始</td>
+<td>void</td>
+</tr>
+<tr>
+<td><code>StopMeasurement()</code></td>
+<td>計測を停止</td>
+<td>void</td>
+</tr>
+<tr>
+<td><code>ResetMeasurement()</code></td>
+<td>計測データをクリア</td>
+<td>void</td>
+</tr>
+<tr>
+<td><code>GetCurrentFrameTimeMs()</code></td>
+<td>現在のフレーム時間（ミリ秒）</td>
+<td>float</td>
+</tr>
+<tr>
+<td><code>GetCurrentFpsDetailed()</code></td>
+<td>現在のFPS（小数点3桁）</td>
+<td>float</td>
+</tr>
+<tr>
+<td><code>GetAverageFps()</code></td>
+<td>平均FPS</td>
+<td>float</td>
+</tr>
+<tr>
+<td><code>GetMinFps()</code></td>
+<td>最小FPS</td>
+<td>float</td>
+</tr>
+<tr>
+<td><code>GetMaxFps()</code></td>
+<td>最大FPS</td>
+<td>float</td>
+</tr>
+<tr>
+<td><code>GetAverageFrameTimeMs()</code></td>
+<td>平均フレーム時間（ミリ秒）</td>
+<td>float</td>
+</tr>
+<tr>
+<td><code>GetMeasurementDuration()</code></td>
+<td>計測経過時間</td>
+<td>float</td>
+</tr>
+<tr>
+<td><code>GetDetailedInfo()</code></td>
+<td>詳細情報の文字列</td>
+<td>string</td>
+</tr>
+<tr>
+<td><code>SetAveragePeriod(int frames)</code></td>
+<td>平均計算期間を設定（デフォルト60）</td>
+<td>void</td>
+</tr>
+</tbody>
+</table>
+<h2 id="詳細情報の出力例">詳細情報の出力例</h2>
+<pre><code>=== FPS Performance Report ===
+Current: 59.8 FPS (16.7ms)
+Average: 58.5 FPS (17.1ms)
+Min: 45.2 FPS
+Max: 60.1 FPS
+Duration: 120.5 seconds
+Samples: 60 frames
+</code></pre>
+<h2 id="設計思想">設計思想</h2>
+<h3 id="プラットフォーム非依存">プラットフォーム非依存</h3>
+<p>FpsCalculatorは外部から時刻を受け取る設計により、どのプラットフォームでも動作します：</p>
+<ul>
+<li>DxLib: <code>DX.GetNowCount()</code> を使用</li>
+<li>Unity: <code>Time.time</code> を使用</li>
+<li>その他: 任意の時刻システムに対応</li>
+</ul>
+<h3 id="軽量実装">軽量実装</h3>
+<ul>
+<li>静的クラスによるゼロアロケーション設計</li>
+<li><code>Queue&lt;float&gt;</code> による効率的なスライディングウィンドウ</li>
+<li>0.5秒間隔の更新で表示の安定性を確保</li>
+</ul>
+<h2 id="使用上の注意">使用上の注意</h2>
+<ol>
+<li><p><strong>Update()は1フレームに1回だけ呼び出す</strong><br>
+複数回呼ぶとFPS計測が狂います</p>
+</li>
+<li><p><strong>時刻は単調増加する値を使用</strong><br>
+巻き戻りがある時刻を使うと正しく計測できません</p>
+</li>
+<li><p><strong>高機能計測は必要時のみ使用</strong><br>
+常時ONにすると若干のオーバーヘッドが発生します</p>
+</li>
+</ol>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../TimeManager/README.html">TimeManager</a> - 時間管理システム</li>
+<li><a href="../PerformanceProfiler/README.html">PerformanceProfiler</a> - より詳細なプロファイリング</li>
+<li><a href="../DebugLogger/README.html">DebugLogger</a> - デバッグ出力</li>
+<li><a href="../DebugUtil/README.html">DebugUtil</a> - デバッグ表示</li>
+</ul>
+<h2 id="サンプルコード">サンプルコード</h2>
+<h3 id="シンプルなfps表示">シンプルなFPS表示</h3>
+<pre><code class="lang-csharp">public class SimpleFpsDisplay : Object
+{
+    public override void Execute()
+    {
+        // FPSを画面左上に表示
+        Renderer.Utils.DrawString(
+            $&quot;FPS: {FpsCalculator.GetFps():F1}&quot;,
+            new Point2(10, 10),
+            FontResourceType.Debug,
+            Color.White
+        );
+    }
+}
+</code></pre>
+<h3 id="パフォーマンス警告システム">パフォーマンス警告システム</h3>
+<pre><code class="lang-csharp">public class PerformanceMonitor : Object
+{
+    private const float WARNING_FPS = 50.0f;
+    private const float CRITICAL_FPS = 30.0f;
+    
+    public override void Execute()
+    {
+        float fps = FpsCalculator.GetFps();
+        
+        if (fps &lt; CRITICAL_FPS)
+        {
+            // 重大なパフォーマンス問題
+            Debug.Logger.LogError($&quot;Critical performance: {fps} FPS&quot;);
+            // 品質設定を下げるなどの対処
+        }
+        else if (fps &lt; WARNING_FPS)
+        {
+            // 警告レベル
+            Debug.Logger.LogWarning($&quot;Low performance: {fps} FPS&quot;);
+        }
+    }
+}
+</code></pre>
+<h3 id="ベンチマークモード">ベンチマークモード</h3>
+<pre><code class="lang-csharp">public class BenchmarkRunner : Object
+{
+    private float benchmarkDuration = 60.0f;  // 60秒間計測
+    private float startTime;
+    
+    public override bool SetUp()
+    {
+        FpsCalculator.StartMeasurement();
+        startTime = TimeManager.GetCurrentTime();
+        return true;
+    }
+    
+    public override void Execute()
+    {
+        if (TimeManager.GetCurrentTime() - startTime &gt; benchmarkDuration)
+        {
+            // ベンチマーク完了
+            string result = FpsCalculator.GetDetailedInfo();
+            Debug.Logger.Log($&quot;Benchmark Result:\n{result}&quot;);
+            
+            // 結果をファイルに保存
+            System.IO.File.WriteAllText(&quot;benchmark_result.txt&quot;, result);
+            
+            FpsCalculator.StopMeasurement();
+            Vanish();
+        }
+    }
+}
+</code></pre>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="fpsが正しく表示されない">FPSが正しく表示されない</h3>
+<ul>
+<li><code>Update()</code>が毎フレーム呼ばれているか確認</li>
+<li>渡している時刻が正しいか確認（秒単位）</li>
+<li>初期化を忘れていないか確認</li>
+</ul>
+<h3 id="fpsが不安定">FPSが不安定</h3>
+<ul>
+<li>VSyncが有効になっているか確認</li>
+<li>バックグラウンドでの重い処理がないか確認</li>
+<li>PerformanceProfilerで詳細分析を実施</li>
+</ul>
+<h3 id="計測値がリセットされない">計測値がリセットされない</h3>
+<ul>
+<li><code>ResetMeasurement()</code>を呼び出す</li>
+<li>または<code>StopMeasurement()</code>→<code>StartMeasurement()</code>で再開</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/FpsCalculator/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

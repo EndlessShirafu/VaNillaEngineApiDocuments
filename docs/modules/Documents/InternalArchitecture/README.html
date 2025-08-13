@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNilla エンジン内部アーキテクチャドキュメント </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNilla エンジン内部アーキテクチャドキュメント ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/InternalArchitecture/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanilla-エンジン内部アーキテクチャドキュメント">VaNilla エンジン内部アーキテクチャドキュメント</h1>
+
+<p>VaNillaエンジンの内部設計・実装に関する技術仕様書です。</p>
+<h2 id="概要">概要</h2>
+<p>このディレクトリには、VaNillaエンジンの内部アーキテクチャに関する詳細な技術文書が含まれています。これらのドキュメントは主にエンジン開発者やコントリビューター向けのものであり、エンジンの内部動作を理解するための資料です。</p>
+<h2 id="ドキュメント一覧">ドキュメント一覧</h2>
+<h3 id="プラットフォーム抽象化">プラットフォーム抽象化</h3>
+<ul>
+<li><a href="StaticPartialInterface.md">Static Partial Interface 仕様</a> - プラットフォーム抽象化のための静的パーシャルインターフェース設計</li>
+</ul>
+<h3 id="システム実装仕様">システム実装仕様</h3>
+<ul>
+<li><a href="ModuleDependencyResolution.md">モジュール間依存関係の解決メカニズム</a> - RequiredExpresserComponentAttributeとdependencies.yamlによる依存関係管理</li>
+<li><a href="ExpresserComponentExecutionOrder.md">ExpresserComponent実行順序の内部実装</a> - 実行順序属性とObjectExecutorによる順次実行制御</li>
+<li><a href="ObjectPoolInternals.md">オブジェクトプールの内部動作</a> - ObjectPool<t>とObjectFactoryによる効率的なメモリ管理</t></li>
+<li><a href="CodeGenerationSystem.md">コード生成システムの詳細仕様</a> - CodeGenerator.pyとsnippetテンプレートによる自動コード生成</li>
+</ul>
+<h2 id="対象読者">対象読者</h2>
+<ul>
+<li><strong>VaNillaエンジン開発者</strong>: エンジンのコア機能を開発・保守する開発者</li>
+<li><strong>コントリビューター</strong>: エンジンに新機能を追加したい外部開発者</li>
+<li><strong>アーキテクト</strong>: エンジンの設計思想を理解したい技術者</li>
+</ul>
+<h2 id="エンジンユーザー向けドキュメント">エンジンユーザー向けドキュメント</h2>
+<p>エンジンを使用してゲームを開発する方は、以下のドキュメントを参照してください：</p>
+<ul>
+<li><a href="../HowToIndex/README.html">逆引き辞典</a> - やりたいことから機能を探す</li>
+<li><a href="../VaNillaAttributes/README.html">VaNilla属性システム</a> - ユーザーが利用可能な属性の解説</li>
+<li><a href="../HowToIndex/GameDevelopment.html">ゲーム開発ガイド</a> - 実践的なゲーム開発手法</li>
+</ul>
+<h2 id="sharedprojectsnippets構造についての重要な注意">SharedProjectSnippets構造についての重要な注意</h2>
+<p>VaNillaのSharedProjectSnippetsは、実装が依存するライブラリごとに厳密に分離されています：</p>
+<pre><code>SharedProjectSnippets/
+├── Common/     # プラットフォーム非依存のインターフェース層
+├── DxLib/      # DxLib（DirectX Library）に依存する実装
+├── Box2D/      # Box2D物理エンジンに依存する実装
+└── [他のライブラリ]/  # その他の外部ライブラリ依存
+</code></pre>
+<p><strong>誤解を避けるために</strong>：</p>
+<ul>
+<li>DxLib/ = DxLibというライブラリに依存する実装（DxLibフォルダという意味ではない）</li>
+<li>Box2D/ = Box2Dというライブラリに依存する実装</li>
+<li>新しい外部ライブラリを追加する際は、そのライブラリ名のディレクトリを作成</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<ul>
+<li>これらのドキュメントは内部仕様を扱うため、将来のバージョンで変更される可能性があります</li>
+<li>通常のゲーム開発では、これらの内部仕様を意識する必要はありません</li>
+<li>内部実装に依存したコードは、エンジンのアップデート時に動作しなくなる可能性があります</li>
+</ul>
+<hr>
+<p><em>このドキュメントはVaNillaエンジンの内部アーキテクチャを理解するための技術資料です。</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/InternalArchitecture/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

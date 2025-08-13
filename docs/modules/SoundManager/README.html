@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>SoundManager </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="SoundManager ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/SoundManager/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="soundmanager">SoundManager</h1>
+
+<p>音響リソースの管理と再生を行うモジュールです。効果音やBGMの読み込み、再生、音量制御などを統一されたAPIで提供します。</p>
+<h2 id="概要">概要</h2>
+<p>SoundManagerは、VaNillaエンジンにおける音響システムの中核を担います。カテゴリベースのリソース管理、高度な再生制御、プラットフォーム抽象化を通じて、音響機能を提供します。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.Sound.html">VaNilla SoundManager APIリファレンス</a>をご覧ください。</p>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="リソース管理">リソース管理</h3>
+<ul>
+<li>カテゴリ別音響リソース管理（music、sound_effect等）</li>
+<li>非同期読み込み対応</li>
+<li>一括読み込み・解放機能</li>
+<li>YAMLベースの設定ファイルからの自動生成</li>
+</ul>
+<h3 id="音響再生">音響再生</h3>
+<ul>
+<li>3つの再生タイプをサポート
+<ul>
+<li><strong>OneShot</strong>: 一回再生</li>
+<li><strong>Loop</strong>: 単純ループ再生</li>
+<li><strong>RegionLoop</strong>: 複数リージョンを持つ動的音楽システム</li>
+</ul>
+</li>
+<li>フェードイン・フェードアウト効果</li>
+<li>パン（L/R）制御</li>
+<li>サンプル精度の位置制御</li>
+</ul>
+<h3 id="音量制御">音量制御</h3>
+<ul>
+<li>マスター音量による全体制御</li>
+<li>カテゴリ別音量制御</li>
+<li>個別音響の音量設定</li>
+<li>階層的音量管理システム</li>
+</ul>
+<h2 id="アーキテクチャ">アーキテクチャ</h2>
+<h3 id="インターフェース層interface">インターフェース層（Interface/）</h3>
+<ul>
+<li><strong>SoundResourceManager</strong>: 音響リソース管理の中核クラス</li>
+<li><strong>SoundResourceLoader</strong>: リソース読み込み・解放ユーティリティ</li>
+<li><strong>Utils</strong>: 高レベル再生制御API</li>
+<li><strong>SoundResourceType</strong>: 音響リソース種別列挙型（自動生成）</li>
+</ul>
+<h3 id="実装層implementation">実装層（Implementation/）</h3>
+<ul>
+<li><strong>DxLib</strong>: DxLibDotNetを使用した完全実装</li>
+<li><strong>Unity</strong>: Unity向け実装（開発中）</li>
+</ul>
+<h3 id="データ構造">データ構造</h3>
+<ul>
+<li><strong>SoundInfo</strong>: 音響メタデータ（ファイルパス、再生設定等）</li>
+<li><strong>RegionLoopInfo</strong>: リージョンループ情報（開始・終了・ループポイント）</li>
+<li><strong>SoundResource</strong>: プラットフォーム固有リソースハンドル</li>
+</ul>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的な使用例">基本的な使用例</h3>
+<pre><code class="lang-csharp">// カテゴリ別読み込み
+SoundResourceManager.LoadSoundResource(SoundCategory.sound_effect);
+
+// 音響再生
+Utils.Play(SoundResourceType.TestSE);
+
+// 音量制御
+Utils.SetVolume(SoundResourceType.TestMusic, 0.5f);
+
+// ループ音楽の制御
+Utils.TransitToNextRegion(SoundResourceType.TestMusic, 2);
+</code></pre>
+<h3 id="非同期読み込み">非同期読み込み</h3>
+<pre><code class="lang-csharp">// 非同期読み込み開始
+SoundResourceManager.LoadSoundResourceAsync(SoundCategory.music);
+
+// 読み込み完了待機
+while (!SoundResourceManager.IsLoaded(SoundCategory.music))
+{
+    await Task.Delay(16);
+}
+</code></pre>
+<h3 id="フェード効果">フェード効果</h3>
+<pre><code class="lang-csharp">// フェードイン再生
+Utils.FadeIn(SoundResourceType.BGM, 2.0f, 1.0f);
+
+// フェードアウト停止
+Utils.FadeOut(SoundResourceType.BGM, 1.5f);
+</code></pre>
+<h2 id="設定ファイル">設定ファイル</h2>
+<p>音響リソースはYAMLファイルで設定し、コード生成により<code>SoundResourceType</code>列挙型が自動生成されます。</p>
+<pre><code class="lang-yaml"># VaNillaSettings.yaml
+sound_pool:
+  # BGMのループ再生
+  BGM_Title:
+    path: &quot;audio/bgm_title.ogg&quot;
+    type: &quot;loop&quot;
+    loop_samples: 44100
+    volume: 0.8
+    category: &quot;bgm&quot;
+  
+  # 効果音の単発再生
+  SE_Shot:
+    path: &quot;audio/se_shot.wav&quot;
+    type: &quot;oneshot&quot;
+    volume: 1.0
+    category: &quot;sound_effect&quot;
+  
+  # 音声の領域ループ再生
+  Voice_Character:
+    path: &quot;audio/voice_character.ogg&quot;
+    type: &quot;region_loop&quot;
+    volume: 0.9
+    category: &quot;voice&quot;
+    region:
+      greeting:
+        index: 0
+        start: 0
+        loop_start: 1000
+        end: 3000
+      goodbye:
+        index: 1
+        start: 4000
+        loop_start: 5000
+        end: 7000
+</code></pre>
+<h2 id="プラットフォーム対応状況">プラットフォーム対応状況</h2>
+<table>
+<thead>
+<tr>
+<th>機能</th>
+<th>DxLib</th>
+<th>Unity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基本再生</td>
+<td>✅</td>
+<td>🚧</td>
+</tr>
+<tr>
+<td>音量制御</td>
+<td>✅</td>
+<td>🚧</td>
+</tr>
+<tr>
+<td>リージョンループ</td>
+<td>✅</td>
+<td>🚧</td>
+</tr>
+<tr>
+<td>非同期読み込み</td>
+<td>✅</td>
+<td>🚧</td>
+</tr>
+<tr>
+<td>フェード効果</td>
+<td>✅</td>
+<td>🚧</td>
+</tr>
+</tbody>
+</table>
+<p>✅ 実装済み / 🚧 開発中</p>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><strong>AssetManipulator</strong>: ファイルパス解決</li>
+<li><strong>DebugLogger</strong>: ログ出力</li>
+<li><strong>Task</strong>: 非同期処理</li>
+<li><strong>TimeManager</strong>: フェード効果のタイミング制御</li>
+<li><strong>SupremeArbiter</strong>: FPS値の取得</li>
+</ul>
+<h2 id="初期化">初期化</h2>
+<p>SoundManagerは<code>SupremeArbiter</code>によって自動的に初期化されます。手動初期化が必要な場合：</p>
+<pre><code class="lang-csharp">SoundResourceManager.Initialize();
+</code></pre>
+<h2 id="注意事項">注意事項</h2>
+<ul>
+<li>Unity実装は現在開発中のため、Unity環境では一部機能が制限されます</li>
+<li>リージョンループ機能は高度な音楽システム向けであり、複雑な設定が必要です</li>
+<li>非同期読み込み中の再生要求は無視される場合があります</li>
+<li>メモリ効率のため、使用しないカテゴリは適切に解放してください</li>
+</ul>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li>カテゴリ別読み込みによりメモリ使用量を最適化</li>
+<li>非同期読み込みによりフレームレート維持</li>
+<li>リソース解放による動的メモリ管理</li>
+<li>サンプル精度制御による高精度音響システム</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/SoundManager/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

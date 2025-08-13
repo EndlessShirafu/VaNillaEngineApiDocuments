@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>KeyboardInput </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="KeyboardInput ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/KeyboardInput/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="keyboardinput">KeyboardInput</h1>
+
+<p>キーボード・マウス・ジョイスティック入力の統合処理を提供するモジュールです。プラットフォーム非依存な入力システムの基盤となります。</p>
+<h2 id="概要">概要</h2>
+<p>KeyboardInputは、VaNillaエンジンにおける低レベル入力処理の中核モジュールです。キーボード、マウスボタン、ジョイスティックボタンを統一的に扱い、フレームベースの入力状態管理により、正確で応答性の高い入力処理を実現します。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.KeyboardInput.html">VaNilla KeyboardInput APIリファレンス</a>をご覧ください。</p>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="包括的な入力デバイス対応">包括的な入力デバイス対応</h3>
+<ul>
+<li><strong>キーボード</strong>: 文字キー、ファンクションキー、修飾キー、特殊キーの完全サポート</li>
+<li><strong>マウス</strong>: 左・右・中ボタン、拡張ボタン（Mouse0-Mouse6）</li>
+<li><strong>ジョイスティック</strong>: 最大8台のコントローラー、各20ボタン対応</li>
+<li><strong>統一API</strong>: 全デバイスを同一のKeyCodeシステムで統合管理</li>
+</ul>
+<h3 id="フレームベース状態管理">フレームベース状態管理</h3>
+<ul>
+<li><strong>JustDown</strong>: キーが押された瞬間のみtrue（1フレーム限定）</li>
+<li><strong>Down</strong>: キーが押されている間ずっとtrue（連続判定）</li>
+<li><strong>JustUp</strong>: キーが離された瞬間のみtrue（1フレーム限定）</li>
+<li><strong>状態追跡</strong>: 現フレームと前フレームの状態を比較した正確な判定</li>
+</ul>
+<h3 id="プラットフォーム抽象化">プラットフォーム抽象化</h3>
+<ul>
+<li><strong>DxLib</strong>: 高速なバルク状態取得による最適化</li>
+<li><strong>Unity</strong>: Unity標準入力システムとの完全統合</li>
+<li><strong>一貫性</strong>: プラットフォーム間での動作差異を最小化</li>
+</ul>
+<h2 id="アーキテクチャ">アーキテクチャ</h2>
+<h3 id="中核クラス">中核クラス</h3>
+<h4 id="keyboardinput静的クラス">KeyboardInput（静的クラス）</h4>
+<p>グローバル入力処理の中央管理クラスです。</p>
+<pre><code class="lang-csharp">public static class KeyboardInput
+{
+    // 初期化・更新
+    public static void Initialize();
+    public static void UpdateKeyState();
+    
+    // 入力判定
+    public static bool JustDown(KeyCode keyCode);
+    public static bool Down(KeyCode keyCode);
+    public static bool JustUp(KeyCode keyCode);
+}
+</code></pre>
+<p><strong>主要メソッド:</strong></p>
+<ul>
+<li><code>Initialize()</code>: 内部状態の初期化</li>
+<li><code>UpdateKeyState()</code>: フレーム毎の状態更新（必須呼び出し）</li>
+<li><code>JustDown()</code>: キー押下の瞬間判定</li>
+<li><code>Down()</code>: キー保持状態の判定</li>
+<li><code>JustUp()</code>: キー離放の瞬間判定</li>
+</ul>
+<h4 id="keyboardinputcomponent">KeyboardInputComponent</h4>
+<p>オブジェクト指向入力処理のExpresserComponentです。</p>
+<pre><code class="lang-csharp">public class KeyboardInputComponent : IExpresserComponent
+{
+    public bool JustDown(KeyCode keyCode);
+    public bool Down(KeyCode keyCode);
+    public bool JustUp(KeyCode keyCode);
+}
+</code></pre>
+<p><strong>特徴:</strong></p>
+<ul>
+<li>静的クラスと同一のAPIを提供</li>
+<li>VaNillaオブジェクトシステムとの完全統合</li>
+<li>オブジェクト単位での入力管理が可能</li>
+</ul>
+<h4 id="keycode列挙型">KeyCode列挙型</h4>
+<p>335種類以上の入力コードを定義した包括的な列挙型です。</p>
+<pre><code class="lang-csharp">public enum KeyCode
+{
+    // 基本キー
+    A, B, C, /* ... */ Z,
+    Alpha0, Alpha1, /* ... */ Alpha9,
+    
+    // ファンクションキー
+    F1, F2, /* ... */ F15,
+    
+    // 特殊キー
+    Space, Enter, Escape, Tab, Backspace,
+    LeftArrow, RightArrow, UpArrow, DownArrow,
+    
+    // 修飾キー
+    LeftShift, RightShift, LeftControl, RightControl,
+    LeftAlt, RightAlt, LeftWindows, RightWindows,
+    
+    // マウスボタン
+    Mouse0, Mouse1, Mouse2, Mouse3, Mouse4, Mouse5, Mouse6,
+    
+    // ジョイスティックボタン
+    JoystickButton0, /* ... */ JoystickButton19,        // 第1コントローラー
+    Joystick1Button0, /* ... */ Joystick1Button19,      // 第2コントローラー
+    /* ... */
+    Joystick8Button0, /* ... */ Joystick8Button19,      // 第8コントローラー
+    
+    // 特殊値
+    None = 0
+}
+</code></pre>
+<h3 id="プラットフォーム実装">プラットフォーム実装</h3>
+<h4 id="dxlib実装高性能特化">DxLib実装（高性能特化）</h4>
+<pre><code class="lang-csharp">// DxLib/KeyboardInputNative.cs
+public static void UpdateKeyState()
+{
+    // 全キー状態を一括取得（高速）
+    DX.GetHitKeyStateAll(keyState);
+    
+    // VaNilla KeyCodeからDxLibキーコードへのマッピング
+    UpdateMappedStates();
+}
+</code></pre>
+<p><strong>特徴:</strong></p>
+<ul>
+<li><code>DX.GetHitKeyStateAll()</code>による一括状態取得</li>
+<li>最小限のオーバーヘッドによる高速処理</li>
+<li>DxLib対応範囲内のキーのみサポート</li>
+<li>ネイティブゲーム開発に最適化</li>
+</ul>
+<h4 id="unity実装完全互換">Unity実装（完全互換）</h4>
+<pre><code class="lang-csharp">// Unity/KeyboardInputNative.cs
+public static bool GetKey(KeyCode vanillaKeyCode)
+{
+    var unityKeyCode = ConvertToUnityKeyCode(vanillaKeyCode);
+    return UnityEngine.Input.GetKey(unityKeyCode);
+}
+</code></pre>
+<p><strong>特徴:</strong></p>
+<ul>
+<li>Unity標準入力システムとの完全統合</li>
+<li>全KeyCode範囲の完全サポート</li>
+<li>Unityエディタでのデバッグ支援</li>
+<li>クロスプラットフォーム展開に対応</li>
+</ul>
+<h2 id="基本的な使用方法">基本的な使用方法</h2>
+<h3 id="グローバル入力処理">グローバル入力処理</h3>
+<pre><code class="lang-csharp">public class GameInputManager
+{
+    public void Initialize()
+    {
+        // 入力システムの初期化
+        VaNilla.KeyboardInput.Initialize();
+    }
+    
+    public void Update()
+    {
+        // 毎フレーム必須：入力状態の更新
+        VaNilla.KeyboardInput.UpdateKeyState();
+        
+        // ゲーム入力の処理
+        HandlePlayerInput();
+        HandleUIInput();
+    }
+    
+    private void HandlePlayerInput()
+    {
+        // 瞬間的なアクション（ジャンプ、攻撃等）
+        if (VaNilla.KeyboardInput.JustDown(KeyCode.Space))
+        {
+            player.Jump();
+        }
+        
+        // 継続的なアクション（移動等）
+        if (VaNilla.KeyboardInput.Down(KeyCode.LeftArrow))
+        {
+            player.MoveLeft();
+        }
+        
+        if (VaNilla.KeyboardInput.Down(KeyCode.RightArrow))
+        {
+            player.MoveRight();
+        }
+        
+        // キー離し検出（チャージ攻撃等）
+        if (VaNilla.KeyboardInput.JustUp(KeyCode.Z))
+        {
+            player.ReleaseChargedAttack();
+        }
+    }
+    
+    private void HandleUIInput()
+    {
+        // メニュー操作
+        if (VaNilla.KeyboardInput.JustDown(KeyCode.Escape))
+        {
+            TogglePauseMenu();
+        }
+        
+        // テキスト入力（英数字）
+        for (KeyCode key = KeyCode.A; key &lt;= KeyCode.Z; key++)
+        {
+            if (VaNilla.KeyboardInput.JustDown(key))
+            {
+                AddCharacterToInput(key.ToString());
+            }
+        }
+    }
+}
+</code></pre>
+<h3 id="コンポーネントベース入力処理">コンポーネントベース入力処理</h3>
+<pre><code class="lang-csharp">public class ControllablePlayer : Object
+{
+    public override void SetUp()
+    {
+        // KeyboardInputComponentの追加
+        this.AddComponent(new KeyboardInputComponent());
+    }
+    
+    public override void Execute()
+    {
+        var input = this.GetComponent&lt;KeyboardInputComponent&gt;();
+        
+        // プレイヤー固有の入力処理
+        HandleMovement(input);
+        HandleActions(input);
+    }
+    
+    private void HandleMovement(KeyboardInputComponent input)
+    {
+        var movement = Vector2.Zero;
+        
+        // WASD移動
+        if (input.Down(KeyCode.W)) movement.Y += 1;
+        if (input.Down(KeyCode.S)) movement.Y -= 1;
+        if (input.Down(KeyCode.A)) movement.X -= 1;
+        if (input.Down(KeyCode.D)) movement.X += 1;
+        
+        // 斜め移動の正規化
+        if (movement.Length &gt; 0)
+        {
+            movement = movement.Normalized * moveSpeed;
+            this.GetComponent&lt;HasVelocity&gt;().Velocity = movement;
+        }
+    }
+    
+    private void HandleActions(KeyboardInputComponent input)
+    {
+        // 各種アクション
+        if (input.JustDown(KeyCode.Space)) TriggerJump();
+        if (input.JustDown(KeyCode.X)) TriggerAttack();
+        if (input.JustDown(KeyCode.Z)) TriggerSpecialAction();
+        
+        // ガード（押している間有効）
+        if (input.Down(KeyCode.LeftShift))
+        {
+            ActivateGuard();
+        }
+        else
+        {
+            DeactivateGuard();
+        }
+    }
+}
+</code></pre>
+<h2 id="高度な使用例">高度な使用例</h2>
+<h3 id="マルチプレイヤー入力管理">マルチプレイヤー入力管理</h3>
+<pre><code class="lang-csharp">public class MultiPlayerInputManager
+{
+    private Dictionary&lt;int, PlayerInputConfig&gt; playerConfigs;
+    
+    public struct PlayerInputConfig
+    {
+        public KeyCode Up, Down, Left, Right;
+        public KeyCode Attack, Jump, Special;
+        public KeyCode[] JoystickButtons; // ジョイスティック用
+    }
+    
+    public void InitializePlayers()
+    {
+        playerConfigs = new Dictionary&lt;int, PlayerInputConfig&gt;
+        {
+            // プレイヤー1（キーボード）
+            [1] = new PlayerInputConfig
+            {
+                Up = KeyCode.W, Down = KeyCode.S, 
+                Left = KeyCode.A, Right = KeyCode.D,
+                Attack = KeyCode.X, Jump = KeyCode.Space, Special = KeyCode.Z
+            },
+            
+            // プレイヤー2（ジョイスティック1）
+            [2] = new PlayerInputConfig
+            {
+                Up = KeyCode.JoystickButton0,     // 上方向
+                Down = KeyCode.JoystickButton1,   // 下方向
+                Left = KeyCode.JoystickButton2,   // 左方向
+                Right = KeyCode.JoystickButton3,  // 右方向
+                Attack = KeyCode.JoystickButton4, // ボタン1
+                Jump = KeyCode.JoystickButton5,   // ボタン2
+                Special = KeyCode.JoystickButton6 // ボタン3
+            }
+        };
+    }
+    
+    public void UpdatePlayers()
+    {
+        foreach (var (playerId, config) in playerConfigs)
+        {
+            UpdatePlayer(playerId, config);
+        }
+    }
+    
+    private void UpdatePlayer(int playerId, PlayerInputConfig config)
+    {
+        var player = GetPlayer(playerId);
+        
+        // 移動処理
+        var movement = Vector2.Zero;
+        if (VaNilla.KeyboardInput.Down(config.Up)) movement.Y += 1;
+        if (VaNilla.KeyboardInput.Down(config.Down)) movement.Y -= 1;
+        if (VaNilla.KeyboardInput.Down(config.Left)) movement.X -= 1;
+        if (VaNilla.KeyboardInput.Down(config.Right)) movement.X += 1;
+        
+        player.SetMovement(movement);
+        
+        // アクション処理
+        if (VaNilla.KeyboardInput.JustDown(config.Attack)) player.Attack();
+        if (VaNilla.KeyboardInput.JustDown(config.Jump)) player.Jump();
+        if (VaNilla.KeyboardInput.JustDown(config.Special)) player.SpecialAction();
+    }
+}
+</code></pre>
+<h3 id="高度なキー入力処理">高度なキー入力処理</h3>
+<pre><code class="lang-csharp">public class AdvancedInputHandler
+{
+    private Dictionary&lt;KeyCode, float&gt; keyHoldTimes = new();
+    private Dictionary&lt;string, List&lt;KeyCode&gt;&gt; inputSequences = new();
+    
+    public void Update()
+    {
+        UpdateKeyHoldTimes();
+        CheckInputSequences();
+        CheckKeyCombinaisons();
+    }
+    
+    private void UpdateKeyHoldTimes()
+    {
+        // キー保持時間の追跡
+        foreach (KeyCode key in Enum.GetValues&lt;KeyCode&gt;())
+        {
+            if (key == KeyCode.None) continue;
+            
+            if (VaNilla.KeyboardInput.Down(key))
+            {
+                if (!keyHoldTimes.ContainsKey(key))
+                    keyHoldTimes[key] = 0;
+                
+                keyHoldTimes[key] += TimeManager.DeltaTime;
+                
+                // 長押し判定（2秒以上）
+                if (keyHoldTimes[key] &gt;= 2.0f &amp;&amp; keyHoldTimes[key] - TimeManager.DeltaTime &lt; 2.0f)
+                {
+                    OnKeyLongPress(key);
+                }
+            }
+            else
+            {
+                if (keyHoldTimes.ContainsKey(key))
+                {
+                    OnKeyRelease(key, keyHoldTimes[key]);
+                    keyHoldTimes.Remove(key);
+                }
+            }
+        }
+    }
+    
+    private void CheckInputSequences()
+    {
+        // コマンド入力の検出（格闘ゲーム風）
+        var commands = new Dictionary&lt;string, KeyCode[]&gt;
+        {
+            [&quot;hadoken&quot;] = new[] { KeyCode.DownArrow, KeyCode.RightArrow, KeyCode.X },
+            [&quot;shoryuken&quot;] = new[] { KeyCode.RightArrow, KeyCode.DownArrow, KeyCode.RightArrow, KeyCode.Z },
+            [&quot;konami&quot;] = new[] { 
+                KeyCode.UpArrow, KeyCode.UpArrow, 
+                KeyCode.DownArrow, KeyCode.DownArrow,
+                KeyCode.LeftArrow, KeyCode.RightArrow, 
+                KeyCode.LeftArrow, KeyCode.RightArrow,
+                KeyCode.B, KeyCode.A 
+            }
+        };
+        
+        foreach (var (commandName, sequence) in commands)
+        {
+            if (CheckSequence(commandName, sequence))
+            {
+                ExecuteCommand(commandName);
+            }
+        }
+    }
+    
+    private void CheckKeyCombinaisons()
+    {
+        // 同時押し判定
+        if (VaNilla.KeyboardInput.Down(KeyCode.LeftControl) &amp;&amp; 
+            VaNilla.KeyboardInput.JustDown(KeyCode.S))
+        {
+            SaveGame(); // Ctrl+S
+        }
+        
+        if (VaNilla.KeyboardInput.Down(KeyCode.LeftControl) &amp;&amp; 
+            VaNilla.KeyboardInput.JustDown(KeyCode.Z))
+        {
+            UndoAction(); // Ctrl+Z
+        }
+        
+        // 三重同時押し
+        if (VaNilla.KeyboardInput.Down(KeyCode.LeftControl) &amp;&amp; 
+            VaNilla.KeyboardInput.Down(KeyCode.LeftShift) &amp;&amp; 
+            VaNilla.KeyboardInput.JustDown(KeyCode.Escape))
+        {
+            ForceQuit(); // Ctrl+Shift+Esc
+        }
+    }
+    
+    private bool CheckSequence(string commandName, KeyCode[] sequence)
+    {
+        if (!inputSequences.ContainsKey(commandName))
+            inputSequences[commandName] = new List&lt;KeyCode&gt;();
+        
+        var currentSequence = inputSequences[commandName];
+        
+        // 新しい入力をシーケンスに追加
+        foreach (KeyCode key in sequence)
+        {
+            if (VaNilla.KeyboardInput.JustDown(key))
+            {
+                // 正しい順序かチェック
+                if (currentSequence.Count &lt; sequence.Length &amp;&amp; 
+                    sequence[currentSequence.Count] == key)
+                {
+                    currentSequence.Add(key);
+                    
+                    // シーケンス完成チェック
+                    if (currentSequence.Count == sequence.Length)
+                    {
+                        currentSequence.Clear();
+                        return true;
+                    }
+                }
+                else
+                {
+                    // 間違った入力でリセット
+                    currentSequence.Clear();
+                    
+                    // 最初のキーと一致する場合は追加
+                    if (sequence[0] == key)
+                    {
+                        currentSequence.Add(key);
+                    }
+                }
+                break;
+            }
+        }
+        
+        return false;
+    }
+}
+</code></pre>
+<h3 id="デバッグとプロファイリング">デバッグとプロファイリング</h3>
+<pre><code class="lang-csharp">public class InputDebugger
+{
+    private Dictionary&lt;KeyCode, InputStats&gt; keyStats = new();
+    
+    public struct InputStats
+    {
+        public int PressCount;
+        public float TotalHoldTime;
+        public float LastPressTime;
+    }
+    
+    public void Update()
+    {
+        // 全キーの統計情報更新
+        foreach (KeyCode key in Enum.GetValues&lt;KeyCode&gt;())
+        {
+            if (key == KeyCode.None) continue;
+            
+            if (!keyStats.ContainsKey(key))
+                keyStats[key] = new InputStats();
+            
+            var stats = keyStats[key];
+            
+            if (VaNilla.KeyboardInput.JustDown(key))
+            {
+                stats.PressCount++;
+                stats.LastPressTime = TimeManager.TotalTime;
+            }
+            
+            if (VaNilla.KeyboardInput.Down(key))
+            {
+                stats.TotalHoldTime += TimeManager.DeltaTime;
+            }
+            
+            keyStats[key] = stats;
+        }
+    }
+    
+    public void LogInputStatistics()
+    {
+        VaNilla.Debug.Logger.LogInfo(&quot;=== Input Statistics ===&quot;);
+        
+        var sortedStats = keyStats
+            .Where(kvp =&gt; kvp.Value.PressCount &gt; 0)
+            .OrderByDescending(kvp =&gt; kvp.Value.PressCount)
+            .Take(10);
+        
+        foreach (var (key, stats) in sortedStats)
+        {
+            VaNilla.Debug.Logger.LogInfo(
+                $&quot;{key}: {stats.PressCount} presses, &quot; +
+                $&quot;{stats.TotalHoldTime:F2}s total hold time&quot;);
+        }
+    }
+    
+    public void ShowCurrentInputState()
+    {
+        var activeKeys = new List&lt;KeyCode&gt;();
+        
+        foreach (KeyCode key in Enum.GetValues&lt;KeyCode&gt;())
+        {
+            if (key == KeyCode.None) continue;
+            
+            if (VaNilla.KeyboardInput.Down(key))
+            {
+                activeKeys.Add(key);
+            }
+        }
+        
+        if (activeKeys.Count &gt; 0)
+        {
+            var keyString = string.Join(&quot;, &quot;, activeKeys);
+            VaNilla.Debug.Logger.LogInfo($&quot;Active keys: {keyString}&quot;);
+        }
+    }
+    
+    public bool ValidateInputSystem()
+    {
+        // 入力システムの健全性チェック
+        try
+        {
+            VaNilla.KeyboardInput.UpdateKeyState();
+            
+            // 基本キーの動作確認
+            var testResult = VaNilla.KeyboardInput.Down(KeyCode.None);
+            
+            VaNilla.Debug.Logger.LogInfo(&quot;Input system validation passed&quot;);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            VaNilla.Debug.Logger.LogError($&quot;Input system validation failed: {ex.Message}&quot;);
+            return false;
+        }
+    }
+}
+</code></pre>
+<h2 id="keyconfigシステムとの統合">KeyConfigシステムとの統合</h2>
+<pre><code class="lang-csharp">public class IntegratedInputSystem
+{
+    public void InitializeWithKeyConfig()
+    {
+        // 1. KeyboardInputシステムの初期化
+        VaNilla.KeyboardInput.Initialize();
+        
+        // 2. KeyConfigシステムの初期化
+        if (!VaNilla.KeyConfig.IsExistConfig())
+        {
+            VaNilla.KeyConfig.InitConfig();
+        }
+        VaNilla.KeyConfig.LoadConfig();
+        
+        VaNilla.Debug.Logger.LogInfo(&quot;Integrated input system initialized&quot;);
+    }
+    
+    public void HandleGameInput()
+    {
+        // KeyConfigを通じた抽象化されたアクション判定
+        if (IsActionTriggered(KeyConfig.Action.Decide))
+        {
+            HandleDecideAction();
+        }
+        
+        if (IsActionTriggered(KeyConfig.Action.Cancel))
+        {
+            HandleCancelAction();
+        }
+        
+        // 方向入力の処理
+        var movement = GetMovementInput();
+        if (movement.Length &gt; 0)
+        {
+            HandleMovement(movement);
+        }
+    }
+    
+    private bool IsActionTriggered(KeyConfig.Action action)
+    {
+        // KeyConfigから実際のキーコードを取得
+        var keyCode = VaNilla.KeyConfig.GetKeyboardInput(action);
+        
+        // KeyboardInputで実際の判定
+        return VaNilla.KeyboardInput.JustDown(keyCode);
+    }
+    
+    private Vector2 GetMovementInput()
+    {
+        var movement = Vector2.Zero;
+        
+        // KeyConfigからの移動キー取得と判定
+        if (VaNilla.KeyboardInput.Down(VaNilla.KeyConfig.GetKeyboardInput(KeyConfig.Action.MoveUp)))
+            movement.Y += 1;
+        if (VaNilla.KeyboardInput.Down(VaNilla.KeyConfig.GetKeyboardInput(KeyConfig.Action.MoveDown)))
+            movement.Y -= 1;
+        if (VaNilla.KeyboardInput.Down(VaNilla.KeyConfig.GetKeyboardInput(KeyConfig.Action.MoveLeft)))
+            movement.X -= 1;
+        if (VaNilla.KeyboardInput.Down(VaNilla.KeyConfig.GetKeyboardInput(KeyConfig.Action.MoveRight)))
+            movement.X += 1;
+        
+        return movement.Normalized;
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス最適化">パフォーマンス最適化</h2>
+<h3 id="効率的な入力処理">効率的な入力処理</h3>
+<pre><code class="lang-csharp">public class OptimizedInputProcessor
+{
+    private HashSet&lt;KeyCode&gt; trackedKeys = new();
+    private Dictionary&lt;KeyCode, bool&gt; cachedStates = new();
+    
+    public void RegisterKey(KeyCode key)
+    {
+        // 必要なキーのみを登録して処理負荷を軽減
+        trackedKeys.Add(key);
+    }
+    
+    public void OptimizedUpdate()
+    {
+        // 登録されたキーのみを処理
+        foreach (var key in trackedKeys)
+        {
+            bool currentState = VaNilla.KeyboardInput.Down(key);
+            bool previousState = cachedStates.GetValueOrDefault(key, false);
+            
+            // 状態変化があった場合のみ処理
+            if (currentState != previousState)
+            {
+                if (currentState)
+                    OnKeyDown(key);
+                else
+                    OnKeyUp(key);
+                
+                cachedStates[key] = currentState;
+            }
+        }
+    }
+    
+    // バッチ処理による高速化
+    public bool AnyKeyPressed(params KeyCode[] keys)
+    {
+        // 複数キーの一括判定
+        foreach (var key in keys)
+        {
+            if (VaNilla.KeyboardInput.Down(key))
+                return true;
+        }
+        return false;
+    }
+    
+    public bool AllKeysPressed(params KeyCode[] keys)
+    {
+        // 全キー同時押し判定
+        foreach (var key in keys)
+        {
+            if (!VaNilla.KeyboardInput.Down(key))
+                return false;
+        }
+        return true;
+    }
+}
+</code></pre>
+<h3 id="メモリ効率の改善">メモリ効率の改善</h3>
+<pre><code class="lang-csharp">public class EfficientInputManager
+{
+    // オブジェクトプールによる効率化
+    private Queue&lt;InputEvent&gt; eventPool = new();
+    private List&lt;InputEvent&gt; activeEvents = new();
+    
+    public struct InputEvent
+    {
+        public KeyCode Key;
+        public InputEventType Type;
+        public float Timestamp;
+    }
+    
+    public enum InputEventType
+    {
+        KeyDown, KeyUp, KeyHold
+    }
+    
+    public void ProcessInputEvents()
+    {
+        // イベントプールからオブジェクトを再利用
+        foreach (KeyCode key in trackedKeys)
+        {
+            if (VaNilla.KeyboardInput.JustDown(key))
+            {
+                var inputEvent = GetPooledEvent();
+                inputEvent.Key = key;
+                inputEvent.Type = InputEventType.KeyDown;
+                inputEvent.Timestamp = TimeManager.TotalTime;
+                activeEvents.Add(inputEvent);
+            }
+            
+            if (VaNilla.KeyboardInput.JustUp(key))
+            {
+                var inputEvent = GetPooledEvent();
+                inputEvent.Key = key;
+                inputEvent.Type = InputEventType.KeyUp;
+                inputEvent.Timestamp = TimeManager.TotalTime;
+                activeEvents.Add(inputEvent);
+            }
+        }
+        
+        // 古いイベントをプールに返却
+        ReturnExpiredEventsToPool();
+    }
+    
+    private InputEvent GetPooledEvent()
+    {
+        if (eventPool.Count &gt; 0)
+        {
+            return eventPool.Dequeue();
+        }
+        return new InputEvent();
+    }
+    
+    private void ReturnExpiredEventsToPool()
+    {
+        for (int i = activeEvents.Count - 1; i &gt;= 0; i--)
+        {
+            if (TimeManager.TotalTime - activeEvents[i].Timestamp &gt; 1.0f)
+            {
+                eventPool.Enqueue(activeEvents[i]);
+                activeEvents.RemoveAt(i);
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="プラットフォーム対応状況">プラットフォーム対応状況</h2>
+<table>
+<thead>
+<tr>
+<th>機能</th>
+<th>DxLib</th>
+<th>Unity</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基本キーボード入力</td>
+<td>✅</td>
+<td>✅</td>
+<td>完全対応</td>
+</tr>
+<tr>
+<td>マウスボタン</td>
+<td>✅</td>
+<td>✅</td>
+<td>Mouse0-6対応</td>
+</tr>
+<tr>
+<td>ジョイスティック1-4</td>
+<td>✅</td>
+<td>✅</td>
+<td>基本4台対応</td>
+</tr>
+<tr>
+<td>ジョイスティック5-8</td>
+<td>❌</td>
+<td>✅</td>
+<td>Unity拡張対応</td>
+</tr>
+<tr>
+<td>特殊キー（Pipe等）</td>
+<td>🔄</td>
+<td>✅</td>
+<td>一部マッピング差異</td>
+</tr>
+<tr>
+<td>フレーム同期</td>
+<td>✅</td>
+<td>✅</td>
+<td>完全対応</td>
+</tr>
+</tbody>
+</table>
+<p>✅ 完全実装 / 🔄 制限あり / ❌ 未対応</p>
+<h2 id="よくある問題と解決法">よくある問題と解決法</h2>
+<h3 id="1-updatekeystateの呼び忘れ">1. UpdateKeyState()の呼び忘れ</h3>
+<pre><code class="lang-csharp">// 問題: 入力が反応しない
+public void BadUpdate()
+{
+    // UpdateKeyState()を呼ばずに判定
+    if (VaNilla.KeyboardInput.JustDown(KeyCode.Space)) // 常にfalse
+    {
+        // 実行されない
+    }
+}
+
+// 解決: 必ずUpdateKeyState()を最初に呼ぶ
+public void GoodUpdate()
+{
+    VaNilla.KeyboardInput.UpdateKeyState(); // 必須！
+    
+    if (VaNilla.KeyboardInput.JustDown(KeyCode.Space))
+    {
+        // 正常に動作
+    }
+}
+</code></pre>
+<h3 id="2-justdownとdownの使い分け">2. JustDownとDownの使い分け</h3>
+<pre><code class="lang-csharp">// 問題: ジャンプが連続発動
+public void BadJump()
+{
+    if (VaNilla.KeyboardInput.Down(KeyCode.Space)) // Down使用
+    {
+        player.Jump(); // 毎フレーム呼ばれる
+    }
+}
+
+// 解決: 瞬間判定にはJustDownを使用
+public void GoodJump()
+{
+    if (VaNilla.KeyboardInput.JustDown(KeyCode.Space)) // JustDown使用
+    {
+        player.Jump(); // 1回だけ呼ばれる
+    }
+}
+</code></pre>
+<h3 id="3-プラットフォーム差異の対応">3. プラットフォーム差異の対応</h3>
+<pre><code class="lang-csharp">public class CrossPlatformInput
+{
+    public static bool IsKeySupported(KeyCode key)
+    {
+        // DxLibで未対応のキーをチェック
+        var unsupportedInDxLib = new HashSet&lt;KeyCode&gt;
+        {
+            KeyCode.Joystick5Button0, // ジョイスティック5-8
+            KeyCode.Pipe,             // 特殊キー
+            // その他...
+        };
+        
+        #if DXLIB_BUILD
+        return !unsupportedInDxLib.Contains(key);
+        #else
+        return true; // Unity では全対応
+        #endif
+    }
+}
+</code></pre>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><strong>ExpresserComponent</strong>: コンポーネントシステム</li>
+<li><strong>Object</strong>: オブジェクトシステム統合</li>
+<li><strong>TimeManager</strong>: フレーム時間管理</li>
+<li><strong>KeyConfig</strong>: 上位入力抽象化（オプション）</li>
+<li><strong>PlayerInput</strong>: 高レベル入力システム（オプション）</li>
+</ul>
+<h2 id="まとめ">まとめ</h2>
+<p>KeyboardInputは、VaNillaエンジンにおける入力処理の基盤となる重要なモジュールです。包括的なデバイス対応、正確なフレームベース判定、プラットフォーム抽象化により、あらゆる種類のゲームで信頼性の高い入力処理を実現します。適切な使用により、レスポンシブで直感的なユーザーインターフェースを構築できます。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/KeyboardInput/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

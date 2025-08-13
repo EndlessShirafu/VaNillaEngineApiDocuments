@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>STEP 5: 弾と敵の当たり判定 </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="STEP 5: 弾と敵の当たり判定 ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTutorial/BasicShootEmUp/STEP6_GameOver/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="step-5-弾と敵の当たり判定">STEP 5: 弾と敵の当たり判定</h1>
+
+<p>このステップでは、弾と敵の当たり判定を実装し、スコアシステムを追加します。VaNillaエンジンのCollisionシステムを使用して本格的なゲームプレイを実現します。</p>
+<h2 id="-このステップで学ぶこと">🎯 このステップで学ぶこと</h2>
+<ul>
+<li>VaNillaのCollisionシステムの使用</li>
+<li>HasCollisionインターフェースの実装</li>
+<li>CollisionGroupの設定と管理</li>
+<li>オブジェクト間の当たり判定処理</li>
+<li>スコア管理システムの実装</li>
+<li>ゲーム状態管理（ゲームオーバー、リスタート）</li>
+<li>コリジョンコールバックの実装</li>
+</ul>
+<h2 id="-操作方法">🎮 操作方法</h2>
+<ul>
+<li><strong>矢印キー</strong>: プレイヤーの移動</li>
+<li><strong>Shiftキー</strong>: 低速移動</li>
+<li><strong>スペースキー</strong>: 弾を発射</li>
+<li><strong>Dキー</strong>: デバッグ情報の表示切り替え</li>
+<li><strong>Rキー</strong>: ゲームオーバー時のリスタート</li>
+<li><strong>ESCキー</strong>: 終了</li>
+</ul>
+<h2 id="-新しく追加するファイル">📁 新しく追加するファイル</h2>
+<pre><code>STEP5_CollisionDetection/
+├── assets/
+│   └── image/
+│       ├── player.png    # プレイヤー画像
+│       ├── bullet.png    # 弾の画像
+│       └── enemy.png     # 敵の画像
+├── src/
+│   ├── Game.cs          # 更新（当たり判定システム追加）
+│   ├── Player.cs        # 更新（当たり判定追加）
+│   ├── Bullet.cs        # 更新（当たり判定追加）
+│   ├── Enemy.cs         # 更新（当たり判定追加）
+│   ├── ScoreManager.cs  # 新規：スコア管理
+│   └── GameManager.cs   # 新規：ゲーム状態管理
+└── VaNillaSettings/
+    └── VaNillaSettings.yaml # 更新（コリジョン設定追加）
+</code></pre>
+<h2 id="-コードの実装">💻 コードの実装</h2>
+<h3 id="1-bulletcs---弾の当たり判定機能追加">1. Bullet.cs - 弾の当たり判定機能追加</h3>
+<p>弾にHasCollisionインターフェースを追加し、敵との当たり判定を実装：</p>
+<pre><code class="lang-csharp">public class Bullet : BasicObject, HasPosition, HasTexture, HasCollision,
+                     FromObjectFactoryCreation, ScreenOutSelfDestruction
+{
+    // === HasCollisionインターフェースの実装 ===
+    private CollisionInstance collision;
+    public CollisionInstance Collision 
+    { 
+        get =&gt; collision; 
+        set =&gt; collision = value; 
+    }
+    
+    public void Initialize(int x, int y)
+    {
+        Position = new Point2(x, y);
+        
+        // 当たり判定を設定
+        if (Collision == null)
+        {
+            var initParam = new CircleCollisionInitializeParam()
+            {
+                CollisionGroupID = CollisionGroupID.PlayerBullet,
+                Radius = BULLET_SIZE / 2
+            };
+            Collision = CollisionGenerator.GenerateCollision(initParam);
+        }
+        
+        Collision.Position = Position;
+    }
+    
+    /// &lt;summary&gt;
+    /// 当たり判定時のコールバック
+    /// &lt;/summary&gt;
+    public void OnCollisionDetected(CollisionInstance other)
+    {
+        var otherObject = other.AttachedObject;
+        if (otherObject is Enemy enemy)
+        {
+            enemy.OnDestroyed();
+            ObjectActivator.Deactivate(this);
+        }
+    }
+}
+</code></pre>
+<h3 id="2-enemycs---敵の当たり判定とスコア機能追加">2. Enemy.cs - 敵の当たり判定とスコア機能追加</h3>
+<p>敵に当たり判定とスコアシステムを追加：</p>
+<pre><code class="lang-csharp">public class Enemy : BasicObject, HasPosition, HasTexture, HasCollision,
+                    FromObjectFactoryCreation, ScreenOutSelfDestruction
+{
+    // スコア設定
+    private int scoreValue;
+    
+    public void Initialize(int x, int y, EnemyType type = EnemyType.Straight)
+    {
+        // タイプに応じたスコア設定
+        switch (enemyType)
+        {
+            case EnemyType.Straight:
+                scoreValue = 100;
+                break;
+            case EnemyType.Zigzag:
+                scoreValue = 150;
+                break;
+            case EnemyType.Fast:
+                scoreValue = 200;
+                break;
+        }
+        
+        // 当たり判定を設定
+        var initParam = new CircleCollisionInitializeParam()
+        {
+            CollisionGroupID = CollisionGroupID.Enemy,
+            Radius = ENEMY_SIZE / 2
+        };
+        Collision = CollisionGenerator.GenerateCollision(initParam);
+    }
+    
+    /// &lt;summary&gt;
+    /// 敵が破壊された時の処理
+    /// &lt;/summary&gt;
+    public void OnDestroyed()
+    {
+        // スコアを加算
+        ScoreManager.AddScore(scoreValue);
+        
+        // 破壊エフェクト（簡易版）
+        CreateDestroyEffect();
+        
+        ObjectActivator.Deactivate(this);
+    }
+}
+</code></pre>
+<h3 id="3-scoremanagercs---スコア管理システム">3. ScoreManager.cs - スコア管理システム</h3>
+<pre><code class="lang-csharp">public static class ScoreManager
+{
+    private static int currentScore = 0;
+    private static int highScore = 0;
+    private static int enemiesDestroyed = 0;
+    
+    /// &lt;summary&gt;
+    /// スコアを加算
+    /// &lt;/summary&gt;
+    public static void AddScore(int points)
+    {
+        currentScore += points;
+        enemiesDestroyed++;
+        
+        // ハイスコア更新チェック
+        if (currentScore &gt; highScore)
+        {
+            highScore = currentScore;
+            Logger.Log($&quot;🎉 ハイスコア更新! → {highScore}&quot;);
+        }
+    }
+    
+    /// &lt;summary&gt;
+    /// スコアランクを取得
+    /// &lt;/summary&gt;
+    public static string GetScoreRank()
+    {
+        if (currentScore &gt;= 10000) return &quot;S&quot;;
+        if (currentScore &gt;= 5000) return &quot;A&quot;;
+        if (currentScore &gt;= 2000) return &quot;B&quot;;
+        if (currentScore &gt;= 1000) return &quot;C&quot;;
+        return &quot;D&quot;;
+    }
+}
+</code></pre>
+<h3 id="4-playercs---プレイヤーの被弾処理追加">4. Player.cs - プレイヤーの被弾処理追加</h3>
+<pre><code class="lang-csharp">public class Player : BasicObject, HasPosition, HasTexture, HasCollision
+{
+    private bool isAlive = true;
+    
+    /// &lt;summary&gt;
+    /// 当たり判定時のコールバック
+    /// &lt;/summary&gt;
+    public void OnCollisionDetected(CollisionInstance other)
+    {
+        if (!isAlive) return;
+        
+        var otherObject = other.AttachedObject;
+        if (otherObject is Enemy enemy)
+        {
+            OnHit();
+        }
+    }
+    
+    /// &lt;summary&gt;
+    /// プレイヤーが被弾した時の処理
+    /// &lt;/summary&gt;
+    private void OnHit()
+    {
+        isAlive = false;
+        GameManager.OnPlayerHit();
+        
+        if (Collision != null)
+        {
+            Collision.IsActive = false;
+        }
+    }
+}
+</code></pre>
+<h3 id="5-gamemanagercs---ゲーム状態管理">5. GameManager.cs - ゲーム状態管理</h3>
+<pre><code class="lang-csharp">public static class GameManager
+{
+    private static bool isGameOver = false;
+    private static bool isGameActive = true;
+    
+    /// &lt;summary&gt;
+    /// プレイヤーが被弾した時の処理
+    /// &lt;/summary&gt;
+    public static void OnPlayerHit()
+    {
+        isGameOver = true;
+        isGameActive = false;
+        ScoreManager.OnGameEnd();
+    }
+    
+    /// &lt;summary&gt;
+    /// ゲームをリスタート
+    /// &lt;/summary&gt;
+    public static void RestartGame()
+    {
+        isGameOver = false;
+        isGameActive = true;
+        ScoreManager.ResetScore();
+    }
+}
+</code></pre>
+<h3 id="6-gamecs---メインゲームループの更新">6. Game.cs - メインゲームループの更新</h3>
+<pre><code class="lang-csharp">public override void Update()
+{
+    Utils.ClearScreen((20, 20, 60));
+    
+    if (GameManager.IsGameActive)
+    {
+        gameTime += TimeManager.DeltaTime;
+        UpdateEnemySpawning();
+        
+        // 当たり判定システムの更新
+        CollisionCalculator.UpdateCollisions();
+    }
+    
+    if (GameManager.IsGameOver)
+    {
+        HandleGameOver();
+    }
+}
+
+private void HandleGameOver()
+{
+    // Rキーでリスタート
+    if (KeyboardInput.IsPushedMoment(KeyCode.R))
+    {
+        RestartGame();
+    }
+}
+</code></pre>
+<h3 id="7-vanillasettingsyaml---コリジョン設定追加">7. VaNillaSettings.yaml - コリジョン設定追加</h3>
+<pre><code class="lang-yaml"># コリジョングループ設定
+collision_group_settings:
+  Default:
+    number: 0
+    collide_with:
+      - Default
+  Player:
+    number: 1
+    collide_with:
+      - Enemy
+  PlayerBullet:
+    number: 2
+    collide_with:
+      - Enemy
+  Enemy:
+    number: 3
+    collide_with:
+      - Player
+      - PlayerBullet
+</code></pre>
+<h2 id="-重要な概念">🔑 重要な概念</h2>
+<h3 id="vanillaのcollisionシステム">VaNillaのCollisionシステム</h3>
+<h4 id="hascollisionインターフェース">HasCollisionインターフェース</h4>
+<ul>
+<li>オブジェクトに当たり判定機能を追加</li>
+<li>CollisionInstanceプロパティが必要</li>
+<li>OnCollisionDetectedメソッドで衝突処理</li>
+</ul>
+<h4 id="collisiongroup">CollisionGroup</h4>
+<ul>
+<li>衝突グループの設定（Player, Enemy, PlayerBullet等）</li>
+<li>YAMLファイルで衝突ルールを定義</li>
+<li>効率的な衝突検出を実現</li>
+</ul>
+<h4 id="collisionの種類">Collisionの種類</h4>
+<ul>
+<li><strong>CircleCollision</strong>: 円形の当たり判定（今回使用）</li>
+<li><strong>AabbCollision</strong>: 軸平行境界ボックス</li>
+<li><strong>BoxCollision</strong>: 回転可能な矩形</li>
+</ul>
+<h3 id="スコアシステム設計">スコアシステム設計</h3>
+<h4 id="スコア管理の要素">スコア管理の要素</h4>
+<ul>
+<li>現在スコア（CurrentScore）</li>
+<li>ハイスコア（HighScore）</li>
+<li>敵撃破数（EnemiesDestroyed）</li>
+<li>スコアランク（S, A, B, C, D）</li>
+</ul>
+<h4 id="スコア加算ルール">スコア加算ルール</h4>
+<ul>
+<li>直進敵: 100点</li>
+<li>ジグザグ敵: 150点</li>
+<li>高速敵: 200点</li>
+</ul>
+<h3 id="ゲーム状態管理">ゲーム状態管理</h3>
+<h4 id="ゲーム状態">ゲーム状態</h4>
+<ul>
+<li><strong>Playing</strong>: 通常のゲームプレイ</li>
+<li><strong>GameOver</strong>: プレイヤー被弾後</li>
+<li><strong>Paused</strong>: 一時停止状態</li>
+</ul>
+<h4 id="状態遷移">状態遷移</h4>
+<ol>
+<li>Playing → GameOver（プレイヤー被弾）</li>
+<li>GameOver → Playing（リスタート）</li>
+</ol>
+<h2 id="-実行して確認">🎮 実行して確認</h2>
+<ol>
+<li>弾が敵に当たると敵が消えることを確認</li>
+<li>敵撃破時にスコアが加算されることを確認</li>
+<li>プレイヤーが敵に触れるとゲームオーバーになることを確認</li>
+<li>Rキーでゲームがリスタートできることを確認</li>
+<li>ハイスコアが正しく更新されることを確認</li>
+<li>Dキーでデバッグ情報が表示されることを確認</li>
+</ol>
+<h2 id="-視覚的なフィードバック">🎨 視覚的なフィードバック</h2>
+<h3 id="デバッグ表示">デバッグ表示</h3>
+<ul>
+<li>各オブジェクトの当たり判定を色分け表示</li>
+<li>プレイヤー: 青色</li>
+<li>弾: 緑色</li>
+<li>敵: 赤色</li>
+</ul>
+<h3 id="ui表示">UI表示</h3>
+<ul>
+<li>スコア表示（Score: 000000）</li>
+<li>ハイスコア表示（Hi-Score: 000000）</li>
+<li>敵撃破数表示（Enemies: 000）</li>
+<li>ゲーム状態表示（PLAYING/GAME OVER）</li>
+</ul>
+<h3 id="ゲームオーバー画面">ゲームオーバー画面</h3>
+<ul>
+<li>&quot;GAME OVER&quot;メッセージ</li>
+<li>最終スコア表示</li>
+<li>スコアランク表示</li>
+<li>リスタート指示</li>
+</ul>
+<h2 id="-学んだこと">📝 学んだこと</h2>
+<p>✅ VaNillaのCollisionシステムの基本的な使い方<br>
+✅ HasCollisionインターフェースの実装<br>
+✅ CollisionGroupの設定と管理<br>
+✅ オブジェクト間の当たり判定処理<br>
+✅ スコア管理システムの設計と実装<br>
+✅ ゲーム状態管理（ゲームオーバー、リスタート）<br>
+✅ コリジョンコールバックの実装<br>
+✅ デバッグ機能の実装</p>
+<h2 id="-チャレンジ課題">🤔 チャレンジ課題</h2>
+<ol>
+<li>敵の種類によって異なる当たり判定サイズを設定してみましょう</li>
+<li>連続撃破でボーナススコアを追加してみましょう</li>
+<li>プレイヤーにライフシステムを追加してみましょう（3回被弾でゲームオーバー）</li>
+<li>敵が弾を撃つ機能を追加してみましょう</li>
+<li>当たり判定の精度を調整してみましょう</li>
+</ol>
+<h2 id="-次のステップ">⏭️ 次のステップ</h2>
+<p>STEP 6では、プレイヤーのライフシステムとゲームオーバー演出を実装し、より本格的なゲーム体験を作成します。</p>
+<h2 id="-トラブルシューティング">🔧 トラブルシューティング</h2>
+<h3 id="当たり判定が働かない場合">当たり判定が働かない場合</h3>
+<ol>
+<li>CollisionGroupの設定を確認</li>
+<li>CollisionCalculator.UpdateCollisions()が呼ばれているか確認</li>
+<li>Collision.IsActiveがtrueになっているか確認</li>
+</ol>
+<h3 id="スコアが更新されない場合">スコアが更新されない場合</h3>
+<ol>
+<li>ScoreManager.AddScore()が呼ばれているか確認</li>
+<li>敵のOnDestroyed()メソッドが正しく実装されているか確認</li>
+</ol>
+<h3 id="ゲームオーバー後にリスタートできない場合">ゲームオーバー後にリスタートできない場合</h3>
+<ol>
+<li>GameManager.RestartGame()が呼ばれているか確認</li>
+<li>プレイヤーのRespawn()メソッドが正しく実装されているか確認</li>
+</ol>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTutorial/BasicShootEmUp/STEP6_GameOver/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

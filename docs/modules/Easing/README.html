@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Easing モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Easing モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Easing/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="easing-モジュール">Easing モジュール</h1>
+
+<p>Easingモジュールは、ゲーム開発で欠かせないイージング（補間）機能を提供するモジュールです。リニアからバウンス、エラスティックまで、幅広いイージング関数を用意し、滑らかで自然なアニメーションを簡単に実装できます。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>包括的なイージング関数</strong>: Linear、Quadratic、Cubic、Quartic、Quintic、Sinusoidal、Exponential、Circular、Bounce、Back、Elastic</li>
+<li><strong>In/Out/InOut対応</strong>: 各イージングタイプでEaseIn、EaseOut、EaseInOut をサポート</li>
+<li><strong>Range型統合</strong>: VaNilla.Math.Rangeとの連携で型安全な範囲指定</li>
+<li><strong>時間ベース補間</strong>: 時刻、最小値、最大値、期間を指定した補間計算</li>
+<li><strong>高性能実装</strong>: 静的クラスによる効率的な関数提供</li>
+</ul>
+<h2 id="実装状況">実装状況</h2>
+<p>✅ <strong>完了</strong>: 全イージング関数とRange型サポートが実装済みです。</p>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="easingutil-クラス">Easing.Util クラス</h3>
+<p>静的クラスとして様々なイージング関数を提供します。</p>
+<pre><code class="lang-csharp">public static class Util
+{
+    // リニア補間
+    public static float Linear(float time, float min, float max, float duration_time);
+    
+    // Quadratic（二次関数）
+    public static float EaseInQuadratic(float time, float min, float max, float duration_time);
+    public static float EaseOutQuadratic(float time, float min, float max, float duration_time);
+    public static float EaseInOutQuadratic(float time, float min, float max, float duration_time);
+    
+    // Cubic（三次関数）
+    public static float EaseInCubic(float time, float min, float max, float duration_time);
+    public static float EaseOutCubic(float time, float min, float max, float duration_time);
+    public static float EaseInOutCubic(float time, float min, float max, float duration_time);
+    
+    // Quartic（四次関数）
+    public static float EaseInQuartic(float time, float min, float max, float duration_time);
+    public static float EaseOutQuartic(float time, float min, float max, float duration_time);
+    public static float EaseInOutQuartic(float time, float min, float max, float duration_time);
+    
+    // Quintic（五次関数）
+    public static float EaseInQuintic(float time, float min, float max, float duration_time);
+    public static float EaseOutQuintic(float time, float min, float max, float duration_time);
+    public static float EaseInOutQuintic(float time, float min, float max, float duration_time);
+    
+    // Sinusoidal（正弦波）
+    public static float EaseInSinusoidal(float time, float min, float max, float duration_time);
+    public static float EaseOutSinusoidal(float time, float min, float max, float duration_time);
+    public static float EaseInOutSinusoidal(float time, float min, float max, float duration_time);
+    
+    // Exponential（指数関数）
+    public static float EaseInExponential(float time, float min, float max, float duration_time);
+    public static float EaseOutExponential(float time, float min, float max, float duration_time);
+    public static float EaseInOutExponential(float time, float min, float max, float duration_time);
+    
+    // Circular（円関数）
+    public static float EaseInCircular(float time, float min, float max, float duration_time);
+    public static float EaseOutCircular(float time, float min, float max, float duration_time);
+    public static float EaseInOutCircular(float time, float min, float max, float duration_time);
+    
+    // Bounce（バウンス）
+    public static float EaseInBounce(float time, float min, float max, float duration_time);
+    public static float EaseOutBounce(float time, float min, float max, float duration_time);
+    public static float EaseInOutBounce(float time, float min, float max, float duration_time);
+    
+    // Back（オーバーシュート）
+    public static float EaseInBack(float time, float min, float max, float duration_time, float s);
+    public static float EaseOutBack(float time, float min, float max, float duration_time, float s);
+    public static float EaseInOutBack(float time, float min, float max, float duration_time, float s);
+    
+    // Elastic（エラスティック）
+    public static float EaseInElastic(float time, float min, float max, float duration_time, float a, float p);
+    public static float EaseOutElastic(float time, float min, float max, float duration_time, float a, float p);
+    public static float EaseInOutElastic(float time, float min, float max, float duration_time, float a, float p);
+    
+    // Range型対応版（全てのイージング関数でサポート）
+    public static float Linear(float time, Math.Range range, float duration_time);
+    public static float EaseInQuadratic(float time, Math.Range range, float duration_time);
+    // ... 他のイージング関数も同様にRange型をサポート
+}
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的なイージング">基本的なイージング</h3>
+<pre><code class="lang-csharp">// 2秒間で0から100まで二次関数でイージング
+float currentTime = 1.0f;  // 現在時刻
+float duration = 2.0f;     // 継続時間
+float startValue = 0.0f;   // 開始値
+float endValue = 100.0f;   // 終了値
+
+float easedValue = Easing.Util.EaseInQuadratic(currentTime, startValue, endValue, duration);
+// 結果: 25.0f (1秒時点での二次関数イージング値)
+</code></pre>
+<h3 id="range型を使用したイージング">Range型を使用したイージング</h3>
+<pre><code class="lang-csharp">// Range型を使用した型安全なイージング
+var range = new Math.Range(0.0, 100.0);
+float easedValue = Easing.Util.EaseOutCubic(1.5f, range, 2.0f);
+</code></pre>
+<h3 id="アニメーションでの使用例">アニメーションでの使用例</h3>
+<pre><code class="lang-csharp">public class EasedMovement : IExpresserComponent
+{
+    private HasPosition position;
+    private float animationTime = 0.0f;
+    private float animationDuration = 2.0f;
+    
+    public Vector2 StartPosition { get; set; }
+    public Vector2 EndPosition { get; set; }
+    public bool IsAnimating { get; private set; } = false;
+    
+    public bool SetUp(Object object__)
+    {
+        position = object__.GetExpresserComponent&lt;HasPosition&gt;();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        if (IsAnimating)
+        {
+            animationTime += current_time.DeltaTime;
+            
+            if (animationTime &gt;= animationDuration)
+            {
+                position.Position = EndPosition;
+                IsAnimating = false;
+                animationTime = 0.0f;
+            }
+            else
+            {
+                // X座標とY座標をそれぞれイージング
+                float easedX = Easing.Util.EaseInOutQuadratic(
+                    animationTime, StartPosition.X, EndPosition.X, animationDuration);
+                float easedY = Easing.Util.EaseInOutQuadratic(
+                    animationTime, StartPosition.Y, EndPosition.Y, animationDuration);
+                
+                position.Position = new Vector2(easedX, easedY);
+            }
+        }
+        
+        return true;
+    }
+    
+    public void StartAnimation(Vector2 start, Vector2 end)
+    {
+        StartPosition = start;
+        EndPosition = end;
+        animationTime = 0.0f;
+        IsAnimating = true;
+    }
+    
+    public void TearDown(Object object__) { }
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; } = Execute.ExecuteType.Update;
+}
+</code></pre>
+<h3 id="ui要素のフェードインフェードアウト">UI要素のフェードイン/フェードアウト</h3>
+<pre><code class="lang-csharp">public class FadeEffect : IExpresserComponent
+{
+    private HasAlpha alpha;
+    private float fadeTime = 0.0f;
+    private float fadeDuration = 1.0f;
+    private bool isFadingIn = false;
+    private bool isFadingOut = false;
+    
+    public bool SetUp(Object object__)
+    {
+        alpha = object__.GetExpresserComponent&lt;HasAlpha&gt;();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        if (isFadingIn)
+        {
+            fadeTime += current_time.DeltaTime;
+            if (fadeTime &gt;= fadeDuration)
+            {
+                alpha.Alpha = 1.0f;
+                isFadingIn = false;
+                fadeTime = 0.0f;
+            }
+            else
+            {
+                alpha.Alpha = Easing.Util.EaseOutCubic(fadeTime, 0.0f, 1.0f, fadeDuration);
+            }
+        }
+        else if (isFadingOut)
+        {
+            fadeTime += current_time.DeltaTime;
+            if (fadeTime &gt;= fadeDuration)
+            {
+                alpha.Alpha = 0.0f;
+                isFadingOut = false;
+                fadeTime = 0.0f;
+            }
+            else
+            {
+                alpha.Alpha = Easing.Util.EaseInCubic(fadeTime, 1.0f, 0.0f, fadeDuration);
+            }
+        }
+        
+        return true;
+    }
+    
+    public void FadeIn(float duration = 1.0f)
+    {
+        fadeDuration = duration;
+        fadeTime = 0.0f;
+        isFadingIn = true;
+        isFadingOut = false;
+    }
+    
+    public void FadeOut(float duration = 1.0f)
+    {
+        fadeDuration = duration;
+        fadeTime = 0.0f;
+        isFadingOut = true;
+        isFadingIn = false;
+    }
+    
+    public void TearDown(Object object__) { }
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; } = Execute.ExecuteType.Update;
+}
+</code></pre>
+<h2 id="イージングタイプ別の特徴">イージングタイプ別の特徴</h2>
+<h3 id="linearリニア">Linear（リニア）</h3>
+<pre><code class="lang-csharp">// 一定速度での補間
+float value = Easing.Util.Linear(time, 0.0f, 100.0f, 2.0f);
+</code></pre>
+<ul>
+<li><strong>用途</strong>: 一定速度での移動、回転、スケール変更</li>
+<li><strong>特徴</strong>: 等速直線運動、機械的な動き</li>
+</ul>
+<h3 id="quadratic二次関数">Quadratic（二次関数）</h3>
+<pre><code class="lang-csharp">// 緩やかな加速・減速
+float valueIn = Easing.Util.EaseInQuadratic(time, 0.0f, 100.0f, 2.0f);
+float valueOut = Easing.Util.EaseOutQuadratic(time, 0.0f, 100.0f, 2.0f);
+float valueInOut = Easing.Util.EaseInOutQuadratic(time, 0.0f, 100.0f, 2.0f);
+</code></pre>
+<ul>
+<li><strong>用途</strong>: 自然な加速・減速、UI要素の移動</li>
+<li><strong>特徴</strong>: 滑らかで自然な動き</li>
+</ul>
+<h3 id="cubic三次関数">Cubic（三次関数）</h3>
+<pre><code class="lang-csharp">// より強い加速・減速
+float value = Easing.Util.EaseInOutCubic(time, 0.0f, 100.0f, 2.0f);
+</code></pre>
+<ul>
+<li><strong>用途</strong>: メニューのスライドイン、カードの移動</li>
+<li><strong>特徴</strong>: はっきりとした加速・減速感</li>
+</ul>
+<h3 id="bounceバウンス">Bounce（バウンス）</h3>
+<pre><code class="lang-csharp">// 弾む動き
+float value = Easing.Util.EaseOutBounce(time, 0.0f, 100.0f, 2.0f);
+</code></pre>
+<ul>
+<li><strong>用途</strong>: オブジェクトの着地、ボタンのプレス効果</li>
+<li><strong>特徴</strong>: 楽しくダイナミックな動き</li>
+</ul>
+<h3 id="backオーバーシュート">Back（オーバーシュート）</h3>
+<pre><code class="lang-csharp">// 目標を少し超えてから戻る
+float s = 1.70158f; // オーバーシュートの強さ
+float value = Easing.Util.EaseOutBack(time, 0.0f, 100.0f, 2.0f, s);
+</code></pre>
+<ul>
+<li><strong>用途</strong>: UI要素の強調、ポップアップの表示</li>
+<li><strong>特徴</strong>: 注意を引く動き</li>
+</ul>
+<h3 id="elasticエラスティック">Elastic（エラスティック）</h3>
+<pre><code class="lang-csharp">// ゴムのような弾性
+float amplitude = 1.0f;  // 振幅
+float period = 0.3f;     // 周期
+float value = Easing.Util.EaseOutElastic(time, 0.0f, 100.0f, 2.0f, amplitude, period);
+</code></pre>
+<ul>
+<li><strong>用途</strong>: 通知の強調、特殊効果</li>
+<li><strong>特徴</strong>: 目を引く振動的な動き</li>
+</ul>
+<h2 id="ゲーム開発での実用例">ゲーム開発での実用例</h2>
+<h3 id="プレイヤーのジャンプ動作">プレイヤーのジャンプ動作</h3>
+<pre><code class="lang-csharp">public class JumpController : IExpresserComponent
+{
+    private HasPosition position;
+    private float jumpTime = 0.0f;
+    private float jumpDuration = 0.8f;
+    private float groundY;
+    private float jumpHeight = 50.0f;
+    private bool isJumping = false;
+    
+    public bool SetUp(Object object__)
+    {
+        position = object__.GetExpresserComponent&lt;HasPosition&gt;();
+        groundY = position.Y;
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        if (isJumping)
+        {
+            jumpTime += current_time.DeltaTime;
+            
+            if (jumpTime &gt;= jumpDuration)
+            {
+                position.Y = groundY;
+                isJumping = false;
+                jumpTime = 0.0f;
+            }
+            else
+            {
+                // 放物線を描くジャンプ
+                float height = Easing.Util.EaseInOutQuadratic(
+                    jumpTime, 0.0f, jumpHeight, jumpDuration * 0.5f);
+                
+                if (jumpTime &gt; jumpDuration * 0.5f)
+                {
+                    float fallTime = jumpTime - (jumpDuration * 0.5f);
+                    height = Easing.Util.EaseInQuadratic(
+                        fallTime, jumpHeight, 0.0f, jumpDuration * 0.5f);
+                }
+                
+                position.Y = groundY + height;
+            }
+        }
+        
+        return true;
+    }
+    
+    public void Jump()
+    {
+        if (!isJumping)
+        {
+            jumpTime = 0.0f;
+            isJumping = true;
+        }
+    }
+}
+</code></pre>
+<h3 id="カメラの滑らかなズーム">カメラの滑らかなズーム</h3>
+<pre><code class="lang-csharp">public class CameraZoom : IExpresserComponent
+{
+    private HasScale scale;
+    private float zoomTime = 0.0f;
+    private float zoomDuration = 1.5f;
+    private float startZoom;
+    private float targetZoom;
+    private bool isZooming = false;
+    
+    public bool SetUp(Object object__)
+    {
+        scale = object__.GetExpresserComponent&lt;HasScale&gt;();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        if (isZooming)
+        {
+            zoomTime += current_time.DeltaTime;
+            
+            if (zoomTime &gt;= zoomDuration)
+            {
+                scale.Scale = new Vector2(targetZoom, targetZoom);
+                isZooming = false;
+                zoomTime = 0.0f;
+            }
+            else
+            {
+                float currentZoom = Easing.Util.EaseInOutSinusoidal(
+                    zoomTime, startZoom, targetZoom, zoomDuration);
+                scale.Scale = new Vector2(currentZoom, currentZoom);
+            }
+        }
+        
+        return true;
+    }
+    
+    public void ZoomTo(float zoom, float duration = 1.5f)
+    {
+        startZoom = scale.Scale.X;
+        targetZoom = zoom;
+        zoomDuration = duration;
+        zoomTime = 0.0f;
+        isZooming = true;
+    }
+}
+</code></pre>
+<h3 id="パーティクルシステムとの連携">パーティクルシステムとの連携</h3>
+<pre><code class="lang-csharp">public class ParticleLifetime : IExpresserComponent
+{
+    private HasAlpha alpha;
+    private HasScale scale;
+    private float lifetime = 0.0f;
+    private float maxLifetime = 3.0f;
+    
+    public bool SetUp(Object object__)
+    {
+        alpha = object__.GetExpresserComponent&lt;HasAlpha&gt;();
+        scale = object__.GetExpresserComponent&lt;HasScale&gt;();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        lifetime += current_time.DeltaTime;
+        
+        if (lifetime &gt;= maxLifetime)
+        {
+            object__.Destroy();
+            return false;
+        }
+        
+        // フェードアウトとスケールダウン
+        float fadeProgress = lifetime / maxLifetime;
+        
+        // アルファ値を指数関数的に減少
+        alpha.Alpha = Easing.Util.EaseOutExponential(
+            fadeProgress, 1.0f, 0.0f, 1.0f);
+        
+        // スケールを円関数で縮小
+        float scaleValue = Easing.Util.EaseInCircular(
+            fadeProgress, 1.0f, 0.0f, 1.0f);
+        scale.Scale = new Vector2(scaleValue, scaleValue);
+        
+        return true;
+    }
+}
+</code></pre>
+<h2 id="高度な活用例">高度な活用例</h2>
+<h3 id="カスタムイージング合成">カスタムイージング合成</h3>
+<pre><code class="lang-csharp">public static class CustomEasing
+{
+    // 複数のイージング関数を組み合わせた独自の効果
+    public static float ShakeEasing(float time, float min, float max, float duration)
+    {
+        float baseValue = Easing.Util.EaseOutBounce(time, min, max, duration);
+        
+        // 高周波の振動を追加
+        float shake = Easing.Util.EaseOutExponential(time, 5.0f, 0.0f, duration) *
+                      Math.Util.Sin(time * 50.0f);
+        
+        return baseValue + shake;
+    }
+    
+    // 段階的なイージング
+    public static float SteppedEasing(float time, float min, float max, float duration, int steps)
+    {
+        float stepSize = duration / steps;
+        int currentStep = (int)(time / stepSize);
+        float stepProgress = (time % stepSize) / stepSize;
+        
+        float stepMin = min + (max - min) * currentStep / steps;
+        float stepMax = min + (max - min) * (currentStep + 1) / steps;
+        
+        return Easing.Util.EaseInOutQuadratic(stepProgress, stepMin, stepMax, 1.0f);
+    }
+}
+</code></pre>
+<h3 id="イージング選択システム">イージング選択システム</h3>
+<pre><code class="lang-csharp">public enum EasingType
+{
+    Linear,
+    QuadraticIn, QuadraticOut, QuadraticInOut,
+    CubicIn, CubicOut, CubicInOut,
+    BounceOut,
+    BackOut,
+    ElasticOut
+}
+
+public static class EasingSelector
+{
+    public static float ApplyEasing(EasingType type, float time, float min, float max, float duration)
+    {
+        return type switch
+        {
+            EasingType.Linear =&gt; Easing.Util.Linear(time, min, max, duration),
+            EasingType.QuadraticIn =&gt; Easing.Util.EaseInQuadratic(time, min, max, duration),
+            EasingType.QuadraticOut =&gt; Easing.Util.EaseOutQuadratic(time, min, max, duration),
+            EasingType.QuadraticInOut =&gt; Easing.Util.EaseInOutQuadratic(time, min, max, duration),
+            EasingType.CubicIn =&gt; Easing.Util.EaseInCubic(time, min, max, duration),
+            EasingType.CubicOut =&gt; Easing.Util.EaseOutCubic(time, min, max, duration),
+            EasingType.CubicInOut =&gt; Easing.Util.EaseInOutCubic(time, min, max, duration),
+            EasingType.BounceOut =&gt; Easing.Util.EaseOutBounce(time, min, max, duration),
+            EasingType.BackOut =&gt; Easing.Util.EaseOutBack(time, min, max, duration, 1.70158f),
+            EasingType.ElasticOut =&gt; Easing.Util.EaseOutElastic(time, min, max, duration, 1.0f, 0.3f),
+            _ =&gt; Easing.Util.Linear(time, min, max, duration)
+        };
+    }
+}
+</code></pre>
+<h2 id="設定例yaml">設定例（YAML）</h2>
+<pre><code class="lang-yaml">easing:
+  default_settings:
+    animation_duration: 1.0
+    default_easing: &quot;EaseInOutQuadratic&quot;
+    
+  presets:
+    ui_slide:
+      easing: &quot;EaseOutCubic&quot;
+      duration: 0.3
+    bounce_effect:
+      easing: &quot;EaseOutBounce&quot;
+      duration: 0.8
+    elastic_popup:
+      easing: &quot;EaseOutElastic&quot;
+      duration: 1.2
+      amplitude: 1.0
+      period: 0.3
+    back_emphasis:
+      easing: &quot;EaseOutBack&quot;
+      duration: 0.5
+      overshoot: 1.70158
+      
+  performance:
+    time_precision: 0.016  # 60FPS
+    enable_caching: true
+    max_concurrent_animations: 100
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>効率的な計算</strong>: 数学関数の最適化により高速な計算</li>
+<li><strong>メモリ効率</strong>: 静的関数による最小限のメモリ使用</li>
+<li><strong>時間精度</strong>: float精度での滑らかな補間</li>
+<li><strong>スケーラビリティ</strong>: 大量のオブジェクトでの同時アニメーション対応</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<h3 id="時間パラメータ">時間パラメータ</h3>
+<ul>
+<li><code>time</code>: 現在の経過時間（0以上）</li>
+<li><code>duration_time</code>: アニメーション継続時間（正の値）</li>
+<li>時間が期間を超えた場合は最終値が返される</li>
+</ul>
+<h3 id="値の範囲">値の範囲</h3>
+<ul>
+<li><code>min</code>、<code>max</code>: 最小値・最大値（任意の浮動小数点値）</li>
+<li>結果は常に<code>[min, max]</code>の範囲内に収まる</li>
+<li><code>min &gt; max</code>でも正常に動作（逆方向補間）</li>
+</ul>
+<h3 id="特殊パラメータ">特殊パラメータ</h3>
+<ul>
+<li><strong>Back</strong>: <code>s</code>パラメータでオーバーシュートの強さを調整（通常1.70158f）</li>
+<li><strong>Elastic</strong>: <code>a</code>（振幅）、<code>p</code>（周期）で弾性の特性を調整</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../MathUtil/README.html">MathUtil</a> - Math.Util.Clamp、Math.Util.PI、三角関数等</li>
+<li><strong>System.Math</strong> - .NET標準の数学関数</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../TimeManager/README.html">TimeManager</a> - 時間管理</li>
+<li><a href="../Transform/README.html">Transform</a> - 座標・回転・スケール変換</li>
+<li><a href="../Animation/README.md">Animation</a> - アニメーションシステム</li>
+<li><a href="../UI/README.md">UI</a> - UIアニメーション</li>
+</ul>
+<p>このモジュールにより、ゲームに自然で魅力的な動きを簡単に追加できます。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントについては、以下のリンクを参照してください：</p>
+<p><a href="https://your-docfx-site.github.io/api/VaNilla.Easing.html">VaNilla.Easing Namespace API Reference</a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Easing/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

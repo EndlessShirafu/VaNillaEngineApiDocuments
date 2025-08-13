@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Collision </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Collision ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Collision/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="collision">Collision</h1>
+
+<p>衝突関連</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.Collision.html">VaNilla Collision APIリファレンス</a>をご覧ください。</p>
+<h2 id="おおまかな機能">おおまかな機能</h2>
+<ul>
+<li>HasCollision
+<ul>
+<li>Objectがコリジョンを最大1つ持っている事を表象するExpresserComponent</li>
+</ul>
+</li>
+<li>HasCollisions
+<ul>
+<li>Objectがコリジョンを(複数)持っている事を表象するExpresserComponent</li>
+</ul>
+</li>
+<li>CollisionCalculater
+<ul>
+<li>コリジョンの管理や判定を行う。</li>
+</ul>
+</li>
+<li>AABB
+<ul>
+<li>軸並行境界ボックス。コリジョンの大まかなアタリをつけるのに使う。</li>
+<li>コリジョンの形状自体をAABBにすることも出来る</li>
+</ul>
+</li>
+<li>TextObjectManager
+<ul>
+<li>UnityScene上に文字をデバッグ描画したかったので一旦無理やり追加したもの</li>
+<li>将来的にはちゃんとした機能に乗り換えたい</li>
+</ul>
+</li>
+</ul>
+<h2 id="unityで簡単に挙動を確認する方法">Unityで簡単に挙動を確認する方法</h2>
+<ul>
+<li><code>CollisionSampleManager</code> Componentを適当なGameObjectに追加して実行する事で簡易的な確認が出来ます</li>
+<li><code>CollisionSampleManger</code> のInspectorウィンドウの各種パラメータをせっていする事で、プレイ時にその数に応じたインスタンスを作成します
+<ul>
+<li>デバッグしやすいようにUnityのGameObjectと紐づけて生成するコリジョンと、純粋にVaNillaのコリジョンを生成するものがあります</li>
+<li>前者は <code>COllisionDummyBehaviour</code> で実装されています</li>
+</ul>
+</li>
+<li>作成されたコリジョンオブジェクトを選択してInspectorウィンドウからチェックを入れる事でデバッグ描画をしたりできます。
+<ul>
+<li>現状デバッグ描画はSceneビューでしか見れないです</li>
+</ul>
+</li>
+</ul>
+<h2 id="生成方法">生成方法</h2>
+<p>コリジョンは事前に <code>HasCollision</code> にパラメータを渡しておいて <code>Object</code> のセットアップ時にコリジョンの生成を行う事前設定方式と、生成後に <code>HasCollision</code> の関数を叩いて生成する事後生成方式とがある。</p>
+<h3 id="事前設定方式の場合">事前設定方式の場合</h3>
+<ol>
+<li><code>Object</code> に <code>HasCollision</code> と <code>HasPosition</code> を追加する</li>
+<li><code>HasCollision</code> にコリジョン生成パラメータを渡す</li>
+<li><code>ObjectExecutor</code> に <code>Object</code> を登録する
+a. ここまでは <code>ObjectFactory.Instantiate</code> 等を使用する事で一括で行える
+b. 登録時に渡しておいたコリジョン生成パラメータを元にコリジョンの生成が行われる</li>
+<li>形状情報を設定する</li>
+</ol>
+<h3 id="事後生成方式の場合">事後生成方式の場合</h3>
+<ol>
+<li><code>Object</code> に <code>HasCollision</code> と <code>HasPosition</code> を追加する</li>
+<li><code>ObjectExecutor</code> に <code>Object</code> を登録する
+a. ここまでは <code>ObjectFactory.Instantiate</code> 等を使用する事で一括で行える
+b. コリジョンは生成されていない</li>
+<li><code>HasCollision</code> のコリジョン生成関数を呼び出す(コリジョン生成パラメータを渡す)</li>
+<li>形状情報を設定する</li>
+</ol>
+<h3 id="形状情報について">形状情報について</h3>
+<p>将来的に対応予定ですが、現状だと形状をコリジョンの生成前に指定することが出来ません。コリジョン生成後に <code>Collision</code> の <code>ShapeData</code> にアクセスして値を直接書き換えてください。
+<code>CollisionType</code> を後から変更する事は現状想定していないので行いたい場合は相談してください。</p>
+<h2 id="aabbについて">AABBについて</h2>
+<p>当たらない事が分かっているコリジョン同士の判定をスキップする為にAABBを利用しています。
+AABBは形状データを元に自動更新される想定なので、これに直接値を設定するのは辞めてください。</p>
+<p>これとは関係なく、AABBを形状として選択することが出来ます。
+少しややこしいのでデータ構造を概観しておきます</p>
+<ul>
+<li>Collision
+<ul>
+<li>Aabb //ここで話しているAABB。コリジョンの大体のアタリをつけて処理を軽減するのに使用する。値の設定厳禁。</li>
+<li>ShapeData //形状情報
+<ul>
+<li>AabbData //これはコリジョンの形状自体がAABBの場合の形状情報。値の設定可。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="コリジョングループについて">コリジョングループについて</h2>
+<p>コリジョン生成時に，そのコリジョンのCollisionGroupIDを指定してください．
+InitializeParamBaseのパラメータとして指定できます．</p>
+<p>また，CollisionGroupのCollideGroupPairsにコリジョン判定を行うコリジョングループIDのペアを登録してください．
+ここで登録されたコリジョングループIDのペア間でのみコリジョン判定が行われます．
+同じコリジョングループ内でのコリジョン判定を行いたい場合は同じコリジョングループIDを指定したペアを登録して下さい．</p>
+<h2 id="プロジェクト毎の設定について">プロジェクト毎の設定について</h2>
+<p>VaNillaでは格子状に区切られた空間を作り、コリジョンがどの空間に属するかを管理しておき、別の空間にあるコリジョンとの衝突判定をスキップする事で処理負荷を軽減しています。
+この空間はルート空間と呼んでいる最も大きい空間を特定回再帰的に4分割した空間で定義されます。</p>
+<p>コリジョンを判定する事が多い空間(例えば2Dシューティングだと画面内とか)をこのルート空間で囲い、使用するコリジョンを充分に内包できる大きさに分割しておく事で処理を軽減できます。</p>
+<p>分割をしすぎると処理が重くなってしまう(空間は 分割回数^4 になるので)ので、分割回数は適度に設定する事をおすすめします。</p>
+<p>現状は直接 <code>CollisionCalculater</code> のprivateな定数になってしまっているのでこれを書き替えてもらうしかないのですが、将来的に外部で設定できる様にする予定です。</p>
+<p>具体的には</p>
+<ul>
+<li>ROOT_SPACE_SIDE_LENGTH // ルート空間の1辺の長さ。原点中心の正方形</li>
+<li>PARTITION_TIMES // 分割回数。この回数分ルート空間を再帰的に4分割する</li>
+</ul>
+<p>の2つが設定できる項目になります。</p>
+<h2 id="現状での問題点">現状での問題点</h2>
+<ul>
+<li>コリジョンのコールバックで渡されているのがそのコリジョンを主体とした情報ではなく、CollisionResult
+<ul>
+<li>自らがAとBのどちらかか判定しないといけない等ユーザーが煩雑</li>
+<li>対応予定</li>
+</ul>
+</li>
+<li>パフォーマンスが足りていないかもしれない
+<ul>
+<li>コリジョンの実装部分によるものか、Unityのオブジェクトの大量配置によるものか未調査だが、CollisionSampleManagerで2000程コリジョン配置した場合重すぎて辛い</li>
+<li>調査 &amp; 対応予定</li>
+</ul>
+</li>
+<li>コリジョンのデバッグ描画がSceneビューでしか見れない
+<ul>
+<li>Gameビューで見たいという要望があったら対応予定</li>
+<li>その場合出来るのかの調査から</li>
+</ul>
+</li>
+</ul>
+<h2 id="対応済みの問題点">対応済みの問題点</h2>
+<ul>
+<li>コリジョンが衝突した時のコールバックが機能していない
+<ul>
+<li>対応予定</li>
+<li>-&gt; 衝突時と離れた時にコールバック関数が呼ばれる様にした</li>
+</ul>
+</li>
+<li>コリジョンの形状データを変更した場合に手動でその変更を反映する処理を呼ぶ必要がある
+<ul>
+<li>自動反映するようにする予定(パフォーマンスの観点から現状のままの可能性もあり)</li>
+<li>-&gt; 自動反映されるようにした</li>
+</ul>
+</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Collision/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

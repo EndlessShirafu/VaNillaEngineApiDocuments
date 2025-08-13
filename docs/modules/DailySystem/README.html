@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>DailySystem モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="DailySystem モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/DailySystem/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="dailysystem-モジュール">DailySystem モジュール</h1>
+
+<p>DailySystemモジュールは、ゲーム内でのデイリーミッション、ログインボーナス、日次リセット機能などの日単位のゲームシステムを管理するモジュールです。
+現在このモジュールは<strong>未実装</strong>です。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の日次ゲームシステム機能を提供します：</p>
+<ul>
+<li><strong>デイリーログイン管理</strong>: プレイヤーの日次ログイン状態の追跡</li>
+<li><strong>日時管理</strong>: UTC基準での日付・時刻管理</li>
+<li><strong>デイリーリセット</strong>: 日次でリセットされるゲーム要素の管理</li>
+<li><strong>ログイン履歴</strong>: ログイン履歴の保存と参照</li>
+</ul>
+<h2 id="実装状況">実装状況</h2>
+<p>⚠️ <strong>開発中</strong>: 現在このモジュールは<strong>未実装</strong>です。</p>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="dailyinfo">DailyInfo</h3>
+<p>日次情報の管理を行う静的クラスです。</p>
+<pre><code class="lang-csharp">public static class DailyInfo
+{
+    public static bool LoginedToday { get; }        // 本日ログイン済みかどうか
+    public static DateTime CurrentDateTime { get; }  // 現在の日時（UTC）
+    
+    public static void Initialize();  // 初期化処理
+    public static void Execute();     // 実行処理
+}
+</code></pre>
+<h2 id="現在の実装">現在の実装</h2>
+<h3 id="プロパティ">プロパティ</h3>
+<ul>
+<li><strong>LoginedToday</strong>: 本日のログイン状態（現在は常にfalse）</li>
+<li><strong>CurrentDateTime</strong>: UTC基準の現在日時を取得</li>
+</ul>
+<h3 id="メソッド">メソッド</h3>
+<ul>
+<li><strong>Initialize()</strong>: 設定ファイルからログイン情報を読み込み（実装予定）</li>
+<li><strong>Execute()</strong>: デイリーシステムの実行処理（実装予定）</li>
+</ul>
+<h2 id="将来の実装予定">将来の実装予定</h2>
+<h3 id="ログイン管理システム">ログイン管理システム</h3>
+<pre><code class="lang-csharp">public static class DailyInfo
+{
+    // ログイン管理
+    public static bool LoginedToday { get; }
+    public static DateTime LastLoginDate { get; }
+    public static int ConsecutiveLoginDays { get; }
+    
+    // デイリーリセット管理
+    public static DateTime NextResetTime { get; }
+    public static TimeSpan TimeUntilReset { get; }
+    
+    // ログイン処理
+    public static void RecordLogin();
+    public static bool IsNewDay();
+    public static void ResetDailyData();
+}
+</code></pre>
+<h3 id="デイリーミッション管理">デイリーミッション管理</h3>
+<pre><code class="lang-csharp">public class DailyMission
+{
+    public DailyMissionType MissionType { get; set; }
+    public string MissionId { get; set; }
+    public string Description { get; set; }
+    public int TargetCount { get; set; }
+    public int CurrentCount { get; set; }
+    public bool IsCompleted { get; }
+    public DateTime ResetDate { get; set; }
+    
+    public void UpdateProgress(int amount);
+    public void Reset();
+}
+
+public static class DailyMissionManager
+{
+    public static List&lt;DailyMission&gt; GetAllMissions();
+    public static List&lt;DailyMission&gt; GetIncompleteMissions();
+    public static List&lt;DailyMission&gt; GetCompletedMissions();
+    public static void UpdateMissionProgress(string missionId, int amount);
+    public static void CompleteMission(string missionId);
+    public static void ResetAllMissions();
+}
+</code></pre>
+<h3 id="レギュラリーミッション週次月次など管理">レギュラリーミッション（週次・月次など）管理</h3>
+<pre><code class="lang-csharp">public class RegularlyMission
+{
+    public RegularlyMissionType MissionType { get; set; }
+    public string MissionId { get; set; }
+    public string Description { get; set; }
+    public int TargetCount { get; set; }
+    public int CurrentCount { get; set; }
+    public bool IsCompleted { get; }
+    public DateTime ResetDate { get; set; }
+    
+    public void UpdateProgress(int amount);
+    public void Reset();
+}
+
+public static class RegularlyMissionManager
+{
+    public static List&lt;RegularlyMission&gt; GetAllMissions();
+    public static List&lt;RegularlyMission&gt; GetIncompleteMissions();
+    public static List&lt;RegularlyMission&gt; GetCompletedMissions();
+    public static void UpdateMissionProgress(string missionId, int amount);
+    public static void CompleteMission(string missionId);
+    public static void ResetAllMissions();
+}
+</code></pre>
+<h3 id="ログインボーナス">ログインボーナス</h3>
+<pre><code class="lang-csharp">public class LoginBonus
+{
+    public LoginBonusId { get; set; }
+    public int Day { get; set; }
+    public string RewardType { get; set; }
+    public int RewardAmount { get; set; }
+    public bool IsClaimed { get; set; }
+}
+
+public static class LoginBonusManager
+{
+    public static LoginBonus GetTodayBonus();
+    public static List&lt;LoginBonus&gt; GetLoginBonusesList();
+    public static void ClaimBonus(int day);
+    public static void ResetLoginBonuses();
+}
+</code></pre>
+<h3 id="設定永続化">設定・永続化</h3>
+<pre><code class="lang-csharp">public class DailySystemConfig
+{
+    public TimeSpan ResetTime { get; set; }         // リセット時刻（例：午前4時）
+    public string TimeZone { get; set; }            // タイムゾーン設定
+    public bool EnableLoginBonus { get; set; }      // ログインボーナス有効化
+    public List&lt;DailyMission&gt; Missions { get; set; } // デイリーミッション設定
+}
+</code></pre>
+<h2 id="使用例予定">使用例（予定）</h2>
+<pre><code class="lang-csharp">// ゲーム開始時の初期化
+DailyInfo.Initialize();
+
+// ログイン処理
+if (!DailyInfo.LoginedToday)
+{
+    DailyInfo.RecordLogin();
+    
+    // ログインボーナスの付与
+    var todayBonus = LoginBonusManager.GetTodayBonus();
+    if (todayBonus != null &amp;&amp; !todayBonus.IsClaimed)
+    {
+        LoginBonusManager.ClaimBonus(todayBonus.Day);
+        ShowLoginBonusDialog(todayBonus);
+    }
+}
+
+// デイリーミッションの更新
+DailyMissionManager.UpdateMissionProgress(&quot;kill_enemies&quot;, enemyCount);
+
+// 日次リセットのチェック
+if (DailyInfo.IsNewDay())
+{
+    DailyInfo.ResetDailyData();
+    DailyMissionManager.ResetAllMissions();
+}
+</code></pre>
+<h2 id="設定ファイル例yaml">設定ファイル例（YAML）</h2>
+<pre><code class="lang-yaml"># VaNillaSettings.yaml
+daily_system:
+  # デイリーミッション種別
+  daily_mission_types:
+    - &quot;KillEnemies&quot;
+    - &quot;CollectItems&quot;
+    - &quot;PlayTime&quot;
+  
+  daily_mission_type_comments:
+    KillEnemies: &quot;敵を倒すミッション&quot;
+    CollectItems: &quot;アイテム収集ミッション&quot;
+    PlayTime: &quot;プレイ時間ミッション&quot;
+  
+  # 定期ミッション種別
+  regularly_mission_types:
+    - &quot;WeeklyWin&quot;
+    - &quot;MonthlyClear&quot;
+  
+  regularly_mission_type_comments:
+    WeeklyWin: &quot;週間勝利ミッション&quot;
+    MonthlyClear: &quot;月間クリアミッション&quot;
+  
+  # システム設定
+  ntp_server: &quot;ntp.nict.jp&quot;
+  reset_hour: 4
+  ntp_fetch_interval_minutes: 1
+  daily_info_save_path: &quot;dailysystem.json&quot;
+  daily_mission_save_path: &quot;dailymissions.json&quot;
+  regularly_mission_save_path: &quot;regularlymissions.json&quot;
+
+# デイリーミッション定義
+daily_missions:
+  - type: &quot;KillEnemies&quot;
+    id: &quot;kill_enemies_01&quot;
+    description: &quot;敵を10体倒せ&quot;
+    target_count: 10
+  
+  - type: &quot;CollectItems&quot;
+    id: &quot;collect_items_01&quot;
+    description: &quot;アイテムを5個集めろ&quot;
+    target_count: 5
+
+# 定期ミッション定義
+regularly_missions:
+  - type: &quot;WeeklyWin&quot;
+    id: &quot;weekly_win_01&quot;
+    description: &quot;今週5回勝利しろ&quot;
+    target_count: 5
+  
+  - type: &quot;MonthlyClear&quot;
+    id: &quot;monthly_clear_01&quot;
+    description: &quot;今月3回クリアしろ&quot;
+    target_count: 3
+</code></pre>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../TimeManager/README.html">TimeManager</a> - 時間管理システム</li>
+<li><strong>設定管理システム</strong> - YAML設定の読み込み（VaNillaEngineManager）</li>
+<li><strong>永続化システム</strong> - ゲームデータの保存・読み込み</li>
+</ul>
+<h2 id="開発ステータス">開発ステータス</h2>
+<ul>
+<li>✅ 基本構造定義</li>
+<li>🔄 ログイン管理（実装中）</li>
+<li>⭕ デイリーミッション（未実装）</li>
+<li>⭕ ログインボーナス（未実装）</li>
+<li>⭕ 設定ファイル連携（未実装）</li>
+<li>⭕ 永続化機能（未実装）</li>
+</ul>
+<h2 id="実装優先度">実装優先度</h2>
+<ol>
+<li><strong>ログイン状態管理</strong> - 基本的なログイン追跡機能</li>
+<li><strong>日次リセット</strong> - 指定時刻でのデータリセット</li>
+<li><strong>設定ファイル統合</strong> - YAML設定からの読み込み</li>
+<li><strong>デイリーミッション</strong> - ミッション管理システム</li>
+<li><strong>ログインボーナス</strong> - ボーナス管理システム</li>
+</ol>
+<h2 id="注意事項">注意事項</h2>
+<ul>
+<li>時刻管理はUTC基準で行い、ローカル時刻への変換は表示時に実行</li>
+<li>サーバー/クライアント時刻同期が必要な場合は別途実装を検討</li>
+<li>セーブデータの整合性確保のため、適切な永続化機能との連携が必要</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/DailySystem/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

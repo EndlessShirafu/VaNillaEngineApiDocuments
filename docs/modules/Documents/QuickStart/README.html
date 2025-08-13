@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNillaエンジン クイックスタートガイド </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNillaエンジン クイックスタートガイド ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/QuickStart/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanillaエンジン-クイックスタートガイド">VaNillaエンジン クイックスタートガイド</h1>
+
+<p>このガイドでは、VaNillaエンジンを使って最初のゲームを作る手順を解説します。</p>
+<h2 id="-目次">📋 目次</h2>
+<ol>
+<li><a href="#vanilla%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3%E3%81%A8%E3%81%AF">VaNillaエンジンとは</a></li>
+<li><a href="#%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89">環境構築</a></li>
+<li><a href="#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97">プロジェクトのセットアップ</a></li>
+<li><a href="#%E6%9C%80%E5%88%9D%E3%81%AE%E3%82%B2%E3%83%BC%E3%83%A0%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88">最初のゲームオブジェクト</a></li>
+<li><a href="#expressercomponent%E3%81%A7%E6%A9%9F%E8%83%BD%E3%82%92%E8%BF%BD%E5%8A%A0">ExpresserComponentで機能を追加</a></li>
+<li><a href="#%E5%85%A5%E5%8A%9B%E5%87%A6%E7%90%86%E3%82%92%E5%AE%9F%E8%A3%85">入力処理を実装</a></li>
+<li><a href="#%E6%8F%8F%E7%94%BB%E5%87%A6%E7%90%86">描画処理</a></li>
+<li><a href="#%E5%BD%93%E3%81%9F%E3%82%8A%E5%88%A4%E5%AE%9A">当たり判定</a></li>
+<li><a href="#%E3%82%B7%E3%83%BC%E3%83%B3%E7%AE%A1%E7%90%86">シーン管理</a></li>
+<li><a href="#%E5%AE%8C%E6%88%90%E3%81%97%E3%81%9F%E3%82%B2%E3%83%BC%E3%83%A0">完成したゲーム</a></li>
+<li><a href="#%E6%AC%A1%E3%81%AE%E3%82%B9%E3%83%86%E3%83%83%E3%83%97">次のステップ</a></li>
+</ol>
+<hr>
+<h2 id="vanillaエンジンとは">VaNillaエンジンとは</h2>
+<p>VaNillaは、DxLibやUnity上で動作する<strong>メタ・ゲームエンジン</strong>です。<br>
+2Dアクションゲームやシューティングゲームの開発に特化しており、以下の特徴があります：</p>
+<ul>
+<li>🎯 <strong>統一API</strong> - DxLibとUnityで同じコードが動作</li>
+<li>⚡ <strong>高性能</strong> - 数千個のオブジェクトを軽量に処理</li>
+<li>🧩 <strong>ExpresserComponent設計</strong> - 「何を表現するか」でゲームオブジェクトを構成</li>
+<li>⚙️ <strong>ゼロコスト事前定義</strong> - YAML設定・属性宣言からC#コードを事前生成</li>
+</ul>
+<h3 id="expressercomponent-oriented-programming表象要素指向プログラミング">ExpresserComponent-Oriented Programming（表象要素指向プログラミング）</h3>
+<p>VaNillaの核となる設計思想です。ゲームオブジェクトを「何を持っているか」ではなく「何を表現するか」で構成します。</p>
+<p>例えば、プレイヤーキャラクターは：</p>
+<ul>
+<li><strong>座標を持つ</strong>（HasPosition）</li>
+<li><strong>画像を持つ</strong>（HasTexture）</li>
+<li><strong>当たり判定がある</strong>（HasCollision）</li>
+<li><strong>移動できる</strong>（PlayerMovementComponent）</li>
+</ul>
+<p>これらの「表象要素」を組み合わせてゲームオブジェクトを作ります。</p>
+<hr>
+<h2 id="環境構築">環境構築</h2>
+<h3 id="必要なソフトウェア">必要なソフトウェア</h3>
+<ol>
+<li><p><strong>Visual Studio 2022</strong> (Community版で十分)</p>
+<ul>
+<li>インストール時に「.NETデスクトップ開発」を選択</li>
+</ul>
+</li>
+<li><p><strong>.NET 9 SDK</strong></p>
+<ul>
+<li><a href="https://dotnet.microsoft.com/download/dotnet/9.0">公式サイト</a>からダウンロード</li>
+</ul>
+</li>
+<li><p><strong>Python 3.9以上</strong></p>
+<ul>
+<li>コード生成ツールで使用</li>
+<li><a href="https://www.python.org/">公式サイト</a>からダウンロード</li>
+</ul>
+</li>
+<li><p><strong>Git</strong></p>
+<ul>
+<li>バージョン管理用</li>
+<li><a href="https://git-scm.com/">公式サイト</a>からダウンロード</li>
+</ul>
+</li>
+</ol>
+<h3 id="vanillaエンジンの取得">VaNillaエンジンの取得</h3>
+<pre><code class="lang-bash"># リポジトリをクローン
+git clone https://github.com/EndlessShirafu/VaNilla.git
+cd VaNilla
+</code></pre>
+<hr>
+<h2 id="プロジェクトのセットアップ">プロジェクトのセットアップ</h2>
+<h3 id="1-設定ファイルの準備">1. 設定ファイルの準備</h3>
+<p>まず、ゲーム用の設定ファイル（YAML）を作成します。</p>
+<p><code>VaNillaTestProject/DxLib/VaNillaSettings.yaml</code>を開いて、自分のプロジェクト用に編集します：</p>
+<pre><code class="lang-yaml"># テクスチャリソースの定義
+textures:
+  - name: Player
+    path: &quot;data/player.png&quot;
+  - name: Enemy
+    path: &quot;data/enemy.png&quot;
+  - name: Bullet
+    path: &quot;data/bullet.png&quot;
+
+# シーン定義
+scenes:
+  - name: Title
+  - name: Game
+  - name: GameOver
+
+# 実行順序の定義
+execution_order:
+  - name: Input
+    priority: 100
+  - name: Logic
+    priority: 200
+  - name: Rendering
+    priority: 300
+</code></pre>
+<h3 id="2-コード生成重要">2. コード生成（重要！）</h3>
+<p>VaNillaエンジンはYAMLからC#コードを生成します。この手順を飛ばすとビルドエラーになります。</p>
+<pre><code class="lang-bash"># プロジェクトルートで実行
+python VaNillaEngineManager/CodeGenerator.py -s VaNillaTestProject/DxLib/VaNillaSettings.yaml
+</code></pre>
+<p>これにより以下が生成されます：</p>
+<ul>
+<li><code>TextureResourceType</code> 列挙型</li>
+<li><code>SceneStateType</code> 列挙型</li>
+<li><code>ExpresserComponentExecutionOrder</code> 列挙型</li>
+<li>その他の設定クラス</li>
+</ul>
+<h3 id="3-プロジェクトのビルド">3. プロジェクトのビルド</h3>
+<pre><code class="lang-bash"># DxLib版をビルド
+cd VaNillaTestProject/DxLib
+dotnet build
+</code></pre>
+<hr>
+<h2 id="最初のゲームオブジェクト">最初のゲームオブジェクト</h2>
+<h3 id="プレイヤーキャラクターを作る">プレイヤーキャラクターを作る</h3>
+<p><code>Player.cs</code>を作成：</p>
+<pre><code class="lang-csharp">using System;
+using VaNilla;
+using VaNilla.Transform;
+using VaNilla.Texture;
+
+namespace MyGame
+{
+    /// &lt;summary&gt;
+    /// プレイヤーキャラクター
+    /// &lt;/summary&gt;
+    [AutoGenerateConstructor]
+    [DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+    [DefaultExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
+    public partial class Player : Object
+    {
+        public override bool SetUp()
+        {
+            // 初期位置を画面中央に設定
+            hasPosition.Position = new Point2(400, 300);
+            
+            // テクスチャを設定（YAMLで定義したものを使用）
+            hasTexture.Texture = TextureResourceManager.GetTextureResource(TextureResourceType.Player);
+            
+            return true;
+        }
+        
+        public override bool Execute(in Time.Time time)
+        {
+            // 毎フレーム実行される処理
+            return true;
+        }
+    }
+}
+</code></pre>
+<h3 id="属性の説明">属性の説明</h3>
+<ul>
+<li><code>[AutoGenerateConstructor]</code> - コンストラクタを自動生成</li>
+<li><code>[DefaultExpresserComponent]</code> - このオブジェクトが持つExpresserComponentを指定</li>
+<li><code>auto_member_generate: true</code> - メンバー変数（hasPosition, hasTexture）を自動生成</li>
+</ul>
+<h3 id="プレイヤーを画面に表示">プレイヤーを画面に表示</h3>
+<p><code>Main.cs</code>に追加：</p>
+<pre><code class="lang-csharp">[GameBootLoader]
+public static bool InitializeGame()
+{
+    // プレイヤーを生成
+    ObjectActivator.Activate&lt;Player&gt;();
+    return true;
+}
+</code></pre>
+<hr>
+<h2 id="expressercomponentで機能を追加">ExpresserComponentで機能を追加</h2>
+<h3 id="移動機能を実装">移動機能を実装</h3>
+<p><code>PlayerMovementComponent.cs</code>を作成：</p>
+<pre><code class="lang-csharp">using System;
+using VaNilla;
+using VaNilla.Input;
+using VaNilla.Transform;
+
+namespace MyGame
+{
+    /// &lt;summary&gt;
+    /// プレイヤーの移動処理
+    /// &lt;/summary&gt;
+    [RequiredExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+    [ExpresserComponentExecutionOrderAttribute(ExpresserComponentExecutionOrder.Logic)]
+    public partial class PlayerMovementComponent : IExpresserComponent
+    {
+        private const float MoveSpeed = 5.0f;
+        
+        public bool Execute(Object obj, in Time.Time time)
+        {
+            // キーボード入力で移動
+            if (KeyboardInput.IsPushed(KeyCode.Left))
+                hasPosition.Position.X -= MoveSpeed;
+            if (KeyboardInput.IsPushed(KeyCode.Right))
+                hasPosition.Position.X += MoveSpeed;
+            if (KeyboardInput.IsPushed(KeyCode.Up))
+                hasPosition.Position.Y -= MoveSpeed;
+            if (KeyboardInput.IsPushed(KeyCode.Down))
+                hasPosition.Position.Y += MoveSpeed;
+            
+            // 画面外に出ないように制限
+            hasPosition.Position.X = Math.Clamp(hasPosition.Position.X, 0, 800);
+            hasPosition.Position.Y = Math.Clamp(hasPosition.Position.Y, 0, 600);
+            
+            return true;
+        }
+        
+        public bool SetUp(Object vanillaObject) =&gt; true;
+        public void TearDown(Object vanillaObject) { }
+    }
+}
+</code></pre>
+<h3 id="プレイヤーに移動機能を追加">プレイヤーに移動機能を追加</h3>
+<p><code>Player.cs</code>を修正：</p>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(PlayerMovementComponent), auto_member_generate: true)]  // 追加
+public partial class Player : Object
+{
+    // 既存のコード
+}
+</code></pre>
+<hr>
+<h2 id="入力処理を実装">入力処理を実装</h2>
+<h3 id="弾の発射機能">弾の発射機能</h3>
+<p><code>Bullet.cs</code>を作成：</p>
+<pre><code class="lang-csharp">using System;
+using VaNilla;
+using VaNilla.Transform;
+using VaNilla.Texture;
+using VaNilla.Movement;
+
+namespace MyGame
+{
+    [AutoGenerateConstructor]
+    [DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+    [DefaultExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
+    [DefaultExpresserComponent(typeof(LinearUniformMotion), auto_member_generate: true)]
+    public partial class Bullet : Object
+    {
+        public void Initialize(float x, float y, float speedY)
+        {
+            hasPosition.Position = new Point2(x, y);
+            hasTexture.Texture = TextureResourceManager.GetTextureResource(TextureResourceType.Bullet);
+            
+            // 上方向に移動
+            linearUniformMotion.Velocity = new Velocity2(0, speedY);
+        }
+        
+        public override bool Execute(in Time.Time time)
+        {
+            // 画面外に出たら自分を削除
+            if (hasPosition.Position.Y &lt; -50)
+            {
+                ObjectActivator.Deactivate(this);
+            }
+            
+            return true;
+        }
+    }
+}
+</code></pre>
+<h3 id="プレイヤーに発射機能を追加">プレイヤーに発射機能を追加</h3>
+<p><code>PlayerShootingComponent.cs</code>を作成：</p>
+<pre><code class="lang-csharp">using System;
+using VaNilla;
+using VaNilla.Input;
+using VaNilla.Transform;
+
+namespace MyGame
+{
+    [RequiredExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+    [ExpresserComponentExecutionOrderAttribute(ExpresserComponentExecutionOrder.Logic)]
+    public partial class PlayerShootingComponent : IExpresserComponent
+    {
+        private float shootCooldown = 0;
+        private const float ShootInterval = 0.1f; // 0.1秒ごとに発射可能
+        
+        public bool Execute(Object obj, in Time.Time time)
+        {
+            shootCooldown -= time.DeltaTime;
+            
+            // スペースキーで弾を発射
+            if (KeyboardInput.IsPushed(KeyCode.Space) &amp;&amp; shootCooldown &lt;= 0)
+            {
+                var bullet = ObjectActivator.Activate&lt;Bullet&gt;();
+                bullet.Initialize(hasPosition.Position.X, hasPosition.Position.Y - 20, -10);
+                
+                shootCooldown = ShootInterval;
+            }
+            
+            return true;
+        }
+        
+        public bool SetUp(Object vanillaObject) =&gt; true;
+        public void TearDown(Object vanillaObject) { }
+    }
+}
+</code></pre>
+<hr>
+<h2 id="描画処理">描画処理</h2>
+<p>VaNillaでは、HasTextureとBasicRendererを組み合わせることで自動的に描画されます。</p>
+<h3 id="描画の仕組み">描画の仕組み</h3>
+<pre><code class="lang-csharp">// BasicRendererの追加（自動的にHasTextureを参照して描画）
+[DefaultExpresserComponent(typeof(BasicRenderer))]
+public partial class GameObject : Object
+{
+    // BasicRendererがHasTextureのテクスチャを
+    // HasPositionの座標に描画してくれる
+}
+</code></pre>
+<h3 id="カスタム描画処理">カスタム描画処理</h3>
+<p>特殊な描画が必要な場合は、独自のRendererComponentを作成：</p>
+<pre><code class="lang-csharp">[RequiredExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[RequiredExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
+[ExpresserComponentExecutionOrderAttribute(ExpresserComponentExecutionOrder.Rendering)]
+public partial class CustomRenderer : IExpresserComponent
+{
+    public bool Execute(Object obj, in Time.Time time)
+    {
+        // 点滅効果
+        if ((int)(time.TotalTime * 10) % 2 == 0)
+        {
+            Renderer.Utils.DrawTexture(
+                hasTexture.Texture,
+                hasPosition.Position,
+                1.0f, // スケール
+                0.0f, // 回転
+                255   // アルファ値
+            );
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<hr>
+<h2 id="当たり判定">当たり判定</h2>
+<h3 id="敵キャラクターの作成">敵キャラクターの作成</h3>
+<p><code>Enemy.cs</code>を作成：</p>
+<pre><code class="lang-csharp">using System;
+using VaNilla;
+using VaNilla.Transform;
+using VaNilla.Texture;
+using VaNilla.Collision;
+
+namespace MyGame
+{
+    [AutoGenerateConstructor]
+    [DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+    [DefaultExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
+    [DefaultExpresserComponent(typeof(HasCollision), auto_member_generate: true)]
+    public partial class Enemy : Object, ICollisionCallback
+    {
+        public override bool SetUp()
+        {
+            hasPosition.Position = new Point2(400, 100);
+            hasTexture.Texture = TextureResourceManager.GetTextureResource(TextureResourceType.Enemy);
+            
+            // 当たり判定の設定
+            hasCollision.Shape = new CircleCollisionShape(16); // 半径16の円
+            hasCollision.CollisionType = CollisionType.Enemy;
+            
+            return true;
+        }
+        
+        public void OnCollisionEnter(CollisionResult result)
+        {
+            // 弾と衝突したら
+            if (result.OpponentObject is Bullet)
+            {
+                // 自分と弾を削除
+                ObjectActivator.Deactivate(this);
+                ObjectActivator.Deactivate(result.OpponentObject);
+            }
+        }
+    }
+}
+</code></pre>
+<h3 id="弾にも当たり判定を追加">弾にも当たり判定を追加</h3>
+<p><code>Bullet.cs</code>を修正：</p>
+<pre><code class="lang-csharp">[DefaultExpresserComponent(typeof(HasCollision), auto_member_generate: true)]  // 追加
+public partial class Bullet : Object
+{
+    public void Initialize(float x, float y, float speedY)
+    {
+        // 既存のコード...
+        
+        // 当たり判定の設定
+        hasCollision.Shape = new CircleCollisionShape(4); // 半径4の円
+        hasCollision.CollisionType = CollisionType.PlayerBullet;
+    }
+}
+</code></pre>
+<hr>
+<h2 id="シーン管理">シーン管理</h2>
+<h3 id="タイトルシーンの作成">タイトルシーンの作成</h3>
+<p><code>TitleScene.cs</code>を作成：</p>
+<pre><code class="lang-csharp">using System;
+using VaNilla;
+using VaNilla.SceneState;
+using VaNilla.Input;
+using VaNilla.Renderer;
+
+namespace MyGame
+{
+    [SceneStateProcess(SceneStateType.Title)]
+    public class TitleScene : SceneStateProcessInterface
+    {
+        public void Process()
+        {
+            // タイトル画面の描画
+            Utils.DrawString(&quot;MY FIRST GAME&quot;, 300, 200, Color.White);
+            Utils.DrawString(&quot;Press SPACE to Start&quot;, 280, 300, Color.Gray);
+            
+            // スペースキーでゲーム開始
+            if (KeyboardInput.IsPushedMoment(KeyCode.Space))
+            {
+                SceneStateManager.ChangeScene(SceneStateType.Game);
+            }
+        }
+    }
+}
+</code></pre>
+<h3 id="ゲームシーンの作成">ゲームシーンの作成</h3>
+<p><code>GameScene.cs</code>を作成：</p>
+<pre><code class="lang-csharp">using System;
+using VaNilla;
+using VaNilla.SceneState;
+
+namespace MyGame
+{
+    [SceneStateProcess(SceneStateType.Game)]
+    public class GameScene : SceneStateProcessInterface
+    {
+        private bool initialized = false;
+        
+        public void Process()
+        {
+            if (!initialized)
+            {
+                // ゲーム開始時の初期化
+                ObjectActivator.Activate&lt;Player&gt;();
+                ObjectActivator.Activate&lt;Enemy&gt;();
+                initialized = true;
+            }
+            
+            // ゲームオーバー条件などをここに実装
+        }
+    }
+}
+</code></pre>
+<h3 id="初期シーンの設定">初期シーンの設定</h3>
+<p><code>Main.cs</code>に追加：</p>
+<pre><code class="lang-csharp">[GameBootLoader]
+public static bool InitializeGame()
+{
+    // 最初はタイトルシーンから開始
+    SceneStateManager.ChangeScene(SceneStateType.Title);
+    return true;
+}
+</code></pre>
+<hr>
+<h2 id="完成したゲーム">完成したゲーム</h2>
+<p>これで基本的なシューティングゲームが完成しました！</p>
+<h3 id="実行方法">実行方法</h3>
+<pre><code class="lang-bash">cd VaNillaTestProject/DxLib
+dotnet run
+</code></pre>
+<h3 id="遊び方">遊び方</h3>
+<ol>
+<li>タイトル画面でスペースキーを押してゲーム開始</li>
+<li>矢印キーでプレイヤーを移動</li>
+<li>スペースキーで弾を発射</li>
+<li>敵に弾を当てて倒す</li>
+</ol>
+<hr>
+<h2 id="次のステップ">次のステップ</h2>
+<h3 id="1-機能を追加してみよう">1. 機能を追加してみよう</h3>
+<ul>
+<li><strong>スコアシステム</strong>: CharacterBasicStatus.HasScoreを使用</li>
+<li><strong>ライフシステム</strong>: CharacterBasicStatus.HasLifeを使用</li>
+<li><strong>エフェクト</strong>: Easingを使ったアニメーション</li>
+<li><strong>BGM・効果音</strong>: SoundManagerを使用</li>
+</ul>
+<h3 id="2-パフォーマンスを向上させよう">2. パフォーマンスを向上させよう</h3>
+<p>大量のオブジェクトを扱う場合は、ObjectFactoryを使用：</p>
+<pre><code class="lang-csharp">// YAMLでプール設定
+object_factory:
+  - type: Bullet
+    count: 100  # 100個の弾をプール
+
+// コード内で使用
+var bullet = ObjectFactory.Activate&lt;Bullet&gt;();
+</code></pre>
+<h3 id="3-より高度な機能">3. より高度な機能</h3>
+<ul>
+<li><strong>非同期処理</strong>: AsyncRunnerを使用</li>
+<li><strong>データ暗号化</strong>: Encrypterを使用</li>
+<li><strong>多言語対応</strong>: Localizationを使用</li>
+</ul>
+<h3 id="4-ドキュメントを読もう">4. ドキュメントを読もう</h3>
+<ul>
+<li><a href="../VaNillaAttributes/README.html">VaNilla属性システム完全ガイド</a> - 属性の詳細</li>
+<li><a href="../HowToIndex/GameDevelopment.html">ゲーム開発逆引きガイド</a> - 実装パターン集</li>
+<li><a href="../HowToIndex/Performance.html">パフォーマンス最適化ガイド</a> - 高速化のコツ</li>
+</ul>
+<hr>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="よくあるエラー">よくあるエラー</h3>
+<p><strong>Q: <code>ObjectTagEnum</code>や<code>TextureResourceType</code>が見つからない</strong><br>
+A: コード生成を実行してください：</p>
+<pre><code class="lang-bash">python VaNillaEngineManager/CodeGenerator.py -s VaNillaSettings.yaml
+</code></pre>
+<p><strong>Q: <code>partial</code>クラスにしろというエラーが出る</strong><br>
+A: <code>[AutoGenerateConstructor]</code>を使うクラスは<code>partial</code>宣言が必要です：</p>
+<pre><code class="lang-csharp">public partial class Player : Object  // partialを追加
+</code></pre>
+<p><strong>Q: ExpresserComponentが実行されない</strong><br>
+A: 実行順序属性を確認してください：</p>
+<pre><code class="lang-csharp">[ExpresserComponentExecutionOrderAttribute(ExpresserComponentExecutionOrder.Logic)]
+</code></pre>
+<hr>
+<h2 id="サポート">サポート</h2>
+<ul>
+<li><a href="https://github.com/EndlessShirafu/VaNilla/issues">GitHub Issues</a> - バグ報告・要望</li>
+<li><a href="../../README.html">VaNilla公式ドキュメント</a> - 詳細な技術文書</li>
+</ul>
+<hr>
+<p><em>VaNillaエンジンで楽しいゲーム開発を！</em> 🎮</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/QuickStart/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>STEP 3: 弾を撃てるようにしよう </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="STEP 3: 弾を撃てるようにしよう ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTutorial/BasicShootEmUp/STEP3_Shooting/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="step-3-弾を撃てるようにしよう">STEP 3: 弾を撃てるようにしよう</h1>
+
+<p>このステップでは、スペースキーで弾を発射する機能を実装します。オブジェクトプールを使った効率的な弾の管理方法も学びます。</p>
+<h2 id="-このステップで学ぶこと">🎯 このステップで学ぶこと</h2>
+<ul>
+<li>オブジェクトの動的生成と削除</li>
+<li>ObjectFactoryを使ったオブジェクトプール管理</li>
+<li>複数のオブジェクト間の連携</li>
+<li>画面外判定と自動削除</li>
+</ul>
+<h2 id="-操作方法">🎮 操作方法</h2>
+<ul>
+<li><strong>矢印キー</strong>: プレイヤーの移動</li>
+<li><strong>Shiftキー</strong>: 低速移動</li>
+<li><strong>スペースキー</strong>: 弾を発射</li>
+<li><strong>ESCキー</strong>: 終了</li>
+</ul>
+<h2 id="-新しく追加するファイル">📁 新しく追加するファイル</h2>
+<pre><code>STEP3_Shooting/
+├── assets/
+│   └── image/
+│       ├── player.png      # プレイヤー画像
+│       └── bullet.png      # 弾の画像（8x16ピクセル）
+├── src/
+│   ├── Game.cs            # 更新
+│   ├── Player.cs          # 更新
+│   └── Bullet.cs          # 新規：弾クラス
+└── VaNillaSettings/
+    └── VaNillaSettings.yaml # 更新
+</code></pre>
+<h2 id="-コードの実装">💻 コードの実装</h2>
+<h3 id="1-bulletcs---弾クラスの作成">1. Bullet.cs - 弾クラスの作成</h3>
+<p><code>src/Bullet.cs</code>を作成します：</p>
+<pre><code class="lang-csharp">using VaNilla;
+using VaNilla.Render;
+using VaNilla.Transform;
+using VaNilla.Texture;
+using VaNilla.ConditionalProcessor;
+using VaNilla.Time;
+
+namespace Tutorial
+{
+    /// &lt;summary&gt;
+    /// 弾を表すクラス
+    /// 画面外に出たら自動的に削除される
+    /// &lt;/summary&gt;
+    public class Bullet : BasicObject, HasPosition, HasTexture, 
+                         FromObjectFactoryCreation, ScreenOutSelfDestruction
+    {
+        // === HasPositionインターフェースの実装 ===
+        public Point2 Position { get; set; }
+        
+        // === HasTextureインターフェースの実装 ===
+        private TextureResource texture;
+        public TextureResource Texture 
+        { 
+            get =&gt; texture;
+            set =&gt; texture = value;
+        }
+        
+        // === FromObjectFactoryCreationインターフェースの実装 ===
+        // ObjectFactoryで作成されたオブジェクトであることを示す
+        
+        // === ScreenOutSelfDestructionインターフェースの実装 ===
+        // 画面外に出たら自動削除される機能
+        public int ScreenMargin { get; set; } = 50;  // 画面外判定のマージン
+        
+        // 弾の速度（ピクセル/秒）
+        private const float BULLET_SPEED = 500.0f;
+        
+        /// &lt;summary&gt;
+        /// 弾を指定位置に生成
+        /// &lt;/summary&gt;
+        public void Initialize(int x, int y)
+        {
+            Position = new Point2(x, y);
+            
+            // 初回のみテクスチャをロード
+            if (Texture == null)
+            {
+                Texture = TextureResourceManager.GetTextureResource(TextureResourceType.Bullet);
+            }
+        }
+        
+        public override void Setup()
+        {
+            // ObjectFactoryから生成される場合、Initializeで初期化される
+        }
+        
+        public override void Update()
+        {
+            // 上方向に移動
+            float moveAmount = BULLET_SPEED * TimeManager.DeltaTime;
+            Position = new Point2(Position.X, Position.Y - (int)moveAmount);
+            
+            // ScreenOutSelfDestructionが自動的に画面外判定を行い、
+            // 画面外に出たらDeactivate()を呼んでくれる
+        }
+        
+        public override void Draw()
+        {
+            // 弾を描画
+            BasicRenderer.Render(this);
+        }
+        
+        /// &lt;summary&gt;
+        /// 弾が使用されなくなった時の処理
+        /// &lt;/summary&gt;
+        public override void OnDeactivate()
+        {
+            // ObjectFactoryに返却される前に呼ばれる
+            // 必要に応じてリセット処理を行う
+            base.OnDeactivate();
+        }
+    }
+}
+</code></pre>
+<h3 id="2-playercs---射撃機能の追加">2. Player.cs - 射撃機能の追加</h3>
+<p><code>src/Player.cs</code>を更新します：</p>
+<pre><code class="lang-csharp">using VaNilla;
+using VaNilla.Render;
+using VaNilla.Transform;
+using VaNilla.Texture;
+using VaNilla.KeyConfig;
+using VaNilla.Keyboard;
+using VaNilla.Time;
+using VaNilla.Math;
+using VaNilla.ObjectFactory;
+
+namespace Tutorial
+{
+    /// &lt;summary&gt;
+    /// プレイヤー（自機）クラス
+    /// STEP3: 射撃機能を追加
+    /// &lt;/summary&gt;
+    public class Player : BasicObject, HasPosition, HasTexture
+    {
+        // === インターフェースの実装 ===
+        public Point2 Position { get; set; }
+        
+        private TextureResource texture;
+        public TextureResource Texture 
+        { 
+            get =&gt; texture;
+            set =&gt; texture = value;
+        }
+        
+        // === 定数 ===
+        private const float MOVE_SPEED = 200.0f;
+        private const float SLOW_MOVE_SPEED = 80.0f;
+        private const int PLAYER_SIZE = 32;
+        
+        // === 射撃関連 ===
+        private const float FIRE_INTERVAL = 0.1f;  // 射撃間隔（秒）
+        private float fireTimer = 0.0f;            // 射撃タイマー
+        
+        public override void Setup()
+        {
+            Position = new Point2(320, 400);
+            Texture = TextureResourceManager.GetTextureResource(TextureResourceType.Player);
+            
+            Logger.Log(&quot;プレイヤーを作成: スペースキーで射撃&quot;);
+        }
+        
+        public override void Update()
+        {
+            HandleMovement();
+            HandleShooting();
+        }
+        
+        private void HandleMovement()
+        {
+            // STEP2と同じ移動処理
+            float currentSpeed = MOVE_SPEED;
+            if (KeyboardInput.IsPushed(KeyCode.LeftShift) || 
+                KeyboardInput.IsPushed(KeyCode.RightShift))
+            {
+                currentSpeed = SLOW_MOVE_SPEED;
+            }
+            
+            float moveAmount = currentSpeed * TimeManager.DeltaTime;
+            float dx = 0;
+            float dy = 0;
+            
+            if (KeyboardInput.IsPushed(KeyCode.Left))
+                dx = -moveAmount;
+            else if (KeyboardInput.IsPushed(KeyCode.Right))
+                dx = moveAmount;
+            
+            if (KeyboardInput.IsPushed(KeyCode.Up))
+                dy = -moveAmount;
+            else if (KeyboardInput.IsPushed(KeyCode.Down))
+                dy = moveAmount;
+            
+            if (dx != 0 &amp;&amp; dy != 0)
+            {
+                dx *= 0.707f;
+                dy *= 0.707f;
+            }
+            
+            float newX = Position.X + dx;
+            float newY = Position.Y + dy;
+            
+            newX = MathUtil.Clamp(newX, PLAYER_SIZE / 2, 640 - PLAYER_SIZE / 2);
+            newY = MathUtil.Clamp(newY, PLAYER_SIZE / 2, 480 - PLAYER_SIZE / 2);
+            
+            Position = new Point2((int)newX, (int)newY);
+        }
+        
+        /// &lt;summary&gt;
+        /// 射撃処理
+        /// &lt;/summary&gt;
+        private void HandleShooting()
+        {
+            // 射撃タイマーを更新
+            fireTimer -= TimeManager.DeltaTime;
+            
+            // スペースキーが押されていて、射撃可能な場合
+            if (KeyboardInput.IsPushed(KeyCode.Space) &amp;&amp; fireTimer &lt;= 0)
+            {
+                FireBullet();
+                fireTimer = FIRE_INTERVAL;  // タイマーリセット
+            }
+        }
+        
+        /// &lt;summary&gt;
+        /// 弾を発射
+        /// &lt;/summary&gt;
+        private void FireBullet()
+        {
+            // ObjectFactoryから弾を取得（プールから再利用または新規作成）
+            var bullet = ObjectFactory.Rent&lt;Bullet&gt;(ObjectTagEnum.Bullet);
+            
+            if (bullet != null)
+            {
+                // 弾をプレイヤーの少し上に配置
+                bullet.Initialize(Position.X, Position.Y - 20);
+                
+                // 効果音を鳴らす（STEP8で実装）
+                // SoundManager.PlaySE(SoundResourceType.Shot);
+            }
+        }
+        
+        public override void Draw()
+        {
+            BasicRenderer.Render(this);
+        }
+    }
+}
+</code></pre>
+<h3 id="3-gamecs---弾数表示の追加">3. Game.cs - 弾数表示の追加</h3>
+<p><code>src/Game.cs</code>を更新します：</p>
+<pre><code class="lang-csharp">using VaNilla;
+using VaNilla.Renderer;
+using VaNilla.Keyboard;
+using VaNilla.Fps;
+using VaNilla.SupremeArbiter;
+using VaNilla.ObjectExecutor;
+
+namespace Tutorial
+{
+    /// &lt;summary&gt;
+    /// ゲームのメインクラス
+    /// STEP3: 弾数情報の表示を追加
+    /// &lt;/summary&gt;
+    public class Game : BasicObject
+    {
+        private Player player;
+        
+        public override void Setup()
+        {
+            Logger.Log(&quot;STEP3: 弾を撃てるようにしよう&quot;);
+            player = ObjectActivator.Activate&lt;Player&gt;();
+        }
+
+        public override void Update()
+        {
+            // 画面をクリア
+            Utils.ClearScreen((20, 20, 60));
+            
+            // ESCキーで終了
+            if (KeyboardInput.IsPushedMoment(KeyCode.Escape))
+            {
+                Logger.Log(&quot;ESCキーが押されました。終了します。&quot;);
+                SupremeArbiter.Shutdown();
+            }
+        }
+
+        public override void Draw()
+        {
+            // タイトル
+            Utils.DrawString(
+                &quot;STEP 3: Shooting&quot;, 
+                10, 10,
+                (255, 255, 255)
+            );
+            
+            // 操作説明
+            Utils.DrawString(
+                &quot;Arrow: Move | Space: Fire | Shift: Slow | ESC: Exit&quot;,
+                10, 30,
+                (200, 200, 200)
+            );
+            
+            // オブジェクト数情報
+            int totalObjects = ObjectExecutor.GetActiveObjectCount();
+            int bulletCount = ObjectExecutor.GetActiveObjectCount&lt;Bullet&gt;();
+            
+            Utils.DrawString(
+                $&quot;Objects: {totalObjects} | Bullets: {bulletCount}&quot;,
+                10, 50,
+                (255, 255, 0)
+            );
+            
+            // プールの使用状況
+            var poolInfo = ObjectFactory.GetPoolInfo&lt;Bullet&gt;();
+            if (poolInfo != null)
+            {
+                Utils.DrawString(
+                    $&quot;Bullet Pool - Active: {poolInfo.ActiveCount}/{poolInfo.PoolSize} | Created: {poolInfo.TotalCreated}&quot;,
+                    10, 70,
+                    (100, 255, 100)
+                );
+            }
+            
+            // FPS表示
+            Utils.DrawString(
+                $&quot;FPS: {FpsCalculator.CurrentFps:F1}&quot;,
+                540, 10,
+                (0, 255, 0)
+            );
+        }
+    }
+}
+</code></pre>
+<h3 id="4-vanillasettingsyaml---弾の設定追加">4. VaNillaSettings.yaml - 弾の設定追加</h3>
+<p><code>VaNillaSettings/VaNillaSettings.yaml</code>を更新します：</p>
+<pre><code class="lang-yaml"># ゲームの基本設定
+supreme_arbiter_setting:
+  target_fps: 60.0
+  window_title: &quot;VaNilla Tutorial - STEP 3&quot;
+
+# ウィンドウサイズ設定
+window_size:
+  - [640, 480]
+
+# 画面解像度設定  
+screen_resolution:
+  - [[640, 480], [4, 3]]
+
+# ビューポート解像度
+viewport_resolution: [640, 480]
+
+# キーコンフィグ設定
+key_config:
+  Up:
+    default_keyboard: Up
+  Down:
+    default_keyboard: Down
+  Left:
+    default_keyboard: Left
+  Right:
+    default_keyboard: Right
+  Decide:
+    default_keyboard: Z
+  Cancel:
+    default_keyboard: X
+
+# テクスチャリソースの定義
+texture_pool:
+  Player:
+    path: image/player.png
+    category: game
+    type: full_one_shot
+  Bullet:                      # 新規追加
+    path: image/bullet.png
+    category: game
+    type: full_one_shot
+
+# オブジェクトリストの定義
+object_list:
+  Game:
+    object_num: 1
+    type: Tutorial.Game
+  Player:
+    object_num: 10
+    type: Tutorial.Player
+  Bullet:                      # 新規追加
+    object_num: 100           # 最大100発の弾を管理
+    type: Tutorial.Bullet
+    create_pool: true         # オブジェクトプールを使用
+
+# タイマー設定
+user_timer:
+  - FrameTimer
+  - GameTimer
+
+# 実行順序設定
+execution_order:
+  SCREEN_CLEAR: -50
+  EARLY: -10
+  NORMAL: 0
+  DRAW_NORMAL: 80
+  LATE: 130
+  PRVILEGE_DRAW: 170
+  SCENE_TRANSITION: 180
+  SCREEN_RENDER: 190
+
+# シーン定義
+scene_state:
+  Main:
+    group: 0
+    transit: []
+
+# コリジョングループ設定
+collision_group_settings:
+  Default:
+    number: 0
+    collide_with:
+      - Default
+</code></pre>
+<h3 id="5-弾画像のプレースホルダー">5. 弾画像のプレースホルダー</h3>
+<p><code>assets/image/bullet_placeholder.txt</code>を作成：</p>
+<pre><code class="lang-text">弾画像のプレースホルダー
+======================
+
+ここに 8x16 ピクセルの bullet.png を配置してください。
+
+簡単な画像の作成方法：
+1. ペイントソフトを開く
+2. 8x16ピクセルの新規画像を作成
+3. 白い縦長の楕円や長方形を描く
+4. bullet.png として保存
+
+サンプル形状：
+  ○
+  │
+  │
+</code></pre>
+<h2 id="-重要な概念">🔑 重要な概念</h2>
+<h3 id="objectfactory">ObjectFactory</h3>
+<ul>
+<li>オブジェクトプールを使った効率的なオブジェクト管理</li>
+<li><code>Rent&lt;T&gt;()</code>: プールからオブジェクトを借りる</li>
+<li><code>Return()</code>: 使い終わったオブジェクトをプールに返す（自動）</li>
+</ul>
+<h3 id="fromobjectfactorycreation">FromObjectFactoryCreation</h3>
+<ul>
+<li>ObjectFactoryで管理されるオブジェクトであることを示すインターフェース</li>
+<li>プールによる再利用が可能になる</li>
+</ul>
+<h3 id="screenoutselfdestruction">ScreenOutSelfDestruction</h3>
+<ul>
+<li>画面外に出たオブジェクトを自動的に削除</li>
+<li><code>ScreenMargin</code>: 画面外判定のマージン（ピクセル）</li>
+</ul>
+<h3 id="オブジェクトのライフサイクル">オブジェクトのライフサイクル</h3>
+<ol>
+<li><code>ObjectFactory.Rent()</code>: プールから取得または新規作成</li>
+<li><code>Initialize()</code>: 初期化（位置設定など）</li>
+<li><code>Update()/Draw()</code>: 通常の更新・描画</li>
+<li>画面外に出る → <code>OnDeactivate()</code>: 非アクティブ化</li>
+<li>プールに自動返却</li>
+</ol>
+<h2 id="-実行して確認">🎮 実行して確認</h2>
+<ol>
+<li>スペースキーで弾が発射されることを確認</li>
+<li>弾が画面上部に向かって飛んでいくことを確認</li>
+<li>画面外に出た弾が自動的に削除されることを確認</li>
+<li>連射しても処理が重くならないことを確認（オブジェクトプールの効果）</li>
+</ol>
+<h2 id="-学んだこと">📝 学んだこと</h2>
+<p>✅ ObjectFactoryによるオブジェクトプール管理<br>
+✅ 動的なオブジェクトの生成と削除<br>
+✅ 画面外判定と自動削除<br>
+✅ タイマーを使った射撃間隔の制御<br>
+✅ 複数オブジェクト間の連携</p>
+<h2 id="-チャレンジ課題">🤔 チャレンジ課題</h2>
+<ol>
+<li>弾の速度や発射間隔を調整してみましょう</li>
+<li>3方向に弾を発射してみましょう</li>
+<li>弾に回転アニメーションを追加してみましょう</li>
+<li>パワーアップで弾の種類を変えてみましょう</li>
+</ol>
+<h2 id="-次のステップ">⏭️ 次のステップ</h2>
+<p>STEP 4では、画面上部から降ってくる敵キャラクターを実装します。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTutorial/BasicShootEmUp/STEP3_Shooting/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

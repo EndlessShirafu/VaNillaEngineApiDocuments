@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Live2D-VaNilla統合モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Live2D-VaNilla統合モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Live2D/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="live2d-vanilla統合モジュール">Live2D-VaNilla統合モジュール</h1>
+
+<p>VaNillaゲームエンジンにLive2D Cubism 4 SDKを統合し、Live2Dキャラクターの表示・制御・アニメーションを可能にするモジュールです。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは、VaNillaの3層抽象化アーキテクチャに従って設計されており、Live2Dモデルの描画、アニメーション制御、状態遷移システムを提供します。</p>
+<h3 id="主な機能">主な機能</h3>
+<ul>
+<li><strong>Live2Dモデルの描画</strong>: VaNillaのレンダリングシステムと統合されたLive2Dモデル描画</li>
+<li><strong>アニメーション制御</strong>: モーション、表情、パラメータの制御</li>
+<li><strong>状態遷移システム</strong>: 確率ベースの複雑なアニメーション状態遷移</li>
+<li><strong>物理演算</strong>: 髪や服の揺れなどの物理シミュレーション</li>
+<li><strong>複数インスタンス対応</strong>: 同一モデルの複数インスタンス化をサポート</li>
+<li><strong>YAML駆動設定</strong>: モデル設定と状態遷移をYAMLで管理</li>
+</ul>
+<h2 id="アーキテクチャ">アーキテクチャ</h2>
+<h3 id="フォルダ構造">フォルダ構造</h3>
+<pre><code>Live2D/
+├── Interface/                     # プラットフォーム非依存層
+│   ├── HasLive2DModel.cs         # Live2Dモデル保持コンポーネント
+│   ├── Live2DRenderer.cs         # 描画制御コンポーネント
+│   ├── Live2DAnimationController.cs # アニメーション制御コンポーネント
+│   ├── Live2DParameterController.cs # パラメータ操作コンポーネント
+│   ├── Live2DPhysicsSimulator.cs # 物理演算制御コンポーネント
+│   ├── Live2DStateMachine.cs     # 状態遷移システム
+│   ├── Live2DResourceManager.cs  # リソース管理
+│   ├── Live2DStateMachineManager.cs # 状態マシンプリセット管理
+│   ├── Live2DTypes.cs            # 型定義とデータ構造
+│   └── Utils.cs                  # パブリックAPI
+├── Implementation/               # 抽象化層
+│   ├── ILive2DNative.cs         # ネイティブインターフェイス
+│   └── DxLib/                   # DxLib実装
+│       └── Live2DNative.cs      # DxLib Live2D API実装
+├── Test/                        # テストプロジェクト
+│   └── Live2DTest/
+└── README.md
+</code></pre>
+<h3 id="コンポーネント設計">コンポーネント設計</h3>
+<h4 id="基本コンポーネント">基本コンポーネント</h4>
+<ul>
+<li><strong><code>HasLive2DModel</code></strong>: Live2Dモデルデータの保持（必須）</li>
+<li><strong><code>Live2DRenderer</code></strong>: Live2Dモデルの描画制御</li>
+<li><strong><code>Live2DAnimationController</code></strong>: モーションとアニメーション制御（オプション）</li>
+<li><strong><code>Live2DParameterController</code></strong>: パラメータ操作（表情、視線等）（オプション）</li>
+<li><strong><code>Live2DPhysicsSimulator</code></strong>: 物理演算制御（オプション）</li>
+<li><strong><code>Live2DStateMachine</code></strong>: 複雑なアニメーション状態遷移（オプション）</li>
+</ul>
+<h4 id="使用例">使用例</h4>
+<pre><code class="lang-csharp">// 基本的なLive2Dオブジェクトの作成
+var character = ObjectActivator.Activate&lt;MyCharacterObject&gt;();
+character.GetComponent&lt;HasLive2DModel&gt;().ModelResourceType = Live2DModelResourceType.main_character;
+character.GetComponent&lt;Transform.HasPosition&gt;().Position = new Point2(400, 300);
+
+// アニメーション制御
+var animController = character.GetComponent&lt;Live2DAnimationController&gt;();
+animController.StartMotion(Live2DMotionType.idle, loop: true);
+
+// 状態マシンの使用
+var stateMachine = character.GetComponent&lt;Live2DStateMachine&gt;();
+stateMachine.LoadPreset(Live2DStateMachinePreset.character_idle);
+</code></pre>
+<h2 id="yaml設定">YAML設定</h2>
+<h3 id="live2dmodelsyaml">Live2DModels.yaml</h3>
+<p>モデルの定義とリソース管理を設定します。</p>
+<pre><code class="lang-yaml">Live2DModels:
+  - name: &quot;main_character&quot;
+    model_file: &quot;models/main_character/main_character.model3.json&quot;
+    textures:
+      - &quot;models/main_character/texture_00.png&quot;
+    motions:
+      - name: &quot;idle&quot;
+        file: &quot;models/main_character/motions/idle.motion3.json&quot;
+        fade_in: 1.0
+        fade_out: 1.0
+    expressions:
+      - name: &quot;normal&quot;
+        file: &quot;models/main_character/expressions/normal.exp3.json&quot;
+    physics: &quot;models/main_character/physics.json&quot;
+    category: &quot;character&quot;
+    preload: true
+</code></pre>
+<h3 id="live2dstatemachinesyaml">Live2DStateMachines.yaml</h3>
+<p>状態遷移システムの設定を定義します。</p>
+<pre><code class="lang-yaml">Live2DStateMachines:
+  - name: &quot;character_idle&quot;
+    description: &quot;キャラクターのアイドル状態遷移&quot;
+    states:
+      - name: &quot;idle1&quot;
+        motion: &quot;idle&quot;
+        loop: true
+        min_duration: 3.0
+        max_duration: 8.0
+    transitions:
+      - from: &quot;idle1&quot;
+        to: &quot;idle2&quot;
+        trigger: &quot;time&quot;
+        probability: 0.3
+</code></pre>
+<h2 id="api-リファレンス">API リファレンス</h2>
+<h3 id="live2dutils">Live2D.Utils</h3>
+<p>パブリックAPIを提供するユーティリティクラスです。</p>
+<h4 id="インスタンスベースapi推奨">インスタンスベースAPI（推奨）</h4>
+<pre><code class="lang-csharp">// モデル描画
+Utils.RenderModelInstance(modelHandle, position, scale, rotation, alpha);
+
+// モーション制御
+Utils.StartMotionInstance(modelHandle, motionType, fadeInTime, loop);
+Utils.StopMotionInstance(modelHandle, fadeOutTime);
+bool isFinished = Utils.IsMotionFinishedInstance(modelHandle);
+
+// 表情制御
+Utils.SetExpressionInstance(modelHandle, expressionType, fadeTime);
+
+// パラメータ制御
+Utils.SetParameterInstance(modelHandle, &quot;ParamEyeLOpen&quot;, 1.0f);
+float value = Utils.GetParameterInstance(modelHandle, &quot;ParamEyeLOpen&quot;);
+
+// 物理演算
+Utils.UpdatePhysicsInstance(modelHandle, gravityScale, windStrength, windDirection);
+Utils.ResetPhysicsInstance(modelHandle);
+
+// ユーティリティ
+Rectangle bounds = Utils.GetModelBounds(modelHandle);
+bool hit = Utils.HitTest(modelHandle, screenPosition, &quot;Face&quot;);
+Utils.SetPartOpacity(modelHandle, &quot;Part01&quot;, 0.5f);
+</code></pre>
+<h4 id="状態マシン制御">状態マシン制御</h4>
+<pre><code class="lang-csharp">// トリガー送信
+Utils.SendStateMachineTrigger(object__, Live2DStateTrigger.user_touch);
+
+// 強制状態変更
+Utils.ForceStateMachineState(object__, &quot;idle1&quot;);
+</code></pre>
+<h2 id="パフォーマンス最適化">パフォーマンス最適化</h2>
+<h3 id="lodlevel-of-detailシステム">LOD（Level of Detail）システム</h3>
+<p>距離に応じてモデルの品質を自動調整します。</p>
+<pre><code class="lang-yaml">performance:
+  lod_levels:
+    - distance: 0      # 近距離
+      quality: &quot;high&quot;
+      enable_physics: true
+      texture_scale: 1.0
+    - distance: 50     # 中距離
+      quality: &quot;medium&quot;
+      enable_physics: true
+      texture_scale: 0.5
+    - distance: 100    # 遠距離
+      quality: &quot;low&quot;
+      enable_physics: false
+      texture_scale: 0.25
+</code></pre>
+<h3 id="メモリ管理">メモリ管理</h3>
+<ul>
+<li>カテゴリ別のリソース管理</li>
+<li>自動アンロード機能</li>
+<li>インスタンス制限</li>
+</ul>
+<h2 id="テスト">テスト</h2>
+<p>テストプロジェクトは<code>Test/Live2DTest/</code>にあります。</p>
+<pre><code class="lang-bash">cd Live2D/Test/Live2DTest
+dotnet test
+</code></pre>
+<h3 id="テスト内容">テスト内容</h3>
+<ul>
+<li>コンポーネントの基本機能テスト</li>
+<li>API呼び出しの安全性テスト</li>
+<li>状態遷移ロジックのテスト</li>
+<li>エラーハンドリングのテスト</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li>VaNilla Core モジュール</li>
+<li>Live2D Cubism 4 SDK for Native</li>
+<li>DxLib（DxLib実装の場合）</li>
+</ul>
+<h2 id="制限事項">制限事項</h2>
+<ul>
+<li>現在はDxLib実装のみ対応（Unity実装は将来追加予定）</li>
+<li>シングルスレッドでの動作を前提</li>
+<li>Live2D SDKのライセンスが別途必要</li>
+</ul>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="よくある問題">よくある問題</h3>
+<ol>
+<li><p><strong>モデルが表示されない</strong></p>
+<ul>
+<li>モデルファイルのパスが正しいか確認</li>
+<li>テクスチャファイルが存在するか確認</li>
+<li>CodeGeneratorでリソース型が生成されているか確認</li>
+</ul>
+</li>
+<li><p><strong>アニメーションが動かない</strong></p>
+<ul>
+<li>モーションファイルのパスが正しいか確認</li>
+<li>Live2DAnimationControllerコンポーネントが追加されているか確認</li>
+</ul>
+</li>
+<li><p><strong>状態遷移が発生しない</strong></p>
+<ul>
+<li>状態マシン設定が正しくロードされているか確認</li>
+<li>トリガーが適切に送信されているか確認</li>
+<li>遷移条件（deny等）が適切に設定されているか確認</li>
+</ul>
+</li>
+</ol>
+<h3 id="ログ出力">ログ出力</h3>
+<p>デバッグログを有効にして問題を診断できます。</p>
+<pre><code class="lang-csharp">stateMachine.EnableDebugLog = true;
+</code></pre>
+<h2 id="ライセンス">ライセンス</h2>
+<p>このモジュールはVaNillaエンジンの一部として提供されます。
+Live2D SDKの使用には、Live2D Inc.のライセンスが必要です。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントについては、以下のリンクを参照してください：</p>
+<p><a href="https://your-docfx-site.github.io/api/VaNilla.Live2D.html">VaNilla.Live2D Namespace API Reference</a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Live2D/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

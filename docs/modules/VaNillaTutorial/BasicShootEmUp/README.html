@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNillaエンジン 2Dシューティングゲーム チュートリアル </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNillaエンジン 2Dシューティングゲーム チュートリアル ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTutorial/BasicShootEmUp/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanillaエンジン-2dシューティングゲーム-チュートリアル">VaNillaエンジン 2Dシューティングゲーム チュートリアル</h1>
+
+<p>VaNillaエンジンを使って2Dシューティングゲームを作りながら、エンジンの基本的な使い方を学ぶステップバイステップのチュートリアルです。</p>
+<h2 id="-チュートリアル構成">📋 チュートリアル構成</h2>
+<p>各ステップは独立したプロジェクトとして構成されており、段階的にゲーム機能を追加していきます。すべてのステップを完了すると、完全な2Dシューティングゲームが完成します。</p>
+<h2 id="-ディレクトリ構成">📁 ディレクトリ構成</h2>
+<pre><code>VaNillaTutorial/
+├── README.md                    # このファイル
+├── STEPS_6-10_OUTLINE.md       # 後半ステップの概要
+├── STEP0_DevelopmentPreparation/  # 開発準備
+├── STEP1_DisplayImage/             # 画像表示
+├── STEP2_PlayerMovement/           # プレイヤー移動
+├── STEP3_Shooting/                 # 射撃機能
+├── STEP4_EnemyCharacters/          # 敵キャラクター
+├── STEP5_CollisionDetection/       # 当たり判定
+├── STEP6_GameOver/                 # ゲームオーバー
+├── STEP7_Screens/                  # 画面遷移
+├── STEP8_Sound/                    # サウンド
+├── STEP9_Effects/                  # エフェクト
+└── STEP10_FreeChallenge/          # 自由課題
+</code></pre>
+<h2 id="-2dシューティング制作チュートリアルステップ目次内容学習効果">🎯 <strong>2Dシューティング制作チュートリアル：ステップ目次・内容・学習効果</strong></h2>
+<hr>
+<h3 id="step-0-開発準備--基本操作"><strong>STEP 0: 開発準備 &amp; 基本操作</strong></h3>
+<ul>
+<li><p><strong>内容</strong>:</p>
+<ul>
+<li>エンジンのインストール</li>
+<li>エディタ/IDEの起動方法</li>
+<li>プロジェクトの新規作成</li>
+<li>ファイル/フォルダ構成の概要</li>
+</ul>
+</li>
+<li><p><strong>得られる効果</strong>:</p>
+<ul>
+<li>ゲームエンジンの起動・基本操作・プロジェクトの扱い方を習得</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="step-1-画面に画像を表示しよう"><strong>STEP 1: 画面に画像を表示しよう</strong></h3>
+<ul>
+<li><p><strong>内容</strong>:</p>
+<ul>
+<li>スプライト画像のインポート</li>
+<li>画面中央にプレイヤーキャラ（自機）を表示</li>
+</ul>
+</li>
+<li><p><strong>得られる効果</strong>:</p>
+<ul>
+<li>スプライトの表示方法、座標指定、アセットインポート手順の理解</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="step-2-プレイヤーの移動を実装しよう"><strong>STEP 2: プレイヤーの移動を実装しよう</strong></h3>
+<ul>
+<li><p><strong>内容</strong>:</p>
+<ul>
+<li>キーボード（またはコントローラー）入力の受け取り</li>
+<li>左右/上下への移動処理の追加</li>
+</ul>
+</li>
+<li><p><strong>得られる効果</strong>:</p>
+<ul>
+<li>入力イベント処理、座標更新、簡単なフレーム制御の理解</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="step-3-弾を撃てるようにしよう"><strong>STEP 3: 弾を撃てるようにしよう</strong></h3>
+<ul>
+<li><p><strong>内容</strong>:</p>
+<ul>
+<li>スペースキーで自機から弾を発射</li>
+<li>弾が画面外に出たら消す処理</li>
+</ul>
+</li>
+<li><p><strong>得られる効果</strong>:</p>
+<ul>
+<li>オブジェクトの生成・削除、複数インスタンス管理の基礎</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="step-4-敵キャラクターを出そう"><strong>STEP 4: 敵キャラクターを出そう</strong></h3>
+<ul>
+<li><p><strong>内容</strong>:</p>
+<ul>
+<li>画面上部から降ってくる敵を生成</li>
+<li>敵の座標や出現パターンの指定</li>
+</ul>
+</li>
+<li><p><strong>得られる効果</strong>:</p>
+<ul>
+<li>敵オブジェクトの生成、移動処理、パターン化の考え方</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="step-5-弾と敵の当たり判定"><strong>STEP 5: 弾と敵の当たり判定</strong></h3>
+<ul>
+<li><p><strong>内容</strong>:</p>
+<ul>
+<li>弾が敵に当たった時に敵を消す</li>
+<li>スコア加算</li>
+</ul>
+</li>
+<li><p><strong>得られる効果</strong>:</p>
+<ul>
+<li>コリジョン判定の基礎、スコア管理の基礎</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="step-6-プレイヤーの被弾とゲームオーバー"><strong>STEP 6: プレイヤーの被弾とゲームオーバー</strong></h3>
+<ul>
+<li><p><strong>内容</strong>:</p>
+<ul>
+<li>敵や敵弾が自機に当たるとミス</li>
+<li>ライフ/残機管理、ゲームオーバー演出</li>
+</ul>
+</li>
+<li><p><strong>得られる効果</strong>:</p>
+<ul>
+<li>プレイヤー状態管理、シーン遷移やリスタート処理の基本</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="step-7-タイトル画面とリザルト画面"><strong>STEP 7: タイトル画面とリザルト画面</strong></h3>
+<ul>
+<li><p><strong>内容</strong>:</p>
+<ul>
+<li>タイトル画面、ゲーム本編、リザルト画面の切り替え</li>
+<li>スタートボタン、リトライボタン等のUI配置</li>
+</ul>
+</li>
+<li><p><strong>得られる効果</strong>:</p>
+<ul>
+<li>シーン/画面の切り替え、簡単なUI実装の理解</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="step-8-bgmseの追加"><strong>STEP 8: BGM/SEの追加</strong></h3>
+<ul>
+<li><p><strong>内容</strong>:</p>
+<ul>
+<li>BGMの再生、弾や爆発などSEの再生</li>
+</ul>
+</li>
+<li><p><strong>得られる効果</strong>:</p>
+<ul>
+<li>サウンドアセットの使い方、演出強化の基礎</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="step-9-簡単なエフェクトやアニメーション"><strong>STEP 9: 簡単なエフェクトやアニメーション</strong></h3>
+<ul>
+<li><p><strong>内容</strong>:</p>
+<ul>
+<li>爆発エフェクトやスプライトアニメーションの追加</li>
+</ul>
+</li>
+<li><p><strong>得られる効果</strong>:</p>
+<ul>
+<li>演出・見た目強化の基本、パーティクルやアニメの適用</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="step-10-自由課題拡張課題"><strong>STEP 10: 自由課題／拡張課題</strong></h3>
+<ul>
+<li><p><strong>内容例</strong>:</p>
+<ul>
+<li>難易度調整、敵のバリエーション追加、ハイスコア保存、スマホ対応など</li>
+</ul>
+</li>
+<li><p><strong>得られる効果</strong>:</p>
+<ul>
+<li>自由な発想での応用、エンジン機能の横断的活用、ゲーム制作の楽しさ体験</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-全体を通して得られる効果">🌱 <strong>全体を通して得られる効果</strong></h2>
+<ul>
+<li>ゲームエンジンの基本的な使い方（画面、入力、描画、サウンド、UI、シーン管理）</li>
+<li>2Dゲームの基礎ロジック、当たり判定、状態遷移などの考え方</li>
+<li>プロジェクトの段階的な組み立て方（プロトタイピング→ブラッシュアップ）</li>
+<li>「作る→試す→直す」のPDCAサイクルの体験</li>
+</ul>
+<hr>
+<h3 id="-補足">💡 <strong>補足</strong></h3>
+<ul>
+<li>各ステップは「完成サンプル」や「差分スクリプト」とともに提供すると、詰まりにくくなります。</li>
+<li>「動画解説」「エンジン独自の便利機能紹介」を随所に挟むと、より分かりやすくなります。</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTutorial/BasicShootEmUp/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

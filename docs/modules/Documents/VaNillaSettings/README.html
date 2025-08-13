@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNillaSettings.yaml 完全仕様書 </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNillaSettings.yaml 完全仕様書 ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/VaNillaSettings/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanillasettingsyaml-完全仕様書">VaNillaSettings.yaml 完全仕様書</h1>
+
+<p>このドキュメントは、VaNillaエンジンの中核設定ファイル <code>VaNillaSettings.yaml</code> の完全な仕様を定義します。</p>
+<h2 id="概要">概要</h2>
+<p><code>VaNillaSettings.yaml</code> は、VaNillaエンジンのプロジェクト設定を定義するYAMLファイルです。このファイルから、ゲーム実行時に必要となる以下の要素が <strong>コンパイル時に自動生成</strong> されます：</p>
+<ul>
+<li>C# 列挙型（enum）</li>
+<li>リソースマネージャークラス</li>
+<li>設定クラス</li>
+<li>オブジェクトファクトリ設定</li>
+<li>プリプロセッサディレクティブ</li>
+</ul>
+<p>これにより、<strong>ゼロコスト事前定義/ゼロコスト抽象化</strong> を実現し、実行時のオーバーヘッドを最小限に抑えています。</p>
+<h2 id="ファイル構造">ファイル構造</h2>
+<pre><code class="lang-yaml"># プロジェクトモジュール設定
+project:
+  ModuleName: [Common, DxLib, Unity, Box2D]
+
+# エンジン基本設定
+supreme_arbiter_setting:
+  target_fps: 60.0
+  window_title: &quot;Game Title&quot;
+  # ...
+
+# 実行順序定義
+execution_order:
+  EARLY: -10
+  NORMAL: 0
+  LATE: 130
+
+# リソース定義
+texture_pool:
+  # テクスチャリソース
+  
+sound_pool:
+  # サウンドリソース
+  
+font_pool:
+  # フォントリソース
+
+# オブジェクト・システム設定
+object_list:
+  # オブジェクトプール設定
+  
+scene_state:
+  # シーンステート管理
+  
+key_config:
+  # キー設定
+  
+# その他の設定...
+</code></pre>
+<hr>
+<h2 id="設定項目詳細">設定項目詳細</h2>
+<h3 id="1-プロジェクトモジュール設定">1. プロジェクトモジュール設定</h3>
+<pre><code class="lang-yaml">project:
+  ModuleName: [Common, DxLib, Unity, Box2D]
+</code></pre>
+<p><strong>目的</strong>: 各VaNillaモジュールで使用する実装バックエンドを指定<br>
+<strong>生成ファイル</strong>: <code>SupremeArbiter.cs</code>（<code>#define VANILLA_MODULE_*</code> マクロ）</p>
+<p><strong>利用可能な値</strong>:</p>
+<ul>
+<li><code>Common</code>: プラットフォーム非依存のインターフェイス層</li>
+<li><code>DxLib</code>: DxLib固有の実装</li>
+<li><code>Unity</code>: Unity固有の実装</li>
+<li><code>Box2D</code>: Box2D物理エンジンの実装</li>
+</ul>
+<p><strong>例</strong>:</p>
+<pre><code class="lang-yaml">project:
+  Renderer: [Common, DxLib]
+  Physics: [Common, Box2D]
+  Input: [Common, DxLib]
+</code></pre>
+<hr>
+<h3 id="2-エンジン基本設定">2. エンジン基本設定</h3>
+<pre><code class="lang-yaml">supreme_arbiter_setting:
+  target_fps: 60.0
+  window_title: &quot;My Game&quot;
+  app_id: 12345
+  app_version:
+    major: 1
+    minor: 0
+    patch: 0
+    other: &quot;rev.1&quot;
+  display_app_version_title: false
+</code></pre>
+<p><strong>目的</strong>: エンジンの実行時基本設定<br>
+<strong>生成ファイル</strong>: <code>SupremeArbiterSetting.cs</code></p>
+<p><strong>フィールド</strong>:</p>
+<ul>
+<li><code>target_fps</code> (float): 目標フレームレート</li>
+<li><code>window_title</code> (string): ウィンドウタイトル</li>
+<li><code>app_id</code> (int): アプリケーション固有ID</li>
+<li><code>app_version</code>: バージョン情報構造体
+<ul>
+<li><code>major</code> (int): メジャーバージョン</li>
+<li><code>minor</code> (int): マイナーバージョン</li>
+<li><code>patch</code> (int): パッチバージョン</li>
+<li><code>other</code> (string): その他のバージョン情報</li>
+</ul>
+</li>
+<li><code>display_app_version_title</code> (bool): タイトルバーにバージョン表示</li>
+</ul>
+<hr>
+<h3 id="3-アセットデータベース設定">3. アセットデータベース設定</h3>
+<pre><code class="lang-yaml">asset_database:
+  asset: &quot;asset.dat&quot;
+  encrypt_key: &quot;vanilla&quot;
+</code></pre>
+<p><strong>目的</strong>: 暗号化されたアセットパッケージの設定<br>
+<strong>生成ファイル</strong>: <code>AssetDatabaseManager.cs</code></p>
+<p><strong>フィールド</strong>:</p>
+<ul>
+<li><code>asset</code> (string): アセットデータベースファイル名</li>
+<li><code>encrypt_key</code> (string): アセット暗号化キー</li>
+</ul>
+<hr>
+<h3 id="4-実行順序システム">4. 実行順序システム</h3>
+<pre><code class="lang-yaml">execution_order:
+  SCREEN_CLEAR: -50
+  EARLY: -10
+  PHYSICS_UPDATE: -5
+  NORMAL: 0
+  DRAW_NORMAL: 80
+  LATE: 130
+  PRIVILEGE_DRAW: 170
+  SCENE_TRANSITION: 180
+  SCREEN_RENDER: 190
+</code></pre>
+<p><strong>目的</strong>: ExpresserComponentの実行優先度を定義<br>
+<strong>生成ファイル</strong>: <code>ExpresserComponentExecutionOrderList.cs</code></p>
+<p><strong>形式</strong>: <code>ORDER_NAME: priority_value</code><br>
+<strong>ルール</strong>:</p>
+<ul>
+<li>数値が小さいほど先に実行</li>
+<li>同じ優先度内では <code>ObjectExecutionPriorityAttribute</code> による細かい順序制御が可能</li>
+</ul>
+<p><strong>標準的な実行順序</strong>:</p>
+<ol>
+<li><code>SCREEN_CLEAR</code>: 画面クリア処理</li>
+<li><code>EARLY</code>: 早期処理（入力受付など）</li>
+<li><code>PHYSICS_UPDATE</code>: 物理演算更新</li>
+<li><code>NORMAL</code>: 通常のゲームロジック</li>
+<li><code>DRAW_NORMAL</code>: 通常描画処理</li>
+<li><code>LATE</code>: 後処理</li>
+<li><code>PRIVILEGE_DRAW</code>: 特権描画（UI等）</li>
+<li><code>SCENE_TRANSITION</code>: シーン遷移処理</li>
+<li><code>SCREEN_RENDER</code>: 画面出力</li>
+</ol>
+<hr>
+<h3 id="5-フォントリソースプール">5. フォントリソースプール</h3>
+<pre><code class="lang-yaml">font_pool:
+  MainFont:
+    path: &quot;font/main.otf&quot;
+    family: &quot;Main Font&quot;
+    size: 20
+    thick: 1
+    edge: 0
+    italic: false
+    language_type: &quot;japanese&quot;
+  
+  UIFont:
+    path: &quot;font/ui.ttf&quot;
+    family: &quot;UI Font&quot;
+    size: 16
+    thick: 0
+    edge: 1
+    italic: false
+</code></pre>
+<p><strong>目的</strong>: テキスト描画用フォントリソースの定義<br>
+<strong>生成ファイル</strong>: <code>FontResourceType.cs</code></p>
+<p><strong>必須フィールド</strong>:</p>
+<ul>
+<li><code>path</code> (string): フォントファイルのパス</li>
+<li><code>family</code> (string): フォントファミリー名</li>
+<li><code>size</code> (int): フォントサイズ（ピクセル）</li>
+<li><code>thick</code> (int): フォントの太さ</li>
+<li><code>edge</code> (int): 縁取りの太さ</li>
+<li><code>italic</code> (bool): イタリック体の有効/無効</li>
+</ul>
+<p><strong>オプションフィールド</strong>:</p>
+<ul>
+<li><code>language_type</code> (string): 言語最適化設定（&quot;japanese&quot;, &quot;english&quot; など）</li>
+</ul>
+<hr>
+<h3 id="6-オブジェクトリストファクトリ設定">6. オブジェクトリスト・ファクトリ設定</h3>
+<pre><code class="lang-yaml">object_list:
+  Player:
+    object_num: 1
+    type: &quot;Player&quot;
+    create_pool: true
+  
+  Enemy:
+    object_num: 100
+    type: &quot;Enemy&quot;
+  
+  Bullet:
+    object_num: 500
+    type: &quot;PlayerBullet&quot;
+    create_pool: true
+</code></pre>
+<p><strong>目的</strong>: オブジェクトプールの設定とオブジェクトタグの定義<br>
+<strong>生成ファイル</strong>: <code>ObjectTag.cs</code>, <code>ObjectFactory.cs</code></p>
+<p><strong>必須フィールド</strong>:</p>
+<ul>
+<li><code>object_num</code> (int): プールサイズ</li>
+<li><code>type</code> (string): 対応するC#クラス名</li>
+</ul>
+<p><strong>オプションフィールド</strong>:</p>
+<ul>
+<li><code>create_pool</code> (bool): オブジェクトプールを作成するか（デフォルト: true）</li>
+</ul>
+<p><strong>使用例</strong>:</p>
+<pre><code class="lang-csharp">// 生成されたコード例
+var enemy = ObjectFactory.Activate(ObjectTag.Enemy);
+ObjectFactory.Deactivate(enemy);
+</code></pre>
+<hr>
+<h3 id="7-オフスクリーンレンダーターゲット">7. オフスクリーンレンダーターゲット</h3>
+<pre><code class="lang-yaml">offscreen_pool:
+  GameBuffer:
+    width: 1280
+    height: 720
+    category: &quot;Game&quot;
+  
+  UIBuffer:
+    width: &quot;Default&quot;
+    height: &quot;Default&quot;
+    category: &quot;UI&quot;
+</code></pre>
+<p><strong>目的</strong>: オフスクリーン描画用レンダーターゲットの定義<br>
+<strong>生成ファイル</strong>: <code>OffScreenResourceType.cs</code></p>
+<p><strong>フィールド</strong>:</p>
+<ul>
+<li><code>width</code> (int | &quot;Default&quot;): 横幅ピクセル数、または画面幅に合わせる場合は &quot;Default&quot;</li>
+<li><code>height</code> (int | &quot;Default&quot;): 縦幅ピクセル数、または画面高に合わせる場合は &quot;Default&quot;</li>
+<li><code>category</code> (string): カテゴリ分類（管理用）</li>
+</ul>
+<hr>
+<h3 id="8-サウンドリソースプール">8. サウンドリソースプール</h3>
+<pre><code class="lang-yaml">sound_pool:
+  BGM_Title:
+    path: &quot;audio/bgm_title.ogg&quot;
+    type: &quot;loop&quot;
+    loop_samples: 44100
+    volume: 0.8
+    category: &quot;bgm&quot;
+  
+  SE_Shot:
+    path: &quot;audio/se_shot.wav&quot;
+    type: &quot;oneshot&quot;
+    volume: 1.0
+    category: &quot;sound_effect&quot;
+  
+  Voice_Character:
+    path: &quot;audio/voice_character.ogg&quot;
+    type: &quot;region_loop&quot;
+    volume: 0.9
+    category: &quot;voice&quot;
+    region:
+      greeting:
+        index: 0
+        start: 0
+        loop_start: 1000
+        end: 3000
+      goodbye:
+        index: 1
+        start: 4000
+        loop_start: 5000
+        end: 7000
+</code></pre>
+<p><strong>目的</strong>: オーディオリソースの定義<br>
+<strong>生成ファイル</strong>: <code>SoundResourceType.cs</code></p>
+<p><strong>必須フィールド</strong>:</p>
+<ul>
+<li><code>path</code> (string): オーディオファイルのパス</li>
+<li><code>type</code> (string): 再生タイプ</li>
+<li><code>volume</code> (float): 音量（0.0-1.0）</li>
+<li><code>category</code> (string): サウンドカテゴリ（音量制御用）</li>
+</ul>
+<p><strong>再生タイプ</strong>:</p>
+<ul>
+<li><code>oneshot</code>: 一度だけ再生</li>
+<li><code>loop</code>: 連続ループ再生</li>
+<li><code>region_loop</code>: 指定領域をループ再生</li>
+</ul>
+<p><strong>region_loop用の追加フィールド</strong>:</p>
+<ul>
+<li><code>region</code>: 領域定義マップ
+<ul>
+<li><code>region_name</code>: 任意の領域名
+<ul>
+<li><code>index</code> (int): 領域インデックス</li>
+<li><code>start</code> (int): 開始サンプル位置</li>
+<li><code>loop_start</code> (int): ループ開始サンプル位置</li>
+<li><code>end</code> (int): 終了サンプル位置</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>オプションフィールド</strong>:</p>
+<ul>
+<li><code>loop_samples</code> (int): ループ時のサンプル数</li>
+</ul>
+<hr>
+<h3 id="9-テクスチャリソースプール">9. テクスチャリソースプール</h3>
+<pre><code class="lang-yaml">texture_pool:
+  # 完全な静的画像
+  Player:
+    path: &quot;image/player.png&quot;
+    category: &quot;character&quot;
+    type: &quot;full_one_shot&quot;
+  
+  # 他のテクスチャの一部を使用
+  PlayerFace:
+    category: &quot;ui&quot;
+    type: &quot;shared_one_shot&quot;
+    parent: &quot;Player&quot;
+    region: [[0, 0], [64, 64]]
+  
+  # アニメーション
+  PlayerWalk:
+    path: &quot;image/player_walk.png&quot;
+    category: &quot;character&quot;
+    type: &quot;full_animation&quot;
+    loop: true
+    num_texture: 8
+    interval: 5
+  
+  # 動画テクスチャ
+  IntroMovie:
+    path: &quot;movie/intro.mp4&quot;
+    category: &quot;movie&quot;
+    type: &quot;full_movie&quot;
+    loop: false
+</code></pre>
+<p><strong>目的</strong>: テクスチャ・画像リソースの定義<br>
+<strong>生成ファイル</strong>: <code>TextureResourceType.cs</code></p>
+<p><strong>共通フィールド</strong>:</p>
+<ul>
+<li><code>category</code> (string): テクスチャカテゴリ（管理用）</li>
+<li><code>type</code> (string): テクスチャタイプ</li>
+</ul>
+<h4 id="テクスチャタイプ詳細">テクスチャタイプ詳細</h4>
+<p><strong>1. full_one_shot (完全な静的画像)</strong></p>
+<pre><code class="lang-yaml">type: &quot;full_one_shot&quot;
+path: &quot;image/texture.png&quot;
+</code></pre>
+<ul>
+<li><code>path</code> (string): 画像ファイルのパス</li>
+</ul>
+<p><strong>2. shared_one_shot (共有テクスチャの一部)</strong></p>
+<pre><code class="lang-yaml">type: &quot;shared_one_shot&quot;
+parent: &quot;ParentTexture&quot;
+region: [[x1, y1], [x2, y2]]  # 左上座標, 右下座標
+</code></pre>
+<ul>
+<li><code>parent</code> (string): 親テクスチャ名</li>
+<li><code>region</code> (array): 切り取り領域 <code>[[左上X, 左上Y], [右下X, 右下Y]]</code></li>
+</ul>
+<p><strong>3. full_animation (完全なアニメーション)</strong></p>
+<pre><code class="lang-yaml">type: &quot;full_animation&quot;
+path: &quot;image/animation.png&quot;
+loop: true
+num_texture: 10
+interval: 3
+</code></pre>
+<ul>
+<li><code>path</code> (string): アニメーション画像ファイルのパス</li>
+<li><code>loop</code> (bool): ループ再生するか</li>
+<li><code>num_texture</code> (int): アニメーションフレーム数</li>
+<li><code>interval</code> (int): フレーム間隔（ゲームフレーム数）</li>
+</ul>
+<p><strong>4. shared_animation (共有アニメーション)</strong></p>
+<pre><code class="lang-yaml">type: &quot;shared_animation&quot;
+parent: &quot;ParentTexture&quot;
+loop: false
+num_texture: 5
+interval: 5
+region: [
+  [[x1, y1], [x2, y2]],  # フレーム1の領域
+  [[x3, y3], [x4, y4]],  # フレーム2の領域
+  # ... 残りのフレーム
+]
+</code></pre>
+<ul>
+<li><code>parent</code> (string): 親テクスチャ名</li>
+<li><code>loop</code> (bool): ループ再生するか</li>
+<li><code>num_texture</code> (int): アニメーションフレーム数</li>
+<li><code>interval</code> (int): フレーム間隔</li>
+<li><code>region</code> (array): 各フレームの領域配列</li>
+</ul>
+<p><strong>5. full_movie (完全な動画)</strong></p>
+<pre><code class="lang-yaml">type: &quot;full_movie&quot;
+path: &quot;movie/video.mp4&quot;
+loop: true
+</code></pre>
+<ul>
+<li><code>path</code> (string): 動画ファイルのパス</li>
+<li><code>loop</code> (bool): ループ再生するか</li>
+</ul>
+<p><strong>6. shared_movie (共有動画)</strong></p>
+<pre><code class="lang-yaml">type: &quot;shared_movie&quot;
+parent: &quot;ParentTexture&quot;
+loop: true
+region: [[x1, y1], [x2, y2]]
+</code></pre>
+<ul>
+<li><code>parent</code> (string): 親テクスチャ名</li>
+<li><code>loop</code> (bool): ループ再生するか</li>
+<li><code>region</code> (array): 表示領域</li>
+</ul>
+<hr>
+<h3 id="10-ユーザータイマー定義">10. ユーザータイマー定義</h3>
+<pre><code class="lang-yaml">user_timer:
+  - InvincibilityTimer
+  - ReloadTimer
+  - ComboTimer
+</code></pre>
+<p><strong>目的</strong>: ゲーム固有のタイマー列挙型を定義<br>
+<strong>生成ファイル</strong>: <code>UserTimerType.cs</code></p>
+<p><strong>形式</strong>: タイマー名の配列</p>
+<p><strong>使用例</strong>:</p>
+<pre><code class="lang-csharp">// 生成されたコード例
+UserTimer.Start(UserTimerType.InvincibilityTimer, 3.0f);
+if (UserTimer.IsFinished(UserTimerType.InvincibilityTimer))
+{
+    // 無敵時間終了
+}
+</code></pre>
+<hr>
+<h3 id="11-キー設定システム">11. キー設定システム</h3>
+<pre><code class="lang-yaml">key_config:
+  Shot:
+    default_keyboard: &quot;Z&quot;
+    default_pad: &quot;Button0&quot;
+    default_mouse: &quot;Left&quot;
+  
+  Jump:
+    default_keyboard: &quot;X&quot;
+    default_pad: &quot;Button1&quot;
+    default_mouse: &quot;Right&quot;
+  
+  Menu:
+    default_keyboard: &quot;Escape&quot;
+    default_pad: &quot;Button6&quot;
+</code></pre>
+<p><strong>目的</strong>: 入力マッピング設定<br>
+<strong>生成ファイル</strong>: <code>KeyConfig.cs</code>, <code>InputInfoStruct.cs</code>, <code>UserDataInputInterpreter.cs</code>, <code>UserDataInputRecorder.cs</code></p>
+<p><strong>フィールド</strong>:</p>
+<ul>
+<li><code>default_keyboard</code> (string): デフォルトキーボードキー</li>
+<li><code>default_pad</code> (string): デフォルトゲームパッドボタン</li>
+<li><code>default_mouse</code> (string): デフォルトマウスボタン（オプション）</li>
+</ul>
+<p><strong>キーボードキー名の例</strong>:</p>
+<ul>
+<li>英数字: &quot;A&quot;, &quot;B&quot;, &quot;1&quot;, &quot;2&quot;</li>
+<li>特殊キー: &quot;Space&quot;, &quot;Enter&quot;, &quot;Escape&quot;, &quot;Shift&quot;, &quot;Ctrl&quot;, &quot;Alt&quot;</li>
+<li>矢印キー: &quot;Up&quot;, &quot;Down&quot;, &quot;Left&quot;, &quot;Right&quot;</li>
+</ul>
+<p><strong>ゲームパッドボタン名の例</strong>:</p>
+<ul>
+<li>&quot;Button0&quot;～&quot;Button15&quot;: ボタン0～15</li>
+<li>&quot;DPadUp&quot;, &quot;DPadDown&quot;, &quot;DPadLeft&quot;, &quot;DPadRight&quot;: 方向パッド</li>
+</ul>
+<p><strong>マウスボタン名の例</strong>:</p>
+<ul>
+<li>&quot;Left&quot;: 左クリック</li>
+<li>&quot;Right&quot;: 右クリック</li>
+<li>&quot;Middle&quot;: 中クリック</li>
+</ul>
+<hr>
+<h3 id="12-画面解像度管理">12. 画面解像度管理</h3>
+<pre><code class="lang-yaml">screen_resolution:
+  - [[1280, 720], [16, 9]]
+  - [[1920, 1080], [16, 9]]
+  - [[1600, 900], [16, 9]]
+  - [[1024, 768], [4, 3]]
+
+viewport_resolution: [1280, 720]
+</code></pre>
+<p><strong>目的</strong>: サポートする画面解像度とアスペクト比の定義<br>
+<strong>生成ファイル</strong>: <code>ScreenResolutionManager.cs</code></p>
+<p><strong>フィールド</strong>:</p>
+<ul>
+<li><code>screen_resolution</code> (array): サポート解像度リスト
+<ul>
+<li>形式: <code>[[横幅, 縦幅], [アスペクト横, アスペクト縦]]</code></li>
+</ul>
+</li>
+<li><code>viewport_resolution</code> (array): デフォルトビューポート解像度 <code>[横幅, 縦幅]</code></li>
+</ul>
+<hr>
+<h3 id="13-ウィンドウサイズ設定">13. ウィンドウサイズ設定</h3>
+<pre><code class="lang-yaml">window_size:
+  - [800, 600]
+  - [1280, 720]
+  - [1920, 1080]
+</code></pre>
+<p><strong>目的</strong>: 利用可能なウィンドウサイズの定義<br>
+<strong>生成ファイル</strong>: <code>WindowSizeManager.cs</code></p>
+<p><strong>形式</strong>: <code>[横幅, 縦幅]</code> の配列</p>
+<hr>
+<h3 id="14-シーンステート管理">14. シーンステート管理</h3>
+<pre><code class="lang-yaml">scene_state:
+  Title:
+    group: 0
+    stack: false
+    transit: [Game, Options]
+  
+  Game:
+    group: 1
+    stack: false
+    transit: [Pause, GameOver, Title]
+  
+  Pause:
+    group: 1
+    stack: true
+    transit: [Game, Options]
+  
+  GameOver:
+    group: 2
+    transit: [Title, Game]
+</code></pre>
+<p><strong>目的</strong>: シーン遷移とスタック管理の設定<br>
+<strong>生成ファイル</strong>: <code>SceneStateManager.cs</code></p>
+<p><strong>フィールド</strong>:</p>
+<ul>
+<li><code>group</code> (int): シーングループID（同じグループは相互排他）</li>
+<li><code>stack</code> (bool): シーンスタッキングを許可するか（オプション、デフォルト: false）</li>
+<li><code>transit</code> (array): 遷移可能なシーン名の配列</li>
+</ul>
+<p><strong>シーンスタッキング</strong>:</p>
+<ul>
+<li><code>stack: true</code> の場合、現在のシーンの上に重ねて表示される</li>
+<li>ポーズメニューなどの一時的なシーンに使用</li>
+</ul>
+<hr>
+<h3 id="15-衝突グループ設定">15. 衝突グループ設定</h3>
+<pre><code class="lang-yaml">collision_group_settings:
+  Player:
+    number: 0
+    collide_with:
+      - Enemy
+      - Item
+      - Wall
+  
+  Enemy:
+    number: 1
+    collide_with:
+      - Player
+      - PlayerBullet
+      - Wall
+  
+  PlayerBullet:
+    number: 2
+    collide_with:
+      - Enemy
+      - Wall
+  
+  Wall:
+    number: 3
+    collide_with:
+      - Player
+      - Enemy
+      - PlayerBullet
+</code></pre>
+<p><strong>目的</strong>: 物理演算の衝突グループ設定<br>
+<strong>生成ファイル</strong>: <code>CollisionGroupID.cs</code></p>
+<p><strong>フィールド</strong>:</p>
+<ul>
+<li><code>number</code> (int): グループID番号（ユニーク）</li>
+<li><code>collide_with</code> (array): 衝突対象グループ名の配列</li>
+</ul>
+<p><strong>使用例</strong>:</p>
+<pre><code class="lang-csharp">// 生成されたコード例
+hasCollision.CollisionType = CollisionGroupID.Player;
+</code></pre>
+<hr>
+<h3 id="16-テキストデータベース設定">16. テキストデータベース設定</h3>
+<pre><code class="lang-yaml">text_database:
+  UIText:
+    filepath: &quot;text/ui_text.csv&quot;
+    key:
+      - BUTTON_START
+      - BUTTON_EXIT
+      - MENU_TITLE
+  
+  DialogueText:
+    filepath: &quot;text/dialogue.csv&quot;
+    key:
+      - CHAR01_GREETING
+      - CHAR01_FAREWELL
+      - NARRATOR_INTRO
+</code></pre>
+<p><strong>目的</strong>: 多言語対応テキストデータベースの設定<br>
+<strong>生成ファイル</strong>: <code>ReadOnlyTextDataBaseManager.cs</code></p>
+<p><strong>フィールド</strong>:</p>
+<ul>
+<li><code>filepath</code> (string): CSVテキストファイルのパス</li>
+<li><code>key</code> (array): テキストキーの配列</li>
+</ul>
+<p><strong>CSVファイル形式例</strong>:</p>
+<pre><code class="lang-csv">key,japanese,english
+BUTTON_START,スタート,Start
+BUTTON_EXIT,終了,Exit
+</code></pre>
+<hr>
+<h3 id="17-ゲーム設定システム">17. ゲーム設定システム</h3>
+<pre><code class="lang-yaml">game_config:
+  # 暗号化設定（暗号化プロパティを使用する場合に必要）
+  encryption_key: &quot;1234567890123456&quot;  # 16文字のAESキー
+  encryption_iv: &quot;abcdefghijklmnop&quot;   # 16文字のAES初期化ベクトル
+  
+  # 設定マネージャー
+  config_manager:
+    default_config_file: &quot;game_config.json&quot;
+    auto_load_configs:
+      - key: &quot;default&quot;
+        file: &quot;game_config.json&quot;
+        is_active: true
+      - key: &quot;debug&quot;
+        file: &quot;debug_config.json&quot;
+        is_active: false
+  
+  # 列挙型定義
+  enum_define:
+    PlayerMoveType:
+      Mouse: 0
+      Keyboard: 1
+      Gamepad: 2
+    
+    GraphicsQuality:
+      LOW: 0
+      MEDIUM: 1
+      HIGH: 2
+  
+  # 設定プロパティ
+  Resolution:
+    type: int
+    default: 0
+    comment: &quot;解像度設定&quot;
+    key: &quot;resolution&quot;
+  
+  IsFullScreen:
+    type: bool
+    default: false
+    comment: &quot;フルスクリーンモード設定&quot;
+    key: &quot;fullscreen&quot;
+    encrypted: true
+  
+  MasterBgmVolume:
+    type: float
+    default: 0.7f
+    comment: &quot;マスターBGM音量&quot;
+    key: &quot;master_volume_bgm&quot;
+    set: |
+      foreach(VaNilla.Sound.SoundCategory category in Enum.GetValues(typeof(VaNilla.Sound.SoundCategory)))
+      {
+          if (category == VaNilla.Sound.SoundCategory.sound_effect) continue;
+          VaNilla.Sound.SoundResourceManager.SetCategoryVolume(category, value);
+      }
+  
+  MasterSeVolume:
+    type: float
+    default: 0.7f
+    comment: &quot;マスターSE音量&quot;
+    key: &quot;master_volume_se&quot;
+    set: |
+      VaNilla.Sound.SoundResourceManager.SetCategoryVolume(VaNilla.Sound.SoundCategory.sound_effect, value);
+  
+  MoveInputType:
+    type: PlayerMoveType
+    default: PlayerMoveType.Mouse
+    comment: &quot;操作入力方法&quot;
+    key: &quot;mouse_input_type&quot;
+  
+  LanguageSetting:
+    type: VaNilla.Localization.LanguageType  # 他モジュールの型も指定可能
+    default: VaNilla.Localization.LanguageType.Japanese
+    comment: &quot;言語設定&quot;
+    key: &quot;language_setting&quot;
+</code></pre>
+<p><strong>目的</strong>: 実行時ゲーム設定システム（デュアル生成システム）<br>
+<strong>生成ファイル</strong>: <code>GameConfig.cs</code>, <code>GameConfigManagerSettings.cs</code><br>
+<strong>生成システム</strong>: Python CodeGenerator + .NET SourceGenerator</p>
+<h4 id="暗号化設定オプション">暗号化設定（オプション）</h4>
+<p><strong>フィールド</strong>:</p>
+<ul>
+<li><code>encryption_key</code> (string): AES暗号化キー（16文字固定）</li>
+<li><code>encryption_iv</code> (string): AES初期化ベクトル（16文字固定）</li>
+</ul>
+<h4 id="config_manager-セクション">config_manager セクション</h4>
+<p><strong>必須フィールド</strong>:</p>
+<ul>
+<li><code>default_config_file</code> (string): デフォルト設定ファイル名</li>
+<li><code>auto_load_configs</code> (array): 自動読み込み設定
+<ul>
+<li><code>key</code> (string): 設定キー</li>
+<li><code>file</code> (string): ファイル名</li>
+<li><code>is_active</code> (bool): アクティブかどうか</li>
+</ul>
+</li>
+</ul>
+<h4 id="enum_define-セクション">enum_define セクション</h4>
+<p><strong>形式</strong>: <code>EnumName: { VALUE_NAME: number }</code></p>
+<ul>
+<li>設定で使用するカスタム列挙型を定義</li>
+<li>生成されたenumは public で他のクラスからもアクセス可能</li>
+</ul>
+<h4 id="設定プロパティ">設定プロパティ</h4>
+<p><strong>必須フィールド</strong>:</p>
+<ul>
+<li><code>type</code> (string): データ型
+<ul>
+<li>基本型: <code>int</code>, <code>float</code>, <code>string</code>, <code>bool</code></li>
+<li>カスタム列挙: <code>enum_define</code>で定義した型名</li>
+<li>VaNilla列挙: <code>VaNilla.*.LanguageType</code>など（&quot;VaNilla.&quot;を含み&quot;Type&quot;で終わる型）</li>
+</ul>
+</li>
+<li><code>default</code>: デフォルト値</li>
+<li><code>comment</code> (string): 設定項目の説明（XMLドキュメントコメントとして生成）</li>
+</ul>
+<p><strong>オプションフィールド</strong>:</p>
+<ul>
+<li><code>key</code> (string): JSONでの保存キー（デフォルト: プロパティ名）</li>
+<li><code>encrypted</code> (bool): 暗号化するか（デフォルト: false）</li>
+<li><code>get</code> (string): カスタムゲッター処理（C#コード、複数行可能）</li>
+<li><code>set</code> (string): カスタムセッター処理（C#コード、複数行可能）</li>
+</ul>
+<h4 id="生成されるコード例">生成されるコード例</h4>
+<p><strong>シンプルなプロパティ</strong>:</p>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// 解像度設定
+/// &lt;/summary&gt;
+[ConfigurableValue(false, &quot;resolution&quot;)]
+public int Resolution { get; set; } = 0;
+</code></pre>
+<p><strong>暗号化プロパティ</strong>:</p>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// フルスクリーンモード設定
+/// &lt;/summary&gt;
+[ConfigurableValue(true, &quot;fullscreen&quot;)]
+public bool IsFullScreen { get; set; } = false;
+</code></pre>
+<p><strong>カスタムセッターを持つプロパティ</strong>:</p>
+<pre><code class="lang-csharp">private float masterbgmvolume = 0.7f;
+
+/// &lt;summary&gt;
+/// マスターBGM音量
+/// &lt;/summary&gt;
+[ConfigurableValue(false, &quot;master_volume_bgm&quot;)]
+public float MasterBgmVolume
+{
+    get =&gt; masterbgmvolume;
+    set
+    {
+        foreach(VaNilla.Sound.SoundCategory category in Enum.GetValues(typeof(VaNilla.Sound.SoundCategory)))
+        {
+            if (category == VaNilla.Sound.SoundCategory.sound_effect) continue;
+            VaNilla.Sound.SoundResourceManager.SetCategoryVolume(category, value);
+        }
+        masterbgmvolume = value;
+    }
+}
+</code></pre>
+<h4 id="自動生成されるメソッドnet-sourcegenerator">自動生成されるメソッド（.NET SourceGenerator）</h4>
+<p><strong>JSON保存</strong>:</p>
+<pre><code class="lang-csharp">public void Save(string configFilePath)
+{
+    // ConfigurableValue属性を持つプロパティを自動的にJSONに変換
+    // encrypted=trueのプロパティは暗号化されて保存
+}
+</code></pre>
+<p><strong>JSON読み込み</strong>:</p>
+<pre><code class="lang-csharp">public void Load(string configFilePath)
+{
+    // JSONから値を読み込み、暗号化されたプロパティは自動復号化
+}
+</code></pre>
+<p><strong>暗号化メソッド</strong>:</p>
+<pre><code class="lang-csharp">private string Encrypt(string plainText) { /* AES暗号化 */ }
+private string Decrypt(string cipherText) { /* AES復号化 */ }
+</code></pre>
+<h4 id="特殊型の扱い">特殊型の扱い</h4>
+<p><strong>VaNilla名前空間の列挙型</strong>:</p>
+<ul>
+<li><code>VaNilla.Localization.LanguageType</code>などの外部列挙型に対応</li>
+<li>JSONでは整数値として保存/読み込み</li>
+</ul>
+<p><strong>カスタム列挙型</strong>:</p>
+<ul>
+<li><code>enum_define</code>で定義した列挙型</li>
+<li>JSONでは整数値として保存/読み込み</li>
+<li>デフォルト値には列挙型の値を指定（例: <code>PlayerMoveType.Mouse</code>）</li>
+</ul>
+<hr>
+<h3 id="18-デイリーシステム設定">18. デイリーシステム設定</h3>
+<pre><code class="lang-yaml">daily_system:
+  # デイリーミッション種別
+  daily_mission_types:
+    - &quot;KillEnemies&quot;
+    - &quot;CollectItems&quot;
+    - &quot;PlayTime&quot;
+  
+  daily_mission_type_comments:
+    KillEnemies: &quot;敵を倒すミッション&quot;
+    CollectItems: &quot;アイテム収集ミッション&quot;
+    PlayTime: &quot;プレイ時間ミッション&quot;
+  
+  # 定期ミッション種別
+  regularly_mission_types:
+    - &quot;WeeklyWin&quot;
+    - &quot;MonthlyClear&quot;
+  
+  regularly_mission_type_comments:
+    WeeklyWin: &quot;週間勝利ミッション&quot;
+    MonthlyClear: &quot;月間クリアミッション&quot;
+  
+  # システム設定
+  ntp_server: &quot;ntp.nict.jp&quot;
+  reset_hour: 4
+  ntp_fetch_interval_minutes: 1
+  daily_info_save_path: &quot;dailysystem.json&quot;
+  daily_mission_save_path: &quot;dailymissions.json&quot;
+  regularly_mission_save_path: &quot;regularlymissions.json&quot;
+
+# デイリーミッション定義
+daily_missions:
+  - type: &quot;KillEnemies&quot;
+    id: &quot;kill_enemies_01&quot;
+    description: &quot;敵を10体倒せ&quot;
+    target_count: 10
+  
+  - type: &quot;CollectItems&quot;
+    id: &quot;collect_items_01&quot;
+    description: &quot;アイテムを5個集めろ&quot;
+    target_count: 5
+
+# 定期ミッション定義
+regularly_missions:
+  - type: &quot;WeeklyWin&quot;
+    id: &quot;weekly_win_01&quot;
+    description: &quot;今週5回勝利しろ&quot;
+    target_count: 5
+  
+  - type: &quot;MonthlyClear&quot;
+    id: &quot;monthly_clear_01&quot;
+    description: &quot;今月3回クリアしろ&quot;
+    target_count: 3
+</code></pre>
+<p><strong>目的</strong>: デイリー/定期ミッションシステムの設定<br>
+<strong>生成ファイル</strong>: <code>DailySystemConfig.cs</code>, <code>DailyMissionList.cs</code>, <code>RegularlyMissionList.cs</code></p>
+<h4 id="daily_system-セクション">daily_system セクション</h4>
+<p><strong>ミッション種別</strong>:</p>
+<ul>
+<li><code>daily_mission_types</code> (array): デイリーミッション種別名</li>
+<li><code>daily_mission_type_comments</code> (map): 各種別の説明</li>
+<li><code>regularly_mission_types</code> (array): 定期ミッション種別名</li>
+<li><code>regularly_mission_type_comments</code> (map): 各種別の説明</li>
+</ul>
+<p><strong>システム設定</strong>:</p>
+<ul>
+<li><code>ntp_server</code> (string): 時刻同期用NTPサーバー</li>
+<li><code>reset_hour</code> (int): デイリーリセット時刻（24時間制）</li>
+<li><code>ntp_fetch_interval_minutes</code> (int): NTP同期間隔（分）</li>
+<li><code>daily_info_save_path</code> (string): デイリー情報保存パス</li>
+<li><code>daily_mission_save_path</code> (string): デイリーミッション保存パス</li>
+<li><code>regularly_mission_save_path</code> (string): 定期ミッション保存パス</li>
+</ul>
+<h4 id="ミッション定義">ミッション定義</h4>
+<p><strong>共通フィールド</strong>:</p>
+<ul>
+<li><code>type</code> (string): ミッション種別（上記で定義したもの）</li>
+<li><code>id</code> (string): ミッション固有ID</li>
+<li><code>description</code> (string): ミッション説明文</li>
+<li><code>target_count</code> (int): 目標数</li>
+</ul>
+<hr>
+<h3 id="19-物理演算設定">19. 物理演算設定</h3>
+<pre><code class="lang-yaml">physics_settings:
+  default_world:
+    gravity:
+      x: 0.0
+      y: 98.0
+    fixed_time_step: 0.01666667  # 1/60秒
+    velocity_iterations: 8
+    position_iterations: 8
+  pixels_per_meter: 100.0
+  enable_debug_draw: true
+</code></pre>
+<p><strong>目的</strong>: Box2D物理エンジンの設定<br>
+<strong>生成ファイル</strong>: <code>PhysicsSettings.cs</code></p>
+<h4 id="default_world-セクション">default_world セクション</h4>
+<p><strong>フィールド</strong>:</p>
+<ul>
+<li><code>gravity</code>: 重力ベクトル
+<ul>
+<li><code>x</code> (float): X方向重力</li>
+<li><code>y</code> (float): Y方向重力（正の値で下向き）</li>
+</ul>
+</li>
+<li><code>fixed_time_step</code> (float): 物理演算タイムステップ（秒）</li>
+<li><code>velocity_iterations</code> (int): 速度制約ソルバーの反復回数</li>
+<li><code>position_iterations</code> (int): 位置制約ソルバーの反復回数</li>
+</ul>
+<h4 id="グローバル設定">グローバル設定</h4>
+<ul>
+<li><code>pixels_per_meter</code> (float): ピクセル-メートル変換比率</li>
+<li><code>enable_debug_draw</code> (bool): 物理演算デバッグ描画の有効化</li>
+</ul>
+<hr>
+<h2 id="コード生成システム">コード生成システム</h2>
+<h3 id="生成プロセス">生成プロセス</h3>
+<ol>
+<li><strong>YAMLパース</strong>: <code>CodeGenerator.py</code> がYAMLファイルを解析</li>
+<li><strong>テンプレート処理</strong>: <code>.snippet</code> テンプレートファイルにデータを埋め込み</li>
+<li><strong>ファイル出力</strong>: 各モジュールの <code>Interface/</code> および <code>Implementation/</code> フォルダに生成</li>
+</ol>
+<h3 id="テンプレートシステム">テンプレートシステム</h3>
+<p><strong>プレースホルダー形式</strong>: <code>#PLACEHOLDER_NAME</code></p>
+<p><strong>例</strong>:</p>
+<pre><code class="lang-csharp">// Template: TextureResourceType.cs.snippet
+public enum TextureResourceType
+{
+#TEXTURE_ENUM_CONTENT
+}
+
+// Generated:
+public enum TextureResourceType
+{
+    Player = 0,
+    Enemy = 1,
+    Bullet = 2,
+}
+</code></pre>
+<h3 id="生成ファイルの特徴">生成ファイルの特徴</h3>
+<ul>
+<li><strong>自動生成警告</strong>: ファイル先頭に編集禁止の警告コメント</li>
+<li><strong>名前空間</strong>: 適切なVaNilla名前空間に配置</li>
+<li><strong>依存関係</strong>: 必要なusingディレクティブを自動挿入</li>
+<li><strong>条件コンパイル</strong>: <code>#if VANILLA_MODULE_*</code> による条件付きコンパイル</li>
+</ul>
+<hr>
+<h2 id="バリデーションルール">バリデーションルール</h2>
+<h3 id="命名規則">命名規則</h3>
+<ul>
+<li><strong>列挙値</strong>: PascalCase（例: <code>PlayerBullet</code>）</li>
+<li><strong>ファイルパス</strong>: スラッシュ区切り（例: <code>&quot;image/player.png&quot;</code>）</li>
+<li><strong>キー名</strong>: 説明的でユニークな名前</li>
+</ul>
+<h3 id="データ型制約">データ型制約</h3>
+<ul>
+<li><strong>数値</strong>: 対象C#型の範囲内</li>
+<li><strong>真偽値</strong>: <code>true</code>/<code>false</code>（小文字）</li>
+<li><strong>文字列</strong>: 適切にクォート、特殊文字のエスケープ</li>
+<li><strong>配列</strong>: 一貫した要素型</li>
+</ul>
+<h3 id="参照整合性">参照整合性</h3>
+<ul>
+<li><strong>親テクスチャ</strong>: <code>shared_*</code> タイプは既存のテクスチャを参照</li>
+<li><strong>シーン遷移</strong>: <code>transit</code> は定義済みシーンのみ</li>
+<li><strong>衝突グループ</strong>: <code>collide_with</code> は有効なグループ名のみ</li>
+</ul>
+<h3 id="ファイルパス検証">ファイルパス検証</h3>
+<ul>
+<li><strong>相対パス</strong>: プロジェクトルートからの相対パス</li>
+<li><strong>拡張子</strong>: リソースタイプと一致する拡張子</li>
+<li><strong>区切り文字</strong>: スラッシュ（<code>/</code>）に正規化</li>
+</ul>
+<hr>
+<h2 id="エラーハンドリング">エラーハンドリング</h2>
+<h3 id="コンパイル時エラー">コンパイル時エラー</h3>
+<ul>
+<li><strong>YAML構文エラー</strong>: 不正なYAMLフォーマット</li>
+<li><strong>必須フィールド不足</strong>: 必要な設定項目の欠落</li>
+<li><strong>データ型不整合</strong>: 期待される型と異なる値</li>
+<li><strong>参照エラー</strong>: 存在しないリソースへの参照</li>
+</ul>
+<h3 id="実行時エラー">実行時エラー</h3>
+<ul>
+<li><strong>ファイル未発見</strong>: 指定されたリソースファイルが存在しない</li>
+<li><strong>メモリ不足</strong>: プール設定が不適切</li>
+<li><strong>権限エラー</strong>: ファイルアクセス権限の問題</li>
+</ul>
+<h3 id="デバッグ支援">デバッグ支援</h3>
+<ul>
+<li><strong>詳細ログ</strong>: <code>CodeGenerator.py -v</code> で詳細出力</li>
+<li><strong>検証モード</strong>: 生成前の設定値検証</li>
+<li><strong>依存関係チェック</strong>: 循環参照や未定義参照の検出</li>
+</ul>
+<hr>
+<h2 id="パフォーマンス最適化">パフォーマンス最適化</h2>
+<h3 id="ゼロコスト抽象化">ゼロコスト抽象化</h3>
+<ul>
+<li><strong>静的列挙型</strong>: 実行時辞書検索の排除</li>
+<li><strong>コンパイル時最適化</strong>: すべてのリソース参照が定数に解決</li>
+<li><strong>メモリ事前確保</strong>: オブジェクトプールによる動的確保の最小化</li>
+</ul>
+<h3 id="実行時最適化">実行時最適化</h3>
+<ul>
+<li><strong>リソースキャッシュ</strong>: 読み込み済みリソースの再利用</li>
+<li><strong>バッチ処理</strong>: 同種リソースの一括処理</li>
+<li><strong>遅延読み込み</strong>: 必要時のみリソース読み込み</li>
+</ul>
+<hr>
+<h2 id="実装例">実装例</h2>
+<h3 id="基本的な設定例">基本的な設定例</h3>
+<pre><code class="lang-yaml"># 最小限の設定例
+supreme_arbiter_setting:
+  target_fps: 60.0
+  window_title: &quot;My First Game&quot;
+
+execution_order:
+  EARLY: -10
+  NORMAL: 0
+  LATE: 100
+
+texture_pool:
+  Player:
+    path: &quot;image/player.png&quot;
+    category: &quot;character&quot;
+    type: &quot;full_one_shot&quot;
+
+sound_pool:
+  BGM:
+    path: &quot;audio/bgm.ogg&quot;
+    type: &quot;loop&quot;
+    volume: 0.8
+    category: &quot;bgm&quot;
+
+object_list:
+  Player:
+    object_num: 1
+    type: &quot;Player&quot;
+</code></pre>
+<h3 id="高度な設定例">高度な設定例</h3>
+<pre><code class="lang-yaml"># 複雑なゲーム向け設定例
+project:
+  Renderer: [Common, DxLib]
+  Physics: [Common, Box2D]
+  GUI: [Common, DxLib]
+
+supreme_arbiter_setting:
+  target_fps: 60.0
+  window_title: &quot;Advanced Shooter&quot;
+  app_id: 10001
+  app_version:
+    major: 2
+    minor: 1
+    patch: 0
+
+execution_order:
+  SCREEN_CLEAR: -100
+  INPUT: -50
+  PHYSICS: -20
+  LOGIC: 0
+  ANIMATION: 20
+  COLLISION: 40
+  RENDER: 100
+  UI: 150
+
+texture_pool:
+  # キャラクターシート
+  PlayerSheet:
+    path: &quot;image/player_sheet.png&quot;
+    category: &quot;character&quot;
+    type: &quot;full_one_shot&quot;
+  
+  # 個別テクスチャ
+  PlayerIdle:
+    category: &quot;character&quot;
+    type: &quot;shared_one_shot&quot;
+    parent: &quot;PlayerSheet&quot;
+    region: [[0, 0], [64, 64]]
+  
+  # アニメーション
+  PlayerWalk:
+    category: &quot;character&quot;
+    type: &quot;shared_animation&quot;
+    parent: &quot;PlayerSheet&quot;
+    loop: true
+    num_texture: 4
+    interval: 8
+    region: [
+      [[0, 64], [64, 128]],
+      [[64, 64], [128, 128]],
+      [[128, 64], [192, 128]],
+      [[192, 64], [256, 128]]
+    ]
+
+sound_pool:
+  # BGM（ループ）
+  StageBGM:
+    path: &quot;audio/stage_bgm.ogg&quot;
+    type: &quot;loop&quot;
+    volume: 0.7
+    category: &quot;bgm&quot;
+  
+  # 効果音（単発）
+  ShotSE:
+    path: &quot;audio/shot.wav&quot;
+    type: &quot;oneshot&quot;
+    volume: 0.8
+    category: &quot;se&quot;
+  
+  # ボイス（リージョンループ）
+  CharacterVoice:
+    path: &quot;audio/character_voice.ogg&quot;
+    type: &quot;region_loop&quot;
+    volume: 0.9
+    category: &quot;voice&quot;
+    region:
+      attack:
+        index: 0
+        start: 0
+        loop_start: 500
+        end: 2000
+      hurt:
+        index: 1
+        start: 3000
+        loop_start: 3200
+        end: 4000
+
+physics_settings:
+  default_world:
+    gravity:
+      x: 0.0
+      y: 980.0  # 標準重力の10倍
+    fixed_time_step: 0.01666667
+    velocity_iterations: 8
+    position_iterations: 3
+  pixels_per_meter: 100.0
+  enable_debug_draw: false
+
+collision_group_settings:
+  Player:
+    number: 0
+    collide_with: [Enemy, EnemyBullet, Item, Wall]
+  Enemy:
+    number: 1
+    collide_with: [Player, PlayerBullet, Wall]
+  PlayerBullet:
+    number: 2
+    collide_with: [Enemy, Wall]
+  EnemyBullet:
+    number: 3
+    collide_with: [Player, Wall]
+  Item:
+    number: 4
+    collide_with: [Player]
+  Wall:
+    number: 5
+    collide_with: [Player, Enemy, PlayerBullet, EnemyBullet]
+
+scene_state:
+  Title:
+    group: 0
+    transit: [Game, Options]
+  Game:
+    group: 1
+    transit: [Pause, GameOver, Title]
+  Pause:
+    group: 1
+    stack: true
+    transit: [Game, Options]
+  GameOver:
+    group: 2
+    transit: [Title, Game]
+  Options:
+    group: 3
+    stack: true
+    transit: [Title, Game, Pause]
+
+key_config:
+  MoveLeft:
+    default_keyboard: &quot;Left&quot;
+    default_pad: &quot;DPadLeft&quot;
+  MoveRight:
+    default_keyboard: &quot;Right&quot;
+    default_pad: &quot;DPadRight&quot;
+  Jump:
+    default_keyboard: &quot;Z&quot;
+    default_pad: &quot;Button0&quot;
+  Shot:
+    default_keyboard: &quot;X&quot;
+    default_pad: &quot;Button1&quot;
+  Menu:
+    default_keyboard: &quot;Escape&quot;
+    default_pad: &quot;Button6&quot;
+
+object_list:
+  Player:
+    object_num: 1
+    type: &quot;Player&quot;
+  Enemy:
+    object_num: 50
+    type: &quot;Enemy&quot;
+  PlayerBullet:
+    object_num: 100
+    type: &quot;PlayerBullet&quot;
+  EnemyBullet:
+    object_num: 200
+    type: &quot;EnemyBullet&quot;
+  Item:
+    object_num: 20
+    type: &quot;Item&quot;
+
+game_config:
+  config_manager:
+    default_config_file: &quot;game_config.json&quot;
+    auto_load_configs:
+      - key: &quot;default&quot;
+        file: &quot;game_config.json&quot;
+        is_active: true
+  
+  enum_define:
+    Difficulty:
+      EASY: 0
+      NORMAL: 1
+      HARD: 2
+  
+  MasterVolume:
+    type: &quot;float&quot;
+    default: 1.0
+    comment: &quot;マスター音量&quot;
+    key: &quot;audio.master_volume&quot;
+  
+  BGMVolume:
+    type: &quot;float&quot;
+    default: 0.8
+    comment: &quot;BGM音量&quot;
+    key: &quot;audio.bgm_volume&quot;
+  
+  SEVolume:
+    type: &quot;float&quot;
+    default: 1.0
+    comment: &quot;効果音音量&quot;
+    key: &quot;audio.se_volume&quot;
+  
+  GameDifficulty:
+    type: &quot;Difficulty&quot;
+    default: &quot;NORMAL&quot;
+    comment: &quot;ゲーム難易度&quot;
+    key: &quot;game.difficulty&quot;
+</code></pre>
+<hr>
+<h2 id="使用上の注意">使用上の注意</h2>
+<h3 id="設定変更時の手順">設定変更時の手順</h3>
+<ol>
+<li><code>VaNillaSettings.yaml</code> を編集</li>
+<li><code>CodeGenerator.py</code> を実行してコード再生成</li>
+<li>プロジェクトを再ビルド</li>
+</ol>
+<h3 id="よくある問題">よくある問題</h3>
+<ul>
+<li><strong>コード生成忘れ</strong>: 設定変更後にコード生成を忘れるとビルドエラー</li>
+<li><strong>循環参照</strong>: テクスチャの親子関係で循環参照を作ると生成エラー</li>
+<li><strong>重複名</strong>: リソース名やオブジェクトタグの重複</li>
+<li><strong>パス間違い</strong>: 存在しないファイルパスの指定</li>
+</ul>
+<h3 id="ベストプラクティス">ベストプラクティス</h3>
+<ul>
+<li><strong>段階的設定</strong>: 最初は最小限の設定から始めて段階的に拡張</li>
+<li><strong>命名規則</strong>: 一貫した命名規則の採用</li>
+<li><strong>カテゴリ分け</strong>: リソースの適切なカテゴリ分類</li>
+<li><strong>コメント活用</strong>: 設定項目には適切なコメントを記載</li>
+<li><strong>バージョン管理</strong>: 設定ファイルの変更履歴を適切に管理</li>
+</ul>
+<hr>
+<h3 id="20-デバッグ引数システム">20. デバッグ引数システム</h3>
+<pre><code class="lang-yaml">debug_arguments:
+  mode_types:
+    Feature:
+      short: &quot;-d&quot;
+      long: &quot;--debug&quot;
+      description: &quot;Enable debug features mode&quot;
+    Stage:
+      short: &quot;-ds&quot;
+      long: &quot;--debug_stage&quot;
+      description: &quot;Debug stage mode with stage parameter&quot;
+      requires_value: true
+    Conversation:
+      short: &quot;-dc&quot;
+      long: &quot;--debug_conversation&quot;
+      description: &quot;Debug conversation mode&quot;
+  
+  features:
+    Invincible:
+      short: &quot;-iv&quot;
+      long: &quot;--invincible&quot;
+      description: &quot;Makes player invincible&quot;
+    LogAppear:
+      short: &quot;-la&quot;
+      long: &quot;--log_appear&quot;
+      description: &quot;Shows debug logs on screen&quot;
+    EnergyMax:
+      short: &quot;-em&quot;
+      long: &quot;--energy_max&quot;
+      description: &quot;Sets energy to maximum&quot;
+    DebugLogWriteToFile:
+      short: &quot;-lw&quot;
+      long: &quot;--debug_log_write_to_file&quot;
+      description: &quot;Write debug logs to file&quot;
+</code></pre>
+<p><strong>目的</strong>: コマンドライン引数によるデバッグ機能の制御<br>
+<strong>生成ファイル</strong>: <code>DebugArguments.cs</code></p>
+<h4 id="mode_types-セクション">mode_types セクション</h4>
+<p><strong>デバッグモードの定義</strong>:</p>
+<ul>
+<li><code>short</code> (string): 短縮形のコマンドライン引数（例: <code>-d</code>）</li>
+<li><code>long</code> (string): 長形式のコマンドライン引数（例: <code>--debug</code>）</li>
+<li><code>description</code> (string): モードの説明</li>
+<li><code>requires_value</code> (bool): 追加の値を必要とするか（オプション、デフォルト: false）</li>
+</ul>
+<h4 id="features-セクション">features セクション</h4>
+<p><strong>デバッグ機能の定義</strong>:</p>
+<ul>
+<li><code>short</code> (string): 短縮形のコマンドライン引数</li>
+<li><code>long</code> (string): 長形式のコマンドライン引数</li>
+<li><code>description</code> (string): 機能の説明</li>
+</ul>
+<p><strong>使用例</strong>:</p>
+<pre><code class="lang-csharp">// 起動時の引数解析
+DebugArguments.Hold(args);
+
+// デバッグ機能の確認
+if (DebugArguments.GetDebugFeature(DebugFeatureEnum.Invincible))
+{
+    // プレイヤーを無敵にする
+    player.SetInvincible(true);
+}
+
+// デバッグモードの確認
+if (DebugArguments.IsDebugMode)
+{
+    // デバッグUI表示
+    ShowDebugOverlay();
+}
+</code></pre>
+<p><strong>コマンドライン使用例</strong>:</p>
+<pre><code class="lang-bash"># デバッグ機能を有効化
+game.exe -d -iv -la
+
+# ステージデバッグモード
+game.exe -ds stage_01
+
+# 複数の機能を同時に有効化
+game.exe --debug --invincible --log_appear --debug_log_write_to_file
+</code></pre>
+<p><strong>生成されるコード</strong>:</p>
+<ul>
+<li><code>DebugModeTypeEnum</code>: デバッグモードの列挙型</li>
+<li><code>DebugFeatureEnum</code>: デバッグ機能の列挙型</li>
+<li><code>Hold(string[] args)</code>: コマンドライン引数を解析</li>
+<li><code>GetDebugFeature(DebugFeatureEnum)</code>: 特定の機能が有効かチェック</li>
+<li><code>IsDebugMode</code>: デバッグモードが有効かどうか</li>
+</ul>
+<hr>
+<h2 id="関連ドキュメント">関連ドキュメント</h2>
+<ul>
+<li><a href="../../README.html">VaNillaエンジン README</a> - プロジェクト概要</li>
+<li><a href="../VaNillaAttributes/README.html">VaNilla属性システム</a> - 属性による宣言的プログラミング</li>
+<li><a href="../QuickStart/README.html">クイックスタートガイド</a> - 基本的な使用方法</li>
+<li><a href="../../ExpresserComponent/README.html">ExpresserComponent</a> - コンポーネントシステム</li>
+<li><a href="../../ObjectExecutor/README.html">ObjectExecutor</a> - オブジェクト実行管理</li>
+</ul>
+<hr>
+<p>このドキュメントは VaNillaSettings.yaml の完全な仕様を定義しています。設定に関する質問や問題がある場合は、<a href="https://github.com/EndlessShirafu/VaNilla/issues">GitHubリポジトリのIssues</a> でお気軽にお尋ねください。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/VaNillaSettings/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

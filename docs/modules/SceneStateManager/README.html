@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>SceneStateManager </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="SceneStateManager ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/SceneStateManager/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="scenestatemanager">SceneStateManager</h1>
+
+<p>VaNillaゲームエンジンにおけるシーン管理システムです。<br>
+有向グラフベースのシーン遷移制御、シーンスタック機能、オブジェクトライフサイクル管理を提供します。</p>
+<h2 id="概要">概要</h2>
+<p>SceneStateManagerは、ゲーム内のシーン（画面状態）を管理し、シーン間の遷移を制御するためのモジュールです。<br>
+YAMLで定義された有向グラフに基づいて、許可されたシーン遷移のみを実行し、不正な遷移を防ぎます。</p>
+<h3 id="主な特徴">主な特徴</h3>
+<ul>
+<li><strong>有向グラフベースの遷移制御</strong> - 許可された遷移パスのみを実行可能</li>
+<li><strong>シーンスタック機能</strong> - Push/Pop操作によるモーダルなシーン管理</li>
+<li><strong>シーングループ</strong> - 関連するシーンをグループ化して管理</li>
+<li><strong>自動オブジェクト管理</strong> - シーン遷移時の自動的なオブジェクト破棄</li>
+<li><strong>シーン処理の分離</strong> - 各シーンの処理をインターフェースで分離</li>
+<li><strong>YAML駆動のコード生成</strong> - シーン定義をYAMLで記述し、C#コードを自動生成</li>
+</ul>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.Scene.html">VaNilla SceneStateManager APIリファレンス</a>をご覧ください。</p>
+<h2 id="アーキテクチャ">アーキテクチャ</h2>
+<h3 id="コンポーネント構成">コンポーネント構成</h3>
+<pre><code>SceneStateManager/
+├── SceneStateManager.cs         # 中核となるシーン管理クラス（自動生成）
+├── SceneStateProcessor.cs       # シーン処理の実行管理
+├── ISceneStateProcessor.cs      # シーン処理インターフェース
+├── SceneStateProcessAttribute.cs # シーン処理クラス用属性
+├── DontDestroyOnSceneChangedAttribute.cs # オブジェクト永続化属性
+└── ObjectExecutorForScene.cs    # シーン遷移時のオブジェクト管理
+</code></pre>
+<h3 id="シーン遷移フロー">シーン遷移フロー</h3>
+<pre><code class="lang-mermaid">graph LR
+    A[InitialLoading] --&gt; B[CircleLogo]
+    B --&gt; C[Title]
+    C --&gt; D[Config]
+    C --&gt; E[RootConsole]
+    E --&gt; F[Tutorial]
+    E --&gt; D
+    F --&gt; E
+    D --&gt; E
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="1-シーン定義yaml">1. シーン定義（YAML）</h3>
+<p>VaNillaSettings.yamlでシーンとその遷移を定義します：</p>
+<pre><code class="lang-yaml">scene_state:
+  InitialLoading:
+    group: 0
+    transit: [CircleLogo]
+  
+  CircleLogo:
+    group: 0
+    transit: [Title]
+  
+  Title:
+    group: 1
+    stack: true
+    transit: [Config, RootConsole]
+  
+  RootConsole:
+    group: 2
+    stack: true
+    transit: [Tutorial, Config]
+  
+  Tutorial:
+    group: 2
+    transit: [RootConsole]
+  
+  Config:
+    group: 2
+    transit: [RootConsole]
+</code></pre>
+<h3 id="2-コード生成">2. コード生成</h3>
+<p>YAMLからC#コードを生成：</p>
+<pre><code class="lang-bash">python VaNillaEngineManager/CodeGenerator.py -s VaNillaSettings.yaml
+</code></pre>
+<h3 id="3-シーン処理の実装">3. シーン処理の実装</h3>
+<p>各シーンの処理をISceneStateProcessorインターフェースで実装：</p>
+<pre><code class="lang-csharp">[SceneStateProcess(SceneStateManager.SceneState.Title)]
+public class TitleSceneProcessor : ISceneStateProcessor
+{
+    public void Init()
+    {
+        // ゲーム起動時、一度だけ実行される初期化処理
+    }
+    
+    public void EnteredScene(in Time current_time)
+    {
+        // シーンに入った時の処理
+        // UI表示、BGM再生など
+    }
+    
+    public void Execute(in Time current_time)
+    {
+        // シーン中、毎フレーム実行される処理
+        // 入力処理、画面更新など
+    }
+    
+    public void LeavedScene(in Time current_time)
+    {
+        // シーンから出る時の処理
+        // リソース解放、BGM停止など
+    }
+    
+    public void Fin()
+    {
+        // ゲーム終了時の処理
+    }
+}
+</code></pre>
+<h3 id="4-シーン遷移の実行">4. シーン遷移の実行</h3>
+<pre><code class="lang-csharp">// 通常のシーン遷移
+if (SceneStateManager.SetCurrentScene(SceneState.RootConsole))
+{
+    // 遷移成功
+}
+
+// シーンをスタックにプッシュ（モーダル表示）
+if (SceneStateManager.PushScene(SceneState.Config))
+{
+    // Config画面をモーダル表示
+}
+
+// シーンをポップ（前の画面に戻る）
+SceneState poppedScene = SceneStateManager.PopScene();
+
+// 現在のシーン情報取得
+SceneStateInfo info = SceneStateManager.GetCurrentSceneStateInfo();
+string sceneName = info.scene_name;
+SceneStateGroup group = info.scene_state_group;
+</code></pre>
+<h2 id="シーンスタック機能">シーンスタック機能</h2>
+<h3 id="pushpop操作">Push/Pop操作</h3>
+<p>シーンスタックを使用することで、モーダルダイアログやサブメニューの実装が容易になります：</p>
+<ol>
+<li><strong>PushScene</strong> - 現在のシーンをスタックに保存し、新しいシーンへ遷移</li>
+<li><strong>PopScene</strong> - スタックから前のシーンを取り出して復帰</li>
+</ol>
+<h3 id="スタック可能条件">スタック可能条件</h3>
+<p>YAMLの<code>stack</code>フラグで、そのシーンから他のシーンへの遷移がスタック可能かを制御：</p>
+<ul>
+<li><code>stack: true</code>: このシーンから他のシーンへPushScene()で遷移可能（モーダル表示）</li>
+<li><code>stack</code>未指定または<code>false</code>: このシーンからの遷移はSetCurrentScene()のみ可能（通常遷移）</li>
+</ul>
+<p>例：<code>Title</code>に<code>stack: true</code>が設定されている場合、<code>Title</code>から<code>Config</code>や<code>RootConsole</code>へPushScene()で遷移できます。</p>
+<h2 id="シーングループ">シーングループ</h2>
+<h3 id="グループの概念">グループの概念</h3>
+<p>関連するシーンを同じグループに配置することで、まとめて管理できます：</p>
+<ul>
+<li><strong>GROUP_0</strong>: ローディング・ロゴ表示</li>
+<li><strong>GROUP_1</strong>: メインメニュー系</li>
+<li><strong>GROUP_2</strong>: ゲームプレイ系</li>
+</ul>
+<h3 id="グループ遷移時の動作">グループ遷移時の動作</h3>
+<p>異なるグループへ遷移する際は、シーンスタックが自動的にクリアされます。<br>
+これにより、メインメニューからゲーム画面への遷移時など、スタックをリセットしたい場面で便利です。</p>
+<h2 id="オブジェクトライフサイクル管理">オブジェクトライフサイクル管理</h2>
+<h3 id="シーン遷移時のオブジェクト破棄">シーン遷移時のオブジェクト破棄</h3>
+<p>シーン遷移時、デフォルトではすべてのObjectが破棄されます：</p>
+<pre><code class="lang-csharp">// SceneStateProcessor内で自動実行
+ObjectExecutor.DestroyObjectOnSceneChanged();
+</code></pre>
+<h3 id="オブジェクトの永続化">オブジェクトの永続化</h3>
+<p>特定のObjectをシーン遷移後も保持したい場合、<code>DontDestroyOnSceneChangedAttribute</code>を使用：</p>
+<pre><code class="lang-csharp">[DontDestroyOnSceneChanged]
+public class PersistentManager : VaNilla.Object
+{
+    // このオブジェクトはシーン遷移時も破棄されない
+    // BGMマネージャー、セーブデータ管理など
+}
+</code></pre>
+<h2 id="シーン変更の検出">シーン変更の検出</h2>
+<h3 id="scenechangeddetectorとの連携">SceneChangedDetectorとの連携</h3>
+<pre><code class="lang-csharp">SceneState pastScene, currentScene;
+if (SceneChangedDetector.IsSceneChaged(out pastScene, out currentScene))
+{
+    // シーンが変更された
+}
+
+// または
+if (SceneStateManager.GetSceneChanged())
+{
+    // シーン変更フラグをチェック
+    SceneStateManager.ClearSceneChanged(); // フラグをクリア
+}
+</code></pre>
+<h2 id="実行フロー">実行フロー</h2>
+<h3 id="初期化時">初期化時</h3>
+<ol>
+<li><code>SceneStateProcessor.Initialize()</code> が呼ばれる</li>
+<li>アセンブリから<code>SceneStateProcessAttribute</code>が付いたクラスを収集</li>
+<li>各シーンプロセッサの<code>Init()</code>を実行</li>
+</ol>
+<h3 id="毎フレーム実行">毎フレーム実行</h3>
+<ol>
+<li><code>SceneStateProcessor.Execute()</code> が呼ばれる</li>
+<li>シーン変更を検出</li>
+<li>変更があれば：
+<ul>
+<li>前シーンの<code>LeavedScene()</code>を実行</li>
+<li>オブジェクトの破棄処理</li>
+<li>GCの明示実行</li>
+<li>新シーンの<code>EnteredScene()</code>を実行</li>
+</ul>
+</li>
+<li>現在シーンの<code>Execute()</code>を実行</li>
+</ol>
+<h2 id="ベストプラクティス">ベストプラクティス</h2>
+<h3 id="1-シーン設計の指針">1. シーン設計の指針</h3>
+<ul>
+<li>関連する画面は同じグループに配置</li>
+<li>モーダル表示が必要な画面は<code>can_stack: true</code>に設定</li>
+<li>遷移パスは必要最小限に制限</li>
+</ul>
+<h3 id="2-リソース管理">2. リソース管理</h3>
+<ul>
+<li>重いリソースは<code>EnteredScene</code>で読み込み、<code>LeavedScene</code>で解放</li>
+<li>共通リソースは<code>DontDestroyOnSceneChanged</code>付きマネージャーで管理</li>
+</ul>
+<h3 id="3-パフォーマンス最適化">3. パフォーマンス最適化</h3>
+<ul>
+<li>シーン遷移時のGC実行を考慮し、大量のオブジェクト生成は避ける</li>
+<li>頻繁に切り替わるシーンはスタック機能を活用</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<ul>
+<li><strong>コード生成必須</strong> - SceneStateManager.csは自動生成されるため、直接編集しない</li>
+<li><strong>遷移制約の遵守</strong> - YAMLで定義されていない遷移は実行できない</li>
+<li><strong>シングルスレッド</strong> - VaNillaエンジン全体がシングルスレッドモデルのため、非同期遷移は不可</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../ObjectExecutor/README.html">ObjectExecutor</a> - オブジェクト実行管理</li>
+<li><a href="../Object/README.html">Object</a> - ゲームオブジェクトシステム</li>
+<li><a href="../SceneChangedDetector/README.html">SceneChangedDetector</a> - シーン変更検出</li>
+<li><a href="../VaNillaEngineManager/README.html">VaNillaEngineManager</a> - コード生成ツール</li>
+</ul>
+<h2 id="サンプルコード">サンプルコード</h2>
+<h3 id="タイトル画面からゲーム画面への遷移">タイトル画面からゲーム画面への遷移</h3>
+<pre><code class="lang-csharp">[SceneStateProcess(SceneStateManager.SceneState.Title)]
+public class TitleScene : ISceneStateProcessor
+{
+    public void Execute(in Time current_time)
+    {
+        if (KeyboardInput.GetKeyDown(KeyCode.Space))
+        {
+            // スペースキーでゲーム開始
+            SceneStateManager.SetCurrentScene(SceneState.RootConsole);
+        }
+        else if (KeyboardInput.GetKeyDown(KeyCode.C))
+        {
+            // Cキーで設定画面をモーダル表示
+            SceneStateManager.PushScene(SceneState.Config);
+        }
+    }
+    // 他のメソッドは省略
+}
+</code></pre>
+<h3 id="設定画面からの復帰">設定画面からの復帰</h3>
+<pre><code class="lang-csharp">[SceneStateProcess(SceneStateManager.SceneState.Config)]
+public class ConfigScene : ISceneStateProcessor
+{
+    public void Execute(in Time current_time)
+    {
+        if (KeyboardInput.GetKeyDown(KeyCode.Escape))
+        {
+            // ESCキーで前の画面に戻る
+            SceneStateManager.PopScene();
+        }
+    }
+    // 他のメソッドは省略
+}
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/SceneStateManager/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

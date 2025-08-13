@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>BootLoader モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="BootLoader モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/BootLoader/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="bootloader-モジュール">BootLoader モジュール</h1>
+
+<p>BootLoaderモジュールは、VaNillaエンジンとゲームアプリケーションの初期化・終了処理を属性ベースで管理するシステムです。リフレクションによってメソッドを自動発見・実行し、エンジンとアプリケーションの初期化を段階的に制御します。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>段階的初期化</strong>: VaNillaエンジン初期化とゲーム初期化の分離</li>
+<li><strong>属性ベース制御</strong>: アトリビュート指定による自動メソッド発見</li>
+<li><strong>リフレクション実行</strong>: 静的メソッドの動的呼び出し</li>
+<li><strong>エラーハンドリング</strong>: アサートによる初期化失敗の検知</li>
+<li><strong>終了処理管理</strong>: アプリケーション終了時のクリーンアップ制御</li>
+<li><strong>デリゲート管理</strong>: 型安全なメソッド呼び出し</li>
+</ul>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.html">VaNilla BootLoader APIリファレンス</a>をご覧ください。</p>
+<h2 id="実装状況">実装状況</h2>
+<p>✅ <strong>完了</strong>: 全ての初期化・終了処理機能が実装済みです。</p>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的なブートローダ実装">基本的なブートローダ実装</h3>
+<pre><code class="lang-csharp">public class ApplicationBootLoader
+{
+    [VaNillaBootLoader]
+    public static bool EarlyInitialize()
+    {
+        // エンジン初期化前に実行される処理
+        VaNilla.Debug.Logger.Log(&quot;Early initialization started&quot;);
+        
+        // 設定ファイルの読み込み
+        if (!LoadGameConfiguration())
+        {
+            VaNilla.Debug.Logger.LogError(&quot;Failed to load game configuration&quot;);
+            return false;
+        }
+        
+        // ログシステムの設定
+        SetupCustomLogger();
+        
+        VaNilla.Debug.Logger.Log(&quot;Early initialization completed&quot;);
+        return true;
+    }
+    
+    [GameBootLoader]
+    public static bool Initialize()
+    {
+        // エンジン初期化後に実行される処理
+        VaNilla.Debug.Logger.Log(&quot;Game initialization started&quot;);
+        
+        // ゲーム固有のシステム初期化
+        if (!InitializeGameSystems())
+        {
+            VaNilla.Debug.Logger.LogError(&quot;Failed to initialize game systems&quot;);
+            return false;
+        }
+        
+        // 初期シーンの設定
+        SetupInitialScene();
+        
+        VaNilla.Debug.Logger.Log(&quot;Game initialization completed&quot;);
+        return true;
+    }
+    
+    [GameShutdown]
+    public static void Shutdown()
+    {
+        // アプリケーション終了時の処理
+        VaNilla.Debug.Logger.Log(&quot;Application shutdown started&quot;);
+        
+        // ゲームデータの保存
+        SaveGameData();
+        
+        // ネットワーク接続の切断
+        DisconnectNetwork();
+        
+        // リソースのクリーンアップ
+        CleanupResources();
+        
+        VaNilla.Debug.Logger.Log(&quot;Application shutdown completed&quot;);
+    }
+    
+    private static bool LoadGameConfiguration()
+    {
+        // 設定読み込み処理
+        return true;
+    }
+    
+    private static void SetupCustomLogger()
+    {
+        // カスタムロガー設定
+    }
+    
+    private static bool InitializeGameSystems()
+    {
+        // ゲームシステム初期化
+        return true;
+    }
+    
+    private static void SetupInitialScene()
+    {
+        // 初期シーン設定
+    }
+    
+    private static void SaveGameData()
+    {
+        // ゲームデータ保存
+    }
+    
+    private static void DisconnectNetwork()
+    {
+        // ネットワーク切断
+    }
+    
+    private static void CleanupResources()
+    {
+        // リソースクリーンアップ
+    }
+}
+</code></pre>
+<h3 id="ゲーム固有初期化の実装">ゲーム固有初期化の実装</h3>
+<pre><code class="lang-csharp">public class GameSpecificBootLoader
+{
+    [VaNillaBootLoader]
+    public static bool PreEngineSetup()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Pre-engine setup starting&quot;);
+        
+        // アセットデータベースの設定
+        // AssetDatabaseManagerで暗号化アセットの準備
+        if (!SetupAssetDatabase())
+        {
+            VaNilla.Debug.Logger.LogError(&quot;Failed to setup asset database&quot;);
+            return false;
+        }
+        
+        // デバッグモードの設定
+#if DEBUG
+        VaNilla.Debug.Logger.Log(&quot;Debug mode enabled&quot;);
+        VaNilla.Debug.Logger.SetLogLevel(VaNilla.Debug.LogLevel.Verbose);
+#endif
+        
+        return true;
+    }
+    
+    [GameBootLoader]
+    public static bool PostEngineSetup()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Post-engine setup starting&quot;);
+        
+        // 必須テクスチャカテゴリのロード
+        VaNilla.Texture.TextureResourceManager.LoadTextureResource(TextureCategory.UI, sync_load: true);
+        VaNilla.Texture.TextureResourceManager.LoadTextureResource(TextureCategory.System, sync_load: true);
+        
+        // デフォルトフォントの確認
+        var defaultFont = VaNilla.Font.FontResourceManager.GetDefaultFontResource();
+        if (defaultFont == null || !VaNilla.Font.FontResourceManager.IsLoaded(FontResourceType.Default))
+        {
+            VaNilla.Debug.Logger.LogError(&quot;Default font not loaded&quot;);
+            return false;
+        }
+        
+        // BGMカテゴリをロード
+        VaNilla.Sound.SoundResourceManager.LoadSoundResource(SoundCategory.BGM, sync_load: true);
+        
+        // 音量設定の初期化
+        VaNilla.Sound.SoundResourceManager.MasterVolume = 0.8f;
+        VaNilla.Sound.SoundResourceManager.SetCategoryVolume(SoundCategory.BGM, 0.7f);
+        VaNilla.Sound.SoundResourceManager.SetCategoryVolume(SoundCategory.SE, 1.0f);
+        
+        // 非同期でその他のリソースをロード
+        StartAsyncResourceLoading();
+        
+        return true;
+    }
+    
+    [GameShutdown]
+    public static void GameSpecificCleanup()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Game-specific cleanup starting&quot;);
+        
+        // すべてのサウンドを停止
+        VaNilla.Sound.Utils.StopCategory(SoundCategory.BGM);
+        VaNilla.Sound.Utils.StopCategory(SoundCategory.SE);
+        VaNilla.Sound.Utils.StopCategory(SoundCategory.Voice);
+        
+        // リソースの解放（重要度の低いものから）
+        VaNilla.Texture.TextureResourceManager.DeleteTextureResource(TextureCategory.Effect);
+        VaNilla.Texture.TextureResourceManager.DeleteTextureResource(TextureCategory.Background);
+        
+        // サウンドリソースの解放
+        VaNilla.Sound.SoundResourceManager.DeleteSoundResource(SoundCategory.Voice);
+        VaNilla.Sound.SoundResourceManager.DeleteSoundResource(SoundCategory.SE);
+        VaNilla.Sound.SoundResourceManager.DeleteSoundResource(SoundCategory.BGM);
+        
+        // 最後にSoundResourceManagerの終了処理
+        VaNilla.Sound.SoundResourceManager.Finalize();
+        
+        VaNilla.Debug.Logger.Log(&quot;Game-specific cleanup completed&quot;);
+    }
+    
+    private static bool SetupAssetDatabase()
+    {
+        // AssetDatabaseManagerの準備（暗号化キーの設定など）
+        // これはエンジン初期化前に実行する必要がある
+        try
+        {
+            // 暗号化アセットファイルの存在確認
+            if (!System.IO.File.Exists(&quot;asset.dat&quot;))
+            {
+                VaNilla.Debug.Logger.LogWarning(&quot;Asset database not found, using raw files&quot;);
+                return true; // 開発環境では生ファイルを使用
+            }
+            
+            return true;
+        }
+        catch (System.Exception ex)
+        {
+            VaNilla.Debug.Logger.LogError($&quot;Asset database setup failed: {ex.Message}&quot;);
+            return false;
+        }
+    }
+    
+    private static void StartAsyncResourceLoading()
+    {
+        // 優先度の低いリソースを非同期でロード
+        VaNilla.Texture.TextureResourceManager.LoadTextureResource(TextureCategory.Background, sync_load: false);
+        VaNilla.Texture.TextureResourceManager.LoadTextureResource(TextureCategory.Effect, sync_load: false);
+        VaNilla.Sound.SoundResourceManager.LoadSoundResource(SoundCategory.SE, sync_load: false);
+        VaNilla.Sound.SoundResourceManager.LoadSoundResource(SoundCategory.Voice, sync_load: false);
+    }
+}
+</code></pre>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="1-bootloader中央管理クラス">1. BootLoader（中央管理クラス）</h3>
+<p>初期化・終了処理の中央管理システムです。</p>
+<pre><code class="lang-csharp">public static class BootLoader
+{
+    // デリゲート型定義
+    public delegate bool BootLoaderDelegate();
+    public delegate void ShutdownDelegate();
+    
+    // 初期化・実行メソッド
+    public static void Initialize();
+    public static void InvokeVaNillaBootLoaders();
+    public static void InvokeBootLoaders();
+    public static void InvokeShutdown();
+}
+</code></pre>
+<h3 id="2-属性クラス">2. 属性クラス</h3>
+<h4 id="vanillabootloaderattributeエンジン初期化">VaNillaBootLoaderAttribute（エンジン初期化）</h4>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+public class VaNillaBootLoaderAttribute : Attribute
+{
+    // VaNillaエンジンのブートロード時に実行されるメソッドを指定
+}
+</code></pre>
+<h4 id="gamebootloaderattributeゲーム初期化">GameBootLoaderAttribute（ゲーム初期化）</h4>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+public class GameBootLoaderAttribute : Attribute
+{
+    // ゲームのブートロード時に実行されるメソッドを指定
+}
+</code></pre>
+<h4 id="gameshutdownattribute終了処理">GameShutdownAttribute（終了処理）</h4>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+public class GameShutdownAttribute : Attribute
+{
+    // ゲームのシャットダウン時に実行されるメソッドを指定
+}
+</code></pre>
+<h2 id="初期化フロー">初期化フロー</h2>
+<h3 id="1-supremearbiterでの呼び出し順序">1. SupremeArbiterでの呼び出し順序</h3>
+<pre><code class="lang-csharp">// SupremeArbiterの静的コンストラクタ内
+static SupremeArbiter()
+{
+    // 1. BootLoader初期化
+    BootLoader.Initialize();
+    
+    // 2. VaNillaブートローダ実行（エンジン初期化前）
+    BootLoader.InvokeVaNillaBootLoaders();
+    
+    // ... 中間のエンジン初期化処理 ...
+    
+    // 3. ゲームブートローダ実行（エンジン初期化後）
+    BootLoader.InvokeBootLoaders();
+}
+
+// エンジン終了時
+public static void End()
+{
+    // 4. シャットダウン処理実行
+    BootLoader.InvokeShutdown();
+}
+</code></pre>
+<h3 id="2-実行タイミング">2. 実行タイミング</h3>
+<ol>
+<li><strong>Initialize()</strong>: アセンブリスキャンと属性付きメソッド発見</li>
+<li><strong>InvokeVaNillaBootLoaders()</strong>: エンジン初期化前の早期処理</li>
+<li><strong>InvokeBootLoaders()</strong>: エンジン初期化後のゲーム初期化</li>
+<li><strong>InvokeShutdown()</strong>: アプリケーション終了時のクリーンアップ</li>
+</ol>
+<h2 id="ゲーム開発での実用例">ゲーム開発での実用例</h2>
+<h3 id="vanillaリソースマネージャーの使用">VaNillaリソースマネージャーの使用</h3>
+<pre><code class="lang-csharp">public class ResourceManagerBootLoader
+{
+    [GameBootLoader]
+    public static bool LoadGameResources()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Loading game resources&quot;);
+        
+        try
+        {
+            // 重要度の高いテクスチャカテゴリから順次ロード
+            // UI要素（ローディング画面、メニュー）
+            VaNilla.Texture.TextureResourceManager.LoadTextureResource(TextureCategory.UI, sync_load: true);
+            
+            // キャラクター関連テクスチャ
+            VaNilla.Texture.TextureResourceManager.LoadTextureResource(TextureCategory.Character, sync_load: true);
+            
+            // BGMをロード（同期）
+            VaNilla.Sound.SoundResourceManager.LoadSoundResource(SoundCategory.BGM, sync_load: true);
+            
+            // SE（効果音）をロード（非同期）
+            VaNilla.Sound.SoundResourceManager.LoadSoundResource(SoundCategory.SE, sync_load: false);
+            
+            // マスターボリュームの設定
+            VaNilla.Sound.SoundResourceManager.MasterVolume = 0.8f;
+            
+            // カテゴリ別ボリューム設定
+            VaNilla.Sound.SoundResourceManager.SetCategoryVolume(SoundCategory.BGM, 0.7f);
+            VaNilla.Sound.SoundResourceManager.SetCategoryVolume(SoundCategory.SE, 1.0f);
+            
+            VaNilla.Debug.Logger.Log(&quot;Game resources loaded successfully&quot;);
+            return true;
+        }
+        catch (System.Exception ex)
+        {
+            VaNilla.Debug.Logger.LogError($&quot;Failed to load game resources: {ex.Message}&quot;);
+            return false;
+        }
+    }
+    
+    [GameShutdown]
+    public static void CleanupResources()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Cleaning up resources&quot;);
+        
+        try
+        {
+            // 再生中のサウンドを停止
+            VaNilla.Sound.Utils.StopCategory(SoundCategory.BGM);
+            VaNilla.Sound.Utils.StopCategory(SoundCategory.SE);
+            VaNilla.Sound.Utils.StopCategory(SoundCategory.Voice);
+            
+            // テクスチャリソースの解放
+            VaNilla.Texture.TextureResourceManager.DeleteTextureResource(TextureCategory.Character);
+            VaNilla.Texture.TextureResourceManager.DeleteTextureResource(TextureCategory.Effect);
+            VaNilla.Texture.TextureResourceManager.DeleteTextureResource(TextureCategory.UI);
+            
+            // サウンドリソースの解放
+            VaNilla.Sound.SoundResourceManager.DeleteSoundResource(SoundCategory.BGM);
+            VaNilla.Sound.SoundResourceManager.DeleteSoundResource(SoundCategory.SE);
+            VaNilla.Sound.SoundResourceManager.DeleteSoundResource(SoundCategory.Voice);
+            
+            // 最終的なクリーンアップ
+            VaNilla.Sound.SoundResourceManager.Finalize();
+            
+            VaNilla.Debug.Logger.Log(&quot;Resources cleanup completed&quot;);
+        }
+        catch (System.Exception ex)
+        {
+            VaNilla.Debug.Logger.LogError($&quot;Error during resource cleanup: {ex.Message}&quot;);
+        }
+    }
+}
+
+// 非同期ロードの状態チェック例
+public class AsyncResourceLoader
+{
+    [GameBootLoader]
+    public static bool StartAsyncLoading()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Starting async resource loading&quot;);
+        
+        // 背景やエフェクトは非同期でロード開始
+        VaNilla.Texture.TextureResourceManager.LoadTextureResource(TextureCategory.Background, sync_load: false);
+        VaNilla.Texture.TextureResourceManager.LoadTextureResource(TextureCategory.Effect, sync_load: false);
+        
+        // ボイスは非同期でロード
+        VaNilla.Sound.SoundResourceManager.LoadSoundResource(SoundCategory.Voice, sync_load: false);
+        
+        return true;
+    }
+    
+    public static void CheckAsyncLoadingStatus()
+    {
+        // テクスチャのロード状態確認
+        if (VaNilla.Texture.TextureResourceManager.IsLoadedTextureResource(TextureCategory.Background))
+        {
+            VaNilla.Debug.Logger.Log(&quot;Background textures loaded&quot;);
+        }
+        
+        if (VaNilla.Texture.TextureResourceManager.IsLoadedTextureResource(TextureCategory.Effect))
+        {
+            VaNilla.Debug.Logger.Log(&quot;Effect textures loaded&quot;);
+        }
+        
+        // サウンドのロード状態確認
+        if (VaNilla.Sound.SoundResourceManager.IsLoadedSoundResource(SoundCategory.Voice))
+        {
+            VaNilla.Debug.Logger.Log(&quot;Voice resources loaded&quot;);
+        }
+    }
+}
+</code></pre>
+<h3 id="gameconfigmanagerを使用した設定管理">GameConfigManagerを使用した設定管理</h3>
+<pre><code class="lang-csharp">public class GameConfigBootLoader
+{
+    [VaNillaBootLoader]
+    public static bool InitializeGameConfig()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Initializing GameConfig system&quot;);
+        
+        try
+        {
+            // デフォルト設定ファイルの作成/読み込み
+            var defaultConfig = VaNilla.Config.GameConfigManager.CreateConfig(&quot;default&quot;, &quot;config/game.ini&quot;);
+            if (defaultConfig == null)
+            {
+                VaNilla.Debug.Logger.LogError(&quot;Failed to create default config&quot;);
+                return false;
+            }
+            
+            // ユーザー設定の読み込み
+            var userConfig = VaNilla.Config.GameConfigManager.CreateConfig(&quot;user&quot;, &quot;config/user.ini&quot;);
+            if (userConfig != null)
+            {
+                VaNilla.Config.GameConfigManager.SetActiveConfig(&quot;user&quot;);
+            }
+            
+            VaNilla.Debug.Logger.Log(&quot;GameConfig initialized successfully&quot;);
+            return true;
+        }
+        catch (System.Exception ex)
+        {
+            VaNilla.Debug.Logger.LogError($&quot;GameConfig initialization failed: {ex.Message}&quot;);
+            return false;
+        }
+    }
+    
+    [GameBootLoader]
+    public static bool ApplyGameSettings()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Applying game settings&quot;);
+        
+        var config = VaNilla.Config.GameConfigManager.ActiveConfig;
+        if (config == null)
+        {
+            VaNilla.Debug.Logger.LogError(&quot;No active config found&quot;);
+            return false;
+        }
+        
+        // 設定値の適用
+        float masterVolume = config.GetFloat(&quot;Audio&quot;, &quot;MasterVolume&quot;, 1.0f);
+        VaNilla.Sound.SoundResourceManager.MasterVolume = masterVolume;
+        
+        float bgmVolume = config.GetFloat(&quot;Audio&quot;, &quot;BGMVolume&quot;, 0.7f);
+        VaNilla.Sound.SoundResourceManager.SetCategoryVolume(SoundCategory.BGM, bgmVolume);
+        
+        float seVolume = config.GetFloat(&quot;Audio&quot;, &quot;SEVolume&quot;, 1.0f);
+        VaNilla.Sound.SoundResourceManager.SetCategoryVolume(SoundCategory.SE, seVolume);
+        
+        // ウィンドウ設定の適用
+        int width = config.GetInt(&quot;Display&quot;, &quot;Width&quot;, 1920);
+        int height = config.GetInt(&quot;Display&quot;, &quot;Height&quot;, 1080);
+        bool fullscreen = config.GetBool(&quot;Display&quot;, &quot;Fullscreen&quot;, false);
+        
+        VaNilla.Debug.Logger.Log($&quot;Display settings: {width}x{height}, Fullscreen: {fullscreen}&quot;);
+        
+        return true;
+    }
+    
+    [GameShutdown]
+    public static void SaveGameConfig()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Saving game configuration&quot;);
+        
+        var config = VaNilla.Config.GameConfigManager.ActiveConfig;
+        if (config != null)
+        {
+            // 現在の設定値を保存
+            config.SetFloat(&quot;Audio&quot;, &quot;MasterVolume&quot;, VaNilla.Sound.SoundResourceManager.MasterVolume);
+            
+            // ファイルに書き出し
+            if (config.Save())
+            {
+                VaNilla.Debug.Logger.Log(&quot;Configuration saved successfully&quot;);
+            }
+            else
+            {
+                VaNilla.Debug.Logger.LogError(&quot;Failed to save configuration&quot;);
+            }
+        }
+        
+        // すべての設定インスタンスをクリア
+        VaNilla.Config.GameConfigManager.ClearAll();
+    }
+}
+</code></pre>
+<h3 id="セーブデータ管理システム">セーブデータ管理システム</h3>
+<pre><code class="lang-csharp">public class SaveDataBootLoader
+{
+    private static SaveDataManager saveDataManager;
+    
+    [VaNillaBootLoader]
+    public static bool InitializeSaveSystem()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Initializing save data system&quot;);
+        
+        try
+        {
+            // セーブディレクトリの作成
+            CreateSaveDirectories();
+            
+            // セーブデータマネージャーの初期化
+            saveDataManager = new SaveDataManager();
+            
+            // セーブファイルの整合性チェック
+            ValidateSaveFiles();
+            
+            VaNilla.Debug.Logger.Log(&quot;Save data system initialized&quot;);
+            return true;
+        }
+        catch (System.Exception ex)
+        {
+            VaNilla.Debug.Logger.LogError($&quot;Failed to initialize save system: {ex.Message}&quot;);
+            return false;
+        }
+    }
+    
+    [GameBootLoader]
+    public static bool LoadGameData()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Loading game data&quot;);
+        
+        try
+        {
+            // 最新のセーブデータを読み込み
+            var saveData = saveDataManager.LoadLatestSave();
+            if (saveData != null)
+            {
+                ApplyGameData(saveData);
+                VaNilla.Debug.Logger.Log(&quot;Game data loaded successfully&quot;);
+            }
+            else
+            {
+                CreateNewGameData();
+                VaNilla.Debug.Logger.Log(&quot;New game data created&quot;);
+            }
+            
+            return true;
+        }
+        catch (System.Exception ex)
+        {
+            VaNilla.Debug.Logger.LogError($&quot;Failed to load game data: {ex.Message}&quot;);
+            return false;
+        }
+    }
+    
+    [GameShutdown]
+    public static void SaveGameData()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Saving game data&quot;);
+        
+        try
+        {
+            // 現在のゲーム状態を収集
+            var currentGameData = CollectCurrentGameData();
+            
+            // セーブデータとして保存
+            saveDataManager.SaveGame(currentGameData);
+            
+            // バックアップ作成
+            saveDataManager.CreateBackup();
+            
+            VaNilla.Debug.Logger.Log(&quot;Game data saved successfully&quot;);
+        }
+        catch (System.Exception ex)
+        {
+            VaNilla.Debug.Logger.LogError($&quot;Failed to save game data: {ex.Message}&quot;);
+        }
+    }
+    
+    private static void CreateSaveDirectories()
+    {
+        // セーブディレクトリ作成
+    }
+    
+    private static void ValidateSaveFiles()
+    {
+        // セーブファイル検証
+    }
+    
+    private static void ApplyGameData(GameData saveData)
+    {
+        // ゲームデータの適用
+    }
+    
+    private static void CreateNewGameData()
+    {
+        // 新規ゲームデータ作成
+    }
+    
+    private static GameData CollectCurrentGameData()
+    {
+        // 現在のゲーム状態収集
+        return new GameData();
+    }
+    
+    public class SaveDataManager
+    {
+        public GameData LoadLatestSave() { return null; }
+        public void SaveGame(GameData data) { }
+        public void CreateBackup() { }
+    }
+    
+    public class GameData
+    {
+        public int Level { get; set; }
+        public float PlayTime { get; set; }
+        public Vector2 PlayerPosition { get; set; }
+    }
+}
+</code></pre>
+<h3 id="ネットワーク初期化システム">ネットワーク初期化システム</h3>
+<pre><code class="lang-csharp">public class NetworkBootLoader
+{
+    private static NetworkManager networkManager;
+    
+    [VaNillaBootLoader]
+    public static bool InitializeNetworkStack()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Initializing network stack&quot;);
+        
+        try
+        {
+            // ネットワークライブラリの初期化
+            if (!InitializeNetworkLibrary())
+            {
+                VaNilla.Debug.Logger.LogError(&quot;Failed to initialize network library&quot;);
+                return false;
+            }
+            
+            // SSL証明書の検証設定
+            ConfigureSSLValidation();
+            
+            VaNilla.Debug.Logger.Log(&quot;Network stack initialized&quot;);
+            return true;
+        }
+        catch (System.Exception ex)
+        {
+            VaNilla.Debug.Logger.LogError($&quot;Network initialization failed: {ex.Message}&quot;);
+            return false;
+        }
+    }
+    
+    [GameBootLoader]
+    public static bool ConnectToServices()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Connecting to online services&quot;);
+        
+        try
+        {
+            // ネットワークマネージャーの作成
+            networkManager = new NetworkManager();
+            
+            // 認証サーバーへの接続
+            if (!ConnectToAuthServer())
+            {
+                VaNilla.Debug.Logger.LogWarning(&quot;Failed to connect to auth server, continuing offline&quot;);
+                return true; // オフラインでも続行
+            }
+            
+            // ゲームサーバーへの接続
+            if (!ConnectToGameServer())
+            {
+                VaNilla.Debug.Logger.LogWarning(&quot;Failed to connect to game server&quot;);
+                return true; // ローカルプレイで続行
+            }
+            
+            VaNilla.Debug.Logger.Log(&quot;Connected to online services&quot;);
+            return true;
+        }
+        catch (System.Exception ex)
+        {
+            VaNilla.Debug.Logger.LogError($&quot;Service connection failed: {ex.Message}&quot;);
+            return true; // ネットワークエラーでもゲームは続行
+        }
+    }
+    
+    [GameShutdown]
+    public static void DisconnectFromServices()
+    {
+        VaNilla.Debug.Logger.Log(&quot;Disconnecting from services&quot;);
+        
+        try
+        {
+            if (networkManager != null)
+            {
+                // ゲームサーバーから切断
+                networkManager.DisconnectFromGameServer();
+                
+                // 認証サーバーから切断
+                networkManager.DisconnectFromAuthServer();
+                
+                // ネットワークマネージャーの終了
+                networkManager.Shutdown();
+            }
+            
+            // ネットワークライブラリの終了
+            ShutdownNetworkLibrary();
+            
+            VaNilla.Debug.Logger.Log(&quot;Disconnected from all services&quot;);
+        }
+        catch (System.Exception ex)
+        {
+            VaNilla.Debug.Logger.LogError($&quot;Service disconnection error: {ex.Message}&quot;);
+        }
+    }
+    
+    private static bool InitializeNetworkLibrary()
+    {
+        // ネットワークライブラリ初期化
+        return true;
+    }
+    
+    private static void ConfigureSSLValidation()
+    {
+        // SSL設定
+    }
+    
+    private static bool ConnectToAuthServer()
+    {
+        // 認証サーバー接続
+        return true;
+    }
+    
+    private static bool ConnectToGameServer()
+    {
+        // ゲームサーバー接続
+        return true;
+    }
+    
+    private static void ShutdownNetworkLibrary()
+    {
+        // ネットワークライブラリ終了
+    }
+    
+    public class NetworkManager
+    {
+        public void DisconnectFromGameServer() { }
+        public void DisconnectFromAuthServer() { }
+        public void Shutdown() { }
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>リフレクション最適化</strong>: アセンブリスキャンは初期化時のみ実行</li>
+<li><strong>デリゲートキャッシュ</strong>: 作成されたデリゲートの再利用</li>
+<li><strong>エラーハンドリング</strong>: アサートによる早期エラー検出</li>
+<li><strong>初期化順序</strong>: 依存関係を考慮した段階的初期化</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<h3 id="メソッド要件">メソッド要件</h3>
+<ul>
+<li><strong>静的メソッド</strong>: 属性を付与するメソッドは必ずstatic</li>
+<li><strong>戻り値型</strong>: BootLoaderメソッドは必ずbool型を返す</li>
+<li><strong>引数なし</strong>: 属性付きメソッドは引数を取らない</li>
+<li><strong>アクセス修飾子</strong>: publicである必要がある</li>
+</ul>
+<h3 id="実行順序">実行順序</h3>
+<ul>
+<li>VaNillaBootLoaderがGameBootLoaderより先に実行される</li>
+<li>各段階で失敗（false返却）するとアサートが発生</li>
+<li>Shutdownは例外が発生しても続行される</li>
+</ul>
+<h3 id="リフレクション制約">リフレクション制約</h3>
+<ul>
+<li>EntryAssemblyからのみメソッドをスキャン</li>
+<li>1つの属性につき1つのメソッドのみ有効</li>
+<li>継承されたメソッドも対象となる</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../SupremeArbiter/README.html">SupremeArbiter</a> - 初期化フローの制御</li>
+<li><a href="../Debug/README.md">Debug</a> - ログ出力とアサート</li>
+<li><strong>System.Reflection</strong> - アセンブリスキャンとメソッド発見</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../SupremeArbiter/README.html">SupremeArbiter</a> - エンジン全体の初期化管理</li>
+<li><a href="../Debug/README.md">Debug</a> - ログ出力とデバッグ支援</li>
+</ul>
+<p>このモジュールにより、VaNillaエンジンで段階的で制御された初期化・終了処理システムが提供されます。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/BootLoader/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

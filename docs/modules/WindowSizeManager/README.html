@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>WindowSizeManager </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="WindowSizeManager ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/WindowSizeManager/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="windowsizemanager">WindowSizeManager</h1>
+
+<p>アプリケーションウィンドウの物理的なサイズとフルスクリーンモードを管理するモジュールです。
+ScreenResolutionManagerがゲーム内の論理解像度を管理するのに対し、WindowSizeManagerは
+実際のウィンドウサイズとディスプレイモードを制御します。</p>
+<h2 id="概要">概要</h2>
+<p>WindowSizeManagerは、ゲームウィンドウの物理的な表示サイズとフルスクリーン切り替えを
+統一的に管理するモジュールです。DxLibとUnityの両プラットフォームで、ウィンドウモードと
+フルスクリーンモードの切り替え、ウィンドウサイズの動的変更を簡単に実装できます。</p>
+<h2 id="screenresolutionmanagerとの違い">ScreenResolutionManagerとの違い</h2>
+<h3 id="役割の明確な分離">役割の明確な分離</h3>
+<table>
+<thead>
+<tr>
+<th>モジュール</th>
+<th>役割</th>
+<th>管理対象</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ScreenResolutionManager</strong></td>
+<td>論理解像度管理</td>
+<td>ゲーム内座標系、レンダリング解像度</td>
+<td>UI配置、オブジェクト座標計算</td>
+</tr>
+<tr>
+<td><strong>WindowSizeManager</strong></td>
+<td>物理ウィンドウ管理</td>
+<td>実際のウィンドウサイズ、表示モード</td>
+<td>ウィンドウ制御、フルスクリーン切替</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使い分けの例">使い分けの例</h3>
+<pre><code class="lang-csharp">// ScreenResolutionManager: ゲーム内の座標計算に使用
+var gameCenter = ScreenResolutionManager.CenterPoint; // ゲーム内中央座標
+var gameResolution = ScreenResolutionManager.GetCurrentResolutionSize(); // 論理解像度
+
+// WindowSizeManager: 実際のウィンドウ制御に使用
+var (windowSize, isFullScreen) = WindowSizeManager.GetCurrentWindowSize(); // 物理ウィンドウ情報
+WindowSizeManager.SetCurrentWindowSize(WindowSize.SIZE_1920x1080, true); // フルスクリーン化
+</code></pre>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="ウィンドウ管理システム">ウィンドウ管理システム</h3>
+<table>
+<thead>
+<tr>
+<th>機能</th>
+<th>説明</th>
+<th>実装例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ウィンドウサイズ制御</strong></td>
+<td>複数のウィンドウサイズをサポート</td>
+<td>720p、1080p、4Kウィンドウ</td>
+</tr>
+<tr>
+<td><strong>フルスクリーン管理</strong></td>
+<td>ウィンドウ/フルスクリーン切替</td>
+<td>Alt+Enterでの切替対応</td>
+</tr>
+<tr>
+<td><strong>マルチディスプレイ対応</strong></td>
+<td>異なる解像度のモニターに対応</td>
+<td>セカンダリモニターでの表示</td>
+</tr>
+<tr>
+<td><strong>ボーダーレスウィンドウ</strong></td>
+<td>枠なしウィンドウモード</td>
+<td>配信向け、マルチタスク対応</td>
+</tr>
+</tbody>
+</table>
+<h3 id="yaml駆動コード生成">YAML駆動コード生成</h3>
+<p>WindowSizeManagerも、YAML設定ファイルからウィンドウサイズ定義を自動生成します：</p>
+<pre><code class="lang-yaml"># VaNillaSettings.yaml
+window_size:
+  - [1280, 720]
+  - [1920, 1080]
+  - [2560, 1440]
+  - [3840, 2160]
+</code></pre>
+<p><strong>⚠️ 重要:</strong> YAML設定を変更した場合は、必ず以下のコマンドでコード生成を実行してください：</p>
+<pre><code class="lang-bash">python VaNillaEngineManager/CodeGenerator.py -s [settings_yaml_path]
+</code></pre>
+<h2 id="基本的な使用方法">基本的な使用方法</h2>
+<h3 id="ウィンドウサイズの設定と取得">ウィンドウサイズの設定と取得</h3>
+<pre><code class="lang-csharp">using VaNilla.Window;
+
+// 現在のウィンドウ情報を取得
+var (currentSize, isFullScreen) = WindowSizeManager.GetCurrentWindowSize();
+Console.WriteLine($&quot;ウィンドウサイズ: {currentSize}, フルスクリーン: {isFullScreen}&quot;);
+
+// ウィンドウサイズを変更（ウィンドウモード）
+WindowSizeManager.SetCurrentWindowSize(WindowSizeManager.WindowSize.SIZE_1920x1080, false);
+
+// フルスクリーンに変更
+WindowSizeManager.SetCurrentWindowSize(WindowSizeManager.WindowSize.SIZE_1920x1080, true);
+
+// 実際のピクセルサイズを取得
+var (width, height) = WindowSizeManager.GetRealWindowSize(currentSize);
+Console.WriteLine($&quot;実際のサイズ: {width}x{height}ピクセル&quot;);
+</code></pre>
+<h3 id="フルスクリーン切替システム">フルスクリーン切替システム</h3>
+<pre><code class="lang-csharp">public class FullScreenToggleManager
+{
+    public static void ToggleFullScreen()
+    {
+        var (currentSize, isFullScreen) = WindowSizeManager.GetCurrentWindowSize();
+        
+        // フルスクリーンモードを反転
+        WindowSizeManager.SetCurrentWindowSize(currentSize, !isFullScreen);
+        
+        // プラットフォーム固有の処理を適用
+        ApplyWindowChange();
+        
+        var modeText = !isFullScreen ? &quot;フルスクリーン&quot; : &quot;ウィンドウ&quot;;
+        VaNilla.Debug.Logger.Log($&quot;{modeText}モードに切り替えました&quot;);
+    }
+    
+    private static void ApplyWindowChange()
+    {
+        var (windowSize, isFullScreen) = WindowSizeManager.GetCurrentWindowSize();
+        var (width, height) = WindowSizeManager.GetRealWindowSize(windowSize);
+        
+        #if UNITY_ENGINE
+            Screen.SetResolution(width, height, isFullScreen);
+        #elif DXLIB
+            DxLib.ChangeWindowMode(isFullScreen ? 0 : 1);
+            DxLib.SetGraphMode(width, height, 32);
+        #endif
+    }
+}
+</code></pre>
+<h2 id="高度な使用例">高度な使用例</h2>
+<h3 id="解像度とウィンドウサイズの連携">解像度とウィンドウサイズの連携</h3>
+<pre><code class="lang-csharp">public class ResolutionWindowCoordinator
+{
+    /// &lt;summary&gt;
+    /// ゲーム解像度とウィンドウサイズを適切に連携させる
+    /// &lt;/summary&gt;
+    public static void CoordinateResolutionAndWindow()
+    {
+        // ゲーム内解像度を取得
+        var gameResolution = ScreenResolutionManager.GetCurrentResolutionSize();
+        
+        // 最適なウィンドウサイズを計算
+        var bestWindowSize = FindBestWindowSize(gameResolution);
+        
+        // ウィンドウサイズを設定
+        var (_, isFullScreen) = WindowSizeManager.GetCurrentWindowSize();
+        WindowSizeManager.SetCurrentWindowSize(bestWindowSize, isFullScreen);
+        
+        VaNilla.Debug.Logger.Log($&quot;解像度 {gameResolution.Width}x{gameResolution.Height} &quot; +
+                                $&quot;に対してウィンドウサイズ {bestWindowSize} を設定&quot;);
+    }
+    
+    private static WindowSizeManager.WindowSize FindBestWindowSize(
+        (int Width, int Height) gameResolution)
+    {
+        // ゲーム解像度に最も近いウィンドウサイズを選択
+        var windowSizes = new[]
+        {
+            WindowSizeManager.WindowSize.SIZE_1280x720,
+            WindowSizeManager.WindowSize.SIZE_1920x1080,
+            WindowSizeManager.WindowSize.SIZE_2560x1440,
+            WindowSizeManager.WindowSize.SIZE_3840x2160
+        };
+        
+        WindowSizeManager.WindowSize bestSize = windowSizes[0];
+        int minDifference = int.MaxValue;
+        
+        foreach (var size in windowSizes)
+        {
+            var (w, h) = WindowSizeManager.GetRealWindowSize(size);
+            var difference = Math.Abs(w - gameResolution.Width) + 
+                           Math.Abs(h - gameResolution.Height);
+            
+            if (difference &lt; minDifference)
+            {
+                minDifference = difference;
+                bestSize = size;
+            }
+        }
+        
+        return bestSize;
+    }
+}
+</code></pre>
+<h3 id="ボーダーレスウィンドウモード">ボーダーレスウィンドウモード</h3>
+<pre><code class="lang-csharp">public class BorderlessWindowManager
+{
+    private static bool isBorderless = false;
+    
+    public static void SetBorderlessWindow(bool borderless)
+    {
+        isBorderless = borderless;
+        var (windowSize, _) = WindowSizeManager.GetCurrentWindowSize();
+        var (width, height) = WindowSizeManager.GetRealWindowSize(windowSize);
+        
+        #if UNITY_ENGINE
+            Screen.fullScreenMode = borderless ? 
+                FullScreenMode.FullScreenWindow : 
+                FullScreenMode.Windowed;
+        #elif DXLIB
+            if (borderless)
+            {
+                // ボーダーレスウィンドウ設定
+                DxLib.SetWindowStyleMode(7); // 枠なしウィンドウ
+                DxLib.SetWindowPosition(0, 0);
+                DxLib.SetWindowSize(width, height);
+            }
+            else
+            {
+                // 通常ウィンドウに戻す
+                DxLib.SetWindowStyleMode(0);
+            }
+        #endif
+        
+        VaNilla.Debug.Logger.Log($&quot;ボーダーレスモード: {borderless}&quot;);
+    }
+}
+</code></pre>
+<h3 id="マルチモニター対応ウィンドウ管理">マルチモニター対応ウィンドウ管理</h3>
+<pre><code class="lang-csharp">public class MultiMonitorWindowManager
+{
+    public struct MonitorInfo
+    {
+        public int Index;
+        public int Width;
+        public int Height;
+        public bool IsPrimary;
+    }
+    
+    public static List&lt;MonitorInfo&gt; GetAvailableMonitors()
+    {
+        var monitors = new List&lt;MonitorInfo&gt;();
+        
+        #if UNITY_ENGINE
+            for (int i = 0; i &lt; Display.displays.Length; i++)
+            {
+                var display = Display.displays[i];
+                monitors.Add(new MonitorInfo
+                {
+                    Index = i,
+                    Width = display.systemWidth,
+                    Height = display.systemHeight,
+                    IsPrimary = i == 0
+                });
+            }
+        #elif DXLIB
+            // DxLibでのモニター情報取得
+            int monitorCount = GetMonitorCount();
+            for (int i = 0; i &lt; monitorCount; i++)
+            {
+                GetMonitorRect(i, out int x, out int y, out int w, out int h);
+                monitors.Add(new MonitorInfo
+                {
+                    Index = i,
+                    Width = w,
+                    Height = h,
+                    IsPrimary = i == 0
+                });
+            }
+        #endif
+        
+        return monitors;
+    }
+    
+    public static void MoveWindowToMonitor(int monitorIndex)
+    {
+        var monitors = GetAvailableMonitors();
+        if (monitorIndex &gt;= monitors.Count) return;
+        
+        var targetMonitor = monitors[monitorIndex];
+        var (windowSize, isFullScreen) = WindowSizeManager.GetCurrentWindowSize();
+        
+        // モニターに合わせて最適なウィンドウサイズを選択
+        var bestSize = SelectBestSizeForMonitor(targetMonitor);
+        WindowSizeManager.SetCurrentWindowSize(bestSize, isFullScreen);
+        
+        #if UNITY_ENGINE
+            // Unityでの実装
+            if (monitorIndex &lt; Display.displays.Length)
+            {
+                Display.displays[monitorIndex].Activate();
+            }
+        #elif DXLIB
+            // DxLibでの実装
+            MoveWindowToMonitorRect(monitorIndex);
+        #endif
+    }
+    
+    private static WindowSizeManager.WindowSize SelectBestSizeForMonitor(MonitorInfo monitor)
+    {
+        // モニターサイズに応じた最適なウィンドウサイズを選択
+        if (monitor.Width &gt;= 3840 &amp;&amp; monitor.Height &gt;= 2160)
+            return WindowSizeManager.WindowSize.SIZE_3840x2160;
+        else if (monitor.Width &gt;= 2560 &amp;&amp; monitor.Height &gt;= 1440)
+            return WindowSizeManager.WindowSize.SIZE_2560x1440;
+        else if (monitor.Width &gt;= 1920 &amp;&amp; monitor.Height &gt;= 1080)
+            return WindowSizeManager.WindowSize.SIZE_1920x1080;
+        else
+            return WindowSizeManager.WindowSize.SIZE_1280x720;
+    }
+}
+</code></pre>
+<h3 id="ウィンドウ状態の保存と復元">ウィンドウ状態の保存と復元</h3>
+<pre><code class="lang-csharp">public class WindowStateManager
+{
+    [Serializable]
+    public class WindowState
+    {
+        public WindowSizeManager.WindowSize Size;
+        public bool IsFullScreen;
+        public int MonitorIndex;
+        public int WindowX;
+        public int WindowY;
+    }
+    
+    private const string SAVE_KEY = &quot;WindowState&quot;;
+    
+    public static void SaveWindowState()
+    {
+        var state = new WindowState();
+        var (size, isFullScreen) = WindowSizeManager.GetCurrentWindowSize();
+        
+        state.Size = size;
+        state.IsFullScreen = isFullScreen;
+        
+        #if UNITY_ENGINE
+            state.MonitorIndex = 0; // 現在のディスプレイインデックス
+        #elif DXLIB
+            DxLib.GetWindowPosition(out state.WindowX, out state.WindowY);
+        #endif
+        
+        var json = JsonUtility.ToJson(state);
+        PlayerPrefs.SetString(SAVE_KEY, json);
+        PlayerPrefs.Save();
+        
+        VaNilla.Debug.Logger.Log(&quot;ウィンドウ状態を保存しました&quot;);
+    }
+    
+    public static void RestoreWindowState()
+    {
+        if (!PlayerPrefs.HasKey(SAVE_KEY)) return;
+        
+        var json = PlayerPrefs.GetString(SAVE_KEY);
+        var state = JsonUtility.FromJson&lt;WindowState&gt;(json);
+        
+        // ウィンドウサイズとモードを復元
+        WindowSizeManager.SetCurrentWindowSize(state.Size, state.IsFullScreen);
+        
+        #if DXLIB
+            // ウィンドウ位置も復元
+            if (!state.IsFullScreen)
+            {
+                DxLib.SetWindowPosition(state.WindowX, state.WindowY);
+            }
+        #endif
+        
+        VaNilla.Debug.Logger.Log(&quot;ウィンドウ状態を復元しました&quot;);
+    }
+}
+</code></pre>
+<h3 id="動的ウィンドウサイズ調整">動的ウィンドウサイズ調整</h3>
+<pre><code class="lang-csharp">public class DynamicWindowSizer
+{
+    /// &lt;summary&gt;
+    /// コンテンツに応じてウィンドウサイズを自動調整
+    /// &lt;/summary&gt;
+    public static void AdjustWindowToContent(int contentWidth, int contentHeight)
+    {
+        // 利用可能なウィンドウサイズから最適なものを選択
+        var windowSizes = new[]
+        {
+            (WindowSizeManager.WindowSize.SIZE_1280x720, 1280, 720),
+            (WindowSizeManager.WindowSize.SIZE_1920x1080, 1920, 1080),
+            (WindowSizeManager.WindowSize.SIZE_2560x1440, 2560, 1440),
+            (WindowSizeManager.WindowSize.SIZE_3840x2160, 3840, 2160)
+        };
+        
+        // コンテンツが収まる最小のウィンドウサイズを選択
+        foreach (var (size, width, height) in windowSizes)
+        {
+            if (contentWidth &lt;= width &amp;&amp; contentHeight &lt;= height)
+            {
+                WindowSizeManager.SetCurrentWindowSize(size, false);
+                ApplyWindowSize();
+                
+                VaNilla.Debug.Logger.Log($&quot;コンテンツサイズ {contentWidth}x{contentHeight} &quot; +
+                                       $&quot;に対してウィンドウサイズ {width}x{height} を設定&quot;);
+                return;
+            }
+        }
+        
+        // 最大サイズでも収まらない場合はフルスクリーン
+        WindowSizeManager.SetCurrentWindowSize(
+            WindowSizeManager.WindowSize.SIZE_3840x2160, true);
+        ApplyWindowSize();
+    }
+    
+    private static void ApplyWindowSize()
+    {
+        var (windowSize, isFullScreen) = WindowSizeManager.GetCurrentWindowSize();
+        var (width, height) = WindowSizeManager.GetRealWindowSize(windowSize);
+        
+        #if UNITY_ENGINE
+            Screen.SetResolution(width, height, isFullScreen);
+        #elif DXLIB
+            DxLib.SetGraphMode(width, height, 32);
+            DxLib.ChangeWindowMode(isFullScreen ? 0 : 1);
+        #endif
+    }
+}
+</code></pre>
+<h2 id="プラットフォーム別実装">プラットフォーム別実装</h2>
+<h3 id="unity統合">Unity統合</h3>
+<pre><code class="lang-csharp">public class UnityWindowBridge : MonoBehaviour
+{
+    void Start()
+    {
+        // 起動時にウィンドウ状態を復元
+        WindowStateManager.RestoreWindowState();
+        
+        // Unityの設定と同期
+        SyncWithUnity();
+    }
+    
+    void Update()
+    {
+        // Alt+Enterでフルスクリーン切替
+        if (Input.GetKeyDown(KeyCode.Return) &amp;&amp; 
+            (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)))
+        {
+            FullScreenToggleManager.ToggleFullScreen();
+        }
+        
+        // F11でもフルスクリーン切替
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+            FullScreenToggleManager.ToggleFullScreen();
+        }
+    }
+    
+    void OnApplicationPause(bool pauseStatus)
+    {
+        if (!pauseStatus)
+        {
+            // ウィンドウ状態を保存
+            WindowStateManager.SaveWindowState();
+        }
+    }
+    
+    private void SyncWithUnity()
+    {
+        var (windowSize, isFullScreen) = WindowSizeManager.GetCurrentWindowSize();
+        var (width, height) = WindowSizeManager.GetRealWindowSize(windowSize);
+        
+        Screen.SetResolution(width, height, isFullScreen);
+        
+        // Unityのフルスクリーンモードを適切に設定
+        if (isFullScreen)
+        {
+            Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        }
+        else
+        {
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+        }
+    }
+}
+</code></pre>
+<h3 id="dxlib統合">DxLib統合</h3>
+<pre><code class="lang-csharp">public static class DxLibWindowBridge
+{
+    public static void InitializeWindow()
+    {
+        // 保存されたウィンドウ状態を復元
+        WindowStateManager.RestoreWindowState();
+        
+        var (windowSize, isFullScreen) = WindowSizeManager.GetCurrentWindowSize();
+        var (width, height) = WindowSizeManager.GetRealWindowSize(windowSize);
+        
+        // DxLibの初期化前設定
+        DxLib.ChangeWindowMode(isFullScreen ? 0 : 1);
+        DxLib.SetGraphMode(width, height, 32);
+        DxLib.SetWindowSizeChangeEnableFlag(1); // ウィンドウサイズ変更を許可
+        
+        // ウィンドウタイトル設定
+        DxLib.SetMainWindowText(&quot;VaNilla Application&quot;);
+        
+        // アイコン設定（オプション）
+        DxLib.SetWindowIconID(101);
+        
+        if (DxLib.DxLib_Init() == -1)
+        {
+            throw new InvalidOperationException(&quot;DxLibの初期化に失敗しました&quot;);
+        }
+    }
+    
+    public static void HandleWindowEvents()
+    {
+        // Alt+Enterの処理
+        if (DxLib.CheckHitKey(DxLib.KEY_INPUT_RETURN) == 1 &amp;&amp;
+            (DxLib.CheckHitKey(DxLib.KEY_INPUT_LALT) == 1 ||
+             DxLib.CheckHitKey(DxLib.KEY_INPUT_RALT) == 1))
+        {
+            FullScreenToggleManager.ToggleFullScreen();
+        }
+        
+        // ウィンドウサイズ変更の検出
+        int currentWidth, currentHeight;
+        DxLib.GetWindowSize(out currentWidth, out currentHeight);
+        
+        var (windowSize, _) = WindowSizeManager.GetCurrentWindowSize();
+        var (expectedWidth, expectedHeight) = WindowSizeManager.GetRealWindowSize(windowSize);
+        
+        if (currentWidth != expectedWidth || currentHeight != expectedHeight)
+        {
+            // ユーザーによるウィンドウリサイズを検出
+            HandleUserResize(currentWidth, currentHeight);
+        }
+    }
+    
+    private static void HandleUserResize(int newWidth, int newHeight)
+    {
+        // 最も近いプリセットサイズを選択
+        var bestSize = FindClosestWindowSize(newWidth, newHeight);
+        WindowSizeManager.SetCurrentWindowSize(bestSize, false);
+        
+        VaNilla.Debug.Logger.Log($&quot;ウィンドウサイズを {bestSize} に調整しました&quot;);
+    }
+}
+</code></pre>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="よくある問題と解決策">よくある問題と解決策</h3>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>原因</th>
+<th>解決方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>フルスクリーン切替が動作しない</td>
+<td>プラットフォーム設定ミス</td>
+<td>プラットフォーム別コードを確認</td>
+</tr>
+<tr>
+<td>ウィンドウサイズが保存されない</td>
+<td>保存処理の未実装</td>
+<td>OnApplicationPause/終了時に保存</td>
+</tr>
+<tr>
+<td>マルチモニターで表示位置がずれる</td>
+<td>モニター座標の計算ミス</td>
+<td>モニター原点を考慮した計算</td>
+</tr>
+<tr>
+<td>解像度とウィンドウサイズの不一致</td>
+<td>連携処理の不足</td>
+<td>Coordinatorパターンで同期</td>
+</tr>
+</tbody>
+</table>
+<h3 id="デバッグ支援">デバッグ支援</h3>
+<pre><code class="lang-csharp">public static class WindowDebugger
+{
+    public static void LogWindowInfo()
+    {
+        var (windowSize, isFullScreen) = WindowSizeManager.GetCurrentWindowSize();
+        var (width, height) = WindowSizeManager.GetRealWindowSize(windowSize);
+        
+        VaNilla.Debug.Logger.Log(&quot;=== ウィンドウ情報 ===&quot;);
+        VaNilla.Debug.Logger.Log($&quot;ウィンドウサイズ: {windowSize}&quot;);
+        VaNilla.Debug.Logger.Log($&quot;実際のサイズ: {width}x{height}&quot;);
+        VaNilla.Debug.Logger.Log($&quot;フルスクリーン: {isFullScreen}&quot;);
+        
+        // ScreenResolutionManagerとの比較
+        var gameResolution = ScreenResolutionManager.GetCurrentResolutionSize();
+        VaNilla.Debug.Logger.Log($&quot;ゲーム解像度: {gameResolution.Width}x{gameResolution.Height}&quot;);
+        
+        var scaleX = (float)width / gameResolution.Width;
+        var scaleY = (float)height / gameResolution.Height;
+        VaNilla.Debug.Logger.Log($&quot;スケール比: X={scaleX:F2}, Y={scaleY:F2}&quot;);
+        
+        #if UNITY_ENGINE
+            VaNilla.Debug.Logger.Log($&quot;Unity Screen: {Screen.width}x{Screen.height}&quot;);
+            VaNilla.Debug.Logger.Log($&quot;Unity FullScreen: {Screen.fullScreen}&quot;);
+            VaNilla.Debug.Logger.Log($&quot;Unity FullScreenMode: {Screen.fullScreenMode}&quot;);
+        #elif DXLIB
+            int windowX, windowY;
+            DxLib.GetWindowPosition(out windowX, out windowY);
+            VaNilla.Debug.Logger.Log($&quot;ウィンドウ位置: ({windowX}, {windowY})&quot;);
+        #endif
+    }
+    
+    public static void ValidateWindowSettings()
+    {
+        var (windowSize, _) = WindowSizeManager.GetCurrentWindowSize();
+        var (width, height) = WindowSizeManager.GetRealWindowSize(windowSize);
+        
+        if (width &lt;= 0 || height &lt;= 0)
+        {
+            VaNilla.Debug.Logger.LogError(&quot;無効なウィンドウサイズが設定されています&quot;);
+        }
+        
+        var gameResolution = ScreenResolutionManager.GetCurrentResolutionSize();
+        if (width &lt; gameResolution.Width || height &lt; gameResolution.Height)
+        {
+            VaNilla.Debug.Logger.LogWarning(
+                &quot;ウィンドウサイズがゲーム解像度より小さくなっています。&quot; +
+                &quot;レンダリング品質が低下する可能性があります。&quot;);
+        }
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス最適化">パフォーマンス最適化</h2>
+<h3 id="ウィンドウ切替の最適化">ウィンドウ切替の最適化</h3>
+<pre><code class="lang-csharp">public static class WindowSwitchOptimizer
+{
+    private static bool isTransitioning = false;
+    
+    public static async Task SmoothWindowTransition(
+        WindowSizeManager.WindowSize newSize, 
+        bool newFullScreen)
+    {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        
+        try
+        {
+            // 画面を一時的にフェードアウト
+            await FadeScreen(true);
+            
+            // ウィンドウサイズ変更
+            WindowSizeManager.SetCurrentWindowSize(newSize, newFullScreen);
+            ApplyWindowChange();
+            
+            // 少し待機（ウィンドウ切替の完了を待つ）
+            await Task.Delay(100);
+            
+            // フェードイン
+            await FadeScreen(false);
+        }
+        finally
+        {
+            isTransitioning = false;
+        }
+    }
+    
+    private static async Task FadeScreen(bool fadeOut)
+    {
+        // フェード処理の実装
+        // レンダラーのアルファ値を調整するなど
+    }
+}
+</code></pre>
+<h2 id="技術仕様">技術仕様</h2>
+<ul>
+<li><strong>ウィンドウ管理</strong>: YAML設定ファイルベースの自動生成</li>
+<li><strong>フルスクリーン</strong>: 排他的フルスクリーンとボーダーレスウィンドウモードをサポート</li>
+<li><strong>座標系</strong>: ScreenResolutionManagerとは独立した物理座標系</li>
+<li><strong>プラットフォーム</strong>: DxLib、Unity両対応</li>
+<li><strong>状態保存</strong>: JSON形式でのウィンドウ状態の永続化</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><strong>ModuleVersionUtility</strong>: バージョン管理機能</li>
+<li><strong>VaNilla.Debug</strong>: ログ出力機能</li>
+</ul>
+<h3 id="関連モジュール">関連モジュール</h3>
+<ul>
+<li><strong>ScreenResolutionManager</strong>: 論理解像度との連携が推奨</li>
+<li><strong>WindowSettingUpdater</strong>: ウィンドウタイトルなどの追加設定</li>
+</ul>
+<hr>
+<p>WindowSizeManagerにより、VaNillaアプリケーションで柔軟なウィンドウ管理が実現できます。
+ScreenResolutionManagerとの明確な役割分担により、論理解像度と物理ウィンドウサイズを
+独立して管理でき、様々な表示環境に対応した高品質なゲーム体験を提供できます。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/WindowSizeManager/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

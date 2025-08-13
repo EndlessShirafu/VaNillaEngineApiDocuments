@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNillaエンジン </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNillaエンジン ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanillaエンジン">VaNillaエンジン</h1>
+
+<p><a href="https://github.com/EndlessShirafu/VaNilla/actions/workflows/test_minimal_project.yaml"><img src="https://github.com/EndlessShirafu/VaNilla/actions/workflows/test_minimal_project.yaml/badge.svg?branch=develop" alt="Build MinimalTest Project And Run Test"></a><br>
+<a href="https://github.com/EndlessShirafu/VaNilla/actions/workflows/test_dxlib_project.yaml"><img src="https://github.com/EndlessShirafu/VaNilla/actions/workflows/test_dxlib_project.yaml/badge.svg" alt="Build Integration Test For DxLib And Run Test"></a><br>
+<a href="https://github.com/EndlessShirafu/VaNilla/actions/workflows/validate_texts.yaml"><img src="https://github.com/EndlessShirafu/VaNilla/actions/workflows/validate_texts.yaml/badge.svg?branch=develop" alt="Validate Character Encoding And Line Feed Code"></a></p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/be3075cf-f655-49c7-b568-193639180377" width="300">
+</p>
+<p>VaNillaエンジンは、既存のゲームエンジン（DxLib・Unity）の上で動作する <strong>「メタ・ゲームエンジン」</strong> です。<br>
+VaNillaエンジンを利用することで、既存のゲームエンジンやゲームフレームワークの機能を使いつつも、<br>
+2Dアクションゲーム・2Dシューティングゲームなどの製作に特化した強力な機能を、<br>
+統一されたAPIで使うことができます。</p>
+<h2 id="-主な特徴">✨ 主な特徴</h2>
+<p>⚡ <strong>高性能オブジェクト処理</strong> - 数千個のオブジェクトを軽量に処理<br>
+🧩 <strong>ExpresserComponent設計</strong> - モジュラーで再利用可能なコンポーネントシステム<br>
+⚙️ <strong>ゼロコスト事前定義</strong> - YAML設定と属性から、C#コードを事前生成<br>
+🏗️ <strong>最新の.NETのパワーを活用</strong> - 最新の.NET環境に追従<br>
+🎯 <strong>統一API</strong> - DxLibとUnityで同一のコードが動作(※開発中)<br>
+🎮 <strong>実戦実績</strong> - <a href="https://store.steampowered.com/app/1863300/">∀stralbringer</a>などの実際のゲーム開発で使用実績あり</p>
+<h2 id="-クイックスタート">🚀 クイックスタート</h2>
+<h3 id="開発環境">開発環境</h3>
+<ul>
+<li>Microsoft Visual Studio Community 2022 (64 ビット) Version 17.14.5 以降</li>
+<li>.NET 9 SDK</li>
+<li>Python 3.9+（コード生成用）</li>
+<li>DxLib C# または Unity 2022.3+</li>
+</ul>
+<h3 id="セットアップ手順">セットアップ手順</h3>
+<ol>
+<li><p><strong>リポジトリをクローン</strong></p>
+<pre><code class="lang-bash">git clone https://github.com/EndlessShirafu/VaNilla.git
+cd VaNilla
+</code></pre>
+</li>
+<li><p><strong>設定ファイルから必要なコードを生成</strong> ⚠️ <strong>必須手順</strong></p>
+<pre><code class="lang-bash">python VaNillaEngineManager/CodeGenerator.py -s [設定yamlファイルのパス]
+</code></pre>
+</li>
+<li><p><strong>プロジェクトをビルド</strong></p>
+<pre><code class="lang-bash">dotnet build
+</code></pre>
+</li>
+<li><p><strong>テストプロジェクトを実行</strong></p>
+<pre><code class="lang-bash"># DxLib版テストの実行
+cd VaNillaTestProject/DxLib
+dotnet run
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>重要</strong>: 手順2のコード生成を実行しないと、<code>ObjectTagEnum</code>や<code>TextureResourceType</code>が見つからないエラーでビルドが失敗します。</p>
+</blockquote>
+<p>→続きは <a href="Documents/QuickStart/README.html">クイックスタートガイド</a> を参照してください。</p>
+<h2 id="ドキュメントマニュアル">ドキュメント・マニュアル</h2>
+<p>→<a href="#%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E4%B8%80%E8%A6%A7">ドキュメント一覧</a> の項目を参照してください。</p>
+<h2 id="-アーキテクチャ概要">🏗️ アーキテクチャ概要</h2>
+<h3 id="expressercomponent-oriented-programming表象要素指向プログラミング">ExpresserComponent-Oriented Programming（表象要素指向プログラミング）</h3>
+<p>VaNillaエンジンの核となる設計思想です。<br>
+ゲームオブジェクトは「何を持っているか」ではなく <strong>「何を表現するか」</strong> で構成されます。</p>
+<pre><code class="lang-mermaid">graph LR
+   ID1[敵キャラクターA Object] --&gt; ID2[敵キャラクターである]
+   ID2 --&gt; ID3[HPを持つ]
+   ID2 --&gt; ID4[画面描画される]
+   ID4 --&gt; ID5[座標を持つ]  
+   ID2 --&gt; ID6[回転できる]
+   ID2 --&gt; ID7[当たり判定がある]
+   ID4 --&gt; ID8[描画するテクスチャを持つ]  
+
+   subgraph &quot;ExpresserComponents&quot;
+   ID2
+   ID3
+   ID4
+   ID5
+   ID6
+   ID7
+   ID8
+   end
+</code></pre>
+<p>「敵キャラクターである」ならば「HPを持つ」「画面に描画される」「当たり判定がある」<br>
+「画面に描画される」ならば「座標を持つ」「描画テクスチャを持つ」…といった形で、<br>
+コンポーネントの依存関係を属性で宣言することで、「敵キャラクターAの構築」に必要な機能が出揃います。</p>
+<p><strong>利点:</strong></p>
+<ul>
+<li>📦 <strong>高い再利用性</strong> - コンポーネントを組み合わせて新しいオブジェクトを作成</li>
+<li>🔧 <strong>保守性向上</strong> - 機能が分離されており、個別に修正・テスト可能</li>
+<li>🧩 <strong>依存関係の明確化</strong> - コンポーネント間の依存関係を属性で宣言</li>
+</ul>
+<h3 id="ゼロコスト事前定義システム">ゼロコスト事前定義システム</h3>
+<p>「<strong>事前に定義・計算可能な箇所は事前処理しておくことで、パフォーマンスを上げよう</strong>」という思想です。
+具体的には、ゲームに関する設定はYAMLで記述し、ビルド前にC#コードを生成します。<br>
+これによって、リフレクションなどのいわゆる「C#の重い処理」を極限までカットしています。</p>
+<pre><code class="lang-mermaid">graph LR
+   ID1[設定YAML] --&gt; ID2[CodeGenerator.py]
+   ID2 --&gt; ID3[C#コード生成]
+   ID3 --&gt; ID4[コンパイル]
+   ID4 --&gt; ID5[実行時オーバーヘッド0]
+</code></pre>
+<p>さらに、 <strong>Incremental Source Generator</strong> を活用することにより、
+IDE上でのソースコードの補完を利かせつつも、事前処理によるパフォーマンスを担保することができます。</p>
+<h3 id="統一プラットフォーム抽象化">統一プラットフォーム抽象化</h3>
+<pre><code class="lang-mermaid">graph TB
+   ID1[VaNilla API Layer] --&gt; ID2[DxLib Implementation]
+   ID1 --&gt; ID3[Unity Implementation]
+   ID2 --&gt; ID4[DxLibDotNet]
+   ID3 --&gt; ID5[Unity Engine]
+</code></pre>
+<p>共通APIの下に <strong>Implementationレイヤー</strong> を設け、そこで各実装の差分を吸収します。<br>
+ユーザーは VaNilla API Layer のみを利用すればよいです。</p>
+<h2 id="-開発コマンド">🛠️ 開発コマンド</h2>
+<h3 id="ビルドテスト">ビルド・テスト</h3>
+<pre><code class="lang-bash"># プロジェクトのビルド
+dotnet build
+
+# テストプロジェクトの実行
+dotnet run
+
+# 自動テスト実行（DxLib版）
+VaNillaTestProject/DxLib/install_and_run_test.bat
+</code></pre>
+<h3 id="コード品質">コード品質</h3>
+<pre><code class="lang-bash"># コードフォーマット
+dotnet format TestProject.sln
+
+# 静的解析
+roslynator analyze TestProject.sln
+
+# 自動修正
+roslynator fix TestProject.sln
+
+# 全自動リファクタリング
+VaNillaTestProject/DxLib/automatic_refactor.bat
+</code></pre>
+<h3 id="リソース管理">リソース管理</h3>
+<pre><code class="lang-bash"># VaNillaリソースの更新
+VaNillaTestProject/DxLib/update_all_vanilla_resource.bat
+
+# コードの更新
+VaNillaTestProject/DxLib/update_code.bat
+
+# Unity プロジェクト用セットアップ
+python VaNillaEngineManager/SymbolicLinkGeneratorForUnity/install_all_for_unity_project.py -d [unity_project_path]
+</code></pre>
+<h2 id="-実例プロジェクト">🎮 実例プロジェクト</h2>
+<p>~~VaNillaエンジンを使用した実際のゲーム「∀stralbringer」のソースコードをサンプルプロジェクトとして提供しています。 ~~<br>
+<del>弾幕STGの実装例として参考にしてください。</del>
+まだ未提供です</p>
+<h2 id="-動作環境">💻 動作環境</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>要件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>言語</td>
+<td>C# 8.0+</td>
+</tr>
+<tr>
+<td>フレームワーク</td>
+<td>.NET 9.0</td>
+</tr>
+<tr>
+<td>推奨バックエンド</td>
+<td>DxLib C#（Unity対応もあり）</td>
+</tr>
+<tr>
+<td>OS</td>
+<td>Windows 11</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ドキュメント一覧">ドキュメント一覧</h2>
+<h3 id="-apiリファレンス">📘 APIリファレンス</h3>
+<ul>
+<li><a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/">APIドキュメント</a> - APIリファレンス・マニュアル</li>
+</ul>
+<h3 id="-ガイドチュートリアル">📚 ガイド・チュートリアル</h3>
+<ul>
+<li><a href="Documents/QuickStart/README.html">クイックスタートガイド</a> - VaNillaを始めるための入門ガイド</li>
+<li><a href="Documents/HowToIndex/README.html">ハウツーインデックス</a> - 機能別の使い方ガイド
+<ul>
+<li><a href="Documents/HowToIndex/GameDevelopment.html">ゲーム開発ガイド</a></li>
+<li><a href="Documents/HowToIndex/Performance.html">パフォーマンス最適化</a></li>
+<li><a href="Documents/HowToIndex/UserInterface.html">ユーザーインターフェース</a></li>
+</ul>
+</li>
+<li><a href="Documents/VaNillaAttributes/README.html">VaNilla属性リファレンス</a> - カスタム属性の詳細</li>
+<li><a href="./Documents/VaNillaSettings/VaNillaSettings.yaml">設定ファイル仕様</a> - YAML設定のサンプル</li>
+</ul>
+<h3 id="-コアモジュール">🔧 コアモジュール</h3>
+<ul>
+<li><a href="SupremeArbiter/README.html">SupremeArbiter</a> - エンジン全体の実行制御</li>
+<li><a href="Object/README.html">Object システム</a> - VaNillaのコアオブジェクトシステム</li>
+<li><a href="ExpresserComponent/README.html">ExpresserComponent</a> - コンポーネントシステムの詳細</li>
+<li><a href="ObjectExecutor/README.html">ObjectExecutor</a> - オブジェクトの実行管理</li>
+<li><a href="VaNillaEngineManager/README.html">VaNillaEngineManager</a> - コード生成とプロジェクト管理</li>
+</ul>
+<h3 id="-ゲーム機能モジュール">🎮 ゲーム機能モジュール</h3>
+<ul>
+<li><a href="Transform/README.html">Transform</a> - 座標・回転・スケール管理</li>
+<li><a href="Movement/README.html">Movement</a> - オブジェクトの移動パターン</li>
+<li><a href="Collision/README.html">Collision システム</a> - 衝突検出システム</li>
+<li><a href="Physics/README.html">Physics</a> - Box2D物理エンジン統合</li>
+</ul>
+<h3 id="-レンダリングリソース管理">🎨 レンダリング・リソース管理</h3>
+<ul>
+<li><a href="Renderer/README.html">Renderer</a> - 統一レンダリングAPI</li>
+<li><a href="TextureResourceManager/README.html">TextureResourceManager</a> - テクスチャリソース管理</li>
+<li><a href="SoundManager/README.html">SoundManager</a> - サウンドシステム</li>
+<li><a href="FontResourceManager/README.html">FontResourceManager</a> - フォントリソース管理</li>
+<li><a href="./Gui/README.md">GUI システム</a> - GUIコンポーネント群</li>
+</ul>
+<h3 id="-入力システム">🎯 入力システム</h3>
+<ul>
+<li><a href="KeyboardInput/README.html">KeyboardInput</a> - キーボード入力</li>
+<li><a href="MouseInput/README.html">MouseInput</a> - マウス入力</li>
+<li><a href="GamePadInput/README.html">GamePadInput</a> - ゲームパッド入力</li>
+<li><a href="./TextInput/README.md">TextInput</a> - テキスト入力処理</li>
+</ul>
+<h3 id="-ユーティリティ">🛠️ ユーティリティ</h3>
+<ul>
+<li><a href="TimeManager/README.html">TimeManager</a> - 時間管理システム</li>
+<li><a href="MathUtil/README.html">MathUtil</a> - 数学計算ユーティリティ</li>
+<li><a href="RandomNumberGenerator/README.html">RandomNumberGenerator</a> - 乱数生成</li>
+<li><a href="Easing/README.html">Easing</a> - イージング関数</li>
+<li><a href="DebugLogger/README.html">DebugLogger</a> - ログシステム</li>
+</ul>
+<h3 id="その他">その他</h3>
+<ul>
+<li><a href="./Documents/docfx/DEPLOY_README.md">ドキュメントビルド方法</a> - DocFXの使い方</li>
+</ul>
+<h2 id="-コントリビューション">🤝 コントリビューション</h2>
+<p>VaNillaエンジンの開発に参加してください！</p>
+<ol>
+<li>このリポジトリをフォーク</li>
+<li>フィーチャーブランチを作成 (<code>git checkout -b feature/AmazingFeature</code>)</li>
+<li>変更をコミット (<code>git commit -m 'Add some AmazingFeature'</code>)</li>
+<li>ブランチにプッシュ (<code>git push origin feature/AmazingFeature</code>)</li>
+<li>プルリクエストを開く</li>
+</ol>
+<h2 id="-ライセンス">📄 ライセンス</h2>
+<p>現在検討中です。<br>
+VaNillaプラットフォームとの連携を考慮して決定予定です。</p>
+<h2 id="-モジュール一覧">📋 モジュール一覧</h2>
+<p><a href="./MODULES.md">すべてのモジュール詳細はモジュールリストドキュメントを参照</a></p>
+<h2 id="qa">Q&amp;A</h2>
+<p>別ページへ分割予定です</p>
+<hr>
+<ul>
+<li>Q. ビルドしたら<code>ObjectTagEnum</code> が無いとか <code>TextureResourceType</code> が存在しないとかのエラーが出る</li>
+<li>A. yaml設定ファイルからVaNillaエンジン用のC#設定ファイルが生成されていないのが原因です。
+<a href="VaNillaEngineManager/README.html"><code>VaNillaEngineManager/CodeGenerator.exe</code></a>で、設定用yamlファイルから設定を「生成」してから利用する必要があります。
+詳しくは<a href="VaNillaEngineManager/README.html">VaNillaEngineManager</a> モジュールを参照してください。</li>
+</ul>
+<hr>
+<ul>
+<li><p>Q. UnityのGameObjectと Object との間に関連性はあるの？</p>
+</li>
+<li><p>A. <strong>ありません。</strong> ObjectはUnityのGameObjectと全く別の概念であり、独立に動作します。</p>
+</li>
+<li><p>逆に、UnityのGameObjectに対して関連性を持たせたいならば、 Object の情報とUnityのGameObjectの情報を同期するような「HasRelationToUnityGameObject」的な ExpresserComponent を作るのがいいかもしれません。</p>
+</li>
+<li><p>現状VaNillaエンジンでは上記のような、ゲームエンジン固有オブジェクトと Object との間で関連性を付けるモジュールは提供していません。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Q. Object を使うにはどうするの？</li>
+<li>A. Object 自体は、 abstract なクラスのため、 <strong>そのままでは利用できません。</strong>
+Object を継承した<strong>具体的なオブジェクトのクラス</strong>を自前で作成する必要があります。
+<ul>
+<li>例えば、なんらかの「敵キャラクターA」というオブジェクトクラスを作りたい場合、
+<code>EnemyCharacter_A </code>という Object を継承したクラスを作成します。</li>
+<li>詳しくは、 <a href="Object/README.html"><code>Object</code></a> を参照してください。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>Q. 上記に従い、「敵キャラクターA(EnemyCharacter_A)」という Object の具体実装を作ってみた。<br>
+結局、これをどのようにして使えばよいの？</p>
+</li>
+<li><p>A. <strong>ObjectActivator を使うのが良いです。</strong> ObjectActivator.Activate() を呼び出すことで、
+ゲーム内に EnemyCharacter_A を出現させられます。</p>
+<ul>
+<li><p>ObjectActivator.Activate() に EnemyCharacter_A をジェネリック型として指定することで、
+EnemyCharacter_A のインスタンスを生成し、 ObjectExecutor に登録することができます。</p>
+</li>
+<li><p>ObjectActivator を介さずに普通に new すると、 EnemyCharacter_A のインスタンス自体は生成されますが、ゲーム内に「登録」はされません。
+普通に new するケースでゲーム内に EnemyCharacter_A を「登録」するには、 <strong>ObjectExecutor.Register を別途呼び出す</strong>必要があります。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>Q. 大量の（1000～10000個オーダーの）Objectを扱うにはどうすればいいの？</p>
+</li>
+<li><p>A. <strong><a href="ObjectFactory/README.html">ObjectFactory</a> を使うのが良いです。</strong></p>
+<ul>
+<li>ObjectFactory は、いわゆるオブジェクトプールです。
+VaNillaエンジン初期化時に、指定された種別のObjectを事前に大量生成しておくことで、
+大量のObjectの取り扱いを軽量に実施することができます。
+また、ObjectFactory 経由で破棄した Object は ObjectFactory に格納されて「使いまわされる」ため、
+破棄のコストがほぼ発生しません。
+詳細は以下を参照してください。</li>
+</ul>
+</li>
+<li><p><a href="ObjectFactory/README.html">ObjectFactory</a></p>
+</li>
+<li><p><a href="ObjectPool/README.html">ObjectPool</a></p>
+</li>
+<li><p><a href="ObjectExecutor/README.html">ObjectExecutor</a></p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>Q. スレッドを使って実行処理を分割したい</p>
+</li>
+<li><p>A. <strong>非常に強く非推奨です。</strong> 現状のVaNillaエンジンはシングルスレッドモデルで動作しており、マルチスレッドモデルによる動作を想定していません。</p>
+<ul>
+<li>無理矢理マルチスレッドで動作させた場合、リソースの競合などの発生によって容易にVaNillaエンジンの内部状態が不整合になったり、
+例外が発生したりといった不具合現象が発生します。</li>
+<li>たいていの場合、マルチスレッド動作によって実現したいことの1つには「パフォーマンスの向上」が挙げられますが、
+パフォーマンスを向上させるためには、クリティカルセクションやロック機構によるリソースの保護、アフィニティマスクの適切な設定、プロセス優先度とスケジューリングポリシーの設定、コンテキストスイッチによるオーバーヘッドの勘案といった
+様々な観点に基づいた <strong>適切な設計および慎重な実装</strong> が不可欠であり、正直VaNillaエンジン全体としては <strong>メンテ不能</strong> に陥っていくことが予想されます。
+マルチスレッド化によるパフォーマンス改善よりも、GCの回数を減らしたり、アルゴリズムレベルの修正によって改善したりする方がよほど重要と考えます。</li>
+<li>単純に「実行処理を分割したい」だけならば、 <strong><a href="Task/README.html">Task</a></strong> を使った async/await による非同期タスクの仕組みがあるので、
+これを使うのが良いでしょう。</li>
+<li>なお、 Task による非同期タスクは <strong>メインスレッド上で実行されます。</strong> マルチスレッド動作にはなりません。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>Q. 画像を描画したい</p>
+</li>
+<li><p>A. <strong>Renderer 名前空間および Texture 名前空間のユーティリティを使うのが良いです。</strong></p>
+<ul>
+<li>画像を描画するには、まずVaNillaエンジンに画像を登録し、読み込む処理が必要です。</li>
+<li>画像を登録するには、<a href="VaNillaEngineManager/README.html">VaNillaEngineManager/CodeGenerator</a>を用います。</li>
+<li>ランタイムでは、画像を読み込み、登録するための  <a href="TextureResourceManager/README.html">TextureResourceManager</a>というユーティリティクラスがあるので、これを使いましょう。</li>
+<li>読み込みが完了し、VaNillaエンジン上で扱えるようになった画像は「テクスチャリソース」と呼ばれます。</li>
+<li>その後、テクスチャリソースを描画する位置や回転角度、拡大率などを  <a href="Renderer/README.html">Renderer.Utils</a>モジュールによって指定することで、画面上に描画されます。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>Q. 現在時刻を取得したい</p>
+</li>
+<li><p>A. <strong>Object.Execute() の引数</strong>として現在の時刻が渡ってきます。</p>
+<ul>
+<li>また、 TimeManager.GetCurrentTime() API経由でも時刻の取得ができます。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Q. 時刻に基づいた処理を行いたい(例：「一定時間の間無敵状態になる」など)</li>
+<li>A. <strong>TimeSpan を用いるか、  AsyncRunner を使った非同期タスク</strong> が使いやすいです。</li>
+</ul>
+<hr>
+<ul>
+<li>Q. ExpresserComponentの実行優先度を管理したい</li>
+<li>A. <strong>ExpresserComponentExecutionOrderAttribute 属性</strong> を 対象の ExpresserComponent に付与することで制御可能です。</li>
+</ul>
+<p>以上</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

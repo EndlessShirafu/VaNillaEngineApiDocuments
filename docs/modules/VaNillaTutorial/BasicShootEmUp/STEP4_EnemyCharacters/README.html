@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>STEP 4: 敵キャラクターを出そう </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="STEP 4: 敵キャラクターを出そう ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTutorial/BasicShootEmUp/STEP4_EnemyCharacters/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="step-4-敵キャラクターを出そう">STEP 4: 敵キャラクターを出そう</h1>
+
+<p>このステップでは、画面上部から降ってくる敵キャラクターを実装します。敵の自動生成システムと移動パターンを学習します。</p>
+<h2 id="-このステップで学ぶこと">🎯 このステップで学ぶこと</h2>
+<ul>
+<li>敵オブジェクトの作成と管理</li>
+<li>定期的なオブジェクト生成システム</li>
+<li>ランダム要素を使った敵の出現位置</li>
+<li>複数オブジェクトの協調動作</li>
+<li>RandomNumberGeneratorの使用</li>
+</ul>
+<h2 id="-操作方法">🎮 操作方法</h2>
+<ul>
+<li><strong>矢印キー</strong>: プレイヤーの移動</li>
+<li><strong>Shiftキー</strong>: 低速移動</li>
+<li><strong>スペースキー</strong>: 弾を発射</li>
+<li><strong>ESCキー</strong>: 終了</li>
+</ul>
+<h2 id="-新しく追加するファイル">📁 新しく追加するファイル</h2>
+<pre><code>STEP4_EnemyCharacters/
+├── assets/
+│   └── image/
+│       ├── player.png    # プレイヤー画像
+│       ├── bullet.png    # 弾の画像
+│       └── enemy.png     # 敵の画像（32x32ピクセル）
+├── src/
+│   ├── Game.cs          # 更新（敵生成システム追加）
+│   ├── Player.cs        # 前回から継承
+│   ├── Bullet.cs        # 前回から継承
+│   └── Enemy.cs         # 新規：敵クラス
+└── VaNillaSettings/
+    └── VaNillaSettings.yaml # 更新
+</code></pre>
+<h2 id="-コードの実装">💻 コードの実装</h2>
+<h3 id="1-enemycs---敵クラスの作成">1. Enemy.cs - 敵クラスの作成</h3>
+<p><code>src/Enemy.cs</code>を作成します：</p>
+<pre><code class="lang-csharp">using VaNilla;
+using VaNilla.Render;
+using VaNilla.Transform;
+using VaNilla.Texture;
+using VaNilla.ConditionalProcessor;
+using VaNilla.Time;
+using VaNilla.Random;
+
+namespace Tutorial
+{
+    /// &lt;summary&gt;
+    /// 敵キャラクターを表すクラス
+    /// 画面上部から下部に向かって移動し、画面外に出たら自動削除される
+    /// &lt;/summary&gt;
+    public class Enemy : BasicObject, HasPosition, HasTexture, 
+                        FromObjectFactoryCreation, ScreenOutSelfDestruction
+    {
+        // === HasPositionインターフェースの実装 ===
+        public Point2 Position { get; set; }
+        
+        // === HasTextureインターフェースの実装 ===
+        private TextureResource texture;
+        public TextureResource Texture 
+        { 
+            get =&gt; texture;
+            set =&gt; texture = value;
+        }
+        
+        // === ScreenOutSelfDestructionインターフェースの実装 ===
+        public int ScreenMargin { get; set; } = 50;  // 画面外判定のマージン
+        
+        // === 敵の動作設定 ===
+        private const float BASE_SPEED = 100.0f;     // 基本移動速度（ピクセル/秒）
+        private const int ENEMY_SIZE = 32;           // 敵のサイズ
+        
+        // === 敵の個別パラメータ ===
+        private float moveSpeed;                     // この敵の移動速度
+        private float horizontalSpeed;               // 横方向の移動速度
+        private EnemyType enemyType;                 // 敵のタイプ
+        
+        /// &lt;summary&gt;
+        /// 敵のタイプ列挙型
+        /// &lt;/summary&gt;
+        public enum EnemyType
+        {
+            Straight,    // 直進タイプ
+            Zigzag,      // ジグザグタイプ
+            Fast         // 高速タイプ
+        }
+        
+        /// &lt;summary&gt;
+        /// 敵を指定位置と設定で初期化
+        /// &lt;/summary&gt;
+        public void Initialize(int x, int y, EnemyType type = EnemyType.Straight)
+        {
+            Position = new Point2(x, y);
+            enemyType = type;
+            
+            // 敵タイプに応じて動作パラメータを設定
+            switch (enemyType)
+            {
+                case EnemyType.Straight:
+                    moveSpeed = BASE_SPEED;
+                    horizontalSpeed = 0;
+                    break;
+                    
+                case EnemyType.Zigzag:
+                    moveSpeed = BASE_SPEED * 0.8f;  // 少し遅めに
+                    horizontalSpeed = 80.0f;        // 横移動速度
+                    break;
+                    
+                case EnemyType.Fast:
+                    moveSpeed = BASE_SPEED * 1.5f;  // 高速
+                    horizontalSpeed = 0;
+                    break;
+            }
+            
+            // 初回のみテクスチャをロード
+            if (Texture == null)
+            {
+                Texture = TextureResourceManager.GetTextureResource(TextureResourceType.Enemy);
+            }
+            
+            Logger.Log($&quot;敵を生成: タイプ={enemyType}, 位置=({x}, {y})&quot;);
+        }
+        
+        public override void Setup()
+        {
+            // ObjectFactoryから生成される場合、Initializeで初期化される
+        }
+        
+        public override void Update()
+        {
+            // 敵タイプに応じた移動処理
+            switch (enemyType)
+            {
+                case EnemyType.Straight:
+                    MoveStraight();
+                    break;
+                    
+                case EnemyType.Zigzag:
+                    MoveZigzag();
+                    break;
+                    
+                case EnemyType.Fast:
+                    MoveStraight();  // 高速直進
+                    break;
+            }
+            
+            // ScreenOutSelfDestructionが自動的に画面外判定を行う
+        }
+        
+        /// &lt;summary&gt;
+        /// 直進移動
+        /// &lt;/summary&gt;
+        private void MoveStraight()
+        {
+            float deltaY = moveSpeed * TimeManager.DeltaTime;
+            Position = new Point2(Position.X, Position.Y + (int)deltaY);
+        }
+        
+        /// &lt;summary&gt;
+        /// ジグザグ移動
+        /// &lt;/summary&gt;
+        private void MoveZigzag()
+        {
+            // 下方向への移動
+            float deltaY = moveSpeed * TimeManager.DeltaTime;
+            
+            // 左右への振動移動（サイン波）
+            float time = TimeManager.TotalTime;  // ゲーム開始からの経過時間
+            float deltaX = (float)System.Math.Sin(time * 3.0) * horizontalSpeed * TimeManager.DeltaTime;
+            
+            // 画面端でのクランプ処理
+            int newX = Position.X + (int)deltaX;
+            newX = MathUtil.Clamp(newX, ENEMY_SIZE / 2, 640 - ENEMY_SIZE / 2);
+            
+            Position = new Point2(newX, Position.Y + (int)deltaY);
+        }
+        
+        public override void Draw()
+        {
+            // 敵を描画
+            BasicRenderer.Render(this);
+            
+            // デバッグ用：敵タイプを表示（画面上部に小さく）
+            if (Position.Y &lt; 100)  // 画面上部の敵のみ
+            {
+                string typeText = enemyType.ToString().Substring(0, 1);  // 最初の1文字
+                Utils.DrawString(typeText, Position.X - 5, Position.Y - 20, (255, 255, 0));
+            }
+        }
+        
+        /// &lt;summary&gt;
+        /// 敵が破壊された時の処理（STEP5で使用）
+        /// &lt;/summary&gt;
+        public void OnDestroyed()
+        {
+            // 破壊エフェクトやスコア加算はSTEP5で実装
+            Logger.Log($&quot;敵が破壊されました: タイプ={enemyType}&quot;);
+            
+            // 自分自身を非アクティブ化
+            ObjectActivator.Deactivate(this);
+        }
+        
+        public override void OnDeactivate()
+        {
+            base.OnDeactivate();
+        }
+    }
+}
+</code></pre>
+<h3 id="2-gamecs---敵生成システムの追加">2. Game.cs - 敵生成システムの追加</h3>
+<p><code>src/Game.cs</code>を更新します：</p>
+<pre><code class="lang-csharp">using VaNilla;
+using VaNilla.Renderer;
+using VaNilla.Keyboard;
+using VaNilla.Fps;
+using VaNilla.SupremeArbiter;
+using VaNilla.ObjectExecutor;
+using VaNilla.ObjectFactory;
+using VaNilla.Random;
+using VaNilla.Time;
+
+namespace Tutorial
+{
+    /// &lt;summary&gt;
+    /// ゲームのメインクラス
+    /// STEP4: 敵生成システムを追加
+    /// &lt;/summary&gt;
+    public class Game : BasicObject
+    {
+        private Player player;
+        
+        // === 敵生成システム ===
+        private const float ENEMY_SPAWN_INTERVAL = 2.0f;    // 敵生成間隔（秒）
+        private float enemySpawnTimer = 0.0f;               // 敵生成タイマー
+        private const int ENEMY_SPAWN_Y = -20;              // 敵の生成Y座標
+        private const int SCREEN_WIDTH = 640;               // 画面幅
+        
+        // === ゲーム状態管理 ===
+        private float gameTime = 0.0f;                      // ゲーム経過時間
+        private int enemiesSpawned = 0;                     // 生成した敵の総数
+        
+        public override void Setup()
+        {
+            Logger.Log(&quot;STEP4: 敵キャラクターを出そう&quot;);
+            
+            // プレイヤーを作成
+            player = ObjectActivator.Activate&lt;Player&gt;();
+            
+            // ランダムシードを設定（時間ベース）
+            RandomNumberGenerator.SetSeed((uint)System.DateTime.Now.Millisecond);
+            
+            // 最初の敵生成タイマーを設定
+            enemySpawnTimer = ENEMY_SPAWN_INTERVAL;
+        }
+
+        public override void Update()
+        {
+            // 画面をクリア
+            Utils.ClearScreen((20, 20, 60));
+            
+            // ゲーム時間を更新
+            gameTime += TimeManager.DeltaTime;
+            
+            // 敵生成システムの更新
+            UpdateEnemySpawning();
+            
+            // ESCキーで終了
+            if (KeyboardInput.IsPushedMoment(KeyCode.Escape))
+            {
+                Logger.Log(&quot;ESCキーが押されました。終了します。&quot;);
+                SupremeArbiter.Shutdown();
+            }
+        }
+        
+        /// &lt;summary&gt;
+        /// 敵生成システムの更新
+        /// &lt;/summary&gt;
+        private void UpdateEnemySpawning()
+        {
+            // 敵生成タイマーを更新
+            enemySpawnTimer -= TimeManager.DeltaTime;
+            
+            // 生成タイミングに到達した場合
+            if (enemySpawnTimer &lt;= 0)
+            {
+                SpawnEnemy();
+                
+                // 次の生成タイミングを設定（時間経過で少し短くする）
+                float speedUpFactor = 1.0f - (gameTime * 0.01f);  // 時間経過で1%ずつ短縮
+                speedUpFactor = MathUtil.Clamp(speedUpFactor, 0.3f, 1.0f);  // 最大70%短縮
+                
+                enemySpawnTimer = ENEMY_SPAWN_INTERVAL * speedUpFactor;
+            }
+        }
+        
+        /// &lt;summary&gt;
+        /// 敵を生成
+        /// &lt;/summary&gt;
+        private void SpawnEnemy()
+        {
+            // ObjectFactoryから敵を取得
+            var enemy = ObjectFactory.Rent&lt;Enemy&gt;(ObjectTagEnum.Enemy);
+            
+            if (enemy != null)
+            {
+                // ランダムなX座標を決定（画面端から32ピクセル離す）
+                int minX = 32;
+                int maxX = SCREEN_WIDTH - 32;
+                int randomX = RandomNumberGenerator.GetRandomInt(minX, maxX);
+                
+                // 敵タイプをランダムに決定（時間経過で高難易度タイプが出やすく）
+                Enemy.EnemyType enemyType = DetermineEnemyType();
+                
+                // 敵を初期化
+                enemy.Initialize(randomX, ENEMY_SPAWN_Y, enemyType);
+                
+                // 生成カウントを増加
+                enemiesSpawned++;
+                
+                Logger.Log($&quot;敵を生成: #{enemiesSpawned}, X={randomX}, タイプ={enemyType}&quot;);
+            }
+            else
+            {
+                Logger.Log(&quot;敵のオブジェクトプールが満杯です&quot;);
+            }
+        }
+        
+        /// &lt;summary&gt;
+        /// 敵のタイプを決定（時間経過で難しいタイプが出やすくなる）
+        /// &lt;/summary&gt;
+        private Enemy.EnemyType DetermineEnemyType()
+        {
+            float timeProgress = gameTime / 60.0f;  // 60秒で最大難易度
+            timeProgress = MathUtil.Clamp(timeProgress, 0.0f, 1.0f);
+            
+            int randomValue = RandomNumberGenerator.GetRandomInt(0, 100);
+            
+            // 時間経過に応じて確率を変更
+            if (randomValue &lt; 60 - (timeProgress * 20))  // 60% → 40%
+            {
+                return Enemy.EnemyType.Straight;
+            }
+            else if (randomValue &lt; 85 - (timeProgress * 10))  // 25% → 15%
+            {
+                return Enemy.EnemyType.Zigzag;
+            }
+            else  // 15% → 45%
+            {
+                return Enemy.EnemyType.Fast;
+            }
+        }
+
+        public override void Draw()
+        {
+            // タイトル
+            Utils.DrawString(
+                &quot;STEP 4: Enemy Characters&quot;, 
+                10, 10,
+                (255, 255, 255)
+            );
+            
+            // 操作説明
+            Utils.DrawString(
+                &quot;Arrow: Move | Space: Fire | Shift: Slow | ESC: Exit&quot;,
+                10, 30,
+                (200, 200, 200)
+            );
+            
+            // ゲーム情報
+            Utils.DrawString(
+                $&quot;Game Time: {gameTime:F1}s | Enemies Spawned: {enemiesSpawned}&quot;,
+                10, 50,
+                (255, 255, 0)
+            );
+            
+            // オブジェクト数情報
+            int totalObjects = ObjectExecutor.GetActiveObjectCount();
+            int playerCount = ObjectExecutor.GetActiveObjectCount&lt;Player&gt;();
+            int bulletCount = ObjectExecutor.GetActiveObjectCount&lt;Bullet&gt;();
+            int enemyCount = ObjectExecutor.GetActiveObjectCount&lt;Enemy&gt;();
+            
+            Utils.DrawString(
+                $&quot;Objects - Total: {totalObjects} | Player: {playerCount} | Bullets: {bulletCount} | Enemies: {enemyCount}&quot;,
+                10, 70,
+                (100, 255, 100)
+            );
+            
+            // 次の敵生成までの時間
+            Utils.DrawString(
+                $&quot;Next Enemy in: {enemySpawnTimer:F1}s&quot;,
+                10, 90,
+                (255, 200, 100)
+            );
+            
+            // オブジェクトプール情報
+            var bulletPoolInfo = ObjectFactory.GetPoolInfo&lt;Bullet&gt;();
+            var enemyPoolInfo = ObjectFactory.GetPoolInfo&lt;Enemy&gt;();
+            
+            if (bulletPoolInfo != null &amp;&amp; enemyPoolInfo != null)
+            {
+                Utils.DrawString(
+                    $&quot;Pools - Bullets: {bulletPoolInfo.ActiveCount}/{bulletPoolInfo.PoolSize} | Enemies: {enemyPoolInfo.ActiveCount}/{enemyPoolInfo.PoolSize}&quot;,
+                    10, 110,
+                    (150, 150, 255)
+                );
+            }
+            
+            // FPS表示
+            Utils.DrawString(
+                $&quot;FPS: {FpsCalculator.CurrentFps:F1}&quot;,
+                540, 10,
+                (0, 255, 0)
+            );
+        }
+    }
+}
+</code></pre>
+<h3 id="3-playercs-bulletcs---前ステップから継承">3. Player.cs, Bullet.cs - 前ステップから継承</h3>
+<p>前ステップのファイルをコピーして使用します。</p>
+<h3 id="4-vanillasettingsyaml---敵設定の追加">4. VaNillaSettings.yaml - 敵設定の追加</h3>
+<p><code>VaNillaSettings/VaNillaSettings.yaml</code>を更新します：</p>
+<pre><code class="lang-yaml"># ゲームの基本設定
+supreme_arbiter_setting:
+  target_fps: 60.0
+  window_title: &quot;VaNilla Tutorial - STEP 4&quot;
+
+# ウィンドウサイズ設定
+window_size:
+  - [640, 480]
+
+# 画面解像度設定  
+screen_resolution:
+  - [[640, 480], [4, 3]]
+
+# ビューポート解像度
+viewport_resolution: [640, 480]
+
+# キーコンフィグ設定
+key_config:
+  Up:
+    default_keyboard: Up
+  Down:
+    default_keyboard: Down
+  Left:
+    default_keyboard: Left
+  Right:
+    default_keyboard: Right
+  Decide:
+    default_keyboard: Z
+  Cancel:
+    default_keyboard: X
+
+# テクスチャリソースの定義
+texture_pool:
+  Player:
+    path: image/player.png
+    category: game
+    type: full_one_shot
+  Bullet:
+    path: image/bullet.png
+    category: game
+    type: full_one_shot
+  Enemy:                       # 新規追加
+    path: image/enemy.png
+    category: game
+    type: full_one_shot
+
+# オブジェクトリストの定義
+object_list:
+  Game:
+    object_num: 1
+    type: Tutorial.Game
+  Player:
+    object_num: 10
+    type: Tutorial.Player
+  Bullet:
+    object_num: 100
+    type: Tutorial.Bullet
+    create_pool: true
+  Enemy:                       # 新規追加
+    object_num: 50            # 最大50体の敵を管理
+    type: Tutorial.Enemy
+    create_pool: true         # オブジェクトプールを使用
+
+# タイマー設定
+user_timer:
+  - FrameTimer
+  - GameTimer
+
+# 実行順序設定
+execution_order:
+  SCREEN_CLEAR: -50
+  EARLY: -10
+  NORMAL: 0
+  DRAW_NORMAL: 80
+  LATE: 130
+  PRVILEGE_DRAW: 170
+  SCENE_TRANSITION: 180
+  SCREEN_RENDER: 190
+
+# シーン定義
+scene_state:
+  Main:
+    group: 0
+    transit: []
+
+# コリジョングループ設定
+collision_group_settings:
+  Default:
+    number: 0
+    collide_with:
+      - Default
+</code></pre>
+<h2 id="-重要な概念">🔑 重要な概念</h2>
+<h3 id="randomnumbergenerator">RandomNumberGenerator</h3>
+<ul>
+<li>VaNillaの乱数生成システム</li>
+<li><code>GetRandomInt(min, max)</code>: 指定範囲の整数乱数</li>
+<li><code>SetSeed()</code>: シード値の設定</li>
+</ul>
+<h3 id="敵タイプシステム">敵タイプシステム</h3>
+<ul>
+<li>列挙型による敵の種類分け</li>
+<li>タイプに応じた異なる移動パターン</li>
+<li>時間経過による難易度調整</li>
+</ul>
+<h3 id="動的難易度調整">動的難易度調整</h3>
+<ul>
+<li>ゲーム時間に応じた敵生成間隔の短縮</li>
+<li>高難易度敵タイプの出現確率上昇</li>
+<li>プレイヤーのスキル向上に合わせた調整</li>
+</ul>
+<h3 id="オブジェクトプール管理">オブジェクトプール管理</h3>
+<ul>
+<li>複数種類のオブジェクトの効率的管理</li>
+<li>プール使用状況の監視</li>
+<li>メモリ効率の最適化</li>
+</ul>
+<h2 id="-実行して確認">🎮 実行して確認</h2>
+<ol>
+<li>画面上部から敵が定期的に出現することを確認</li>
+<li>3種類の敵タイプ（直進、ジグザグ、高速）が出現することを確認</li>
+<li>時間経過で敵の出現間隔が短くなることを確認</li>
+<li>敵が画面下部に到達すると自動的に削除されることを確認</li>
+<li>オブジェクトプールが正常に動作することを確認</li>
+</ol>
+<h2 id="-学んだこと">📝 学んだこと</h2>
+<p>✅ 敵オブジェクトの実装と管理<br>
+✅ 定期的なオブジェクト生成システム<br>
+✅ RandomNumberGeneratorの使用<br>
+✅ 列挙型を使ったオブジェクトタイプ管理<br>
+✅ 動的難易度調整システム<br>
+✅ 複数オブジェクトプールの管理</p>
+<h2 id="-チャレンジ課題">🤔 チャレンジ課題</h2>
+<ol>
+<li>新しい敵タイプを追加してみましょう（円運動、加速など）</li>
+<li>敵の生成パターンを変更してみましょう（編隊、波状攻撃など）</li>
+<li>敵にHPを持たせて複数回の攻撃で倒せるようにしてみましょう</li>
+<li>敵が弾を撃つ機能を追加してみましょう</li>
+</ol>
+<h2 id="-次のステップ">⏭️ 次のステップ</h2>
+<p>STEP 5では、弾と敵の当たり判定を実装し、敵を撃破できるようにします。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTutorial/BasicShootEmUp/STEP4_EnemyCharacters/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

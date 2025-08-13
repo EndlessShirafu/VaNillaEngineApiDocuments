@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>OffScreenResourceManager </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="OffScreenResourceManager ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/OffScreenResourceManager/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="offscreenresourcemanager">OffScreenResourceManager</h1>
+
+<p>オフスクリーンレンダリングリソースを統合管理するVaNillaエンジンのリソース管理モジュール</p>
+<h2 id="概要">概要</h2>
+<p>OffScreenResourceManagerは、オフスクリーンバッファ（レンダーターゲット）の作成、管理、破棄を担当するモジュールです。ゲーム内で使用される各種エフェクト、ポストプロセッシング、マルチパスレンダリングなどに必要なオフスクリーンリソースを一元管理します。</p>
+<h2 id="主な機能">主な機能</h2>
+<ul>
+<li><strong>オフスクリーンバッファの作成・管理</strong>: 指定サイズのオフスクリーンバッファを作成し、リソースとして管理</li>
+<li><strong>カテゴリベース管理</strong>: 用途別にオフスクリーンをカテゴリ分けして効率的に管理</li>
+<li><strong>動的サイズ対応</strong>: ウィンドウサイズに連動する動的なオフスクリーンサイズをサポート</li>
+<li><strong>一括リソース管理</strong>: カテゴリ単位での一括作成・破棄が可能</li>
+<li><strong>プラットフォーム抽象化</strong>: DxLibとUnityの両環境で同一インターフェースを提供</li>
+</ul>
+<h2 id="設計思想">設計思想</h2>
+<h3 id="リソース管理の中央集権化">リソース管理の中央集権化</h3>
+<p>OffScreenResourceManagerは、ゲーム内で使用されるすべてのオフスクリーンバッファを中央管理します。これにより：</p>
+<ul>
+<li>メモリ使用量の把握が容易</li>
+<li>リソースリークの防止</li>
+<li>カテゴリ別の効率的なメモリ管理</li>
+</ul>
+<h3 id="宣言的なリソース定義">宣言的なリソース定義</h3>
+<p>YAMLファイルでオフスクリーンリソースを宣言的に定義し、コード生成によってタイプセーフなアクセスを実現：</p>
+<pre><code class="lang-yaml"># VaNillaSettings.yaml
+offscreen_pool:
+  BackScreen:
+    width: &quot;Default&quot;  # ウィンドウサイズに連動
+    height: &quot;Default&quot;
+    category: &quot;System&quot;
+  
+  BloomBuffer:
+    width: 1280
+    height: 720
+    category: &quot;PostEffect&quot;
+  
+  ShadowMap:
+    width: 2048
+    height: 2048
+    category: &quot;Shadow&quot;
+</code></pre>
+<h2 id="アーキテクチャ">アーキテクチャ</h2>
+<h3 id="コンポーネント構成">コンポーネント構成</h3>
+<ol>
+<li><strong>OffScreenResourceManager</strong> - オフスクリーンリソースの管理クラス</li>
+<li><strong>OffScreenInfo</strong> - 個々のオフスクリーン情報を保持</li>
+<li><strong>OffScreenResourceMaker</strong> - プラットフォーム固有の作成・破棄処理</li>
+<li><strong>OffScreenResourceType</strong> - 自動生成されるリソースタイプ定義</li>
+</ol>
+<h3 id="他モジュールとの連携">他モジュールとの連携</h3>
+<ul>
+<li><strong>OffScreenRenderer</strong>: 実際のオフスクリーン描画処理を担当</li>
+<li><strong>WindowSizeManager</strong>: 動的サイズのオフスクリーンに必要なウィンドウサイズ情報を提供</li>
+<li><strong>Renderer</strong>: オフスクリーンへの描画コマンドを実行</li>
+</ul>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的な使い方">基本的な使い方</h3>
+<pre><code class="lang-csharp">// 初期化時：カテゴリ単位でオフスクリーンを作成
+OffScreenResourceManager.MakeOffScreenResource(OffScreenCategory.System);
+OffScreenResourceManager.MakeOffScreenResource(OffScreenCategory.PostEffect);
+
+// オフスクリーンリソースの取得
+var backBuffer = OffScreenResourceManager.GetOffScreenResource(OffScreenResourceType.BackScreen);
+var bloomBuffer = OffScreenResourceManager.GetOffScreenResource(OffScreenResourceType.BloomBuffer);
+
+// オフスクリーンへの描画
+OffScreenManager.SetCurrentOffScreen(bloomBuffer);
+OffScreenManager.Clear();
+// ... 描画処理 ...
+
+// 終了時：カテゴリ単位で破棄
+OffScreenResourceManager.DeleteOffScreenResource(OffScreenCategory.PostEffect);
+</code></pre>
+<h3 id="ポストエフェクトでの使用例">ポストエフェクトでの使用例</h3>
+<pre><code class="lang-csharp">public class BloomEffect : BasicObject
+{
+    private OffScreenResource bloomBuffer;
+    private OffScreenResource blurBuffer;
+    
+    public override void Setup()
+    {
+        // オフスクリーンリソースを取得
+        bloomBuffer = OffScreenResourceManager.GetOffScreenResource(OffScreenResourceType.BloomBuffer);
+        blurBuffer = OffScreenResourceManager.GetOffScreenResource(OffScreenResourceType.BlurBuffer);
+    }
+    
+    public void ApplyBloom()
+    {
+        // 1. 明るい部分を抽出
+        OffScreenManager.SetCurrentOffScreen(bloomBuffer);
+        OffScreenManager.Clear();
+        // ... 明度抽出処理 ...
+        
+        // 2. ブラー処理
+        OffScreenManager.SetCurrentOffScreen(blurBuffer);
+        // ... ガウシアンブラー ...
+        
+        // 3. 元画像と合成
+        OffScreenManager.SetCurrentOffScreen(OffScreenResource.InvalidValue);
+        // ... 合成処理 ...
+    }
+}
+</code></pre>
+<h3 id="シャドウマッピングでの使用例">シャドウマッピングでの使用例</h3>
+<pre><code class="lang-csharp">public class ShadowRenderer : BasicObject
+{
+    private OffScreenResource shadowMap;
+    
+    public override void Setup()
+    {
+        shadowMap = OffScreenResourceManager.GetOffScreenResource(OffScreenResourceType.ShadowMap);
+    }
+    
+    public void RenderShadows()
+    {
+        // シャドウマップにレンダリング
+        var previousScreen = OffScreenManager.GetCurrentOffScreen();
+        OffScreenManager.SetCurrentOffScreen(shadowMap);
+        OffScreenManager.Clear();
+        
+        // ライト視点でのデプス描画
+        // ... シャドウキャスターの描画 ...
+        
+        // 元のレンダーターゲットに戻す
+        OffScreenManager.SetCurrentOffScreen(previousScreen);
+    }
+}
+</code></pre>
+<h2 id="api-リファレンス">API リファレンス</h2>
+<h3 id="offscreenresourcemanager-1">OffScreenResourceManager</h3>
+<h4 id="メソッド">メソッド</h4>
+<ul>
+<li><code>GetOffScreenResource(OffScreenResourceType type)</code> - 指定タイプのオフスクリーンリソースを取得</li>
+<li><code>GetOffScreenResource(int index)</code> - インデックスでオフスクリーンリソースを取得</li>
+<li><code>MakeOffScreenResource(OffScreenCategory category)</code> - カテゴリ内の全オフスクリーンを作成</li>
+<li><code>GetOffScreenResourceType(OffScreenResource resource)</code> - リソースからタイプを逆引き</li>
+<li><code>DeleteOffScreenResource(OffScreenCategory category)</code> - カテゴリ内の全オフスクリーンを破棄</li>
+</ul>
+<h3 id="offscreeninfo">OffScreenInfo</h3>
+<h4 id="プロパティ">プロパティ</h4>
+<ul>
+<li><code>resource_type</code> - オフスクリーンのタイプ</li>
+<li><code>resource</code> - 実際のオフスクリーンリソースハンドル</li>
+<li><code>offscreen_size</code> - オフスクリーンのサイズ (width, height)</li>
+<li><code>category</code> - 所属カテゴリ</li>
+</ul>
+<h2 id="カテゴリ設計のベストプラクティス">カテゴリ設計のベストプラクティス</h2>
+<h3 id="推奨されるカテゴリ分け">推奨されるカテゴリ分け</h3>
+<ol>
+<li><strong>System</strong> - システム基盤で使用（バックバッファなど）</li>
+<li><strong>PostEffect</strong> - ポストエフェクト用（ブルーム、被写界深度など）</li>
+<li><strong>Shadow</strong> - シャドウマッピング用</li>
+<li><strong>UI</strong> - UI専用レンダリング</li>
+<li><strong>Temporary</strong> - 一時的な処理用</li>
+</ol>
+<h3 id="メモリ管理の指針">メモリ管理の指針</h3>
+<ul>
+<li>常に必要なものは<code>System</code>カテゴリに</li>
+<li>シーン固有のものは適切なタイミングで作成・破棄</li>
+<li>解像度の大きいオフスクリーンは必要最小限に</li>
+</ul>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<h3 id="オフスクリーンのサイズ">オフスクリーンのサイズ</h3>
+<ul>
+<li>必要最小限のサイズを使用</li>
+<li>2のべき乗サイズが効率的な場合が多い</li>
+<li>動的サイズ（<code>Default</code>）は便利だが、頻繁なリサイズに注意</li>
+</ul>
+<h3 id="作成破棄のタイミング">作成・破棄のタイミング</h3>
+<ul>
+<li>ゲーム起動時に基本的なオフスクリーンを作成</li>
+<li>シーン遷移時に不要なカテゴリを破棄</li>
+<li>頻繁な作成・破棄は避ける</li>
+</ul>
+<h3 id="レンダーターゲットの切り替え">レンダーターゲットの切り替え</h3>
+<ul>
+<li>切り替え回数を最小限に</li>
+<li>同じオフスクリーンへの連続描画をまとめる</li>
+<li>不要なクリア処理を避ける</li>
+</ul>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="よくある問題">よくある問題</h3>
+<ol>
+<li><p><strong>オフスクリーンが黒い</strong></p>
+<ul>
+<li><code>Clear()</code>の呼び忘れを確認</li>
+<li>描画順序の確認</li>
+</ul>
+</li>
+<li><p><strong>メモリ不足</strong></p>
+<ul>
+<li>不要なカテゴリの破棄忘れ</li>
+<li>オフスクリーンサイズの見直し</li>
+</ul>
+</li>
+<li><p><strong>描画が反映されない</strong></p>
+<ul>
+<li>現在のレンダーターゲットを確認</li>
+<li><code>SetCurrentOffScreen()</code>の呼び出し確認</li>
+</ul>
+</li>
+</ol>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../OffScreenRenderer/README.html">OffScreenRenderer</a> - オフスクリーン描画処理</li>
+<li><a href="../Renderer/README.html">Renderer</a> - 基本的な描画機能</li>
+<li><a href="../WindowSizeManager/README.html">WindowSizeManager</a> - ウィンドウサイズ管理</li>
+<li><a href="../ShaderFactory/README.html">ShaderFactory</a> - ポストエフェクト用シェーダー</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/OffScreenResourceManager/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

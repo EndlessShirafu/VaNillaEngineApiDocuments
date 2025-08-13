@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ObjectRelation モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ObjectRelation モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ObjectRelation/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="objectrelation-モジュール">ObjectRelation モジュール</h1>
+
+<p>ObjectRelationモジュールは、VaNillaオブジェクト間の親子関係・階層構造を管理するためのExpresserComponentを提供します。オブジェクトの階層管理、親子関係の追跡、関連オブジェクトの操作などの機能をサポートします。
+現在は本モジュールの全機能は<strong>未実装</strong>です。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>親子関係の表明</strong>: オブジェクトが親または子であることの明示</li>
+<li><strong>階層構造管理</strong>: オブジェクト間の階層関係の構築・管理</li>
+<li><strong>関係追跡</strong>: 親子オブジェクトの参照・操作</li>
+<li><strong>ライフサイクル連動</strong>: 親オブジェクトの削除時の子オブジェクト処理</li>
+</ul>
+<h2 id="実装状況">実装状況</h2>
+<p>⚠️ <strong>未実装</strong>: 現在は本モジュールの全機能は<strong>未実装</strong>です。</p>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="isparentobject">IsParentObject</h3>
+<p>オブジェクトが親オブジェクトであることを表明するExpresserComponentです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public class IsParentObject : IExpresserComponent
+{
+    // 現在は基本構造のみ実装
+}
+</code></pre>
+<h3 id="ischildobject">IsChildObject</h3>
+<p>オブジェクトが子オブジェクトであることを表明するExpresserComponentです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public class IsChildObject : IExpresserComponent
+{
+    // 現在は基本構造のみ実装
+}
+</code></pre>
+<h2 id="将来の実装予定">将来の実装予定</h2>
+<h3 id="完全な親子関係管理">完全な親子関係管理</h3>
+<pre><code class="lang-csharp">public class IsParentObject : IExpresserComponent
+{
+    private List&lt;Object&gt; childObjects;
+    private int maxChildren = -1; // -1は無制限
+    
+    public List&lt;Object&gt; ChildObjects =&gt; childObjects?.AsReadOnly();
+    public int ChildCount =&gt; childObjects?.Count ?? 0;
+    public int MaxChildren { get; set; } = -1;
+    
+    // 子オブジェクトの追加・削除
+    public bool AddChild(Object childObject);
+    public bool RemoveChild(Object childObject);
+    public void RemoveAllChildren();
+    
+    // 子オブジェクトの検索
+    public Object FindChild(Predicate&lt;Object&gt; predicate);
+    public List&lt;Object&gt; FindChildren(Predicate&lt;Object&gt; predicate);
+    public T FindChildComponent&lt;T&gt;() where T : IExpresserComponent;
+    
+    // 子オブジェクトの一括操作
+    public void ForEachChild(Action&lt;Object&gt; action);
+    public void DestroyAllChildren();
+}
+
+public class IsChildObject : IExpresserComponent
+{
+    private Object parentObject;
+    private bool destroyWithParent = true;
+    
+    public Object ParentObject =&gt; parentObject;
+    public bool HasParent =&gt; parentObject != null;
+    public bool DestroyWithParent { get; set; } = true;
+    
+    // 親オブジェクトの設定・解除
+    public bool SetParent(Object parent);
+    public void ClearParent();
+    
+    // 親との関係操作
+    public void DetachFromParent();
+    public void TransferToParent(Object newParent);
+}
+</code></pre>
+<h3 id="階層操作ユーティリティ">階層操作ユーティリティ</h3>
+<pre><code class="lang-csharp">public static class ObjectHierarchy
+{
+    // 階層構築
+    public static void CreateHierarchy(Object parent, params Object[] children);
+    public static void CreateHierarchy(Object parent, IEnumerable&lt;Object&gt; children);
+    
+    // 階層検索
+    public static Object FindRoot(Object obj);
+    public static List&lt;Object&gt; GetSiblings(Object obj);
+    public static List&lt;Object&gt; GetAllDescendants(Object obj);
+    public static List&lt;Object&gt; GetAncestors(Object obj);
+    
+    // 階層操作
+    public static void MoveToHierarchy(Object obj, Object newParent);
+    public static void DestroyHierarchy(Object rootObject);
+    public static int GetDepth(Object obj);
+    public static bool IsAncestor(Object potential_ancestor, Object obj);
+    public static bool IsDescendant(Object potential_descendant, Object obj);
+}
+</code></pre>
+<h3 id="transform連携">Transform連携</h3>
+<pre><code class="lang-csharp">[RequiredExpresserComponent(typeof(HasPosition))]
+[RequiredExpresserComponent(typeof(HasRotation))]
+[RequiredExpresserComponent(typeof(HasScale))]
+public class HierarchicalTransform : IExpresserComponent
+{
+    private Transform localTransform;
+    private Transform worldTransform;
+    
+    public Transform LocalTransform =&gt; localTransform;
+    public Transform WorldTransform =&gt; worldTransform;
+    
+    // 座標変換
+    public Point2 LocalToWorld(Point2 localPos);
+    public Point2 WorldToLocal(Point2 worldPos);
+    
+    // 親子Transform同期
+    public void SyncWithParent();
+    public void SyncChildren();
+}
+</code></pre>
+<h2 id="使用例予定">使用例（予定）</h2>
+<h3 id="基本的な親子関係">基本的な親子関係</h3>
+<pre><code class="lang-csharp">// 親オブジェクトの作成
+var parentObj = ObjectActivator.Activate&lt;GameObject&gt;();
+parentObj.AddExpresserComponent&lt;IsParentObject&gt;();
+
+// 子オブジェクトの作成
+var childObj1 = ObjectActivator.Activate&lt;GameObject&gt;();
+var childObj2 = ObjectActivator.Activate&lt;GameObject&gt;();
+
+childObj1.AddExpresserComponent&lt;IsChildObject&gt;();
+childObj2.AddExpresserComponent&lt;IsChildObject&gt;();
+
+// 親子関係の構築
+var parentComponent = parentObj.GetExpresserComponent&lt;IsParentObject&gt;();
+var childComponent1 = childObj1.GetExpresserComponent&lt;IsChildObject&gt;();
+var childComponent2 = childObj2.GetExpresserComponent&lt;IsChildObject&gt;();
+
+parentComponent.AddChild(childObj1);
+parentComponent.AddChild(childObj2);
+
+childComponent1.SetParent(parentObj);
+childComponent2.SetParent(parentObj);
+</code></pre>
+<h3 id="階層的なゲームオブジェクト">階層的なゲームオブジェクト</h3>
+<pre><code class="lang-csharp">// プレイヤーキャラクターとアタッチメント
+var player = ObjectActivator.Activate&lt;PlayerCharacter&gt;();
+var weapon = ObjectActivator.Activate&lt;WeaponObject&gt;();
+var shield = ObjectActivator.Activate&lt;ShieldObject&gt;();
+
+// 階層構築
+ObjectHierarchy.CreateHierarchy(player, weapon, shield);
+
+// プレイヤーが移動すると武器と盾も一緒に移動
+var playerPos = player.GetExpresserComponent&lt;HasPosition&gt;();
+playerPos.X += 10; // 武器と盾も自動的に追従
+</code></pre>
+<h3 id="ui要素の階層管理">UI要素の階層管理</h3>
+<pre><code class="lang-csharp">// メニューシステム
+var mainMenu = ObjectActivator.Activate&lt;MenuObject&gt;();
+var startButton = ObjectActivator.Activate&lt;ButtonObject&gt;();
+var optionsButton = ObjectActivator.Activate&lt;ButtonObject&gt;();
+var exitButton = ObjectActivator.Activate&lt;ButtonObject&gt;();
+
+var menuParent = mainMenu.GetExpresserComponent&lt;IsParentObject&gt;();
+menuParent.AddChild(startButton);
+menuParent.AddChild(optionsButton);
+menuParent.AddChild(exitButton);
+
+// メニューを閉じると全てのボタンも削除される
+menuParent.DestroyAllChildren();
+</code></pre>
+<h3 id="動的階層操作">動的階層操作</h3>
+<pre><code class="lang-csharp">// 親オブジェクトの検索と子要素の一括操作
+var parentComponent = someObject.GetExpresserComponent&lt;IsParentObject&gt;();
+
+// 特定条件の子オブジェクトを検索
+var enemyChildren = parentComponent.FindChildren(obj =&gt; 
+    obj.GetExpresserComponent&lt;EnemyCharacter&gt;() != null);
+
+// 子オブジェクトの一括処理
+parentComponent.ForEachChild(child =&gt;
+{
+    var hasHP = child.GetExpresserComponent&lt;HasHitPoint&gt;();
+    if (hasHP != null)
+    {
+        hasHP.TakeDamage(10);
+    }
+});
+</code></pre>
+<h2 id="設定例yaml">設定例（YAML）</h2>
+<pre><code class="lang-yaml">object_relation:
+  default_destroy_with_parent: true
+  max_hierarchy_depth: 10
+  enable_circular_reference_check: true
+  auto_cleanup_orphaned_children: true
+  
+hierarchy_templates:
+  player_character:
+    parent: &quot;PlayerBody&quot;
+    children:
+      - &quot;LeftHand&quot;
+      - &quot;RightHand&quot;
+      - &quot;Weapon&quot;
+      - &quot;Shield&quot;
+  
+  ui_menu:
+    parent: &quot;MenuPanel&quot;
+    children:
+      - &quot;Title&quot;
+      - &quot;ButtonContainer&quot;
+      - &quot;Footer&quot;
+</code></pre>
+<h2 id="ライフサイクル管理">ライフサイクル管理</h2>
+<h3 id="親オブジェクト削除時の挙動">親オブジェクト削除時の挙動</h3>
+<pre><code class="lang-csharp">public enum ChildDestructionPolicy
+{
+    DestroyWithParent,    // 親と一緒に削除
+    DetachFromParent,     // 親から切り離して残す
+    MoveToGrandParent,    // 祖父に移動
+    Custom                // カスタム処理
+}
+
+public class IsChildObject : IExpresserComponent
+{
+    public ChildDestructionPolicy DestructionPolicy { get; set; }
+    public Action&lt;Object&gt; CustomDestructionHandler { get; set; }
+}
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>階層深度制限</strong>: 無限階層を防ぐための深度制限</li>
+<li><strong>循環参照検出</strong>: 親子関係の循環参照を防ぐ仕組み</li>
+<li><strong>大量子オブジェクト</strong>: 子オブジェクトが多い場合の効率的な管理</li>
+<li><strong>Transform同期</strong>: 階層Transform更新の最適化</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../Object/README.html">Object</a> - 基本オブジェクトシステム</li>
+<li><a href="../ExpresserComponent/README.html">ExpresserComponent</a> - コンポーネントシステム</li>
+<li><a href="../Transform/README.html">Transform</a> - 座標・回転・スケール管理（オプション）</li>
+</ul>
+<h2 id="開発ステータス">開発ステータス</h2>
+<ul>
+<li>✅ 基本コンポーネント構造</li>
+<li>🔄 親子関係管理（設計中）</li>
+<li>⭕ 階層操作API（未実装）</li>
+<li>⭕ Transform連携（未実装）</li>
+<li>⭕ ライフサイクル管理（未実装）</li>
+<li>⭕ パフォーマンス最適化（未実装）</li>
+</ul>
+<h2 id="実装優先度">実装優先度</h2>
+<ol>
+<li><strong>基本的な親子関係管理</strong> - AddChild/RemoveChild/SetParent</li>
+<li><strong>ライフサイクル連動</strong> - 親削除時の子オブジェクト処理</li>
+<li><strong>階層検索機能</strong> - FindChild/GetAncestors等のユーティリティ</li>
+<li><strong>Transform連携</strong> - 階層的な座標変換</li>
+<li><strong>パフォーマンス最適化</strong> - 大量オブジェクトの効率的管理</li>
+</ol>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../Object/README.html">Object</a> - 基本オブジェクト</li>
+<li><a href="../Transform/README.html">Transform</a> - 座標管理</li>
+<li><a href="../ObjectExecutor/README.html">ObjectExecutor</a> - オブジェクト実行管理</li>
+<li><a href="../ObjectFactory/README.html">ObjectFactory</a> - オブジェクト生成</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ObjectRelation/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>UI・ユーザーインターフェース - 逆引きガイド </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="UI・ユーザーインターフェース - 逆引きガイド ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/HowToIndex/UserInterface.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="uiユーザーインターフェース---逆引きガイド">UI・ユーザーインターフェース - 逆引きガイド</h1>
+
+<p>VaNillaエンジンでUI・ユーザーインターフェースを実装するためのサンプルコードとリンク集です。</p>
+<h2 id="-基本的なui要素">🎨 基本的なUI要素</h2>
+<h3 id="テキスト表示">テキスト表示</h3>
+<h4 id="基本的なテキスト描画">基本的なテキスト描画</h4>
+<pre><code class="lang-csharp">// シンプルなテキスト表示
+Utils.DrawString(&quot;Hello VaNilla!&quot;, 100, 50, (255, 255, 255));
+
+// 色付きテキスト
+Utils.DrawString(&quot;スコア: 1000&quot;, 10, 10, (255, 255, 0));  // 黄色
+Utils.DrawString(&quot;HP: 100&quot;, 10, 30, (0, 255, 0));        // 緑色
+</code></pre>
+<p>→ 詳細: <a href="../../Renderer/README.html#%E6%8F%8F%E7%94%BB%E4%BE%8B">Renderer - テキスト描画</a></p>
+<h4 id="カスタムフォントの使用">カスタムフォントの使用</h4>
+<pre><code class="lang-csharp">// フォントリソースを読み込み
+var customFont = FontResourceManager.GetFontResource(FontResourceType.UIFont);
+FontNative.DrawStringWithFont(&quot;カスタムフォント&quot;, 100, 100, customFont, (255, 255, 255));
+</code></pre>
+<p>→ 詳細: <a href="../../FontResourceManager/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">FontResourceManager - フォント管理</a></p>
+<h3 id="ボタンとクリック可能領域">ボタンとクリック可能領域</h3>
+<h4 id="クリック可能なボタン">クリック可能なボタン</h4>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(ClickableRegion), auto_member_generate: true)]
+public partial class Button : Object
+{
+    public override bool SetUp()
+    {
+        hasClickableRegion.Region = new Rectangle(100, 100, 200, 50);
+        hasClickableRegion.OnClick = () =&gt; {
+            Logger.Log(&quot;ボタンがクリックされました&quot;);
+        };
+        return true;
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../ClickableRegion/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">ClickableRegion - クリック領域の実装</a></p>
+<h4 id="ドラッグ可能な要素">ドラッグ可能な要素</h4>
+<pre><code class="lang-csharp">[DefaultExpresserComponent(typeof(DraggableRegion), auto_member_generate: true)]
+public partial class DraggableUI : Object
+{
+    public override bool SetUp()
+    {
+        hasDraggableRegion.Region = new Rectangle(50, 50, 100, 100);
+        hasDraggableRegion.OnDrag = (deltaX, deltaY) =&gt; {
+            // ドラッグ処理
+        };
+        return true;
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../ClickableRegion/README.html#draggableregion">ClickableRegion - ドラッグ機能</a></p>
+<h2 id="-ゲージとメーター">📊 ゲージとメーター</h2>
+<h3 id="hpゲージの実装">HPゲージの実装</h3>
+<h4 id="線形hpバー">線形HPバー</h4>
+<pre><code class="lang-csharp">public void DrawHPBar(int x, int y, int current, int max)
+{
+    int barWidth = 200;
+    int barHeight = 20;
+    
+    // 背景（黒）
+    Utils.FillRectangle(x, y, barWidth, barHeight, (0, 0, 0));
+    
+    // HPバー（現在値に応じて赤→黄→緑）
+    float ratio = (float)current / max;
+    int fillWidth = (int)(barWidth * ratio);
+    
+    var color = ratio &gt; 0.6f ? (0, 255, 0) :    // 緑
+                ratio &gt; 0.3f ? (255, 255, 0) :  // 黄
+                (255, 0, 0);                     // 赤
+    
+    Utils.FillRectangle(x, y, fillWidth, barHeight, color);
+    
+    // 枠線
+    Utils.DrawRectangle(x, y, barWidth, barHeight, (255, 255, 255));
+}
+</code></pre>
+<h4 id="円形ゲージ">円形ゲージ</h4>
+<pre><code class="lang-csharp">// 円形ゲージの描画
+CircleGaugeRenderer.DrawGauge(
+    centerX: 100, 
+    centerY: 100, 
+    radius: 50, 
+    value: currentMP, 
+    maxValue: maxMP,
+    color: (0, 100, 255)
+);
+</code></pre>
+<p>→ 詳細: <a href="../../CircleGaugeRenderer/README.md#%E4%BD%BF%E7%94%A8%E4%BE%8B">CircleGaugeRenderer - 円形ゲージ</a></p>
+<h3 id="9スライスui">9スライスUI</h3>
+<h4 id="拡縮可能なウィンドウ">拡縮可能なウィンドウ</h4>
+<pre><code class="lang-csharp">// 9スライス画像を使ったウィンドウ
+NineSliceRenderer.DrawNineSlice(
+    texture: windowTexture,
+    x: 50, y: 50,
+    width: 300, height: 200,
+    borderLeft: 16, borderRight: 16,
+    borderTop: 16, borderBottom: 16
+);
+</code></pre>
+<p>→ 詳細: <a href="../../NineSliceRenderer/ReadMe.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">NineSliceRenderer - 9スライス描画</a></p>
+<h2 id="-入力とインタラクション">🎮 入力とインタラクション</h2>
+<h3 id="キーボード操作">キーボード操作</h3>
+<h4 id="メニューナビゲーション">メニューナビゲーション</h4>
+<pre><code class="lang-csharp">public class MenuNavigationComponent : IExpresserComponent
+{
+    private int selectedIndex = 0;
+    private string[] menuItems = {&quot;スタート&quot;, &quot;オプション&quot;, &quot;終了&quot;};
+    
+    public bool Execute(Object obj, in Time.Time time)
+    {
+        if (KeyboardInput.IsPushedMoment(KeyCode.Up))
+            selectedIndex = Math.Max(0, selectedIndex - 1);
+        
+        if (KeyboardInput.IsPushedMoment(KeyCode.Down))
+            selectedIndex = Math.Min(menuItems.Length - 1, selectedIndex + 1);
+        
+        if (KeyboardInput.IsPushedMoment(KeyCode.Return))
+            OnMenuItemSelected(selectedIndex);
+        
+        return true;
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../KeyboardInput/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">KeyboardInput - キー入力処理</a></p>
+<h3 id="マウス操作">マウス操作</h3>
+<h4 id="マウス追従ui">マウス追従UI</h4>
+<pre><code class="lang-csharp">[DefaultExpresserComponent(typeof(FollowMousePosition), auto_member_generate: true)]
+public partial class Cursor : Object
+{
+    public override bool SetUp()
+    {
+        hasFollowMousePosition.Offset = new Vector2(5, 5);
+        return true;
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../MouseReact/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">MouseReact - マウス追従</a></p>
+<h4 id="ホバーエフェクト">ホバーエフェクト</h4>
+<pre><code class="lang-csharp">public class HoverEffectComponent : IExpresserComponent
+{
+    public bool Execute(Object obj, in Time.Time time)
+    {
+        var mousePos = MouseInput.GetMousePosition();
+        var button = obj as Button;
+        
+        if (IsMouseOver(mousePos, button.bounds))
+        {
+            button.color = Color.Yellow;  // ハイライト
+        }
+        else
+        {
+            button.color = Color.White;   // 通常
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../MouseInput/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">MouseInput - マウス位置取得</a></p>
+<h2 id="-レスポンシブui">📱 レスポンシブUI</h2>
+<h3 id="解像度対応">解像度対応</h3>
+<h4 id="画面サイズに応じたui配置">画面サイズに応じたUI配置</h4>
+<pre><code class="lang-csharp">public class ResponsiveUI : Object
+{
+    public override bool SetUp()
+    {
+        var screenSize = ScreenResolutionManager.GetCurrentResolution();
+        
+        // 画面中央にメニューを配置
+        int menuX = (screenSize.Width - 200) / 2;
+        int menuY = (screenSize.Height - 300) / 2;
+        
+        // UIサイズを画面サイズに応じて調整
+        float scale = Math.Min(screenSize.Width / 1920f, screenSize.Height / 1080f);
+        
+        return true;
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../ScreenResolutionManager/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">ScreenResolutionManager - 解像度管理</a></p>
+<h4 id="ウィンドウサイズ変更対応">ウィンドウサイズ変更対応</h4>
+<pre><code class="lang-csharp">public class AdaptiveUIComponent : IExpresserComponent
+{
+    public bool Execute(Object obj, in Time.Time time)
+    {
+        if (WindowSizeManager.HasWindowSizeChanged())
+        {
+            var newSize = WindowSizeManager.GetCurrentWindowSize();
+            UpdateUILayout(newSize);
+        }
+        return true;
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../WindowSizeManager/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">WindowSizeManager - ウィンドウサイズ管理</a></p>
+<h2 id="-多言語対応">🌐 多言語対応</h2>
+<h3 id="ローカライゼーション">ローカライゼーション</h3>
+<h4 id="多言語テキスト表示">多言語テキスト表示</h4>
+<pre><code class="lang-csharp">// 現在の言語設定に応じたテキスト取得
+string titleText = LocalizationUtil.GetString(&quot;TITLE_START_GAME&quot;);
+string scoreText = LocalizationUtil.GetString(&quot;SCORE_LABEL&quot;);
+
+Utils.DrawString(titleText, 100, 50, (255, 255, 255));
+</code></pre>
+<p>→ 詳細: <a href="../../Localization/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">Localization - 多言語対応</a></p>
+<h2 id="-uiアニメーション">🎭 UIアニメーション</h2>
+<h3 id="イージングを使ったアニメーション">イージングを使ったアニメーション</h3>
+<h4 id="フェードインアウト">フェードイン・アウト</h4>
+<pre><code class="lang-csharp">public class FadeComponent : IExpresserComponent
+{
+    private float timer = 0;
+    private float duration = 1.0f;
+    
+    public bool Execute(Object obj, in Time.Time time)
+    {
+        timer += TimeManager.DeltaTime;
+        float progress = timer / duration;
+        
+        // イージング関数でスムーズなフェード
+        float alpha = Easing.EaseOutQuad(progress, 0, 1, 1);
+        
+        // アルファ値を適用
+        var ui = obj as UIElement;
+        ui.Alpha = alpha;
+        
+        return progress &lt; 1.0f;
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../Easing/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">Easing - イージング関数</a></p>
+<h4 id="スライドアニメーション">スライドアニメーション</h4>
+<pre><code class="lang-csharp">public class SlideInComponent : IExpresserComponent
+{
+    private Vector2 startPos;
+    private Vector2 targetPos;
+    private float timer = 0;
+    
+    public bool Execute(Object obj, in Time.Time time)
+    {
+        timer += TimeManager.DeltaTime;
+        float progress = Math.Min(timer / 0.5f, 1.0f);
+        
+        // EaseOutBackでバウンス効果
+        float easedProgress = Easing.EaseOutBack(progress);
+        
+        var currentPos = Vector2.Lerp(startPos, targetPos, easedProgress);
+        obj.hasPosition.Position = new Point2((int)currentPos.X, (int)currentPos.Y);
+        
+        return progress &lt; 1.0f;
+    }
+}
+</code></pre>
+<h2 id="-情報表示ui">📊 情報表示UI</h2>
+<h3 id="デバッグ情報表示">デバッグ情報表示</h3>
+<h4 id="パフォーマンス情報">パフォーマンス情報</h4>
+<pre><code class="lang-csharp">public void DrawDebugInfo()
+{
+    Utils.DrawString($&quot;FPS: {FpsCalculator.CurrentFps:F1}&quot;, 10, 10, (0, 255, 0));
+    Utils.DrawString($&quot;Objects: {ObjectExecutor.GetActiveObjectCount()}&quot;, 10, 30, (255, 255, 255));
+    Utils.DrawString($&quot;Memory: {GC.GetTotalMemory(false) / 1024 / 1024} MB&quot;, 10, 50, (255, 255, 0));
+}
+</code></pre>
+<p>→ 詳細: <a href="../../FpsCalculator/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">FpsCalculator - FPS表示</a>
+→ 詳細: <a href="../../ObjectExecutor/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">ObjectExecutor - オブジェクト数表示</a></p>
+<h3 id="ゲーム情報ui">ゲーム情報UI</h3>
+<h4 id="スコアライフ表示">スコア・ライフ表示</h4>
+<pre><code class="lang-csharp">[DefaultExpresserComponent(typeof(CharacterBasicStatus.HasScore), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(CharacterBasicStatus.HasLifePoint), auto_member_generate: true)]
+public partial class GameUI : Object
+{
+    public void DrawGameInfo()
+    {
+        Utils.DrawString($&quot;Score: {hasScore.Score}&quot;, 10, 10, (255, 255, 0));
+        Utils.DrawString($&quot;Life: {hasLifePoint.LifePoint}&quot;, 10, 30, (255, 100, 100));
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../CharacterBasicStatus/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">CharacterBasicStatus - ゲーム状態管理</a></p>
+<h2 id="-エフェクト付きui">🎨 エフェクト付きUI</h2>
+<h3 id="パーティクルエフェクト">パーティクルエフェクト</h3>
+<h4 id="ボタンエフェクト">ボタンエフェクト</h4>
+<pre><code class="lang-csharp">public class ButtonParticleEffect : IExpresserComponent
+{
+    public bool Execute(Object obj, in Time.Time time)
+    {
+        if (IsButtonClicked())
+        {
+            // パーティクルエフェクトを生成
+            for (int i = 0; i &lt; 10; i++)
+            {
+                var particle = ObjectFactory.Activate&lt;ParticleEffect&gt;();
+                particle.Initialize(clickPosition, randomDirection);
+            }
+        }
+        return true;
+    }
+}
+</code></pre>
+<h3 id="画面遷移エフェクト">画面遷移エフェクト</h3>
+<h4 id="フェード遷移">フェード遷移</h4>
+<pre><code class="lang-csharp">// フェードアウト → シーン遷移 → フェードイン
+FadeTransitioner.StartFadeOut(() =&gt; {
+    SceneStateManager.ChangeScene(SceneStateType.NextScene);
+    FadeTransitioner.StartFadeIn();
+});
+</code></pre>
+<p>→ 詳細: <a href="../../Transitioner/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">Transitioner - 遷移エフェクト</a></p>
+<hr>
+<h2 id="-参考リンク">📚 参考リンク</h2>
+<ul>
+<li><a href="../../VaNillaTutorial/BasicShootEmUp/README.html">VaNilla Tutorial - UI実装例</a></li>
+<li><a href="../../ClickableRegion/README.html">ClickableRegion - インタラクティブUI</a></li>
+<li><a href="../../FontResourceManager/README.html">FontResourceManager - テキスト表示</a></li>
+<li><a href="../../Renderer/README.html">Renderer - 描画システム</a></li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/HowToIndex/UserInterface.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

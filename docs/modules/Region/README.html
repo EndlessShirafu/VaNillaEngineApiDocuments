@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Region モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Region モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Region/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="region-モジュール">Region モジュール</h1>
+
+<p>Regionモジュールは、2D・3D空間での領域（範囲・エリア）を定義・管理するためのモジュールです。当たり判定、画面分割、影響範囲、描画領域など、様々な用途で使用される空間的な範囲を抽象化して扱います。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>領域の定義</strong>: 矩形、円形、多角形などの様々な形状の領域</li>
+<li><strong>空間判定</strong>: 点・オブジェクトが領域内にあるかの判定</li>
+<li><strong>領域演算</strong>: 領域同士の交差、結合、差分計算</li>
+<li><strong>動的領域</strong>: 時間経過で変化する領域の管理</li>
+<li><strong>階層領域</strong>: 親子関係を持つ領域の管理</li>
+</ul>
+<h2 id="実装状況">実装状況</h2>
+<p>⚠️ <strong>設計段階</strong>: 現在このモジュールは設計段階にあり、具体的な実装はこれからです。</p>
+<h2 id="設計コンセプト">設計コンセプト</h2>
+<h3 id="基本領域クラス">基本領域クラス</h3>
+<pre><code class="lang-csharp">namespace VaNilla.Region
+{
+    /// &lt;summary&gt;
+    /// 領域の基底クラス
+    /// &lt;/summary&gt;
+    public abstract class Region
+    {
+        public string Name { get; set; }
+        public Transform.Point2 Center { get; set; }
+        public bool Active { get; set; } = true;
+        
+        // 基本判定
+        public abstract bool Contains(Transform.Point2 point);
+        public abstract bool Contains(Transform.Point2 point, float margin);
+        public abstract bool Intersects(Region other);
+        
+        // 境界情報
+        public abstract Shape.Rectangle GetBoundingBox();
+        public abstract float GetArea();
+        public abstract Transform.Point2 GetClosestPoint(Transform.Point2 point);
+        
+        // 変換
+        public abstract Region Translate(Transform.Vector2 offset);
+        public abstract Region Scale(float scale);
+        public abstract Region Rotate(float angle);
+    }
+}
+</code></pre>
+<h3 id="具体的な領域クラス">具体的な領域クラス</h3>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// 矩形領域
+/// &lt;/summary&gt;
+public class RectangleRegion : Region
+{
+    public float Width { get; set; }
+    public float Height { get; set; }
+    public float Rotation { get; set; }
+    
+    public override bool Contains(Transform.Point2 point)
+    {
+        // 矩形内判定の実装
+        return IsPointInRotatedRectangle(point, Center, Width, Height, Rotation);
+    }
+}
+
+/// &lt;summary&gt;
+/// 円形領域
+/// &lt;/summary&gt;
+public class CircleRegion : Region
+{
+    public float Radius { get; set; }
+    
+    public override bool Contains(Transform.Point2 point)
+    {
+        float distance = Transform.Vector2.Distance(point, Center);
+        return distance &lt;= Radius;
+    }
+}
+
+/// &lt;summary&gt;
+/// 多角形領域
+/// &lt;/summary&gt;
+public class PolygonRegion : Region
+{
+    public List&lt;Transform.Point2&gt; Vertices { get; set; }
+    
+    public override bool Contains(Transform.Point2 point)
+    {
+        return IsPointInPolygon(point, Vertices);
+    }
+}
+
+/// &lt;summary&gt;
+/// 複合領域（複数の領域の組み合わせ）
+/// &lt;/summary&gt;
+public class CompositeRegion : Region
+{
+    public List&lt;Region&gt; SubRegions { get; set; }
+    public CompositeOperation Operation { get; set; }
+    
+    public enum CompositeOperation
+    {
+        Union,        // 和集合
+        Intersection, // 積集合
+        Difference    // 差集合
+    }
+}
+</code></pre>
+<h2 id="予定されている機能">予定されている機能</h2>
+<h3 id="1-expressercomponent統合">1. ExpresserComponent統合</h3>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// オブジェクトに領域を持たせる
+/// &lt;/summary&gt;
+[RequiredExpresserComponent(typeof(HasPosition))]
+public class HasRegion : IExpresserComponent
+{
+    public Region Region { get; set; }
+    public bool AutoUpdateFromPosition { get; set; } = true;
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        if (AutoUpdateFromPosition)
+        {
+            var position = object__.GetExpresserComponent&lt;HasPosition&gt;();
+            Region.Center = new Transform.Point2(position.X, position.Y);
+        }
+        return true;
+    }
+    
+    public bool IsPointInRegion(Transform.Point2 point)
+    {
+        return Region?.Contains(point) ?? false;
+    }
+}
+
+/// &lt;summary&gt;
+/// 領域内への侵入・退出を検出
+/// &lt;/summary&gt;
+[RequiredExpresserComponent(typeof(HasRegion))]
+public class RegionTrigger : IExpresserComponent
+{
+    public Action&lt;Object&gt; OnEntered { get; set; }
+    public Action&lt;Object&gt; OnExited { get; set; }
+    public Action&lt;Object&gt; OnStaying { get; set; }
+    
+    private HashSet&lt;Object&gt; objectsInRegion = new();
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        CheckObjectsInRegion();
+        return true;
+    }
+}
+</code></pre>
+<h3 id="2-動的領域システム">2. 動的領域システム</h3>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// 時間経過で変化する領域
+/// &lt;/summary&gt;
+public class DynamicRegion : Region
+{
+    public AnimationCurve SizeOverTime { get; set; }
+    public AnimationCurve RotationOverTime { get; set; }
+    public float Duration { get; set; }
+    private float elapsedTime;
+    
+    public void Update(float deltaTime)
+    {
+        elapsedTime += deltaTime;
+        float t = elapsedTime / Duration;
+        
+        // アニメーションカーブに基づく更新
+        UpdateFromCurves(t);
+    }
+}
+
+/// &lt;summary&gt;
+/// パス追従領域
+/// &lt;/summary&gt;
+public class PathFollowingRegion : Region
+{
+    public List&lt;Transform.Point2&gt; PathPoints { get; set; }
+    public float Speed { get; set; }
+    public bool Loop { get; set; }
+    
+    private float pathProgress;
+    
+    public void Update(float deltaTime)
+    {
+        pathProgress += Speed * deltaTime;
+        Center = GetPointOnPath(pathProgress);
+    }
+}
+</code></pre>
+<h3 id="3-領域管理システム">3. 領域管理システム</h3>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// 領域の管理・検索を行うマネージャー
+/// &lt;/summary&gt;
+public static class RegionManager
+{
+    private static Dictionary&lt;string, Region&gt; namedRegions = new();
+    private static List&lt;Region&gt; activeRegions = new();
+    private static SpatialIndex spatialIndex = new(); // 高速検索用
+    
+    // 領域の登録・削除
+    public static void RegisterRegion(string name, Region region);
+    public static void UnregisterRegion(string name);
+    public static Region GetRegion(string name);
+    
+    // 空間検索
+    public static List&lt;Region&gt; FindRegionsContaining(Transform.Point2 point);
+    public static List&lt;Region&gt; FindRegionsIntersecting(Region queryRegion);
+    public static List&lt;Region&gt; FindRegionsInBounds(Shape.Rectangle bounds);
+    
+    // 一括処理
+    public static void UpdateAllDynamicRegions(float deltaTime);
+    public static void OptimizeSpatialIndex();
+}
+
+/// &lt;summary&gt;
+/// 空間分割による高速検索
+/// &lt;/summary&gt;
+public class SpatialIndex
+{
+    private QuadTree quadTree;
+    
+    public void Insert(Region region);
+    public void Remove(Region region);
+    public List&lt;Region&gt; Query(Transform.Point2 point);
+    public List&lt;Region&gt; Query(Shape.Rectangle bounds);
+    public void Update(Region region); // 領域が移動した場合
+}
+</code></pre>
+<h2 id="使用例">使用例</h2>
+<h3 id="基本的な領域判定">基本的な領域判定</h3>
+<pre><code class="lang-csharp">// 円形領域の作成
+var damageArea = new CircleRegion
+{
+    Name = &quot;ExplosionArea&quot;,
+    Center = new Transform.Point2(100, 100),
+    Radius = 50
+};
+
+// 矩形領域の作成
+var safeZone = new RectangleRegion
+{
+    Name = &quot;SafeZone&quot;,
+    Center = new Transform.Point2(200, 200),
+    Width = 80,
+    Height = 60,
+    Rotation = 45 // 45度回転
+};
+
+// 点が領域内にあるかチェック
+var playerPos = new Transform.Point2(120, 110);
+if (damageArea.Contains(playerPos))
+{
+    Logger.Log(&quot;プレイヤーが爆発範囲内にいます&quot;);
+}
+</code></pre>
+<h3 id="expressercomponentでの使用">ExpresserComponentでの使用</h3>
+<pre><code class="lang-csharp">// 爆発エフェクトオブジェクト
+[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasRegion), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(RegionTrigger), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(DamageDealer), auto_member_generate: true)]
+public partial class ExplosionEffect : Object
+{
+    public override bool SetUp()
+    {
+        return true;
+    }
+}
+
+// ダメージ処理
+[RequiredExpresserComponent(typeof(RegionTrigger))]
+public class DamageDealer : IExpresserComponent
+{
+    public int Damage { get; set; } = 10;
+    
+    public bool SetUp(Object object__)
+    {
+        var trigger = object__.GetExpresserComponent&lt;RegionTrigger&gt;();
+        trigger.OnEntered = OnObjectEntered;
+        return true;
+    }
+    
+    private void OnObjectEntered(Object obj)
+    {
+        var hasHP = obj.GetExpresserComponent&lt;HasHitPoint&gt;();
+        hasHP?.TakeDamage(Damage);
+    }
+}
+</code></pre>
+<h3 id="複合領域の作成">複合領域の作成</h3>
+<pre><code class="lang-csharp">// ドーナツ型領域（大きい円から小さい円を引く）
+var outerCircle = new CircleRegion { Radius = 100 };
+var innerCircle = new CircleRegion { Radius = 30 };
+
+var donutRegion = new CompositeRegion
+{
+    SubRegions = { outerCircle, innerCircle },
+    Operation = CompositeOperation.Difference
+};
+
+// L字型領域（2つの矩形の合成）
+var rect1 = new RectangleRegion { Width = 100, Height = 50 };
+var rect2 = new RectangleRegion { Width = 50, Height = 100 };
+
+var lShapeRegion = new CompositeRegion
+{
+    SubRegions = { rect1, rect2 },
+    Operation = CompositeOperation.Union
+};
+</code></pre>
+<h3 id="動的領域の使用">動的領域の使用</h3>
+<pre><code class="lang-csharp">// 時間経過で拡大する爆発範囲
+var expandingBlast = new DynamicRegion
+{
+    BaseRegion = new CircleRegion { Radius = 0 },
+    SizeOverTime = AnimationCurve.EaseOut(0, 0, 1, 100), // 0から100まで拡大
+    Duration = 2.0f // 2秒間
+};
+
+// パスを移動する警備範囲
+var patrolArea = new PathFollowingRegion
+{
+    BaseRegion = new CircleRegion { Radius = 30 },
+    PathPoints = new List&lt;Transform.Point2&gt;
+    {
+        new(0, 0), new(100, 0), new(100, 100), new(0, 100)
+    },
+    Speed = 50, // 1秒間に50ピクセル移動
+    Loop = true
+};
+</code></pre>
+<h2 id="設定例yaml">設定例（YAML）</h2>
+<pre><code class="lang-yaml">regions:
+  predefined_regions:
+    - name: &quot;GameArea&quot;
+      type: &quot;Rectangle&quot;
+      center: {x: 400, y: 300}
+      width: 800
+      height: 600
+      
+    - name: &quot;SafeZone&quot;
+      type: &quot;Circle&quot;
+      center: {x: 100, y: 100}
+      radius: 50
+      
+    - name: &quot;DangerZone&quot;
+      type: &quot;Polygon&quot;
+      vertices:
+        - {x: 200, y: 200}
+        - {x: 250, y: 180}
+        - {x: 280, y: 220}
+        - {x: 240, y: 250}
+        
+  spatial_index:
+    max_depth: 6
+    max_objects_per_node: 10
+    enable_optimization: true
+    
+  performance:
+    enable_caching: true
+    cache_size: 1000
+    update_frequency: 60 # Hz
+</code></pre>
+<h2 id="パフォーマンス最適化">パフォーマンス最適化</h2>
+<h3 id="空間分割">空間分割</h3>
+<pre><code class="lang-csharp">public class QuadTree
+{
+    private const int MAX_OBJECTS = 10;
+    private const int MAX_LEVELS = 5;
+    
+    private List&lt;Region&gt; objects;
+    private Shape.Rectangle bounds;
+    private QuadTree[] nodes;
+    
+    public void Insert(Region region);
+    public List&lt;Region&gt; Retrieve(Transform.Point2 point);
+    public List&lt;Region&gt; Retrieve(Shape.Rectangle bounds);
+}
+</code></pre>
+<h3 id="キャッシュシステム">キャッシュシステム</h3>
+<pre><code class="lang-csharp">public class RegionCache
+{
+    private readonly LRUCache&lt;string, bool&gt; containsCache;
+    private readonly Dictionary&lt;(Region, Region), bool&gt; intersectionCache;
+    
+    public bool GetCachedContains(Region region, Transform.Point2 point);
+    public void CacheContains(Region region, Transform.Point2 point, bool result);
+    public void InvalidateCache(Region region);
+}
+</code></pre>
+<h2 id="衝突検出との連携">衝突検出との連携</h2>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// Regionベースの衝突判定
+/// &lt;/summary&gt;
+[RequiredExpresserComponent(typeof(HasRegion))]
+public class RegionCollision : IExpresserComponent
+{
+    public CollisionGroup Group { get; set; }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        var myRegion = object__.GetExpresserComponent&lt;HasRegion&gt;().Region;
+        
+        // 他のオブジェクトとの衝突チェック
+        var nearbyObjects = RegionManager.FindRegionsIntersecting(myRegion);
+        foreach (var otherRegion in nearbyObjects)
+        {
+            ProcessCollision(object__, otherRegion.Owner);
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<h2 id="デバッグ可視化">デバッグ・可視化</h2>
+<pre><code class="lang-csharp">#if DEBUG
+public static class RegionDebugRenderer
+{
+    public static void DrawRegion(Region region, Color color);
+    public static void DrawRegionBounds(Region region, Color color);
+    public static void DrawSpatialIndex(SpatialIndex index);
+    public static void ShowRegionInfo(Region region);
+}
+#endif
+</code></pre>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../Transform/README.html">Transform</a> - 座標・ベクトル計算</li>
+<li><a href="../Shape/README.html">Shape</a> - 基本形状定義</li>
+<li><a href="../ExpresserComponent/README.html">ExpresserComponent</a> - コンポーネントシステム</li>
+<li><a href="../Collision/README.html">Collision</a> - 衝突検出システム（オプション）</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../Collision/README.html">Collision</a> - 衝突検出</li>
+<li><a href="../Shape/README.html">Shape</a> - 幾何形状</li>
+<li><a href="../Transform/README.html">Transform</a> - 座標変換</li>
+<li><a href="../ClickableRegion/README.html">ClickableRegion</a> - UI領域管理</li>
+</ul>
+<h2 id="実装計画">実装計画</h2>
+<ol>
+<li><strong>基本領域クラス</strong> - Region基底クラスと基本形状の実装</li>
+<li><strong>ExpresserComponent統合</strong> - HasRegion, RegionTrigger等の実装</li>
+<li><strong>領域管理システム</strong> - RegionManager, 空間分割の実装</li>
+<li><strong>動的領域</strong> - 時間変化・パス追従領域の実装</li>
+<li><strong>パフォーマンス最適化</strong> - キャッシュ、空間分割の最適化</li>
+<li><strong>デバッグツール</strong> - 可視化・デバッグ機能の実装</li>
+</ol>
+<p>このモジュールにより、ゲーム内での様々な領域管理が統一的かつ効率的に行えるようになります。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Region/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

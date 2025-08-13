@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ゲーム開発 - 逆引きガイド </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ゲーム開発 - 逆引きガイド ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/HowToIndex/GameDevelopment.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="ゲーム開発---逆引きガイド">ゲーム開発 - 逆引きガイド</h1>
+
+<p>VaNillaエンジンでゲーム開発を行う際の、よくある実装パターンとサンプルコードへのリンク集です。</p>
+<h2 id="-ゲームの基本構造">🎮 ゲームの基本構造</h2>
+<h3 id="ゲームの起動と初期化">ゲームの起動と初期化</h3>
+<h4 id="最小限のゲーム起動">最小限のゲーム起動</h4>
+<pre><code class="lang-csharp">// Main.cs
+using System;
+using VaNilla;
+namespace Main
+{
+    /// &lt;summary&gt;
+    /// エントリーポイント
+    /// VaNillaエンジンの正しい起動方法を示す
+    /// &lt;/summary&gt;
+    static class Program
+    {
+        /// &lt;summary&gt;
+        /// メイン関数
+        /// &lt;/summary&gt;
+        static void Main(string[] args)
+        {
+            // SupremeArbiterの静的コンストラクタが自動実行される
+            // エンジン初期化完了まで待機
+            while (!SupremeArbiter.VaNillaEngineConstructed)
+            {
+                Thread.Sleep(1);
+            }
+            
+            // メインゲームループ
+            while (SupremeArbiter.IsRunning())
+            {
+                SupremeArbiter.Execute();  // 毎フレーム実行
+            }
+            
+            // エンジン終了処理
+            SupremeArbiter.End();
+        }
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../SupremeArbiter/README.html#%E5%9F%BA%E6%9C%AC%E7%9A%84%E3%81%AA%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3%E8%B5%B7%E5%8B%95">SupremeArbiter - 基本的なエンジン起動</a></p>
+<h4 id="ゲーム固有の初期化終了処理">ゲーム固有の初期化・終了処理</h4>
+<pre><code class="lang-csharp">using System;
+using VaNilla;
+using VaNilla.Debug;
+
+namespace BootLoaderSample
+{
+    public class BootLoaderSampleClass
+    {
+        // VaNillaBootLoader 属性を付けると、VaNillaエンジンの初期化前にこのメソッドが実行される
+        [VaNillaBootLoader]
+        public static bool VaNillaBootLoaderMethod()
+        {
+            Logger.Log(&quot;VaNillaBootLoaderMethod passed&quot;);
+            return true;
+        }
+
+        // GameBootLoader 属性を付けると、VaNillaエンジンの初期化直後にこのメソッドが実行される
+        [GameBootLoader]
+        public static bool GameBootLoaderMethod()
+        {
+            Logger.Log(&quot;GameBootLoaderMethod passed&quot;);
+            return true;
+        }
+
+        // GameBootLoader 属性を付けると、VaNillaエンジンの終了処理直前にこのメソッドが実行される
+        [GameShutdown]
+        public static bool GameShutdownMethod()
+        {
+            Logger.Log(&quot;GameShutdownMethod passed&quot;);
+            return true;
+        }
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../BootLoader/README.html#%E5%9F%BA%E6%9C%AC%E7%9A%84%E3%81%AA%E3%83%96%E3%83%BC%E3%83%88%E3%83%AD%E3%83%BC%E3%83%80%E5%AE%9F%E8%A3%85">BootLoader - 基本的なブートローダ実装</a></p>
+<h3 id="プレイヤーキャラクターの実装">プレイヤーキャラクターの実装</h3>
+<h4 id="基本的なプレイヤー">基本的なプレイヤー</h4>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(Texture.HasTexture), auto_member_generate: true)]
+public partial class Player : Object
+{
+    public override bool SetUp()
+    {
+        hasPosition.Position = new Point2(320, 240);
+        hasTexture.Texture = TextureResourceManager.GetTextureResource(TextureResourceType.Player);
+        return true;
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../Transform/README.html#hasposition">Transform - HasPosition使用例</a>
+→ 詳細: <a href="../../TextureResourceManager/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">TextureResourceManager - テクスチャ読み込み</a></p>
+<h4 id="プレイヤーの移動">プレイヤーの移動</h4>
+<pre><code class="lang-csharp">public class PlayerMovementComponent : IExpresserComponent
+{
+    public bool Execute(Object obj, in Time.Time time)
+    {
+        var player = obj as Player;
+        if (KeyboardInput.IsPushed(KeyCode.Left))
+            player.hasPosition.Position.X -= 5;
+        if (KeyboardInput.IsPushed(KeyCode.Right))
+            player.hasPosition.Position.X += 5;
+        return true;
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../Movement/README.html#linearuniformmotion">Movement - 移動パターン実装</a>
+→ 詳細: <a href="../../KeyboardInput/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">KeyboardInput - キー入力処理</a></p>
+<h3 id="敵キャラクターの実装">敵キャラクターの実装</h3>
+<h4 id="オブジェクトプールを使った敵の生成">オブジェクトプールを使った敵の生成</h4>
+<pre><code class="lang-csharp">// 敵をプールから取得
+var enemy = ObjectFactory.Activate&lt;Enemy&gt;();
+enemy.Initialize(x, y, EnemyType.Normal);
+</code></pre>
+<p>→ 詳細: <a href="../../ObjectFactory/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">ObjectFactory - プール管理</a>
+→ 詳細: <a href="../../ObjectPool/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">ObjectPool - 効率的なオブジェクト管理</a></p>
+<h3 id="弾幕システムの実装">弾幕システムの実装</h3>
+<h4 id="弾の発射">弾の発射</h4>
+<pre><code class="lang-csharp">public void FireBullet(int x, int y)
+{
+    var bullet = ObjectFactory.Activate&lt;Bullet&gt;();
+    bullet.Initialize(x, y, direction, speed);
+}
+</code></pre>
+<p>→ 詳細: <a href="../../ObjectFactory/README.html#%E5%A4%A7%E9%87%8F%E3%81%AE%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E6%89%B1%E3%81%86%E5%A0%B4%E5%90%88">ObjectFactory - 大量オブジェクト管理</a></p>
+<h3 id="当たり判定の実装">当たり判定の実装</h3>
+<h4 id="基本的な衝突判定">基本的な衝突判定</h4>
+<pre><code class="lang-csharp">[DefaultExpresserComponent(typeof(Collision.HasCollision), auto_member_generate: true)]
+public partial class Player : Object, ICollisionCallback
+{
+    public void OnCollisionEnter(CollisionResult result)
+    {
+        if (result.OpponentObject is Enemy)
+        {
+            // ダメージ処理
+        }
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../Collision/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">Collision - 衝突判定システム</a></p>
+<h3 id="スコアシステム">スコアシステム</h3>
+<h4 id="スコアの管理">スコアの管理</h4>
+<pre><code class="lang-csharp">[DefaultExpresserComponent(typeof(CharacterBasicStatus.HasScore), auto_member_generate: true)]
+public partial class GameManager : Object
+{
+    public void AddScore(int points)
+    {
+        hasScore.Score += points;
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../CharacterBasicStatus/README.html#hasscore">CharacterBasicStatus - スコア管理</a></p>
+<h3 id="エフェクトとアニメーション">エフェクトとアニメーション</h3>
+<h4 id="イージングを使った演出">イージングを使った演出</h4>
+<pre><code class="lang-csharp">public class FadeInComponent : IExpresserComponent
+{
+    private float timer = 0;
+    
+    public bool Execute(Object obj, in Time.Time time)
+    {
+        timer += TimeManager.DeltaTime;
+        float alpha = Easing.EaseInOutQuad(timer, 0, 1, 1.0f);
+        // アルファ値を適用
+        return true;
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../Easing/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">Easing - イージング関数</a></p>
+<h3 id="シーン管理">シーン管理</h3>
+<h4 id="シーン遷移の実装">シーン遷移の実装</h4>
+<pre><code class="lang-csharp">[SceneStateProcess(SceneStateType.Title)]
+public class TitleScene : SceneStateProcessInterface
+{
+    public void Process()
+    {
+        if (KeyboardInput.IsPushedMoment(KeyCode.Space))
+        {
+            SceneStateManager.ChangeScene(SceneStateType.Game);
+        }
+    }
+}
+</code></pre>
+<p>→ 詳細: <a href="../../SceneStateManager/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">SceneStateManager - シーン管理</a></p>
+<h4 id="フェード効果付きシーン遷移">フェード効果付きシーン遷移</h4>
+<pre><code class="lang-csharp">FadeTransitioner.StartFadeOut(() =&gt; {
+    SceneStateManager.ChangeScene(SceneStateType.NextScene);
+});
+</code></pre>
+<p>→ 詳細: <a href="../../Transitioner/README.html#fadetransitioner">Transitioner - 遷移エフェクト</a></p>
+<h3 id="セーブロード機能">セーブ・ロード機能</h3>
+<h4 id="セーブデータの暗号化">セーブデータの暗号化</h4>
+<pre><code class="lang-csharp">// セーブデータを暗号化
+var encrypted = Encrypter.Encrypt(saveData);
+File.WriteAllBytes(&quot;save.dat&quot;, encrypted);
+
+// ロード時に復号化
+var loaded = File.ReadAllBytes(&quot;save.dat&quot;);
+var decrypted = Encrypter.Decrypt(loaded);
+</code></pre>
+<p>→ 詳細: <a href="../../Encrypter/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">Encrypter - データ暗号化</a></p>
+<h3 id="デバッグ機能">デバッグ機能</h3>
+<h4 id="fps表示">FPS表示</h4>
+<pre><code class="lang-csharp">Utils.DrawString($&quot;FPS: {FpsCalculator.CurrentFps:F1}&quot;, 10, 10, Color.White);
+</code></pre>
+<p>→ 詳細: <a href="../../FpsCalculator/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">FpsCalculator - FPS計測</a></p>
+<h4 id="デバッグログ">デバッグログ</h4>
+<pre><code class="lang-csharp">Logger.Log(&quot;プレイヤーが生成されました&quot;);
+Logger.LogWarning(&quot;敵の数が多すぎます&quot;);
+Logger.LogError(&quot;テクスチャの読み込みに失敗&quot;);
+</code></pre>
+<p>→ 詳細: <a href="../../DebugLogger/README.html#%E4%BD%BF%E7%94%A8%E4%BE%8B">DebugLogger - ログ出力</a></p>
+<hr>
+<h2 id="-参考リンク">📚 参考リンク</h2>
+<ul>
+<li><a href="../../VaNillaTutorial/BasicShootEmUp/README.html">VaNilla Tutorial - 完全なシューティングゲームの実装例</a></li>
+<li><a href="../../Object/README.html">Object - オブジェクトシステムの詳細</a></li>
+<li><a href="../../ExpresserComponent/README.html">ExpresserComponent - コンポーネントシステム</a></li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/HowToIndex/GameDevelopment.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

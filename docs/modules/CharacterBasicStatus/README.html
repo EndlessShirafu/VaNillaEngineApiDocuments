@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>CharacterBasicStatus </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="CharacterBasicStatus ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/CharacterBasicStatus/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="characterbasicstatus">CharacterBasicStatus</h1>
+
+<p>HP、LP、無敵時間、など「ゲームキャラクター」としての基本的な要素を表すためのコンポーネント群です。
+アクション、RPG、シューティングなど様々なジャンルのゲームで共通して使用される
+キャラクターステータス管理機能を、VaNillaのExpresserComponent システムで提供します。</p>
+<h2 id="概要">概要</h2>
+<p>CharacterBasicStatusモジュールは、ゲームキャラクターが持つべき基本的なステータスと状態を
+管理するためのExpresserComponentsの集合です。各コンポーネントは単一責任の原則に従って設計され、
+必要な機能のみを組み合わせて使用することで、様々なゲームタイプに対応できます。</p>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="ステータス管理系">ステータス管理系</h3>
+<table>
+<thead>
+<tr>
+<th>コンポーネント</th>
+<th>説明</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HasHitPoint</strong></td>
+<td>ヒットポイント（体力）管理</td>
+<td>RPG、アクション、シューティング</td>
+</tr>
+<tr>
+<td><strong>HasLifePoint</strong></td>
+<td>ライフポイント（残機）管理</td>
+<td>アクション、パズル、アーケード</td>
+</tr>
+<tr>
+<td><strong>HasScore</strong></td>
+<td>スコア管理</td>
+<td>シューティング、パズル、アーケード</td>
+</tr>
+</tbody>
+</table>
+<h3 id="状態管理系">状態管理系</h3>
+<table>
+<thead>
+<tr>
+<th>コンポーネント</th>
+<th>説明</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HasInvincible</strong></td>
+<td>無敵状態管理</td>
+<td>アクション、シューティング</td>
+</tr>
+<tr>
+<td><strong>HasStunned</strong></td>
+<td>行動不能状態管理</td>
+<td>格闘、RPG、アクション</td>
+</tr>
+<tr>
+<td><strong>IsBlinking</strong></td>
+<td>点滅表示制御</td>
+<td>ダメージ演出、無敵表示</td>
+</tr>
+</tbody>
+</table>
+<h2 id="基本的な使用方法">基本的な使用方法</h2>
+<h3 id="ヒットポイント体力システム">ヒットポイント（体力）システム</h3>
+<pre><code class="lang-csharp">using VaNilla.CharacterStatus;
+
+// ヒットポイントコンポーネントの設定
+var player = ObjectActivator.Activate&lt;MyPlayer&gt;();
+var hitPoint = player.GetComponent&lt;HasHitPoint&gt;();
+
+// 初期設定
+hitPoint.MaxHitPoint = 100.0f;
+hitPoint.MinHitPoint = 0.0f;
+hitPoint.HitPoint = hitPoint.MaxHitPoint; // フル回復状態で開始
+
+// ダメージ処理
+hitPoint.Damage(25.0f);
+VaNilla.Debug.Logger.Log($&quot;現在HP: {hitPoint.HitPoint}/{hitPoint.MaxHitPoint}&quot;);
+
+// 回復処理
+hitPoint.Recover(10.0f);
+
+// 状態チェック
+if (hitPoint.IsDead)
+{
+    VaNilla.Debug.Logger.Log(&quot;キャラクターが倒れました&quot;);
+    // ゲームオーバー処理
+}
+
+if (hitPoint.IsHitpointFull)
+{
+    VaNilla.Debug.Logger.Log(&quot;体力が満タンです&quot;);
+}
+</code></pre>
+<h3 id="ライフポイント残機システム">ライフポイント（残機）システム</h3>
+<pre><code class="lang-csharp">// ライフポイントコンポーネントの設定
+var lifePoint = player.GetComponent&lt;HasLifePoint&gt;();
+
+// 初期設定
+lifePoint.MaxLifePoint = 3;
+lifePoint.MinLifePoint = 0;
+lifePoint.LifePoint = lifePoint.MaxLifePoint;
+
+// ライフ減少（ゲームオーバー時など）
+lifePoint.Damage(1);
+
+// エクステンドアイテム取得時
+lifePoint.Recover(1);
+
+// ゲーム終了判定
+if (lifePoint.IsDead)
+{
+    VaNilla.Debug.Logger.Log(&quot;ゲームオーバー&quot;);
+    // ゲーム終了処理
+}
+</code></pre>
+<h3 id="無敵状態システム">無敵状態システム</h3>
+<pre><code class="lang-csharp">// 無敵状態コンポーネントの設定
+var invincible = player.GetComponent&lt;HasInvincible&gt;();
+
+// 無敵状態の切り替え
+invincible.invincibleState = HasInvincible.InvincibleState.Invincible;
+
+// ダメージ判定での使用例
+public void ProcessDamage(float damage)
+{
+    if (invincible.invincibleState == HasInvincible.InvincibleState.NoInvincible)
+    {
+        hitPoint.Damage(damage);
+        
+        // ダメージ後に一時的な無敵状態を設定
+        invincible.invincibleState = HasInvincible.InvincibleState.Invincible;
+        // 一定時間後に無敵解除（タイマー処理は別途実装）
+    }
+}
+</code></pre>
+<h3 id="スタン行動不能システム">スタン（行動不能）システム</h3>
+<pre><code class="lang-csharp">// スタン状態コンポーネントの設定
+var stunned = player.GetComponent&lt;HasStunned&gt;();
+
+// 最大スタン時間の設定
+stunned.MaxStunTime = 5.0f;
+
+// スタン効果の適用
+stunned.AddStunTime(2.0f); // 2秒間のスタン
+
+// スタン状態のチェック
+if (stunned.IsStunned())
+{
+    // キャラクターの行動を制限
+    VaNilla.Debug.Logger.Log($&quot;スタン中: 残り{stunned.CurrentStunTime}秒&quot;);
+    return; // 行動処理をスキップ
+}
+
+// スタン解除
+stunned.ResetStunTime();
+</code></pre>
+<h3 id="点滅表示システム">点滅表示システム</h3>
+<pre><code class="lang-csharp">// 点滅表示コンポーネントの設定
+var blinking = player.GetComponent&lt;IsBlinking&gt;();
+
+// ダメージ時の点滅演出
+public void OnDamageReceived()
+{
+    blinking.BlinkingFrameSpan = 5; // 5フレーム間隔で点滅
+    blinking.Active = true;
+    
+    // 3秒後に点滅停止（タイマー処理例）
+    StartCoroutine(StopBlinkingAfterDelay(3.0f));
+}
+
+// レンダリング時の表示制御
+public void Render()
+{
+    if (blinking.IsDisplayed)
+    {
+        // キャラクターを描画
+        DrawCharacter();
+    }
+    // IsDisplayed が false の場合は描画をスキップ（点滅効果）
+}
+</code></pre>
+<h2 id="高度な使用例">高度な使用例</h2>
+<h3 id="統合キャラクターシステム">統合キャラクターシステム</h3>
+<pre><code class="lang-csharp">public class AdvancedCharacterController : IExpresserComponent
+{
+    private HasHitPoint hitPoint;
+    private HasInvincible invincible;
+    private HasStunned stunned;
+    private IsBlinking blinking;
+
+    public bool SetUp(Object object__)
+    {
+        // 必要なコンポーネントを取得
+        hitPoint = object__.GetComponent&lt;HasHitPoint&gt;();
+        invincible = object__.GetComponent&lt;HasInvincible&gt;();
+        stunned = object__.GetComponent&lt;HasStunned&gt;();
+        blinking = object__.GetComponent&lt;IsBlinking&gt;();
+
+        // 初期設定
+        hitPoint.MaxHitPoint = 100.0f;
+        hitPoint.HitPoint = hitPoint.MaxHitPoint;
+        
+        return true;
+    }
+
+    public void ProcessDamage(float damage, float stunDuration = 0f)
+    {
+        // 無敵状態やスタン状態では ダメージを受けない
+        if (invincible.invincibleState == HasInvincible.InvincibleState.Invincible ||
+            stunned.IsStunned())
+        {
+            return;
+        }
+
+        // ダメージ適用
+        hitPoint.Damage(damage);
+        
+        // ダメージ演出
+        StartDamageEffect();
+        
+        // スタン効果適用
+        if (stunDuration &gt; 0)
+        {
+            stunned.AddStunTime(stunDuration);
+        }
+        
+        // 死亡チェック
+        if (hitPoint.IsDead)
+        {
+            OnCharacterDead();
+        }
+    }
+
+    private void StartDamageEffect()
+    {
+        // 一時的な無敵状態
+        invincible.invincibleState = HasInvincible.InvincibleState.Invincible;
+        
+        // 点滅演出開始
+        blinking.BlinkingFrameSpan = 8;
+        blinking.Active = true;
+        
+        // 1秒後に無敵と点滅を解除
+        VaNilla.Time.TimerManager.SetTimer(1.0f, () =&gt; {
+            invincible.invincibleState = HasInvincible.InvincibleState.NoInvincible;
+            blinking.Reset();
+        });
+    }
+
+    private void OnCharacterDead()
+    {
+        VaNilla.Debug.Logger.Log(&quot;キャラクターが倒れました&quot;);
+        // 死亡演出やゲームオーバー処理
+    }
+
+    public bool Execute(Object object__, in VaNilla.Time.Time current_time)
+    {
+        // ここでキャラクターの状態に応じた処理を実行
+        return Active;
+    }
+
+    public bool Active { get; set; }
+    public Execute.ExecuteType ExecuteType { get; set; }
+    
+    public void TearDown(Object object__) { }
+}
+</code></pre>
+<h3 id="スコアシステムとの連携">スコアシステムとの連携</h3>
+<pre><code class="lang-csharp">public class ScoreManager : IExpresserComponent
+{
+    private HasScore hasScore;
+    private HasHitPoint hitPoint;
+
+    public void AddScore(float points, ScoreType scoreType)
+    {
+        hasScore.Score += points;
+        
+        // スコアタイプ別の特殊効果
+        switch (scoreType)
+        {
+            case ScoreType.Enemy:
+                VaNilla.Debug.Logger.Log($&quot;敵撃破! +{points}点&quot;);
+                break;
+                
+            case ScoreType.Bonus:
+                VaNilla.Debug.Logger.Log($&quot;ボーナス! +{points}点&quot;);
+                // ボーナススコアでHP回復
+                hitPoint?.Recover(5.0f);
+                break;
+                
+            case ScoreType.TimeBonus:
+                VaNilla.Debug.Logger.Log($&quot;時間ボーナス! +{points}点&quot;);
+                break;
+        }
+        
+        // ハイスコア更新チェック
+        CheckHighScore();
+    }
+
+    private void CheckHighScore()
+    {
+        float currentHigh = PlayerPrefs.GetFloat(&quot;HighScore&quot;, 0f);
+        if (hasScore.Score &gt; currentHigh)
+        {
+            PlayerPrefs.SetFloat(&quot;HighScore&quot;, hasScore.Score);
+            VaNilla.Debug.Logger.Log(&quot;新記録達成!&quot;);
+        }
+    }
+
+    public bool SetUp(Object object__)
+    {
+        hasScore = object__.GetComponent&lt;HasScore&gt;();
+        hitPoint = object__.GetComponent&lt;HasHitPoint&gt;();
+        return true;
+    }
+
+    public bool Execute(Object object__, in VaNilla.Time.Time current_time)
+    {
+        return Active;
+    }
+
+    public bool Active { get; set; }
+    public Execute.ExecuteType ExecuteType { get; set; }
+    public void TearDown(Object object__) { }
+}
+
+public enum ScoreType
+{
+    Enemy,
+    Bonus,
+    TimeBonus,
+    Item
+}
+</code></pre>
+<h2 id="コンポーネントの組み合わせパターン">コンポーネントの組み合わせパターン</h2>
+<h3 id="rpgキャラクター">RPGキャラクター</h3>
+<pre><code class="lang-csharp">// RPGの主人公キャラクター
+[RequiredExpresserComponent(typeof(HasHitPoint))]
+[RequiredExpresserComponent(typeof(HasStunned))]
+public class RPGHero : IExpresserComponent
+{
+    // HPとスタン状態を管理
+}
+</code></pre>
+<h3 id="シューティングゲームのプレイヤー">シューティングゲームのプレイヤー</h3>
+<pre><code class="lang-csharp">// シューティングゲームのプレイヤー機
+[RequiredExpresserComponent(typeof(HasLifePoint))]
+[RequiredExpresserComponent(typeof(HasScore))]
+[RequiredExpresserComponent(typeof(HasInvincible))]
+[RequiredExpresserComponent(typeof(IsBlinking))]
+public class ShooterPlayer : IExpresserComponent
+{
+    // 残機、スコア、無敵状態、点滅表示を管理
+}
+</code></pre>
+<h3 id="アクションゲームの敵キャラクター">アクションゲームの敵キャラクター</h3>
+<pre><code class="lang-csharp">// アクションゲームの敵キャラクター
+[RequiredExpresserComponent(typeof(HasHitPoint))]
+[RequiredExpresserComponent(typeof(HasStunned))]
+[RequiredExpresserComponent(typeof(IsBlinking))]
+public class ActionEnemy : IExpresserComponent
+{
+    // HP、スタン状態、ダメージ時の点滅を管理
+}
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<h3 id="効率的な状態管理">効率的な状態管理</h3>
+<ul>
+<li>各コンポーネントは独立して動作するため、不要な機能は追加しない</li>
+<li><code>Execute()</code>メソッドは軽量な処理のみ実行</li>
+<li>状態変更時のイベント処理は最小限に抑制</li>
+</ul>
+<h3 id="メモリ使用量の最適化">メモリ使用量の最適化</h3>
+<pre><code class="lang-csharp">// 大量の敵キャラクターに対する最適化例
+public class OptimizedEnemyStatus
+{
+    // float の代わりに byte や short を使用してメモリ節約
+    public byte hitPoint = 100;      // 0-255の範囲
+    public byte maxHitPoint = 100;
+    
+    // ビットフィールドで複数の状態を管理
+    [Flags]
+    public enum CharacterState : byte
+    {
+        None = 0,
+        Invincible = 1,
+        Stunned = 2,
+        Blinking = 4,
+        Dead = 8
+    }
+    
+    public CharacterState state = CharacterState.None;
+}
+</code></pre>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="よくある問題">よくある問題</h3>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>原因</th>
+<th>解決方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HPが正しく減らない</td>
+<td>MinHitPoint の設定ミス</td>
+<td>MinHitPoint = 0 に設定</td>
+</tr>
+<tr>
+<td>無敵状態が解除されない</td>
+<td>状態リセット処理の不備</td>
+<td>タイマーで自動解除を実装</td>
+</tr>
+<tr>
+<td>スタン時間が経過しない</td>
+<td>Active = false になっている</td>
+<td>コンポーネントを有効化</td>
+</tr>
+<tr>
+<td>点滅が表示されない</td>
+<td>BlinkingFrameSpan = 0</td>
+<td>適切なフレーム間隔を設定</td>
+</tr>
+</tbody>
+</table>
+<h3 id="デバッグ支援">デバッグ支援</h3>
+<pre><code class="lang-csharp">public static class CharacterStatusDebugger
+{
+    public static void LogAllStatus(Object character)
+    {
+        var hp = character.GetComponent&lt;HasHitPoint&gt;();
+        var lp = character.GetComponent&lt;HasLifePoint&gt;();
+        var inv = character.GetComponent&lt;HasInvincible&gt;();
+        var stun = character.GetComponent&lt;HasStunned&gt;();
+        var score = character.GetComponent&lt;HasScore&gt;();
+
+        VaNilla.Debug.Logger.Log($&quot;=== {character.ObjectTag} ステータス ===&quot;);
+        
+        if (hp != null)
+            VaNilla.Debug.Logger.Log($&quot;HP: {hp.HitPoint}/{hp.MaxHitPoint}&quot;);
+            
+        if (lp != null)
+            VaNilla.Debug.Logger.Log($&quot;Life: {lp.LifePoint}/{lp.MaxLifePoint}&quot;);
+            
+        if (inv != null)
+            VaNilla.Debug.Logger.Log($&quot;無敵: {inv.invincibleState}&quot;);
+            
+        if (stun != null)
+            VaNilla.Debug.Logger.Log($&quot;スタン: {stun.IsStunned()} ({stun.CurrentStunTime}s)&quot;);
+            
+        if (score != null)
+            VaNilla.Debug.Logger.Log($&quot;スコア: {score.Score}&quot;);
+    }
+}
+</code></pre>
+<h2 id="技術仕様">技術仕様</h2>
+<ul>
+<li><strong>精度</strong>: HPは float、LifePoint は int で管理</li>
+<li><strong>範囲制限</strong>: 全ての数値は Min～Max の範囲でクランプ</li>
+<li><strong>フレームレート</strong>: スタン時間は DeltaTime ベースで更新</li>
+<li><strong>状態管理</strong>: enum を使用した型安全な状態管理</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><strong>VaNilla.Math</strong>: 数値のクランプ処理</li>
+<li><strong>VaNilla.Time</strong>: 時間管理とタイマー機能</li>
+<li><strong>VaNilla.Execute</strong>: ExpresserComponent システム</li>
+</ul>
+<hr>
+<p>CharacterBasicStatusにより、VaNillaアプリケーションで様々なジャンルのゲームに対応した
+キャラクターステータス管理が実現できます。シンプルで拡張性の高いコンポーネント設計により、
+プロジェクトの要件に応じて柔軟にカスタマイズできます。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/CharacterBasicStatus/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNilla属性システム完全ガイド </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNilla属性システム完全ガイド ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/VaNillaAttributes/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanilla属性システム完全ガイド">VaNilla属性システム完全ガイド</h1>
+
+<p>VaNillaエンジンでは、<strong>属性（Attribute）による宣言的プログラミング</strong>を採用しています。これにより、コンポーネントの依存関係、実行順序、ライフサイクル管理などを簡潔かつ明確に記述できます。</p>
+<h2 id="-vanilla属性システムの思想">🎯 VaNilla属性システムの思想</h2>
+<h3 id="宣言的プログラミングの利点">宣言的プログラミングの利点</h3>
+<ul>
+<li><strong>可読性向上</strong>: クラス定義を見るだけで機能と依存関係が分かる</li>
+<li><strong>保守性向上</strong>: 属性の変更で動作を調整可能</li>
+<li><strong>自動化</strong>: コード生成により手動実装のミスを削減</li>
+<li><strong>一貫性</strong>: 統一されたパターンでシステム全体を構築</li>
+</ul>
+<h3 id="設計原則">設計原則</h3>
+<pre><code class="lang-csharp">// ❌ 手動実装（旧パターン）
+public class Player : Object
+{
+    public Player() : base(new IExpresserComponent[] {
+        new HasPosition(),
+        new HasTexture(),
+        new PlayerMovementComponent()
+    }) { }
+}
+
+// ✅ 属性による宣言（現在のパターン）
+[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(PlayerMovementComponent), auto_member_generate: true)]
+public partial class Player : Object
+{
+    // hasPosition, hasTexture, playerMovementComponent が自動生成される
+}
+</code></pre>
+<hr>
+<h2 id="-オブジェクト生成管理属性">📦 オブジェクト生成・管理属性</h2>
+<h3 id="autogenerateconstructor"><code>[AutoGenerateConstructor]</code></h3>
+<p><strong>用途</strong>: コンストラクタの自動生成<br>
+<strong>適用対象</strong>: <code>Object</code>を継承するクラス</p>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+public partial class Enemy : Object
+{
+    // 適切なコンストラクタが自動生成される
+}
+</code></pre>
+<p><strong>重要事項</strong>:</p>
+<ul>
+<li><code>partial</code> クラス宣言が必須</li>
+<li>手動でコンストラクタを定義すると競合する</li>
+<li>コード生成前にビルドすると失敗する</li>
+</ul>
+<h3 id="defaultexpressercomponent"><code>[DefaultExpresserComponent]</code></h3>
+<p><strong>用途</strong>: オブジェクトにデフォルトで付与するExpresserComponentの指定<br>
+<strong>適用対象</strong>: <code>Object</code>を継承するクラス</p>
+<pre><code class="lang-csharp">[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(BasicRenderer))] // メンバー生成なし
+public partial class GameObject : Object
+{
+    // auto_member_generate: true を記述したため、 hasPosition メンバーが自動生成＆参照が自動で設定される
+    // BasicRendererは下記のように、GetComponent&lt;BasicRenderer&gt;()でアクセス
+    // var basic_renderer = object.GetComponent&lt;BasicRenderer&gt;();
+}
+</code></pre>
+<p><strong>パラメータ</strong>:</p>
+<ul>
+<li><code>typeof(ExpresserComponentType)</code>: 必須。追加するコンポーネント型</li>
+<li><code>auto_member_generate: bool</code>: オプション。<code>true</code>で自動アクセサ生成</li>
+</ul>
+<p><strong>命名規則</strong>:</p>
+<ul>
+<li><code>HasPosition</code> → <code>hasPosition</code></li>
+<li><code>PlayerMovementComponent</code> → <code>playerMovementComponent</code></li>
+<li><code>BasicRenderer</code> → <code>basicRenderer</code></li>
+</ul>
+<h3 id="vanillamoduleversionattribute"><code>[VaNillaModuleVersionAttribute]</code></h3>
+<p><strong>用途</strong>: VaNillaモジュールのバージョン情報付与<br>
+<strong>適用対象</strong>: クラス・構造体</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(1, 2, 3, 0)]
+public class CustomModule
+{
+    // モジュールバージョン情報が付与される
+}
+</code></pre>
+<p><strong>パラメータ</strong>:</p>
+<ul>
+<li><code>major</code>: メジャーバージョン番号</li>
+<li><code>minor</code>: マイナーバージョン番号</li>
+<li><code>patch</code>: パッチバージョン番号</li>
+<li><code>build</code>: ビルドバージョン番号</li>
+</ul>
+<h3 id="autoactivateattribute"><code>[AutoActivateAttribute]</code></h3>
+<p><strong>用途</strong>: オブジェクトのフィールド/プロパティ自動アクティベーション<br>
+<strong>適用対象</strong>: <code>Object</code>を継承する型のフィールド/プロパティ</p>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+public partial class GameManager : Object
+{
+    [AutoActivate]
+    private Player player; // SetUp時に自動的にActivateされる
+    
+    [AutoActivate]
+    private EnemyManager enemyManager; // SetUp時に自動的にActivateされる
+    
+    public override bool SetUp()
+    {
+        // PreAutoActivateForSetUp()が自動的に呼ばれ、
+        // playerとenemyManagerがObjectActivator.Activate&lt;T&gt;()される
+        return true;
+    }
+    
+    public override void TearDown()
+    {
+        // PostAutoActivateForTearDown()が自動的に呼ばれ、
+        // playerとenemyManagerがObjectActivator.Deactivate()される
+    }
+}
+</code></pre>
+<p><strong>特徴</strong>:</p>
+<ul>
+<li><code>SetUp</code>前に自動的に<code>ObjectActivator.Activate&lt;T&gt;()</code>を実行</li>
+<li><code>TearDown</code>後に自動的に<code>ObjectActivator.Deactivate()</code>を実行</li>
+<li>ソースジェネレーターにより<code>PreAutoActivateForSetUp()</code>と<code>PostAutoActivateForTearDown()</code>が自動生成</li>
+<li>手動でのアクティベーション管理が不要</li>
+<li><strong>AllowAutoActivate属性は不要</strong> （以前は必要でしたが、現在は自動的に検出されます）</li>
+</ul>
+<p><strong>注意事項</strong>:</p>
+<ul>
+<li><code>partial</code>クラスでないとエラーになります</li>
+<li>フィールド/プロパティの型は<code>VaNilla.Object</code>を継承している必要があります</li>
+<li>読み取り専用プロパティ（getterのみ）には使用できません</li>
+<li>既に<code>PreAutoActivateForSetUp</code>や<code>PostAutoActivateForTearDown</code>が定義されているとエラーになります</li>
+</ul>
+<hr>
+<h2 id="-expressercomponent制御属性">🧩 ExpresserComponent制御属性</h2>
+<h3 id="requiredexpressercomponentattribute"><code>[RequiredExpresserComponentAttribute]</code></h3>
+<p><strong>用途</strong>: ExpresserComponentの依存関係定義<br>
+<strong>適用対象</strong>: <code>IExpresserComponent</code>を実装するクラス</p>
+<pre><code class="lang-csharp">[RequiredExpresserComponent(typeof(HasPosition))]
+[RequiredExpresserComponent(typeof(HasTexture))]
+public class BasicRenderer : IExpresserComponent
+{
+    // HasPositionとHasTextureが自動的に追加される
+    // (参照の取得には Object.GetComponent が必要となるため、注意)
+}
+</code></pre>
+<pre><code class="lang-csharp">// auto_member_generate: true を記述すると、メンバー変数が自動生成され、参照が自動で設定される(推奨)
+[RequiredExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[RequiredExpresserComponent(typeof(HasTexture))]
+public class BasicRenderer : IExpresserComponent
+{
+    // hasPositionメンバー変数とhasTextureメンバー変数が自動的に追加される
+    // Object.GetComponentせずとも、いきなりhasPosition&amp;hasTextureメンバー変数にアクセスが可能
+}
+</code></pre>
+<p><strong>特徴</strong>:</p>
+<ul>
+<li>連鎖的な依存関係解決</li>
+<li>循環依存の検出</li>
+<li>自動インスタンス化</li>
+</ul>
+<p><strong>パラメータ</strong>:</p>
+<ul>
+<li><code>typeof(ExpresserComponentType)</code>: 必須。追加するコンポーネント型</li>
+<li><code>auto_member_generate: bool</code>: オプション。<code>true</code>で自動アクセサ生成</li>
+</ul>
+<p><strong>命名規則</strong>:</p>
+<ul>
+<li><code>HasPosition</code> → <code>hasPosition</code></li>
+<li><code>PlayerMovementComponent</code> → <code>playerMovementComponent</code></li>
+<li><code>BasicRenderer</code> → <code>basicRenderer</code></li>
+</ul>
+<p><strong>依存関係の例</strong>:</p>
+<pre><code class="lang-mermaid">graph LR
+   A[BasicRenderer] --&gt; B[HasTransform]
+   B --&gt; C[HasPosition]
+   B --&gt; D[HasRotation] 
+   B --&gt; E[HasScale]
+</code></pre>
+<h3 id="expressercomponentexecutionorderattribute"><code>[ExpresserComponentExecutionOrderAttribute]</code></h3>
+<p><strong>用途</strong>: ExpresserComponentの実行順序指定<br>
+<strong>適用対象</strong>: <code>IExpresserComponent</code>を実装するクラス</p>
+<pre><code class="lang-csharp">[ExpresserComponentExecutionOrderAttribute(VaNilla.ExpresserComponentExecutionOrder.Input)]
+public class KeyboardInputComponent : IExpresserComponent { }
+
+[ExpresserComponentExecutionOrderAttribute(VaNilla.ExpresserComponentExecutionOrder.Logic)]
+public class PlayerMovementComponent : IExpresserComponent { }
+
+[ExpresserComponentExecutionOrderAttribute(VaNilla.ExpresserComponentExecutionOrder.Rendering)]
+public class BasicRenderer : IExpresserComponent { }
+</code></pre>
+<p><strong>実行フロー</strong>:</p>
+<ol>
+<li>Input（入力処理）</li>
+<li>Logic（ゲームロジック）</li>
+<li>Rendering（描画処理）</li>
+</ol>
+<p><strong>注意点</strong>:</p>
+<ul>
+<li><code>VaNilla.ExpresserComponentExecutionOrder</code>はYAMLから事前生成が必要</li>
+<li>より細かい実行順序制御が可能</li>
+<li>同じ優先度内での順序は定義順で決定される</li>
+</ul>
+<h3 id="executiononlyinactiveattribute"><code>[ExecutionOnlyInActiveAttribute]</code></h3>
+<p><strong>用途</strong>: Active == false時のExecuteメソッド実行スキップ<br>
+<strong>適用対象</strong>: <code>IExpresserComponent</code>を実装するクラスの<code>Execute</code>メソッド</p>
+<pre><code class="lang-csharp">[ExpresserComponentExecutionOrderAttribute(ExpresserComponentExecutionOrder.Logic)]
+public partial class OptionalComponent : IExpresserComponent
+{
+    [ExecutionOnlyInActive] // Active == false の時、Executeがスキップされる
+    public bool Execute(Object obj, in Time time)
+    {
+        // この処理はActive == trueの時のみ実行される
+        PerformComplexCalculation();
+        return true;
+    }
+    
+    public bool Active { get; set; }
+    public ExecuteType ExecuteType { get; set; }
+    
+    // 以下、SetUp/TearDownの実装...
+}
+</code></pre>
+<p><strong>特徴</strong>:</p>
+<ul>
+<li><code>ExecutionOnlyInActive</code>プロパティが自動生成される（常に<code>true</code>を返す）</li>
+<li>ObjectExecutorはこのプロパティをチェックし、<code>Active == false</code>の場合<code>Execute</code>メソッドをスキップ</li>
+<li>パフォーマンス最適化：非アクティブなコンポーネントの処理を完全にスキップ</li>
+<li>直接実装クラスでは明示的インターフェース実装、継承クラスでは通常のpublicプロパティが生成</li>
+</ul>
+<p><strong>使用例</strong>:</p>
+<pre><code class="lang-csharp">// デバッグ表示など、常に実行する必要がないコンポーネント
+[RequiredExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+public partial class DebugInfoRenderer : IExpresserComponent
+{
+    [ExecutionOnlyInActive]
+    public bool Execute(Object obj, in Time time)
+    {
+        // デバッグ情報の描画処理
+        DrawDebugInfo(hasPosition.Position);
+        return true;
+    }
+    
+    // Active = false にすることで描画をスキップできる
+    public bool Active { get; set; } = false; // デフォルトで無効
+    public ExecuteType ExecuteType { get; set; }
+}
+</code></pre>
+<p><strong>注意事項</strong>:</p>
+<ul>
+<li><code>Execute</code>メソッド以外に付与するとコンパイルエラー</li>
+<li><code>IExpresserComponent</code>を実装しないクラスで使用するとコンパイルエラー</li>
+<li><code>ExecutionOnlyInActive</code>プロパティが既に手動定義されている場合はコンパイルエラー</li>
+<li><code>SetUp</code>と<code>TearDown</code>は<code>Active</code>の値に関わらず実行される（スキップされない）</li>
+</ul>
+<h3 id="autoholdassociatedobjectattribute"><code>[AutoHoldAssociatedObjectAttribute]</code></h3>
+<p><strong>用途</strong>: ExpresserComponentで関連するObjectへの参照を自動保持<br>
+<strong>適用対象</strong>: <code>IExpresserComponent</code>を実装するクラス</p>
+<pre><code class="lang-csharp">// Player? 型でVaNilla.Objectとの参照を事前構築
+[AutoHoldAssociatedObject(typeof(Player))]
+public partial class PlayerHealthComponent : IExpresserComponent
+{
+    // public Player? AssociatedObject が自動生成される
+    
+    public bool Execute(Object obj, in Time time)
+    {
+        // AssociatedObjectを通じてPlayerに直接アクセス可能
+        if (AssociatedObject != null &amp;&amp; AssociatedObject.health &lt;= 0)
+        {
+            // プレイヤー固有の処理
+            AssociatedObject.Die();
+        }
+        return true;
+    }
+}
+
+// 使用例
+[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(PlayerHealthComponent), auto_member_generate: true)]
+public partial class Player : Object
+{
+    public int health = 100;
+    
+    public void Die()
+    {
+        // 死亡処理
+    }
+}
+</code></pre>
+<p><strong>特徴</strong>:</p>
+<ul>
+<li>指定した型の<code>AssociatedObject</code>プロパティが自動生成</li>
+<li><code>HoldAssociatedObject()</code>と<code>ReleaseAssociatedObject()</code>メソッドも自動生成</li>
+<li>ExpresserComponent内から親Objectへの型安全なアクセスが可能</li>
+<li>キャスト不要で親Objectのメンバーに直接アクセス</li>
+</ul>
+<hr>
+<h2 id="-ライフサイクル管理属性">🚀 ライフサイクル管理属性</h2>
+<h3 id="vanillabootloaderattribute"><code>[VaNillaBootLoaderAttribute]</code></h3>
+<p><strong>用途</strong>: VaNillaエンジン初期化前の処理指定<br>
+<strong>適用対象</strong>: <code>static</code>メソッド</p>
+<pre><code class="lang-csharp">public class GameInitializer
+{
+    [VaNillaBootLoader]
+    public static bool InitializeVaNillaEngine()
+    {
+        // VaNillaエンジン初期化前の処理
+        Logger.Log(&quot;VaNillaエンジン初期化開始&quot;);
+        return true;
+    }
+}
+</code></pre>
+<h3 id="gamebootloaderattribute"><code>[GameBootLoaderAttribute]</code></h3>
+<p><strong>用途</strong>: ゲーム固有の初期化処理指定<br>
+<strong>適用対象</strong>: <code>static</code>メソッド</p>
+<pre><code class="lang-csharp">public class GameBootLoader
+{
+    [GameBootLoader]
+    public static bool InitializeGame()
+    {
+        // ゲーム固有の初期化処理
+        SceneStateManager.ChangeScene(SceneStateType.Title);
+        return true;
+    }
+}
+</code></pre>
+<h3 id="gameshutdownattribute"><code>[GameShutdownAttribute]</code></h3>
+<p><strong>用途</strong>: ゲーム終了時の処理指定<br>
+<strong>適用対象</strong>: <code>static</code>メソッド</p>
+<pre><code class="lang-csharp">public class GameShutdown
+{
+    [GameShutdown]
+    public static bool CleanupGame()
+    {
+        // ゲーム終了時のクリーンアップ
+        SaveManager.SaveGameData();
+        return true;
+    }
+}
+</code></pre>
+<p><strong>実行順序</strong>:</p>
+<ol>
+<li><code>[VaNillaBootLoader]</code> - VaNillaエンジン初期化前</li>
+<li><code>[GameBootLoader]</code> - VaNillaエンジン初期化後</li>
+<li>ゲーム実行</li>
+<li><code>[GameShutdown]</code> - ゲーム終了時</li>
+</ol>
+<hr>
+<h2 id="-シーン管理属性">🎬 シーン管理属性</h2>
+<h3 id="scenestateprocessattribute"><code>[SceneStateProcessAttribute]</code></h3>
+<p><strong>用途</strong>: シーン固有の処理クラス指定<br>
+<strong>適用対象</strong>: <code>SceneStateProcessInterface</code>を実装するクラス</p>
+<pre><code class="lang-csharp">[SceneStateProcess(SceneStateType.Title)]
+public class TitleSceneProcessor : SceneStateProcessInterface
+{
+    public void Process()
+    {
+        if (KeyboardInput.IsPushedMoment(KeyCode.Space))
+        {
+            SceneStateManager.ChangeScene(SceneStateType.Game);
+        }
+    }
+}
+</code></pre>
+<h3 id="dontdestroyonscenechangedattribute"><code>[DontDestroyOnSceneChangedAttribute]</code></h3>
+<p><strong>用途</strong>: シーン変更時の破棄回避指定<br>
+<strong>適用対象</strong>: <code>Object</code>を継承するクラス</p>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DontDestroyOnSceneChanged]
+public partial class BGMManager : Object
+{
+    // シーン変更時も破棄されない
+}
+</code></pre>
+<hr>
+<h2 id="-コールバック属性">🔗 コールバック属性</h2>
+<h3 id="actioncallbackattribute"><code>[ActionCallbackAttribute]</code></h3>
+<p><strong>用途</strong>: アクション実行時のコールバック指定<br>
+<strong>適用対象</strong>: メソッド</p>
+<pre><code class="lang-csharp">public class Player : Object
+{
+    [ActionCallbackAttribute(StartFrame = 0, EndFrame = 100, CallInterval = 5, TargetStatus = Status.Normal)]
+    public void HandleDamage()
+    {
+        // フレーム0-100の間、5フレーム毎に実行されるダメージ処理
+        health -= damagePerFrame;
+    }
+}
+</code></pre>
+<p><strong>パラメータ</strong>:</p>
+<ul>
+<li><code>StartFrame</code>: 実行開始フレーム</li>
+<li><code>EndFrame</code>: 実行終了フレーム</li>
+<li><code>CallInterval</code>: 実行間隔（フレーム）</li>
+<li><code>TargetStatus</code>: 実行対象ステータス</li>
+</ul>
+<h3 id="statuschangedcallbackattribute"><code>[StatusChangedCallbackAttribute]</code></h3>
+<p><strong>用途</strong>: ステータス変更時のコールバック指定<br>
+<strong>適用対象</strong>: メソッド</p>
+<pre><code class="lang-csharp">public class Enemy : Object
+{
+    [StatusChangedCallbackAttribute]
+    public void OnHealthChanged()
+    {
+        // ステータス変更時の処理
+        if (health &lt;= 0)
+        {
+            Die();
+        }
+    }
+}
+</code></pre>
+<p><strong>注意</strong>: これらの属性は以前「Atrribute」という誤字で定義されていましたが、現在は修正されています</p>
+<hr>
+<h2 id="-その他の属性">📊 その他の属性</h2>
+<p><strong>活用例</strong>:</p>
+<pre><code class="lang-csharp">// モジュールのバージョン確認
+var version = ModuleVersionUtility.GetVersion(typeof(CustomModule));
+Logger.Log($&quot;Module version: {version}&quot;);
+</code></pre>
+<hr>
+<h2 id="-属性の組み合わせパターン">🔄 属性の組み合わせパターン</h2>
+<h3 id="基本的なゲームオブジェクト">基本的なゲームオブジェクト</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(BasicRenderer), auto_member_generate: true)]
+[VaNillaModuleVersion(1, 0, 0, 0)]
+public partial class SimpleSprite : Object
+{
+    public override bool SetUp()
+    {
+        hasPosition.Position = new Point2(100, 100);
+        hasTexture.Texture = TextureResourceManager.GetTextureResource(TextureResourceType.Player);
+        return true;
+    }
+}
+</code></pre>
+<h3 id="プレイヤーキャラクター">プレイヤーキャラクター</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasCollision), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(PlayerMovementComponent), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(PlayerInputComponent), auto_member_generate: true)]
+[VaNillaModuleVersion(1, 0, 0, 0)]
+public partial class Player : Object, ICollisionCallback
+{
+    public void OnCollisionEnter(CollisionResult result)
+    {
+        // 衝突処理
+    }
+}
+</code></pre>
+<h3 id="永続的なマネージャーオブジェクト">永続的なマネージャーオブジェクト</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DontDestroyOnSceneChanged]
+[DefaultExpresserComponent(typeof(GameManagerComponent), auto_member_generate: true)]
+public partial class GameManager : Object
+{
+    // シーン間で永続化される
+}
+</code></pre>
+<h3 id="自動アクティベーション付きステージ管理">自動アクティベーション付きステージ管理</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+public partial class StageManager : Object
+{
+    [AutoActivate]
+    private BackgroundManager backgroundManager;
+    
+    [AutoActivate]
+    private EnemySpawner enemySpawner;
+    
+    [AutoActivate]
+    private ItemManager itemManager;
+    
+    public override bool SetUp()
+    {
+        // 各マネージャーは自動的にアクティベートされている
+        backgroundManager.LoadStageBackground(StageType.Forest);
+        enemySpawner.StartSpawning();
+        itemManager.Initialize();
+        return true;
+    }
+}
+</code></pre>
+<h3 id="型安全な親オブジェクト参照を持つコンポーネント">型安全な親オブジェクト参照を持つコンポーネント</h3>
+<pre><code class="lang-csharp">[AutoHoldAssociatedObject(typeof(Enemy))]
+[ExpresserComponentExecutionOrderAttribute(ExpresserComponentExecutionOrderList.Logic)]
+public partial class EnemyAIComponent : IExpresserComponent
+{
+    // public Enemy? AssociatedObject が自動生成
+    
+    private float attackCooldown = 0;
+    
+    public bool Execute(Object obj, in Time time)
+    {
+        if (AssociatedObject == null) return true;
+        
+        // 型安全にEnemyのメンバーにアクセス
+        var distanceToPlayer = CalculateDistance(AssociatedObject.Position, playerPosition);
+        
+        if (distanceToPlayer &lt; AssociatedObject.AttackRange &amp;&amp; attackCooldown &lt;= 0)
+        {
+            AssociatedObject.PerformAttack();
+            attackCooldown = AssociatedObject.AttackCooldownTime;
+        }
+        
+        attackCooldown -= time.DeltaTime;
+        return true;
+    }
+}
+
+---
+
+## ⚠️ トラブルシューティング
+
+### よくあるエラーと解決方法
+
+#### コンパイルエラー: &quot;partial クラスでないとAutoGenerateConstructorが使えない&quot;
+```csharp
+// ❌ 間違い
+[AutoGenerateConstructor]
+public class Player : Object { }
+
+// ✅ 正しい
+[AutoGenerateConstructor]
+public partial class Player : Object { }
+</code></pre>
+<h4 id="コンパイルエラー-vanillaexpressercomponentexecutionorderが見つからない">コンパイルエラー: &quot;VaNilla.ExpresserComponentExecutionOrderが見つからない&quot;</h4>
+<p><strong>原因</strong>: YAML設定からコード生成していない<br>
+<strong>解決</strong>: <code>python VaNillaEngineManager/CodeGenerator.py -s [設定yamlファイルのパス]</code> を実行</p>
+<h4 id="実行時エラー-循環依存が検出されました">実行時エラー: &quot;循環依存が検出されました&quot;</h4>
+<p><strong>原因</strong>: <code>[RequiredExpresserComponent]</code>で循環参照を作成<br>
+<strong>解決</strong>: 依存関係を見直し、階層構造に変更</p>
+<h4 id="期待通りに動作しない-属性が無視される">期待通りに動作しない: &quot;属性が無視される&quot;</h4>
+<p><strong>原因</strong>: 属性の適用対象が間違っている<br>
+<strong>解決</strong>: 各属性の適用対象を確認し、正しいクラス・メソッドに適用</p>
+<h3 id="デバッグのベストプラクティス">デバッグのベストプラクティス</h3>
+<ol>
+<li><p><strong>属性の動作確認</strong></p>
+<pre><code class="lang-csharp">// 実行時に属性情報を確認
+var attributes = typeof(Player).GetCustomAttributes(typeof(DefaultExpresserComponentAttribute), false);
+</code></pre>
+</li>
+<li><p><strong>依存関係の可視化</strong></p>
+<pre><code class="lang-csharp">// RequiredExpresserComponentAttributeの確認
+RequiredExpresserComponentCollector.GetRequiredComponents(typeof(BasicRenderer));
+</code></pre>
+</li>
+<li><p><strong>実行順序の確認</strong></p>
+<pre><code class="lang-csharp">// ExpresserComponent実行順序の確認
+ExpresserComponentExecutionOrderCollector.GetExecutionOrder(typeof(PlayerMovementComponent));
+</code></pre>
+</li>
+</ol>
+<hr>
+<h2 id="-関連ドキュメント">📚 関連ドキュメント</h2>
+<ul>
+<li><a href="../../Object/README.html">Object システム</a> - オブジェクトの基本概念</li>
+<li><a href="../../ExpresserComponent/README.html">ExpresserComponent</a> - コンポーネントシステム詳細</li>
+<li><a href="../../VaNillaEngineManager/README.html">VaNillaEngineManager</a> - コード生成システム</li>
+<li><a href="../HowToIndex/GameDevelopment.html">ゲーム開発ガイド</a> - 実践的な使用例</li>
+</ul>
+<hr>
+<h2 id="-まとめ">🎯 まとめ</h2>
+<p>VaNillaの属性システムは、以下の主要な属性群から構成されています：</p>
+<h3 id="属性カテゴリ別の概要">属性カテゴリ別の概要</h3>
+<ul>
+<li><strong>オブジェクト生成・管理</strong>: 3属性（コンストラクタ生成、コンポーネント指定、自動アクティベーション）</li>
+<li><strong>ExpresserComponent制御</strong>: 4属性（依存関係、実行順序、実行制御、関連オブジェクト保持）</li>
+<li><strong>ライフサイクル管理</strong>: 3属性（起動・終了処理）</li>
+<li><strong>シーン管理</strong>: 2属性（シーン処理、永続化）</li>
+<li><strong>コールバック</strong>: 2属性（アクション、ステータス変更）</li>
+<li><strong>バージョン管理</strong>: 1属性（モジュールバージョン）</li>
+</ul>
+<p><strong>合計15種類のコア属性</strong>に加え、<strong>7種類のソースジェネレーター生成属性</strong>により、VaNillaエンジンの宣言的プログラミングが実現されています。</p>
+<p>VaNillaの属性システムを効果的に活用することで：</p>
+<ul>
+<li><strong>開発効率の向上</strong>: ボイラープレートの削減と自動コード生成</li>
+<li><strong>コード品質の向上</strong>: 宣言的で読みやすいコード</li>
+<li><strong>保守性の向上</strong>: 依存関係と実行順序の明確化</li>
+<li><strong>拡張性の確保</strong>: 新機能追加時の影響範囲最小化</li>
+</ul>
+<p>属性を適切に組み合わせることで、VaNillaエンジンの表象要素指向プログラミングの真価を発揮できます。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/VaNillaAttributes/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Localization モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Localization モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Localization/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="localization-モジュール">Localization モジュール</h1>
+
+<p>Localizationモジュールは、多言語対応（国際化・ローカライゼーション）機能を提供するモジュールです。テキストの多言語変換、文字コード変換、言語設定管理などの機能を統合的に提供します。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>多言語テキスト管理</strong>: CSV形式のテキストデータベースによる多言語対応</li>
+<li><strong>文字コード変換</strong>: UTF-16LEから各言語の文字コードへの変換</li>
+<li><strong>OS言語設定取得</strong>: システムの優先言語設定の自動取得</li>
+<li><strong>動的言語切り替え</strong>: 実行時の言語変更対応</li>
+</ul>
+<h2 id="対応言語">対応言語</h2>
+<p>現在以下の言語に対応しています：</p>
+<ul>
+<li><strong>Japanese</strong> - 日本語</li>
+<li><strong>English</strong> - 英語</li>
+<li><strong>Chinese</strong> - 中国語（繁体字）</li>
+<li><strong>SimplifiedChinese</strong> - 中国語（簡体字）</li>
+</ul>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="util-クラス">Util クラス</h3>
+<p>言語・文字コード変換のユーティリティ機能を提供します。</p>
+<pre><code class="lang-csharp">public static class Util
+{
+    // OS優先言語設定の取得
+    public static string GetPreferredLanguage();
+    
+    // 文字コード変換
+    public static byte[] ConvertCharSet(string orig_str, LanguageType lang_type);
+}
+</code></pre>
+<h3 id="languagetextdatabase-クラス">LanguageTextDataBase クラス</h3>
+<p>CSVファイルベースの多言語テキストデータベースです。</p>
+<pre><code class="lang-csharp">public class LanguageTextDataBase
+{
+    // データベース名
+    public string Name { get; }
+    
+    // テキスト取得
+    public string GetText(LanguageType lang, string key);
+    
+    // 統計情報
+    public int GetNumTexts();
+    public List&lt;string&gt; GetKeys();
+}
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的な使用例">基本的な使用例</h3>
+<pre><code class="lang-csharp">// OS言語設定の取得
+string preferredLang = Util.GetPreferredLanguage();
+Console.WriteLine($&quot;System Language: {preferredLang}&quot;);
+
+// テキストデータベースの作成
+var textDB = new LanguageTextDataBase(
+    path: &quot;Assets/Localization/ui_texts.csv&quot;,
+    name: &quot;UITexts&quot;,
+    ignore_header: true
+);
+
+// 言語別テキストの取得
+string japaneseText = textDB.GetText(LanguageType.Japanese, &quot;START_BUTTON&quot;);
+string englishText = textDB.GetText(LanguageType.English, &quot;START_BUTTON&quot;);
+
+Console.WriteLine($&quot;JP: {japaneseText}&quot;);
+Console.WriteLine($&quot;EN: {englishText}&quot;);
+
+// 文字コード変換
+byte[] shiftJisBytes = Util.ConvertCharSet(&quot;こんにちは&quot;, LanguageType.Japanese);
+</code></pre>
+<h3 id="csvデータベース形式">CSVデータベース形式</h3>
+<p>テキストデータベースのCSV形式は以下のようになります：</p>
+<pre><code class="lang-csv">ID,Key,Japanese,English,Chinese,SimplifiedChinese
+1,&quot;START_BUTTON&quot;,&quot;スタート&quot;,&quot;Start&quot;,&quot;開始&quot;,&quot;开始&quot;
+2,&quot;EXIT_BUTTON&quot;,&quot;終了&quot;,&quot;Exit&quot;,&quot;退出&quot;,&quot;退出&quot;
+3,&quot;SETTINGS&quot;,&quot;設定&quot;,&quot;Settings&quot;,&quot;設定&quot;,&quot;设置&quot;
+4,&quot;PLAYER_NAME&quot;,&quot;プレイヤー名&quot;,&quot;Player Name&quot;,&quot;玩家姓名&quot;,&quot;玩家姓名&quot;
+</code></pre>
+<p><strong>形式説明:</strong></p>
+<ul>
+<li>1列目：ID（数値）</li>
+<li>2列目：キー（文字列）</li>
+<li>3列目以降：各言語のテキスト（LanguageType列挙体の順序に対応）</li>
+</ul>
+<h3 id="改行文字の扱い">改行文字の扱い</h3>
+<p>CSVファイル内では<code>\\n</code>を使用して改行を表現できます：</p>
+<pre><code class="lang-csv">ID,Key,Japanese,English
+1,&quot;WELCOME_MESSAGE&quot;,&quot;ゲームへようこそ\\n楽しんでください！&quot;,&quot;Welcome to the game\\nEnjoy yourself!&quot;
+</code></pre>
+<p>これは実際には以下のように変換されます：</p>
+<pre><code>ゲームへようこそ
+楽しんでください！
+</code></pre>
+<h2 id="アドバンスド機能">アドバンスド機能</h2>
+<h3 id="動的言語切り替えシステム">動的言語切り替えシステム</h3>
+<pre><code class="lang-csharp">public class LocalizationManager
+{
+    private LanguageType currentLanguage;
+    private Dictionary&lt;string, LanguageTextDataBase&gt; databases;
+    
+    public void LoadDatabase(string name, string csvPath)
+    {
+        databases[name] = new LanguageTextDataBase(csvPath, name);
+    }
+    
+    public string GetLocalizedText(string databaseName, string key)
+    {
+        return databases[databaseName].GetText(currentLanguage, key);
+    }
+    
+    public void SetLanguage(LanguageType language)
+    {
+        currentLanguage = language;
+        OnLanguageChanged?.Invoke(language);
+    }
+    
+    public event Action&lt;LanguageType&gt; OnLanguageChanged;
+}
+</code></pre>
+<h3 id="expressercomponent統合例">ExpresserComponent統合例</h3>
+<pre><code class="lang-csharp">[RequiredExpresserComponent(typeof(HasText))]
+public class LocalizedText : IExpresserComponent
+{
+    public string DatabaseName { get; set; }
+    public string TextKey { get; set; }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        var hasText = object__.GetExpresserComponent&lt;HasText&gt;();
+        string localizedText = LocalizationManager.Instance.GetLocalizedText(DatabaseName, TextKey);
+        hasText.Text = localizedText;
+        return true;
+    }
+}
+</code></pre>
+<h2 id="文字コード対応">文字コード対応</h2>
+<h3 id="対応文字エンコーディング">対応文字エンコーディング</h3>
+<ul>
+<li><strong>Japanese</strong>: Shift_JIS</li>
+<li><strong>English</strong>: UTF-8</li>
+<li><strong>Chinese</strong>: Big5</li>
+<li><strong>SimplifiedChinese</strong>: GB2312</li>
+</ul>
+<h3 id="プラットフォーム実装">プラットフォーム実装</h3>
+<p>文字コード変換は複数の実装を提供：</p>
+<ul>
+<li><strong>DotNet実装</strong>: .NET標準のエンコーディング</li>
+<li><strong>Portable.Text.Encoding実装</strong>: 軽量なエンコーディングライブラリ</li>
+</ul>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>初期化時一括読み込み</strong>: CSVファイルは初期化時に全て読み込まれメモリに保持</li>
+<li><strong>高速検索</strong>: Dictionary構造による高速なテキスト検索</li>
+<li><strong>文字コード変換キャッシュ</strong>: 変換結果のキャッシュ機能（実装推奨）</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../AssetManipulator/README.html">AssetDatabaseManager</a> - ファイル読み込み</li>
+<li><a href="../DebugLogger/README.html">Logger</a> - エラーログ出力</li>
+<li><strong>Microsoft.VisualBasic.FileIO</strong> - CSV解析</li>
+<li><strong>Windows.System.UserProfile</strong> - OS言語設定取得</li>
+</ul>
+<h2 id="制限事項">制限事項</h2>
+<ul>
+<li>CSVファイルの変更は実行時には反映されません（再起動が必要）</li>
+<li>LanguageType列挙体の変更時はCSVファイルの列順序も変更が必要</li>
+<li>大量のテキストを扱う場合はメモリ使用量に注意</li>
+</ul>
+<h2 id="拡張予定">拡張予定</h2>
+<ul>
+<li><strong>フォント切り替え</strong>: 言語に応じた自動フォント変更</li>
+<li><strong>RTL対応</strong>: アラビア語・ヘブライ語等の右から左への文字対応</li>
+<li><strong>複数形対応</strong>: 英語の単数・複数形の自動選択</li>
+<li><strong>変数展開</strong>: テキスト内での変数置換機能</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../FontResourceManager/README.html">FontResourceManager</a> - フォント管理</li>
+<li><a href="../AssetManipulator/README.html">AssetManipulator</a> - ファイル管理</li>
+<li><a href="../DebugLogger/README.html">DebugLogger</a> - ログ出力</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Localization/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

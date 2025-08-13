@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>MathUtil モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="MathUtil モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/MathUtil/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="mathutil-モジュール">MathUtil モジュール</h1>
+
+<p>MathUtilモジュールは、ゲーム開発で頻繁に使用される数学計算機能を包括的に提供するユーティリティモジュールです。基本的な算術関数から高度な幾何学計算まで、効率的で使いやすいAPIで数学処理を支援します。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>基本数学関数</strong>: 絶対値、最大値、最小値、クランプ、累乗、平方根</li>
+<li><strong>三角関数</strong>: Sin、Cos、Tan、逆三角関数（Asin、Acos、Atan、Atan2）</li>
+<li><strong>座標変換</strong>: 直交座標↔極座標変換、楕円座標計算</li>
+<li><strong>角度処理</strong>: ラジアン正規化、角度補間、目標角度への回転</li>
+<li><strong>数値処理</strong>: 床関数、天井関数、四捨五入、循環値処理</li>
+<li><strong>幾何学計算</strong>: 2点間角度計算、楕円軌道計算</li>
+<li><strong>型統合</strong>: VaNilla.Transform型との完全な連携</li>
+</ul>
+<h2 id="実装状況">実装状況</h2>
+<p>✅ <strong>完了</strong>: 全ての数学関数と座標変換機能が実装済みです。</p>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="mathutil-クラス">Math.Util クラス</h3>
+<p>静的クラスとして数学関数を提供します。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public static class Util
+{
+    // 円周率定数
+    public const double PI = System.Math.PI;
+    public const float PI_F = (float)System.Math.PI;
+    public const double PI_2 = System.Math.PI / 2.0f;
+    public const float PI_2_F = (float)System.Math.PI / 2.0f;
+    
+    // 基本数学関数
+    public static int Abs(int value);
+    public static float Abs(float value);
+    public static double Abs(double value);
+    
+    public static int Max(int value0, int value1);
+    public static float Max(float value0, float value1);
+    public static double Max(double value0, double value1);
+    public static long Max(long value0, long value1);
+    public static uint Max(uint value0, uint value1);
+    
+    public static int Min(int value0, int value1);
+    public static float Min(float value0, float value1);
+    public static double Min(double value0, double value1);
+    public static long Min(long value0, long value1);
+    public static uint Min(uint value0, uint value1);
+    
+    public static float Clamp(float value, float min, float max);
+    public static int Clamp(int value, int min, int max);
+    public static uint Clamp(uint value, uint min, uint max);
+    
+    // 累乗・平方根
+    public static int Pow(int x, int y);
+    public static uint Pow(uint x, uint y);
+    public static float Pow(float x, float y);
+    public static double Sqrt(double d);
+    
+    // 数値処理
+    public static int Floor(double d);
+    public static int Ceiling(double d);
+    public static int Round(double d);
+    public static double Round(double d, int digit);
+    
+    // 三角関数
+    public static double Sin(double d);
+    public static float Sin(float f);
+    public static double Cos(double d);
+    public static float Cos(float f);
+    public static float Tan(float f);
+    public static double Tan(double f);
+    
+    // 逆三角関数
+    public static double Atan(double d);
+    public static float Atan(float f);
+    public static double Atan(double y, double x);
+    public static float Atan(float y, float x);
+    public static double Atan((double y, double x) tuple);
+    public static float Atan((float y, float x) tuple);
+    public static float Atan(VaNilla.Transform.Vector2 vector);
+    public static float Atan(VaNilla.Transform.Point2 point);
+    public static double Asin(double d);
+    public static double Acos(double d);
+    
+    // 角度処理
+    public static float NormalizeRadian(float d);
+    public static double NormalizeRadian(double d);
+    public static float AimRadian(float currentRadian, float targetRadian, float radianVelocity);
+    public static double AimRadian(double currentRadian, double targetRadian, double radianVelocity);
+    
+    // 循環値処理
+    public static float Cycle(float v, float max, float min = 0);
+    public static int Cycle(int v, int max, int min = 0);
+    
+    // 座標変換
+    public static Transform.Point2 RectangularToPolar(float x, float y);
+    public static Transform.Point2 RectangularToPolar(Transform.Point2 p);
+    public static Transform.Point2 PolarToRectangular(float r, float theta);
+    public static Transform.Point2 PolarToRectangular(Transform.Point2 p);
+    
+    // 楕円計算
+    public static Transform.Point2 GetEllipsePoint(float a, float b, Transform.Radian theta);
+    public static Transform.Point2 GetEllipsePoint(float a, float b, Transform.Radian rotation, Transform.Radian theta);
+    
+    // 角度計算
+    public static Transform.Radian GetAngle(float x0, float y0, float x1, float y1);
+    public static Transform.Radian GetAngle(this Transform.Point2 from, Transform.Point2 to);
+    public static Transform.Radian GetAngle(this Transform.Point2 from, float x1, float y1);
+}
+</code></pre>
+<h3 id="range-クラス">Range クラス</h3>
+<p>範囲を表現する便利クラスです。</p>
+<pre><code class="lang-csharp">namespace VaNilla.Math
+{
+    /// &lt;summary&gt;
+    /// 範囲を表すクラスです
+    /// &lt;/summary&gt;
+    public class Range
+    {
+        public Range(double min, double max);
+        
+        public readonly double min;
+        public readonly double max;
+    }
+}
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的な数学計算">基本的な数学計算</h3>
+<pre><code class="lang-csharp">// 絶対値
+int absoluteValue = Math.Util.Abs(-10);          // 10
+float floatAbs = Math.Util.Abs(-3.14f);          // 3.14f
+
+// 最大値・最小値
+int maxValue = Math.Util.Max(5, 8);              // 8
+float minValue = Math.Util.Min(2.5f, 1.8f);     // 1.8f
+
+// クランプ（値の範囲制限）
+float health = Math.Util.Clamp(damage, 0.0f, 100.0f);
+int level = Math.Util.Clamp(experience / 1000, 1, 50);
+
+// 累乗・平方根
+float squared = Math.Util.Pow(3.0f, 2.0f);      // 9.0f
+double distance = Math.Util.Sqrt(dx*dx + dy*dy); // ユークリッド距離
+</code></pre>
+<h3 id="三角関数と角度計算">三角関数と角度計算</h3>
+<pre><code class="lang-csharp">// 基本的な三角関数
+float angleRad = Math.Util.PI_F / 4.0f;  // 45度
+float sinValue = Math.Util.Sin(angleRad);       // 0.707...
+float cosValue = Math.Util.Cos(angleRad);       // 0.707...
+float tanValue = Math.Util.Tan(angleRad);       // 1.0
+
+// 逆三角関数（Atan2による角度計算）
+Vector2 direction = new Vector2(1.0f, 1.0f);
+float angle = Math.Util.Atan(direction);        // 45度のラジアン値
+
+// 2点間の角度
+Point2 from = new Point2(0, 0);
+Point2 to = new Point2(10, 10);
+float angleToTarget = from.GetAngle(to);         // 45度のラジアン値
+</code></pre>
+<h3 id="角度の正規化と補間">角度の正規化と補間</h3>
+<pre><code class="lang-csharp">// 角度を-π～πの範囲に正規化
+float normalizedAngle = Math.Util.NormalizeRadian(angle);
+
+// 目標角度への段階的回転
+float currentAngle = 0.0f;
+float targetAngle = Math.Util.PI_F;
+float rotationSpeed = 2.0f; // rad/s
+
+// フレーム更新で少しずつ回転
+currentAngle = Math.Util.AimRadian(currentAngle, targetAngle, rotationSpeed * deltaTime);
+</code></pre>
+<h3 id="座標変換">座標変換</h3>
+<pre><code class="lang-csharp">// 直交座標を極座標に変換
+Point2 cartesian = new Point2(3.0f, 4.0f);
+Point2 polar = Math.Util.RectangularToPolar(cartesian);
+// polar.X = 5.0f (距離), polar.Y = 0.927... (角度)
+
+// 極座標を直交座標に変換
+Point2 backToCartesian = Math.Util.PolarToRectangular(polar);
+
+// 直接値での変換
+Point2 polarDirect = Math.Util.RectangularToPolar(3.0f, 4.0f);
+Point2 cartesianDirect = Math.Util.PolarToRectangular(5.0f, 0.927f);
+</code></pre>
+<h2 id="ゲーム開発での実用例">ゲーム開発での実用例</h2>
+<h3 id="プレイヤーの回転制御">プレイヤーの回転制御</h3>
+<pre><code class="lang-csharp">public class PlayerRotation : IExpresserComponent
+{
+    private HasRotation rotation;
+    private float targetAngle = 0.0f;
+    private float rotationSpeed = 3.0f; // rad/s
+    
+    public bool SetUp(Object object__)
+    {
+        rotation = object__.GetExpresserComponent&lt;HasRotation&gt;();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        // 現在の角度を目標角度に向けて回転
+        float currentAngle = rotation.Rotation;
+        float newAngle = Math.Util.AimRadian(
+            currentAngle, 
+            targetAngle, 
+            rotationSpeed * current_time.DeltaTime
+        );
+        
+        rotation.Rotation = newAngle;
+        return true;
+    }
+    
+    public void SetTargetDirection(Vector2 direction)
+    {
+        targetAngle = Math.Util.Atan(direction);
+    }
+    
+    public void LookAt(Point2 target)
+    {
+        var position = GetComponent&lt;HasPosition&gt;().Position;
+        var direction = target - position;
+        targetAngle = Math.Util.Atan(direction);
+    }
+}
+</code></pre>
+<h3 id="弾丸の軌道計算">弾丸の軌道計算</h3>
+<pre><code class="lang-csharp">public class ProjectileMotion : IExpresserComponent
+{
+    private HasPosition position;
+    private Vector2 velocity;
+    private float gravity = 9.81f;
+    
+    public bool SetUp(Object object__)
+    {
+        position = object__.GetExpresserComponent&lt;HasPosition&gt;();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        // 重力による放物線運動
+        velocity.Y -= gravity * current_time.DeltaTime;
+        position.Position += velocity * current_time.DeltaTime;
+        
+        return true;
+    }
+    
+    public void Fire(Vector2 direction, float power)
+    {
+        velocity = direction * power;
+    }
+    
+    public void FireAt(Point2 target, float power)
+    {
+        var startPos = position.Position;
+        var direction = target - startPos;
+        float distance = Math.Util.Sqrt(direction.X * direction.X + direction.Y * direction.Y);
+        
+        // 目標への射角計算
+        float angle = CalculateFireAngle(distance, power);
+        velocity = new Vector2(
+            Math.Util.Cos(angle) * power,
+            Math.Util.Sin(angle) * power
+        );
+    }
+    
+    private float CalculateFireAngle(float distance, float power)
+    {
+        // 重力を考慮した最適射角計算
+        float g = gravity;
+        float v2 = power * power;
+        float angle = 0.5f * Math.Util.Asin((g * distance) / v2);
+        return angle;
+    }
+}
+</code></pre>
+<h3 id="円軌道移動">円軌道移動</h3>
+<pre><code class="lang-csharp">public class CircularMotion : IExpresserComponent
+{
+    private HasPosition position;
+    private Point2 center;
+    private float radius;
+    private float angularSpeed; // rad/s
+    private float currentAngle = 0.0f;
+    
+    public bool SetUp(Object object__)
+    {
+        position = object__.GetExpresserComponent&lt;HasPosition&gt;();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        // 角速度による回転
+        currentAngle += angularSpeed * current_time.DeltaTime;
+        currentAngle = Math.Util.NormalizeRadian(currentAngle);
+        
+        // 極座標から直交座標への変換
+        Point2 offset = Math.Util.PolarToRectangular(radius, currentAngle);
+        position.Position = center + offset;
+        
+        return true;
+    }
+    
+    public void SetOrbit(Point2 centerPoint, float orbitRadius, float speed)
+    {
+        center = centerPoint;
+        radius = orbitRadius;
+        angularSpeed = speed;
+    }
+}
+</code></pre>
+<h3 id="楕円軌道システム">楕円軌道システム</h3>
+<pre><code class="lang-csharp">public class EllipticalOrbit : IExpresserComponent
+{
+    private HasPosition position;
+    private Point2 center;
+    private float semiMajorAxis; // 長半径
+    private float semiMinorAxis; // 短半径
+    private float rotation = 0.0f; // 楕円の回転
+    private float orbitalAngle = 0.0f; // 軌道角
+    private float orbitalSpeed = 1.0f; // rad/s
+    
+    public bool SetUp(Object object__)
+    {
+        position = object__.GetExpresserComponent&lt;HasPosition&gt;();
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        orbitalAngle += orbitalSpeed * current_time.DeltaTime;
+        orbitalAngle = Math.Util.Cycle(orbitalAngle, 2.0f * Math.Util.PI_F);
+        
+        // 楕円上の点を計算
+        Point2 ellipsePoint = Math.Util.GetEllipsePoint(
+            semiMajorAxis, 
+            semiMinorAxis, 
+            rotation, 
+            orbitalAngle
+        );
+        
+        position.Position = center + ellipsePoint;
+        return true;
+    }
+    
+    public void SetEllipse(Point2 centerPoint, float a, float b, float rot = 0.0f)
+    {
+        center = centerPoint;
+        semiMajorAxis = a;
+        semiMinorAxis = b;
+        rotation = rot;
+    }
+}
+</code></pre>
+<h3 id="数値処理とアニメーション">数値処理とアニメーション</h3>
+<pre><code class="lang-csharp">public class WaveMotion : IExpresserComponent
+{
+    private HasPosition position;
+    private Point2 basePosition;
+    private float waveTime = 0.0f;
+    private float amplitude = 10.0f;
+    private float frequency = 2.0f;
+    
+    public bool SetUp(Object object__)
+    {
+        position = object__.GetExpresserComponent&lt;HasPosition&gt;();
+        basePosition = position.Position;
+        return true;
+    }
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        waveTime += current_time.DeltaTime;
+        
+        // 正弦波による上下運動
+        float offset = amplitude * Math.Util.Sin(waveTime * frequency);
+        position.Position = new Point2(basePosition.X, basePosition.Y + offset);
+        
+        return true;
+    }
+}
+
+public class BouncingValue : IExpresserComponent
+{
+    private float value = 0.0f;
+    private float minValue = 0.0f;
+    private float maxValue = 100.0f;
+    private float speed = 50.0f;
+    private int direction = 1;
+    
+    public float Value =&gt; value;
+    
+    public bool Execute(Object object__, in Time current_time)
+    {
+        value += direction * speed * current_time.DeltaTime;
+        
+        // 境界での反転
+        if (value &gt;= maxValue)
+        {
+            value = maxValue;
+            direction = -1;
+        }
+        else if (value &lt;= minValue)
+        {
+            value = minValue;
+            direction = 1;
+        }
+        
+        // クランプで安全性を確保
+        value = Math.Util.Clamp(value, minValue, maxValue);
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="高度な数学的処理">高度な数学的処理</h3>
+<pre><code class="lang-csharp">public class MathematicalEffects
+{
+    // パーリンノイズ風の値生成
+    public static float SmoothRandom(float x, float y, float scale = 1.0f)
+    {
+        x *= scale;
+        y *= scale;
+        
+        // 格子点での値
+        int x0 = Math.Util.Floor(x);
+        int y0 = Math.Util.Floor(y);
+        int x1 = x0 + 1;
+        int y1 = y0 + 1;
+        
+        // 補間係数
+        float fx = x - x0;
+        float fy = y - y0;
+        
+        // 各格子点での値（疑似ランダム）
+        float v00 = PseudoRandom(x0, y0);
+        float v10 = PseudoRandom(x1, y0);
+        float v01 = PseudoRandom(x0, y1);
+        float v11 = PseudoRandom(x1, y1);
+        
+        // バイリニア補間
+        float v0 = Lerp(v00, v10, fx);
+        float v1 = Lerp(v01, v11, fx);
+        return Lerp(v0, v1, fy);
+    }
+    
+    private static float PseudoRandom(int x, int y)
+    {
+        int n = x * 1619 + y * 31337;
+        n = (n &lt;&lt; 13) ^ n;
+        n = (n * (n * n * 15731 + 789221) + 1376312589) &amp; 0x7fffffff;
+        return 1.0f - ((float)n / 1073741824.0f);
+    }
+    
+    private static float Lerp(float a, float b, float t)
+    {
+        return a + t * (b - a);
+    }
+    
+    // スプライン補間
+    public static float CubicSpline(float t, float p0, float p1, float p2, float p3)
+    {
+        float t2 = t * t;
+        float t3 = t2 * t;
+        
+        return 0.5f * (
+            2.0f * p1 +
+            (-p0 + p2) * t +
+            (2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * t2 +
+            (-p0 + 3.0f * p1 - 3.0f * p2 + p3) * t3
+        );
+    }
+}
+</code></pre>
+<h2 id="便利な拡張メソッド例">便利な拡張メソッド例</h2>
+<pre><code class="lang-csharp">public static class MathExtensions
+{
+    // 角度の変換
+    public static float ToRadians(this float degrees)
+    {
+        return degrees * Math.Util.PI_F / 180.0f;
+    }
+    
+    public static float ToDegrees(this float radians)
+    {
+        return radians * 180.0f / Math.Util.PI_F;
+    }
+    
+    // ベクトルの長さ
+    public static float Length(this Vector2 vector)
+    {
+        return (float)Math.Util.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+    }
+    
+    // ベクトルの正規化
+    public static Vector2 Normalized(this Vector2 vector)
+    {
+        float length = vector.Length();
+        if (length &gt; 0.001f)
+        {
+            return new Vector2(vector.X / length, vector.Y / length);
+        }
+        return Vector2.Zero;
+    }
+    
+    // 内積
+    public static float Dot(this Vector2 a, Vector2 b)
+    {
+        return a.X * b.X + a.Y * b.Y;
+    }
+    
+    // 外積（2Dでは z 成分のみ）
+    public static float Cross(this Vector2 a, Vector2 b)
+    {
+        return a.X * b.Y - a.Y * b.X;
+    }
+}
+</code></pre>
+<h2 id="設定例yaml">設定例（YAML）</h2>
+<pre><code class="lang-yaml">math_util:
+  precision:
+    float_epsilon: 0.001
+    double_epsilon: 0.000001
+    angle_epsilon: 0.01
+    
+  constants:
+    gravity: 9.81
+    default_rotation_speed: 3.14159  # π rad/s
+    
+  optimization:
+    use_lookup_tables: false
+    cache_trigonometric: false
+    fast_sqrt_approximation: false
+    
+  coordinate_systems:
+    default_up_vector: {x: 0, y: 1}
+    angle_convention: &quot;counter_clockwise&quot;
+    coordinate_origin: &quot;bottom_left&quot;
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>効率的な実装</strong>: .NET Math ライブラリへの直接委譲</li>
+<li><strong>インライン最適化</strong>: 簡単な計算は直接実装</li>
+<li><strong>型安全性</strong>: 適切な型変換とオーバーロード</li>
+<li><strong>精度保持</strong>: float/double の適切な使い分け</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<h3 id="角度の単位">角度の単位</h3>
+<ul>
+<li>全ての角度計算はラジアンで統一</li>
+<li>度数法が必要な場合は変換関数を使用</li>
+<li>NormalizeRadian で角度範囲を正規化</li>
+</ul>
+<h3 id="浮動小数点精度">浮動小数点精度</h3>
+<ul>
+<li>比較時は適切なイプシロン値を使用</li>
+<li>累積誤差に注意（特に回転処理）</li>
+<li>必要に応じて double 精度を選択</li>
+</ul>
+<h3 id="座標系">座標系</h3>
+<ul>
+<li>VaNilla.Transform との互換性を維持</li>
+<li>座標系の原点と方向を統一</li>
+<li>異なる座標系間での変換時は注意</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><strong>System.Math</strong> - .NET標準の数学ライブラリ</li>
+<li><a href="../Transform/README.html">Transform</a> - Vector2、Point2、Radian型</li>
+<li><strong>.NET Standard</strong> - 基本的なシステム機能</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../Transform/README.html">Transform</a> - 座標・回転・スケール管理</li>
+<li><a href="../Physics/README.html">Physics</a> - 物理計算</li>
+<li><a href="../Easing/README.html">Easing</a> - アニメーション補間</li>
+<li><a href="../RandomNumberGenerator/README.html">RandomNumberGenerator</a> - 乱数生成</li>
+</ul>
+<p>このモジュールにより、ゲーム開発で必要な数学計算を効率的かつ正確に実行できます。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントについては、以下のリンクを参照してください：</p>
+<p><a href="https://your-docfx-site.github.io/api/VaNilla.Math.html">VaNilla.Math Namespace API Reference</a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/MathUtil/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

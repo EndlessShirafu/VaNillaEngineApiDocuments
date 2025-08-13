@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>TextureResourceManager </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="TextureResourceManager ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/TextureResourceManager/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="textureresourcemanager">TextureResourceManager</h1>
+
+<p>テクスチャ関連リソースを扱うためのVaNillaマネージャモジュールです。
+ゲームで使用するテクスチャファイルの効率的な管理、カテゴリ単位でのロード制御、
+非同期読み込み機能など、包括的なテクスチャリソース管理機能を提供します。</p>
+<h2 id="概要">概要</h2>
+<p>TextureResourceManagerは、2Dゲーム開発において重要なテクスチャリソースの管理を担います。
+YAMLベースの設定ファイルからC#コードを自動生成し、型安全で効率的なテクスチャ管理を実現します。
+DxLibとUnity両方のプラットフォームで統一されたAPIを提供し、開発効率を大幅に向上させます。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.Texture.html">VaNilla TextureResourceManager APIリファレンス</a>をご覧ください。</p>
+<h3 id="アーキテクチャ">アーキテクチャ</h3>
+<pre><code>TextureResourceManager/
+├── Interface/          # プラットフォーム非依存のAPI定義
+│   ├── TextureResourceManager.cs    # メインのテクスチャ管理クラス
+│   ├── TextureResourceLoader.cs     # ロード/アンロード機能
+│   ├── TextureResourceType.cs       # 自動生成されるenum定義
+│   ├── HasTexture.cs                # テクスチャ割り当てコンポーネント
+│   └── HasTextureList.cs            # 複数テクスチャ管理コンポーネント
+├── Implementation/     # プラットフォーム固有実装
+│   ├── DxLib/         # DxLibバックエンド（フェーディング機能含む）
+│   └── Unity/         # Unityバックエンド
+└── dependencies.yaml   # 依存関係定義
+</code></pre>
+<h2 id="expressercomponent統合">ExpresserComponent統合</h2>
+<p>オブジェクト指向のテクスチャ管理のためのExpresserComponentも提供されています：</p>
+<h3 id="hastexture">HasTexture</h3>
+<p>単一のテクスチャを管理するコンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public class HasTexture : IExpresserComponent
+{
+    public TextureResource Texture { get; set; } = TextureResource.InvalidValue;
+}
+</code></pre>
+<h3 id="hastexturelist">HasTextureList</h3>
+<p>複数のテクスチャを管理するコンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public class HasTextureList : IExpresserComponent
+{
+    public List&lt;TextureResource&gt; TextureList { get; set; } = new List&lt;TextureResource&gt;();
+    
+    public void AddTexture(TextureResource texture);
+    public void RemoveTexture(TextureResource texture);
+    public TextureResource GetTexture(int index);
+}
+</code></pre>
+<h3 id="expressercomponentでの使用例">ExpresserComponentでの使用例</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(SpriteRenderComponent), auto_member_generate: true)]
+public partial class Sprite : Object
+{
+    public override bool SetUp()
+    {
+        hasPosition.Position = new Point2(100, 100);
+        hasTexture.Texture = TextureResourceManager.GetTextureResource(TextureResourceType.PlayerSprite);
+        return true;
+    }
+}
+
+[RequiredExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
+[RequiredExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
+public partial class SpriteRenderComponent : IExpresserComponent
+{
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; } = Execute.ExecuteType.Render;
+    
+    public bool Execute(Object associated_object, in Time.Time current_time)
+    {
+        if (hasTexture.Texture != TextureResource.InvalidValue)
+        {
+            Renderer.Utils.Draw(
+                hasPosition.Position.X, hasPosition.Position.Y,
+                hasTexture.Texture,
+                origin: BasicRenderer.DrawOrigin.Center
+            );
+        }
+        return true;
+    }
+    
+    public bool SetUp(Object associated_object) { return true; }
+    public void TearDown(Object associated_object) { }
+    public void HoldAssociatedObject(Object associated_object) { }
+    public void ReleaseAssociatedObject(Object associated_object) { }
+    public void GetComponentForSetUp(Object associated_object) { }
+    public void ReleaseComponentForTearDown(Object associated_object) { }
+}
+</code></pre>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="テクスチャリソース管理">テクスチャリソース管理</h3>
+<ul>
+<li><strong>型安全なenum定義</strong>: YAMLから自動生成される<code>TextureResourceType</code></li>
+<li><strong>カテゴリ管理</strong>: 用途別のテクスチャグループ化とバッチ処理</li>
+<li><strong>非同期ローディング</strong>: ノンブロッキングなテクスチャ読み込み</li>
+<li><strong>メモリ管理</strong>: 効率的なリソース破棄とメモリ最適化</li>
+</ul>
+<h3 id="テクスチャタイプサポート">テクスチャタイプサポート</h3>
+<table>
+<thead>
+<tr>
+<th>テクスチャタイプ</th>
+<th>説明</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FullOneShot</strong></td>
+<td>領域全てを利用した単一テクスチャ</td>
+<td>背景、UI要素</td>
+</tr>
+<tr>
+<td><strong>SharedOneShot</strong></td>
+<td>領域の一部を利用した単一テクスチャ</td>
+<td>スプライトシート</td>
+</tr>
+<tr>
+<td><strong>FullAnimation</strong></td>
+<td>領域全てを利用した連番アニメーション</td>
+<td>フルスクリーンエフェクト</td>
+</tr>
+<tr>
+<td><strong>SharedAnimation</strong></td>
+<td>領域の一部を利用した連番アニメーション</td>
+<td>キャラクターアニメーション</td>
+</tr>
+<tr>
+<td><strong>FullMovie</strong></td>
+<td>領域全てを利用したムービーテクスチャ</td>
+<td>動画再生</td>
+</tr>
+<tr>
+<td><strong>SharedMovie</strong></td>
+<td>領域の一部を利用したムービーテクスチャ</td>
+<td>UI内動画</td>
+</tr>
+</tbody>
+</table>
+<h2 id="テクスチャリソースのenum定義の事前生成について">テクスチャリソースのenum定義の事前生成について</h2>
+<p>テクスチャリソースを利用するためには、あらかじめ<code>TextureResourceType</code>のenum定義や、<br>
+C#上で取り扱うための情報クラスをyamlから生成しておく必要があります。<br>
+<code>Fixture/Script/convert.py</code>は、利用するテクスチャリソースの情報を記述したyamlから<br>
+<code>TextureResourceType</code>のenum定義などが記述されたC#コード(<code>TextureResourceType.cs</code>)を生成するためのpythonスクリプトです。<br>
+上記スクリプトで<code>TextureResourceType.cs</code>を事前生成しない場合、コンパイルエラーとなるので注意してください。</p>
+<h3 id="yamlファイルの設定例">YAMLファイルの設定例</h3>
+<pre><code class="lang-yaml"># VaNillaSettings.yaml
+texture_pool:
+  # 完全な静的画像
+  MainMenuBackground:
+    path: &quot;textures/ui/menu_bg.png&quot;
+    category: &quot;ui&quot;
+    type: &quot;full_one_shot&quot;
+  
+  # 共有テクスチャの一部を使用
+  ButtonSprites:
+    path: &quot;textures/ui/buttons.png&quot;
+    category: &quot;ui&quot;
+    type: &quot;shared_one_shot&quot;
+    parent: &quot;UIAtlas&quot;
+    region: [[0, 0], [256, 64]]
+  
+  # アニメーション
+  PlayerIdle:
+    path: &quot;textures/characters/player_idle.png&quot;
+    category: &quot;character&quot;
+    type: &quot;full_animation&quot;
+    loop: true
+    num_texture: 8
+    interval: 5
+  
+  EnemyWalk:
+    path: &quot;textures/characters/enemy_walk.png&quot;
+    category: &quot;character&quot;
+    type: &quot;shared_animation&quot;
+    parent: &quot;CharacterAtlas&quot;
+    loop: true
+    num_texture: 6
+    interval: 3
+    region: [
+      [[0, 0], [64, 64]],    # フレーム1
+      [[64, 0], [128, 64]],  # フレーム2
+      [[128, 0], [192, 64]], # フレーム3
+      [[0, 64], [64, 128]],  # フレーム4
+      [[64, 64], [128, 128]], # フレーム5
+      [[128, 64], [192, 128]] # フレーム6
+    ]
+  
+  # 動画テクスチャ
+  IntroMovie:
+    path: &quot;movie/intro.mp4&quot;
+    category: &quot;movie&quot;
+    type: &quot;full_movie&quot;
+    loop: false
+</code></pre>
+<h3 id="コード生成の実行">コード生成の実行</h3>
+<pre><code class="lang-bash"># YAMLからC#コードを生成
+python Fixture/Script/convert.py texture_resources.yaml
+</code></pre>
+<h2 id="基本的な使用方法">基本的な使用方法</h2>
+<h3 id="初期化とカテゴリロード">初期化とカテゴリロード</h3>
+<pre><code class="lang-csharp">using VaNilla.Texture;
+
+// TextureResourceManagerの初期化（VaNillaエンジン初期化時に自動実行）
+TextureResourceManager.Initialize();
+
+// カテゴリ単位でのテクスチャロード（同期）
+TextureResourceManager.LoadTextureResource(TextureCategory.ui, sync_load: true);
+
+// カテゴリ単位でのテクスチャロード（非同期）
+TextureResourceManager.LoadTextureResource(TextureCategory.characters, sync_load: false);
+
+// 非同期ロードの完了待ち
+while (!TextureResourceManager.IsLoadedTextureResource(TextureCategory.characters))
+{
+    // 他の処理を継続しながら待機
+    await Task.Delay(16); // 約60FPS
+}
+</code></pre>
+<h3 id="アニメーションテクスチャの管理hastexturelistを使用">アニメーションテクスチャの管理（HasTextureListを使用）</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasTextureList), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(AnimationRenderComponent), auto_member_generate: true)]
+public partial class AnimatedSprite : Object
+{
+    public override bool SetUp()
+    {
+        hasPosition.Position = new Point2(200, 200);
+        
+        // アニメーションフレームをリストに追加
+        hasTextureList.AddTexture(TextureResourceManager.GetTextureResource(TextureResourceType.PlayerWalk_Frame1));
+        hasTextureList.AddTexture(TextureResourceManager.GetTextureResource(TextureResourceType.PlayerWalk_Frame2));
+        hasTextureList.AddTexture(TextureResourceManager.GetTextureResource(TextureResourceType.PlayerWalk_Frame3));
+        hasTextureList.AddTexture(TextureResourceManager.GetTextureResource(TextureResourceType.PlayerWalk_Frame4));
+        
+        return true;
+    }
+}
+
+[RequiredExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
+[RequiredExpresserComponent(typeof(HasTextureList), auto_member_generate: true)]
+public partial class AnimationRenderComponent : IExpresserComponent
+{
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; } = Execute.ExecuteType.Render;
+    
+    private int currentFrame = 0;
+    private float frameTime = 0.2f;
+    private float timer = 0f;
+    
+    public bool Execute(Object associated_object, in Time.Time current_time)
+    {
+        if (hasTextureList.TextureList.Count == 0) return true;
+        
+        // フレーム更新
+        timer += current_time.DeltaTime;
+        if (timer &gt;= frameTime)
+        {
+            currentFrame = (currentFrame + 1) % hasTextureList.TextureList.Count;
+            timer = 0f;
+        }
+        
+        // 現在のフレームを描画
+        var currentTexture = hasTextureList.GetTexture(currentFrame);
+        if (currentTexture != TextureResource.InvalidValue)
+        {
+            Renderer.Utils.Draw(
+                hasPosition.Position.X, hasPosition.Position.Y,
+                currentTexture,
+                origin: BasicRenderer.DrawOrigin.Center
+            );
+        }
+        
+        return true;
+    }
+    
+    public bool SetUp(Object associated_object) { return true; }
+    public void TearDown(Object associated_object) { }
+    public void HoldAssociatedObject(Object associated_object) { }
+    public void ReleaseAssociatedObject(Object associated_object) { }
+    public void GetComponentForSetUp(Object associated_object) { }
+    public void ReleaseComponentForTearDown(Object associated_object) { }
+}
+</code></pre>
+<h3 id="テクスチャリソースの取得と使用">テクスチャリソースの取得と使用</h3>
+<pre><code class="lang-csharp">// enum指定でテクスチャを取得
+TextureResource backgroundTexture = TextureResourceManager.GetTextureResource(TextureResourceType.MainMenuBackground);
+
+// インデックス指定でテクスチャを取得
+TextureResource playerTexture = TextureResourceManager.GetTextureResource(0);
+
+// テクスチャが有効かチェック
+if (backgroundTexture != TextureResource.InvalidValue)
+{
+    // テクスチャを使用してレンダリング
+    var size = backgroundTexture.GetTextureSize();
+    VaNilla.Debug.Logger.Log($&quot;テクスチャサイズ: {size.Width}x{size.Height}&quot;);
+}
+</code></pre>
+<h3 id="リソース管理とメモリ最適化">リソース管理とメモリ最適化</h3>
+<pre><code class="lang-csharp">// カテゴリ単位でのリソース破棄
+TextureResourceManager.DeleteTextureResource(TextureCategory.ui);
+
+// シーン切り替え時の効率的なリソース管理
+public void OnSceneTransition(string newScene)
+{
+    // 現在のシーンのテクスチャを破棄
+    TextureResourceManager.DeleteTextureResource(TextureCategory.currentScene);
+    
+    // 新しいシーンのテクスチャをロード
+    var newCategory = GetTextureCategoryForScene(newScene);
+    TextureResourceManager.LoadTextureResource(newCategory, sync_load: false);
+}
+</code></pre>
+<h2 id="高度な使用例">高度な使用例</h2>
+<h3 id="アニメーションテクスチャの管理">アニメーションテクスチャの管理</h3>
+<pre><code class="lang-csharp">public class CharacterAnimationManager
+{
+    private TextureResource animationTexture;
+    private int currentFrame = 0;
+    private int totalFrames = 8;
+    private float frameTime = 0.1f;
+    private float timer = 0f;
+
+    public void Initialize()
+    {
+        // アニメーションテクスチャの取得
+        animationTexture = TextureResourceManager.GetTextureResource(TextureResourceType.PlayerIdle);
+    }
+
+    public void Update(float deltaTime)
+    {
+        timer += deltaTime;
+        if (timer &gt;= frameTime)
+        {
+            currentFrame = (currentFrame + 1) % totalFrames;
+            timer = 0f;
+        }
+    }
+
+    public (int x, int y, int width, int height) GetCurrentFrameRect()
+    {
+        var textureSize = animationTexture.GetTextureSize();
+        int frameWidth = textureSize.Width / totalFrames;
+        return (currentFrame * frameWidth, 0, frameWidth, textureSize.Height);
+    }
+}
+</code></pre>
+<h3 id="動的テクスチャロード">動的テクスチャロード</h3>
+<pre><code class="lang-csharp">public class DynamicTextureLoader
+{
+    private Dictionary&lt;string, TextureCategory&gt; sceneCategoryMap = new Dictionary&lt;string, TextureCategory&gt;
+    {
+        {&quot;MainMenu&quot;, TextureCategory.ui},
+        {&quot;GamePlay&quot;, TextureCategory.characters},
+        {&quot;Ending&quot;, TextureCategory.common}
+    };
+
+    public async Task LoadSceneTexturesAsync(string sceneName)
+    {
+        if (!sceneCategoryMap.TryGetValue(sceneName, out var category))
+        {
+            VaNilla.Debug.Logger.LogWarning($&quot;未知のシーン: {sceneName}&quot;);
+            return;
+        }
+
+        // 非同期でテクスチャロード開始
+        TextureResourceManager.LoadTextureResource(category, sync_load: false);
+
+        // ロード進行状況の監視
+        var startTime = DateTime.Now;
+        while (!TextureResourceManager.IsLoadedTextureResource(category))
+        {
+            var elapsed = DateTime.Now - startTime;
+            if (elapsed.TotalSeconds &gt; 30) // タイムアウト
+            {
+                VaNilla.Debug.Logger.LogError($&quot;テクスチャロードタイムアウト: {sceneName}&quot;);
+                break;
+            }
+            await Task.Delay(50);
+        }
+
+        VaNilla.Debug.Logger.Log($&quot;シーン '{sceneName}' のテクスチャロード完了&quot;);
+    }
+}
+</code></pre>
+<h2 id="アーキテクチャの詳細">アーキテクチャの詳細</h2>
+<h3 id="3層構造">3層構造</h3>
+<ol>
+<li><strong>Interface層</strong> (<code>Interface/</code>): プラットフォーム非依存のAPI
+<ul>
+<li><code>TextureResourceManager.cs</code>: メインのテクスチャ管理クラス</li>
+<li><code>TextureResourceLoader.cs</code>: ロード/アンロード機能</li>
+<li><code>TextureResourceType.cs</code>: 自動生成されるenum定義</li>
+<li><code>HasTexture.cs</code>: 単一テクスチャ管理コンポーネント</li>
+<li><code>HasTextureList.cs</code>: 複数テクスチャ管理コンポーネント</li>
+</ul>
+</li>
+<li><strong>Implementation層</strong> (<code>Implementation/</code>): プラットフォーム固有の実装
+<ul>
+<li><code>DxLib/</code>: DxLib用の実装（フェーディング機能含む）</li>
+<li><code>Unity/</code>: Unity用の実装</li>
+</ul>
+</li>
+<li><strong>Environment層</strong> (<code>Environment/</code>): 開発環境サポート
+<ul>
+<li>Unity向けシンボリックリンク生成設定</li>
+</ul>
+</li>
+</ol>
+<h3 id="メモリ管理戦略">メモリ管理戦略</h3>
+<pre><code class="lang-csharp">// 効率的なメモリ使用パターン
+public static class TextureMemoryManager
+{
+    private static Dictionary&lt;TextureCategory, DateTime&gt; lastAccessTime = 
+        new Dictionary&lt;TextureCategory, DateTime&gt;();
+
+    public static void TrackAccess(TextureCategory category)
+    {
+        lastAccessTime[category] = DateTime.Now;
+    }
+
+    public static void CleanupUnusedTextures(TimeSpan maxIdleTime)
+    {
+        var cutoffTime = DateTime.Now - maxIdleTime;
+        var categoriesToCleanup = lastAccessTime
+            .Where(kvp =&gt; kvp.Value &lt; cutoffTime)
+            .Select(kvp =&gt; kvp.Key)
+            .ToList();
+
+        foreach (var category in categoriesToCleanup)
+        {
+            TextureResourceManager.DeleteTextureResource(category);
+            lastAccessTime.Remove(category);
+            VaNilla.Debug.Logger.Log($&quot;未使用テクスチャを解放: {category}&quot;);
+        }
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス最適化">パフォーマンス最適化</h2>
+<h3 id="効率的なロード戦略">効率的なロード戦略</h3>
+<ul>
+<li><strong>事前ロード</strong>: ゲーム開始時に共通テクスチャを事前ロード</li>
+<li><strong>遅延ロード</strong>: 必要になった時点でテクスチャをロード</li>
+<li><strong>バッチロード</strong>: カテゴリ単位での一括ロード</li>
+</ul>
+<h3 id="メモリ使用量の監視">メモリ使用量の監視</h3>
+<pre><code class="lang-csharp">public static class TextureMemoryProfiler
+{
+    public static void LogMemoryUsage()
+    {
+        foreach (TextureCategory category in Enum.GetValues&lt;TextureCategory&gt;())
+        {
+            if (TextureResourceManager.IsLoadedTextureResource(category))
+            {
+                var textures = GetTexturesInCategory(category);
+                long totalMemory = textures.Sum(t =&gt; EstimateTextureMemory(t));
+                VaNilla.Debug.Logger.Log($&quot;{category}: {totalMemory / 1024 / 1024}MB&quot;);
+            }
+        }
+    }
+
+    private static long EstimateTextureMemory(TextureResource texture)
+    {
+        var size = texture.GetTextureSize();
+        return size.Width * size.Height * 4; // RGBA32と仮定
+    }
+}
+</code></pre>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="よくある問題">よくある問題</h3>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>原因</th>
+<th>解決方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>コンパイルエラー</td>
+<td><code>TextureResourceType.cs</code>未生成</td>
+<td>YAMLからコード生成を実行</td>
+</tr>
+<tr>
+<td>テクスチャが表示されない</td>
+<td>ロード未完了</td>
+<td><code>IsLoadedTextureResource()</code>で確認</td>
+</tr>
+<tr>
+<td>メモリリーク</td>
+<td>リソース未解放</td>
+<td><code>DeleteTextureResource()</code>を呼び出し</td>
+</tr>
+<tr>
+<td>ロード失敗</td>
+<td>ファイルパス間違い</td>
+<td>YAMLの設定を確認</td>
+</tr>
+</tbody>
+</table>
+<h3 id="デバッグ支援">デバッグ支援</h3>
+<pre><code class="lang-csharp">// デバッグ情報の出力
+public static void DebugTextureStatus()
+{
+    foreach (TextureCategory category in Enum.GetValues&lt;TextureCategory&gt;())
+    {
+        bool loaded = TextureResourceManager.IsLoadedTextureResource(category);
+        VaNilla.Debug.Logger.Log($&quot;カテゴリ {category}: {(loaded ? &quot;ロード済み&quot; : &quot;未ロード&quot;)}&quot;);
+    }
+}
+
+// テクスチャ情報の詳細出力
+public static void DebugTextureInfo(TextureResourceType type)
+{
+    var texture = TextureResourceManager.GetTextureResource(type);
+    if (texture != TextureResource.InvalidValue)
+    {
+        var size = texture.GetTextureSize();
+        VaNilla.Debug.Logger.Log($&quot;{type}: {size.Width}x{size.Height}&quot;);
+    }
+    else
+    {
+        VaNilla.Debug.Logger.LogWarning($&quot;{type}: 無効なテクスチャ&quot;);
+    }
+}
+</code></pre>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><strong>VaNilla.Debug</strong>: ログ出力機能</li>
+<li><strong>VaNilla.Time</strong>: 時間管理とウェイト処理</li>
+<li><strong>VaNilla.Transform</strong>: 位置・変換管理（ExpresserComponent使用時）</li>
+<li><strong>VaNilla.Renderer</strong>: テクスチャ描画（ExpresserComponent使用時）</li>
+<li><strong>プラットフォーム固有ライブラリ</strong>:
+<ul>
+<li>Unity: UnityEngine (Texture2D)</li>
+<li>DxLib: DxLib テクスチャ機能</li>
+</ul>
+</li>
+</ul>
+<h2 id="技術仕様">技術仕様</h2>
+<ul>
+<li><strong>対応フォーマット</strong>: PNG, JPG, BMP, TGA (プラットフォーム依存)</li>
+<li><strong>最大テクスチャサイズ</strong>: プラットフォーム制限に準拠</li>
+<li><strong>カラーフォーマット</strong>: RGBA32, RGB24 など</li>
+<li><strong>圧縮</strong>: プラットフォーム固有の圧縮形式に対応</li>
+</ul>
+<hr>
+<p>TextureResourceManagerにより、VaNillaアプリケーションで効率的で型安全なテクスチャ管理が実現できます。
+YAMLベースの設定とコード生成により、大規模なプロジェクトでも保守性の高いテクスチャリソース管理を提供します。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/TextureResourceManager/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

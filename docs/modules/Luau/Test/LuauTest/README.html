@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Luau Test Project </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Luau Test Project ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Luau/Test/LuauTest/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="luau-test-project">Luau Test Project</h1>
+
+<p>VaNillaのLuauモジュールの包括的なテストスイートです。</p>
+<h2 id="テスト概要">テスト概要</h2>
+<p>このテストプロジェクトは以下のコンポーネントをテストします：</p>
+<h3 id="1-vanillaluauattributetest">1. VaNillaLuauAttributeTest</h3>
+<ul>
+<li>VaNillaLuauAttribute の基本機能</li>
+<li>プロパティの設定と取得</li>
+<li>デフォルト値の検証</li>
+<li>属性の継承関係</li>
+</ul>
+<h3 id="2-luauapiattributetest">2. LuauAPIAttributeTest</h3>
+<ul>
+<li>LuauAPIAttribute の基本機能</li>
+<li>API マーキング機能</li>
+<li>パラメータ制約の管理</li>
+<li>読み取り専用設定</li>
+</ul>
+<h3 id="3-luauexecutortest">3. LuauExecutorTest</h3>
+<ul>
+<li>Luau実行エンジンの初期化・シャットダウン</li>
+<li>スクリプトの登録・実行・管理</li>
+<li>エラーハンドリング</li>
+<li>非同期実行</li>
+</ul>
+<h3 id="4-luautypeconvertertest">4. LuauTypeConverterTest</h3>
+<ul>
+<li>C# ⟷ Luau 型変換システム</li>
+<li>基本型、配列型、ジェネリック型の変換</li>
+<li>カスタム型ハンドラー</li>
+<li>VaNillaコア型定義の生成</li>
+</ul>
+<h3 id="5-luauintegrationtest">5. LuauIntegrationTest</h3>
+<ul>
+<li>全コンポーネントの統合テスト</li>
+<li>ライフサイクル管理</li>
+<li>複数オブジェクトの処理</li>
+<li>パフォーマンス監視（モック）</li>
+</ul>
+<h3 id="6-luauexpressercomponenttest">6. LuauExpresserComponentTest</h3>
+<ul>
+<li>IExpresserComponent への VaNillaLuau 属性適用テスト</li>
+<li>LuauAPI 属性によるメンバー公開テスト</li>
+<li>複数コンポーネントの設定テスト</li>
+</ul>
+<h3 id="7-luauscriptexecutiontest">7. LuauScriptExecutionTest</h3>
+<ul>
+<li>実際のLuauスクリプトファイルの実行テスト</li>
+<li>正常系のスクリプト実行検証</li>
+<li>プロパティアクセスとメソッド呼び出しのテスト</li>
+<li>エラーハンドリングの実動作テスト</li>
+</ul>
+<h2 id="テストの実行方法">テストの実行方法</h2>
+<h3 id="1-コマンドラインから実行">1. コマンドラインから実行</h3>
+<pre><code class="lang-bash"># テストプロジェクトのディレクトリに移動
+cd VaNilla/Luau/Test/LuauTest/
+
+# すべてのテストを実行
+dotnet test
+
+# 詳細な出力でテスト実行
+dotnet test --verbosity normal
+
+# 特定のテストクラスのみ実行
+dotnet test --filter &quot;FullyQualifiedName~LuauExecutorTest&quot;
+
+# 特定のテストメソッドのみ実行
+dotnet test --filter &quot;FullyQualifiedName~LuauExecutorTest.Initialize_DoesNotThrow&quot;
+</code></pre>
+<h3 id="2-visual-studio-から実行">2. Visual Studio から実行</h3>
+<ol>
+<li><code>LuauTest.sln</code> をVisual Studioで開く</li>
+<li>テストエクスプローラーを表示（テスト → テストエクスプローラー）</li>
+<li>「すべて実行」または個別のテストを実行</li>
+</ol>
+<h2 id="テスト構成">テスト構成</h2>
+<h3 id="依存関係">依存関係</h3>
+<ul>
+<li><strong>.NET 9.0</strong> - ターゲットフレームワーク</li>
+<li><strong>xUnit 2.6.2</strong> - テストフレームワーク</li>
+<li><strong>Moq 4.20.69</strong> - モッキングフレームワーク</li>
+<li><strong>Microsoft.NET.Test.Sdk 17.8.0</strong> - テストSDK</li>
+</ul>
+<h3 id="ファイル構成">ファイル構成</h3>
+<pre><code>LuauTest/
+├── LuauTest.csproj              # プロジェクトファイル
+├── LuauTest.sln                 # ソリューションファイル  
+├── README.md                    # このファイル
+├── VaNillaLuauAttributeTest.cs  # 属性システムテスト
+├── LuauAPIAttributeTest.cs      # API属性テスト
+├── LuauExecutorTest.cs          # 実行システムテスト
+├── LuauTypeConverterTest.cs     # 型変換システムテスト
+├── LuauIntegrationTest.cs       # 統合テスト
+├── LuauExpresserComponentTest.cs # IExpresserComponent統合テスト
+├── LuauScriptExecutionTest.cs   # スクリプト実行テスト
+├── MockExpresserComponentAttributes.cs # テスト用モック属性
+├── MockTimeManager.cs           # Time構造体のモック
+├── MockTransforms.cs            # Point2/Vector2のモック
+└── Scripts/                     # テスト用Luauスクリプト
+    ├── TestScript.lua           # 基本的なテスト関数
+    ├── TestComponent.lua        # コンポーネントテスト用
+    ├── TestIntegration.lua      # 統合テスト用
+    └── PlayerController.lua     # プレイヤー制御ロジック
+</code></pre>
+<h2 id="重要な注意事項">重要な注意事項</h2>
+<h3 id="実装状況について">実装状況について</h3>
+<p>現在のLuauモジュールは <strong>実際のLuau APIを使用した実装</strong> になりました：</p>
+<ul>
+<li>Luau.dll を使用した実際のスクリプト実行</li>
+<li>LuauCompiler によるバイトコードコンパイル</li>
+<li>LuauState による実行コンテキスト管理</li>
+<li>実際のLuauValue型変換システム</li>
+</ul>
+<h3 id="luaunativedll-について">Luau.Native.dll について</h3>
+<p>一部のテストはLuau.Native.dllを必要とします。このファイルが見つからない場合：</p>
+<ul>
+<li>LuauScriptExecutionTestの正常系テストはスキップされます</li>
+<li>エラーハンドリングのテストは実行されます</li>
+</ul>
+<h3 id="テストの想定">テストの想定</h3>
+<ol>
+<li><strong>非侵襲的設計の検証</strong> - 既存コードに影響しないことを確認</li>
+<li><strong>API契約の検証</strong> - インターフェースが正しく動作することを確認</li>
+<li><strong>エラーハンドリングの検証</strong> - 適切な例外処理を確認</li>
+<li><strong>統合動作の検証</strong> - 全コンポーネントが連携して動作することを確認</li>
+</ol>
+<h2 id="テスト結果の解釈">テスト結果の解釈</h2>
+<h3 id="成功時">成功時</h3>
+<p>すべてのテストが通る場合、Luauモジュールの基本設計が正しく動作しています。</p>
+<h3 id="失敗時">失敗時</h3>
+<ol>
+<li><strong>コンパイルエラー</strong> - 依存関係の問題</li>
+<li><strong>Null Reference Exception</strong> - 初期化順序の問題</li>
+<li><strong>Argument Exception</strong> - パラメータ検証の問題</li>
+<li><strong>Invalid Operation Exception</strong> - ライフサイクル管理の問題</li>
+</ol>
+<h2 id="今後の拡張">今後の拡張</h2>
+<h3 id="追加実装予定のテスト">追加実装予定のテスト</h3>
+<ol>
+<li><strong>複雑なLuauスクリプト実行テスト</strong> - より高度なロジックの検証</li>
+<li><strong>パフォーマンスベンチマークテスト</strong> - 実行速度の測定</li>
+<li><strong>メモリリーク検出テスト</strong> - 長時間実行時の安定性</li>
+<li><strong>ホットリロード機能テスト</strong> - 動的スクリプト更新</li>
+<li><strong>デバッグ機能テスト</strong> - ブレークポイントとステップ実行</li>
+<li><strong>並列実行テスト</strong> - 複数スクリプトの同時実行</li>
+<li><strong>エラーリカバリーテスト</strong> - エラー後の状態回復</li>
+</ol>
+<h3 id="cicd統合">CI/CD統合</h3>
+<pre><code class="lang-bash"># 自動化されたテスト実行
+dotnet test --configuration Release --logger trx --results-directory TestResults
+
+# カバレッジレポート生成
+dotnet test --collect:&quot;XPlat Code Coverage&quot;
+</code></pre>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="よくある問題">よくある問題</h3>
+<ol>
+<li><strong>ビルドエラー</strong> - <code>dotnet restore</code> を実行</li>
+<li><strong>依存関係エラー</strong> - VaNillaコアモジュールのパス確認</li>
+<li><strong>実行時エラー</strong> - 初期化順序の確認</li>
+</ol>
+<h3 id="ログ出力">ログ出力</h3>
+<p>テスト実行中は以下のログが出力されます：</p>
+<pre><code>[Luau] DxLib: Luau engine initialized (mock implementation)
+[Luau] DxLib: Executing function 'TestFunction' (mock implementation)
+[Luau] DxLib: Luau engine shutdown (mock implementation)
+</code></pre>
+<p>これらは正常な動作です。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Luau/Test/LuauTest/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

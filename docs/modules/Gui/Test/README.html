@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNilla GUI モジュールテスト </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNilla GUI モジュールテスト ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Gui/Test/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanilla-gui-モジュールテスト">VaNilla GUI モジュールテスト</h1>
+
+<p>このディレクトリにはxUnitフレームワークを使用したVaNilla GUIモジュールのユニットテストが含まれています。</p>
+<h2 id="テスト構造">テスト構造</h2>
+<h3 id="テストファイル">テストファイル</h3>
+<ul>
+<li><code>ControlTests.cs</code> - 基底Controlクラスの機能テスト</li>
+<li><code>ButtonTests.cs</code> - Buttonコントロールのテスト</li>
+<li><code>FormTests.cs</code> - Formコントロールのテスト</li>
+<li><code>TextBoxTests.cs</code> - TextBoxコントロールのテスト</li>
+<li><code>LabelTests.cs</code> - Labelコントロールのテスト</li>
+<li><code>ListControlTests.cs</code> - ListControlのテスト</li>
+<li><code>ScrollBarTests.cs</code> - ScrollBarとVScrollBarのテスト</li>
+<li><code>HScrollBarTests.cs</code> - HScrollBarのテスト</li>
+<li><code>MessageBoxTests.cs</code> - MessageBox静的メソッドのテスト</li>
+<li><code>GraphicalUITests.cs</code> - GraphicalUIコンテナのテスト</li>
+<li><code>XmlGUICreatorTests.cs</code> - XMLベースのGUI作成のテスト</li>
+</ul>
+<h3 id="テストカバレッジ">テストカバレッジ</h3>
+<p>各テストファイルは以下をカバーしています：</p>
+<ul>
+<li>コンストラクタの動作とデフォルト値</li>
+<li>プロパティのゲッターとセッター</li>
+<li>継承関係</li>
+<li>基本機能とメソッド呼び出し</li>
+<li>状態管理（有効/無効、表示/非表示）</li>
+<li>Renderメソッドの動作</li>
+</ul>
+<h2 id="テストの実行">テストの実行</h2>
+<h3 id="前提条件">前提条件</h3>
+<ul>
+<li>.NET 9.0 SDK以降</li>
+<li>xUnitテストランナー</li>
+</ul>
+<h3 id="コマンド">コマンド</h3>
+<pre><code class="lang-bash"># テストプロジェクトのビルド
+dotnet build GuiTest/GuiTest.csproj
+
+# すべてのテストを実行
+dotnet test GuiTest/GuiTest.csproj
+
+# 詳細出力付きでテストを実行
+dotnet test GuiTest/GuiTest.csproj --logger &quot;console;verbosity=detailed&quot;
+
+# 特定のテストクラスを実行
+dotnet test GuiTest/GuiTest.csproj --filter &quot;ClassName=ControlTests&quot;
+
+# コードカバレッジレポートを生成
+dotnet test GuiTest/GuiTest.csproj --collect:&quot;XPlat Code Coverage&quot;
+</code></pre>
+<h2 id="依存関係">依存関係</h2>
+<p>テストプロジェクトには以下の依存関係が含まれています：</p>
+<ul>
+<li><strong>xUnit</strong> - テストフレームワーク</li>
+<li><strong>Moq</strong> - ユニットテスト用のモックフレームワーク</li>
+<li><strong>Coverlet</strong> - コードカバレッジ収集</li>
+<li><strong>Microsoft.NET.Test.Sdk</strong> - .NETテストSDK</li>
+</ul>
+<h2 id="テストプロジェクトの設定">テストプロジェクトの設定</h2>
+<p>テストプロジェクトは以下を含む最新のSDKスタイルのプロジェクト形式を使用しています：</p>
+<ul>
+<li>ターゲットフレームワーク： .NET 9.0</li>
+<li>テスト依存関係のパッケージ参照</li>
+<li>GUIインターフェースファイルへの直接ファイル参照</li>
+<li>他のVaNillaモジュールからのリンクされた依存関係</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<ul>
+<li>テストはパブリックAPIの動作に焦点を当て、内部実装の詳細はテストしません</li>
+<li>一部のテストは、直接アクセスができない場合にプロパティ/メソッドの存在を確認するためにリフレクションを使用します</li>
+<li>MessageBoxテストは静的メソッドのシグネチャと列挙値を検証します</li>
+<li>XmlGUICreatorテストは適切なクリーンアップを含むファイルI/O操作を含みます</li>
+<li>すべてのテストは独立して設計されており、任意の順序で実行できます</li>
+</ul>
+<h2 id="将来の拡張">将来の拡張</h2>
+<p>テスト拡張の可能性がある分野：</p>
+<ul>
+<li>実際のGUIレンダリングを含む統合テスト</li>
+<li>大規模なコントロールコレクションのパフォーマンステスト</li>
+<li>イベント処理とユーザーインタラクションのテスト</li>
+<li>スキン/テーマ適用のテスト</li>
+<li>XMLパースのエッジケースと検証</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Gui/Test/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>パフォーマンス最適化 - 逆引きガイド </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="パフォーマンス最適化 - 逆引きガイド ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/HowToIndex/Performance.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="パフォーマンス最適化---逆引きガイド">パフォーマンス最適化 - 逆引きガイド</h1>
+
+<p>VaNillaエンジンでパフォーマンスを向上させるための手法とサンプルコードのリンク集です。</p>
+<h2 id="-メモリ管理とオブジェクト生成">🚀 メモリ管理とオブジェクト生成</h2>
+<h3 id="オブジェクトプールによる最適化">オブジェクトプールによる最適化</h3>
+<h4 id="大量オブジェクトの効率的な管理">大量オブジェクトの効率的な管理</h4>
+<pre><code class="lang-csharp">// ObjectFactoryを使用した効率的なオブジェクト生成
+var bullet = ObjectFactory.Instantiate&lt;BasicObject&gt;();  // プールから取得
+// 使用後
+ObjectFactory.Terminate(bullet);  // プールに返却
+</code></pre>
+<p>→ 詳細: <a href="../../ObjectFactory/README.html">ObjectFactory - プール管理システム</a></p>
+<h4 id="オブジェクト数の監視">オブジェクト数の監視</h4>
+<pre><code class="lang-csharp">// アクティブなオブジェクト数を取得
+int totalObjects = ObjectExecutor.CurrentRegisteredObjectNum;
+
+// プール使用状況の確認
+int pooledObjects = ObjectFactory.GetObjectNum&lt;BasicObject&gt;();
+VaNilla.Debug.Logger.Log($&quot;Total Objects: {totalObjects}, Pooled: {pooledObjects}&quot;);
+
+// 全オブジェクトの取得
+var allObjects = ObjectExecutor.CurrentObjectSet;
+foreach (var obj in allObjects)
+{
+    // オブジェクト別処理
+}
+</code></pre>
+<p>→ 詳細: <a href="../../ObjectExecutor/README.html">ObjectExecutor - オブジェクト実行管理</a></p>
+<h3 id="メモリ効率的なデータ構造">メモリ効率的なデータ構造</h3>
+<h4 id="固定型ハッシュテーブル">固定型ハッシュテーブル</h4>
+<pre><code class="lang-csharp">// 高速なハッシュテーブル
+var hashTable = new FixedTypeKeyHashtable&lt;PlayerData&gt;();
+hashTable.Add(playerId, playerData);
+var data = hashTable.Get(playerId);
+</code></pre>
+<p>→ 詳細: <a href="../../DataStructure/README.html#fixedtypekeyhashtable">DataStructure - 効率的なデータ構造</a></p>
+<h2 id="-描画パフォーマンス">🎨 描画パフォーマンス</h2>
+<h3 id="オフスクリーンレンダリング最適化">オフスクリーンレンダリング最適化</h3>
+<h4 id="レンダーターゲットの再利用">レンダーターゲットの再利用</h4>
+<pre><code class="lang-csharp">// オフスクリーンテクスチャの取得
+var offscreen = OffScreenResourceManager.GetOffScreenResource(
+    OffScreenResourceType.GameBuffer
+);
+
+// 現在のレンダーターゲット切り替え
+var currentOffScreen = OffScreenManager.GetCurrentOffScreen();
+OffScreenManager.SetCurrentOffScreen(offscreen);
+</code></pre>
+<p>→ 詳細: <a href="../../OffScreenResourceManager/README.html">OffScreenResourceManager - レンダーターゲット管理</a></p>
+<h4 id="描画の最適化">描画の最適化</h4>
+<pre><code class="lang-csharp">// オフスクリーンバッファのクリア
+OffScreenManager.Clear(offscreen);
+
+// 描画後にレンダーターゲットを元に戻す
+OffScreenManager.SetCurrentOffScreen(currentOffScreen);
+</code></pre>
+<p>→ 詳細: <a href="../../OffScreenRenderer/README.html">OffScreenRenderer - 効率的な描画管理</a></p>
+<h3 id="シェーダー最適化">シェーダー最適化</h3>
+<h4 id="カスタムシェーダーによる高速化">カスタムシェーダーによる高速化</h4>
+<pre><code class="lang-csharp">// 効率的なシェーダー管理
+var defaultShader = ShaderManager.GetDefaultShader();
+var customShader = ShaderManager.GetShader(ShaderEnum.ALPHA);
+
+// カスタムシェーダーの登録
+ShaderManager.Register(&quot;CustomOptimized&quot;, myShaderResource);
+var optimizedShader = ShaderManager.GetShader(&quot;CustomOptimized&quot;);
+</code></pre>
+<p>→ 詳細: <a href="../../ShaderFactory/README.html">ShaderFactory - シェーダー管理</a></p>
+<h2 id="-処理速度最適化">⚡ 処理速度最適化</h2>
+<h3 id="衝突判定の最適化">衝突判定の最適化</h3>
+<h4 id="空間分割による高速化">空間分割による高速化</h4>
+<pre><code class="lang-csharp">// CollisionCalculatorの空間分割設定
+CollisionCalculator.EnableCollisionReplication = true;
+
+// 空間分割パラメータ（設定可能）
+CollisionCalculator.RootSpaceSideLength = 500.0f;  // ルート空間サイズ
+CollisionCalculator.PartitionTimes = 2;            // 分割回数
+
+// 衝突判定の実行
+CollisionCalculator.Execute();
+</code></pre>
+<p>→ 詳細: <a href="../../Collision/README.html">Collision - 高速衝突判定</a></p>
+<h4 id="衝突グループによる判定削減">衝突グループによる判定削減</h4>
+<pre><code class="lang-csharp">// 必要な組み合わせのみ判定
+hasCollision.CollisionType = CollisionGroupID.Player;
+// YAMLで定義されたグループ設定に基づいて判定される
+
+// 衝突数の監視
+int collisionCount = CollisionCalculator.Count;
+int resultCount = CollisionCalculator.ResultCount;
+</code></pre>
+<p>→ 詳細: <a href="../../Collision/README.html">Collision - 衝突グループ設定</a></p>
+<h3 id="非同期処理による最適化">非同期処理による最適化</h3>
+<h4 id="バックグラウンド処理">バックグラウンド処理</h4>
+<pre><code class="lang-csharp">// 重い処理を非同期で実行
+var task = AsyncRunner.Run(() =&gt; {
+    return new VaNillaAsyncTask(() =&gt; {
+        // CPU集約的な処理
+        return true;
+    });
+});
+await task;
+</code></pre>
+<p>→ 詳細: <a href="../../Task/README.html">Task - 非同期処理</a></p>
+<h4 id="待機処理の効率化">待機処理の効率化</h4>
+<pre><code class="lang-csharp">// フレーム待機
+await new WaitForEndOfFrame();
+
+// 時間待機  
+await new WaitForTimeSpanEnd(2.0f);
+
+// 条件待機
+await new WaitUntil(() =&gt; isReady);
+</code></pre>
+<p>→ 詳細: <a href="../../Task/README.html">Task - 待機処理</a></p>
+<h2 id="-パフォーマンス監視">📊 パフォーマンス監視</h2>
+<h3 id="フレームレート監視">フレームレート監視</h3>
+<h4 id="fps計測とボトルネック特定">FPS計測とボトルネック特定</h4>
+<pre><code class="lang-csharp">// FPS計測の初期化
+FpsCalculator.Initialize(60.0f);  // 目標60FPS
+
+// フレーム更新
+FpsCalculator.Update(currentTime);
+
+// FPS値の取得
+float currentFps = FpsCalculator.GetFps();
+float targetFps = FpsCalculator.GetTargetFps();
+
+// 詳細FPS計測の開始
+FpsCalculator.StartMeasurement();
+// ゲーム処理...
+FpsCalculator.StopMeasurement();
+
+// 詳細FPS情報の取得
+float avgFps = FpsCalculator.GetAverageFps();
+float maxFps = FpsCalculator.GetMaxFps();
+float minFps = FpsCalculator.GetMinFps();
+float avgFrameTime = FpsCalculator.GetAverageFrameTimeMs();
+</code></pre>
+<p>→ 詳細: <a href="../../FpsCalculator/README.html">FpsCalculator - フレームレート監視</a></p>
+<h3 id="パフォーマンス計測">パフォーマンス計測</h3>
+<h4 id="包括的なパフォーマンス監視">包括的なパフォーマンス監視</h4>
+<pre><code class="lang-csharp">// パフォーマンス計測の開始
+PerformanceProfiler.StartProfiling();
+
+// メモリ使用量の監視
+long managedMemory = PerformanceProfiler.GetManagedMemoryBytes();
+long totalMemory = PerformanceProfiler.GetTotalMemoryBytes();
+long privateMemory = PerformanceProfiler.GetPrivateMemoryBytes();
+
+// ガベージコレクションの監視
+int gen0Count = PerformanceProfiler.GetGCCount(0);
+int gen1Count = PerformanceProfiler.GetGCCount(1);
+int gen2Count = PerformanceProfiler.GetGCCount(2);
+float lastGCTime = PerformanceProfiler.GetLastGCElapsedTime();
+
+// 描画呼び出し数の監視
+int drawCalls = PerformanceProfiler.GetDrawCallCount();
+
+// フレーム時間の監視
+float averageFrameTime = PerformanceProfiler.GetAverageFrameTime();
+
+// 詳細レポートの取得
+string detailedReport = PerformanceProfiler.GetDetailedReport();
+VaNilla.Debug.Logger.Log(detailedReport);
+</code></pre>
+<p>→ 詳細: <a href="../../PerformanceProfiler/README.html">PerformanceProfiler - 包括的パフォーマンス計測</a></p>
+<h4 id="描画呼び出し数の監視">描画呼び出し数の監視</h4>
+<pre><code class="lang-csharp">// フレーム開始時の描画呼び出し数
+int frameStartDrawCalls = Renderer.Utils.GetDrawCallCount();
+
+// 描画処理...
+Renderer.Utils.Draw(texture, position);
+Renderer.Utils.DrawString(&quot;FPS: &quot; + fps, 10, 10, Color.White);
+
+// フレーム終了時の描画呼び出し数
+int frameEndDrawCalls = Renderer.Utils.GetDrawCallCount();
+int thisFrameDrawCalls = frameEndDrawCalls - frameStartDrawCalls;
+</code></pre>
+<p>→ 詳細: <a href="../../Renderer/README.html">Renderer - 描画最適化</a></p>
+<h2 id="-リソース管理最適化">🔧 リソース管理最適化</h2>
+<h3 id="テクスチャメモリ管理">テクスチャメモリ管理</h3>
+<h4 id="効率的なテクスチャ読み込み">効率的なテクスチャ読み込み</h4>
+<pre><code class="lang-csharp">// テクスチャの読み込み状況確認
+bool isLoaded = TextureResourceManager.IsLoadedTextureResource(TextureCategory.Character);
+
+// カテゴリ単位での読み込み
+TextureResourceManager.LoadTextureResource(TextureCategory.Character, syncLoad: false);
+
+// テクスチャリソースの取得
+var texture = TextureResourceManager.GetTextureResource(TextureResourceType.Player);
+
+// テクスチャ情報の取得
+var textureInfo = TextureResourceManager.GetTextureInfo(TextureResourceType.Player);
+
+// 不要になったらリソース解放
+TextureResourceManager.DeleteTextureResource(TextureCategory.Character);
+</code></pre>
+<p>→ 詳細: <a href="../../TextureResourceManager/README.html">TextureResourceManager - メモリ効率化</a></p>
+<h3 id="サウンドメモリ管理">サウンドメモリ管理</h3>
+<h4 id="効率的なサウンド管理">効率的なサウンド管理</h4>
+<pre><code class="lang-csharp">// サウンドの読み込み状況確認
+bool isLoaded = SoundResourceManager.IsLoadedSoundResource(SoundCategory.BGM);
+
+// カテゴリ単位での読み込み
+SoundResourceManager.LoadSoundResource(SoundCategory.BGM, syncLoad: false);
+
+// 音量設定によるパフォーマンス最適化
+SoundResourceManager.SetCategoryVolume(SoundCategory.BGM, 0.8f);
+SoundResourceManager.MasterVolume = 1.0f;
+
+// サウンド再生
+Sound.Utils.Play(SoundResourceType.MainBGM);
+Sound.Utils.FadeInPlay(SoundResourceType.MainBGM, 2.0f);
+
+// 不要になったらリソース解放
+SoundResourceManager.DeleteSoundResource(SoundCategory.BGM);
+</code></pre>
+<p>→ 詳細: <a href="../../SoundManager/README.html">SoundManager - メモリ効率的な音声管理</a></p>
+<h2 id="-特定シナリオの最適化">🎯 特定シナリオの最適化</h2>
+<h3 id="弾幕ゲームの最適化">弾幕ゲームの最適化</h3>
+<h4 id="大量弾の効率的な管理">大量弾の効率的な管理</h4>
+<pre><code class="lang-csharp">// 弾のオブジェクトプール使用状況の確認
+int pooledBullets = ObjectFactory.GetObjectNum&lt;BasicObject&gt;();
+
+// 大量弾生成（プールを活用）
+for (int i = 0; i &lt; 1000; i++)
+{
+    var bullet = ObjectFactory.Instantiate&lt;BasicObject&gt;();
+    bullet.SetUp(); // 初期化
+    // 弾の設定...
+}
+
+// 使用後はプールに返却
+// ObjectFactory.Terminate(bullet) は各弾のライフサイクル内で呼び出し
+</code></pre>
+<p>→ 詳細: <a href="../../ObjectFactory/README.html">ObjectFactory - 大量オブジェクト最適化</a></p>
+<h3 id="2dアクションゲームの最適化">2Dアクションゲームの最適化</h3>
+<h4 id="オブジェクト管理の最適化">オブジェクト管理の最適化</h4>
+<pre><code class="lang-csharp">// アクティブオブジェクト数の監視
+int totalObjects = ObjectExecutor.CurrentRegisteredObjectNum;
+if (totalObjects &gt; 500)
+{
+    // オブジェクト数が多すぎる場合の処理
+    VaNilla.Debug.Logger.LogWarning($&quot;高負荷警告: {totalObjects} オブジェクト&quot;);
+}
+
+// 条件付きオブジェクト処理
+var allObjects = ObjectExecutor.CurrentObjectSet;
+foreach (var obj in allObjects)
+{
+    // 画面外オブジェクトの非アクティブ化など
+    if (IsOffScreen(obj))
+    {
+        ObjectExecutor.Unregister(obj);
+    }
+}
+</code></pre>
+<h3 id="物理演算ゲームの最適化">物理演算ゲームの最適化</h3>
+<h4 id="物理演算パフォーマンス最適化">物理演算パフォーマンス最適化</h4>
+<pre><code class="lang-csharp">// 物理ワールドの設定最適化（VaNillaSettings.yamlで設定）
+// physics_settings:
+//   default_world:
+//     velocity_iterations: 6    # デフォルト8から削減
+//     position_iterations: 2    # デフォルト3から削減
+//     fixed_time_step: 0.02     # 50FPS物理更新
+
+// 物理演算の条件付き実行
+// 実装依存だが、距離やフラグによる最適化が可能
+</code></pre>
+<p>→ 詳細: <a href="../../Physics/README.html">Physics - 物理演算最適化</a></p>
+<h2 id="-デバッグとプロファイリング">🔍 デバッグとプロファイリング</h2>
+<h3 id="パフォーマンスデバッグ">パフォーマンスデバッグ</h3>
+<h4 id="デバッグ情報の表示">デバッグ情報の表示</h4>
+<pre><code class="lang-csharp">if (showDebugInfo)
+{
+    // オブジェクト数
+    int objects = ObjectExecutor.CurrentRegisteredObjectNum;
+    Renderer.Utils.DrawString($&quot;Objects: {objects}&quot;, 10, 10, Color.White);
+    
+    // FPS情報
+    float fps = FpsCalculator.GetFps();
+    Renderer.Utils.DrawString($&quot;FPS: {fps:F1}&quot;, 10, 30, Color.White);
+    
+    // メモリ情報
+    long memory = PerformanceProfiler.GetManagedMemoryBytes() / 1024 / 1024;
+    Renderer.Utils.DrawString($&quot;Memory: {memory} MB&quot;, 10, 50, Color.White);
+    
+    // 描画呼び出し数
+    int drawCalls = PerformanceProfiler.GetDrawCallCount();
+    Renderer.Utils.DrawString($&quot;Draw Calls: {drawCalls}&quot;, 10, 70, Color.White);
+    
+    // 衝突判定数
+    int collisions = CollisionCalculator.Count;
+    Renderer.Utils.DrawString($&quot;Collisions: {collisions}&quot;, 10, 90, Color.White);
+}
+</code></pre>
+<p>→ 詳細: <a href="../../DebugUtil/README.html">DebugUtil - パフォーマンス情報表示</a></p>
+<h4 id="プロファイリング設定の最適化">プロファイリング設定の最適化</h4>
+<pre><code class="lang-csharp">// サンプリング間隔の調整（パフォーマンス影響を最小化）
+PerformanceProfiler.SetSamplingInterval(100); // 100ms間隔
+
+// 履歴サイズの調整（メモリ使用量の最適化）
+PerformanceProfiler.SetHistorySize(60); // 60フレーム分
+
+// 詳細レポートの定期出力
+string report = PerformanceProfiler.GetDetailedReport();
+VaNilla.Debug.Logger.Log(report);
+</code></pre>
+<p>→ 詳細: <a href="../../PerformanceProfiler/README.html">PerformanceProfiler - プロファイリング設定</a></p>
+<hr>
+<h2 id="-参考リンク">📚 参考リンク</h2>
+<ul>
+<li><a href="../../Collision/Document/memo/performance_memo.md">Collision パフォーマンス最適化ガイド</a></li>
+<li><a href="../../ObjectFactory/README.html">ObjectFactory 効率的な使用方法</a></li>
+<li><a href="../../PerformanceProfiler/README.html">PerformanceProfiler 包括的な性能監視</a></li>
+<li><a href="../../FpsCalculator/README.html">FpsCalculator フレームレート最適化</a></li>
+<li><a href="../VaNillaSettings/README.html">VaNillaSettings.yaml パフォーマンス設定</a></li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Documents/HowToIndex/Performance.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

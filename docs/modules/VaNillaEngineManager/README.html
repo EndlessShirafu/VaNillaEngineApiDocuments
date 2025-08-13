@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNillaEngineManager </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNillaEngineManager ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaEngineManager/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanillaenginemanager">VaNillaEngineManager</h1>
+
+<p>VaNillaEngineのプロジェクト全体を扱いやすくするためのツールなどをまとめるディレクトリです。</p>
+<h2 id="プロジェクト設定-yaml-について">プロジェクト設定 yaml について</h2>
+<p>VaNillaでは、極力「事前に静的に確定するリソース」については、
+事前に生成しておいてオーバーヘッドを減らそうという思想があります。
+それを実現するために、ゲーム中で利用するリソースなどの情報は
+プロジェクト設定 yaml (VaNillaSettings.yaml) に記載しておきます。
+「静的に確定するリソース」の例は下記です。</p>
+<ul>
+<li>ゲーム内で使うテクスチャ群</li>
+<li>ゲーム内で使う音リソース群</li>
+<li>画面遷移設定</li>
+<li>キーバインド設定</li>
+<li>etcetc...</li>
+</ul>
+<p>プロジェクト設定 yaml (VaNillaSettings.yaml) は、各ゲームの要件に応じて適宜修正する必要があります。</p>
+<h2 id="sharedprojectgenerator">SharedProjectGenerator</h2>
+<p>プロジェクト設定 yaml (VaNillaSettings.yaml)を元にして、
+VaNillaを構成する共有プロジェクト(.projitems)を構築します。
+出力先ファイルは、 <code>VaNillaShared/VaNillaShared.projitems</code> です。
+以下のように呼び出します。</p>
+<blockquote>
+<p>SharedProjectGenerator.exe -s [VaNillaSettingsフォルダのパス]</p>
+</blockquote>
+<p>VaNillaに含めてビルドするソースコードを追加/削除したい場合には、本ツールを利用してください。
+逆に、上記以外の用途で利用することはありません。</p>
+<h2 id="codegenerator">CodeGenerator</h2>
+<p>プロジェクト設定 yaml (VaNillaSettings.yaml)を元にして、ソースコードを生成します。
+以下のように呼び出します。</p>
+<blockquote>
+<p>CodeGenerator.exe -s [VaNillaSettingsフォルダのパス]</p>
+</blockquote>
+<h2 id="sharedprojectgenerator-と-codegenerator-のビルドについて">SharedProjectGenerator と CodeGenerator のビルドについて</h2>
+<p><code>SharedProjectGenerator.exe</code> と <code>CodeGenerator.exe</code> は、
+それぞれ <code>SharedProjectGenerator.py</code> と <code>CodeGenerator.py</code> を PyInstaller で exe 化したファイルです。
+<code>SharedProjectGenerator.py</code> と <code>CodeGenerator.py</code> の中身の処理を修正した場合には、
+<code>create_exe.bat</code> を実行することで各 exe を再生成できます。</p>
+<h2 id="vanillashared">VaNillaShared</h2>
+<p>VaNilla の Interface 層と Implementation 層を共有プロジェクト化し、まとめたディレクトリです。
+VaNillaを利用する側の .csproj (以下アプリプロジェクト)から、下記のプロジェクトを
+共有プロジェクト参照して使うことを想定しています。</p>
+<ul>
+<li>VaNillaShared/VaNillaShared.shproj</li>
+</ul>
+<p>VaNilla を含めたアプリプロジェクトのビルドには、
+<code>CodeGenerator</code> と <code>SharedProjectGenerator</code> で事前に共有プロジェクト設定とソースコードを生成しておく必要があります。
+（上記を実施していない場合、<code>ObjectFactory</code> などでビルドエラーとなります）</p>
+<h2 id="vanillaenginemanagerapp">VaNillaEngineManagerApp</h2>
+<p>VaNillaのUnityへのインストールをGUI経由で実行できます。
+性質上、Implementation に Unity を使うケースでしか利用しません。</p>
+<p><code>config.ini</code> という名前のファイルで、
+1行目に<code>data_version = 2</code>、
+2行目にVaNillaをインストールしたいUnityプロジェクトのパス
+を書いておくと起動時に勝手に <code>config.ini</code> から読んでくれます。(.gitignore指定済み)</p>
+<p>インストール先のUnityプロジェクトパスを入れたうえで <code>InstallAll</code> ボタンを押すとVaNillaのインストール処理を行えます。
+インストールは具体的にはシンボリックリンクの作成や初期設定等が行われる。</p>
+<h1 id="symboliclinkgeneratorforunity">SymbolicLinkGeneratorForUnity</h1>
+<p>Unity用にシンボリックリンク作るやつです。<br>
+実行にはPython3.6以上をコマンドプロンプト上から呼び出せる環境が必要です。</p>
+<h2 id="install_for_unity_cmd_helperbat">install_for_unity_cmd_helper.bat</h2>
+<p>任意のUnityプロジェクトへVaNillaモジュールのシンボリックリンクを作成するツールです。</p>
+<h2 id="miscellaneous_setuppy">miscellaneous_setup.py</h2>
+<p>その他雑多な初期設定などを行うためのスクリプトです。<br>
+リソース関連のセットアップなどのために呼び出し必須。<br>
+<code>install_all_for_unity_project.py</code> の呼び出し後に <code>miscellaneous_setup.py</code> も合わせて呼び出すこと。</p>
+<h3 id="使い方">使い方</h3>
+<ol>
+<li><code>cmd</code>プロンプト開く</li>
+<li><code>install_for_unity_cmd_helper.bat</code> を実行</li>
+<li>管理者権限で別<code>cmd</code>プロンプトが開く</li>
+<li>開いた<code>cmd</code>プロンプトで下記を実行
+<code>python install_all_for_unity_project.py</code> -l [Unityプロジェクト直下へのパス]<br>
+※[Unityプロジェクト直下へのパス]はAssetsフォルダなどがある地点を指定</li>
+<li>実行すると指定したUnityプロジェクトへインストールされるはず</li>
+</ol>
+<h3 id="ファイル構成">ファイル構成</h3>
+<ul>
+<li><code>install_for_unity_cmd_helper.bat</code> ... 管理者権限で<code>cmd</code>開くためのbat</li>
+<li><code>install_all_for_unity_project.bat</code> ... pythonスクリプトの実行bat 正直必要ではない</li>
+<li><code>install_all_for_unity_project.py</code> ... 本体のスクリプト</li>
+</ul>
+<h3 id="メンテ">メンテ</h3>
+<p><code>install_all_for_unity_project.py</code> 内にインストールするディレクトリのリストがある
+手動追従するのめんどくさくなってくる気がするのでそのうちいい感じに変える</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaEngineManager/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

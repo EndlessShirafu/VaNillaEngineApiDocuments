@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNilla Physics モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNilla Physics モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Physics/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanilla-physics-モジュール">VaNilla Physics モジュール</h1>
+
+<p>2D物理演算機能をVaNillaエンジンに提供するモジュールです。</p>
+<h2 id="概要">概要</h2>
+<p>Physics モジュールは、Box2D物理エンジンを内部実装として使用し、VaNillaエンジンに2D物理演算機能を提供します。Box2Dの実装詳細は完全に隠蔽され、VaNillaの型システムと統合されたAPIを提供します。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.Physics.html">VaNilla Physics APIリファレンス</a>をご覧ください。</p>
+<h2 id="主な機能">主な機能</h2>
+<ul>
+<li><strong>剛体物理演算</strong>: 重力、摩擦、反発などの物理特性</li>
+<li><strong>形状サポート</strong>: 円、矩形、多角形、エッジ形状</li>
+<li><strong>力の適用</strong>: 継続的な力、瞬間的な衝撃、トルク</li>
+<li><strong>物理タイプ</strong>: 静的、動的、キネマティック剛体</li>
+<li><strong>初期スケール対応</strong>: SetUp時のスケール適用（実行時変更は非対応）</li>
+<li><strong>デバッグ描画</strong>: 物理形状、ジョイント、剛体タイプの可視化</li>
+</ul>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的な使用例">基本的な使用例</h3>
+<pre><code class="lang-csharp">using VaNilla;
+using VaNilla.Physics;
+using VaNilla.Shape;
+
+[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasRotation), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasRigidbody), auto_member_generate: true)]
+public partial class PhysicsBox : Object
+{
+    public override bool SetUp()
+    {
+        // 初期位置
+        hasPosition.Position = new Point2(400, 100);
+        
+        // 物理設定
+        hasRigidbody.Mass = 1.0f;
+        hasRigidbody.Friction = 0.3f;
+        hasRigidbody.Restitution = 0.5f;  // 反発係数
+        hasRigidbody.Shape = new RectangleShape(50, 50);
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="スケール対応の物理オブジェクト">スケール対応の物理オブジェクト</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasRotation), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasScale), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasRigidbody), auto_member_generate: true)]
+public partial class ScaledPhysicsCircle : Object
+{
+    public override bool SetUp()
+    {
+        hasPosition.Position = new Point2(400, 100);
+        hasScale.Scale = new Vector2(2.0f, 2.0f);  // 2倍スケール
+        
+        // 物理形状は元のサイズで定義
+        hasRigidbody.Shape = new Circle(25);  // 半径25
+        // → 実際の物理形状は半径50になる（スケール適用後）
+        
+        return true;
+    }
+}
+</code></pre>
+<h3 id="力の適用">力の適用</h3>
+<pre><code class="lang-csharp">public override bool Execute(in Time.Time time)
+{
+    // 継続的な力（風など）
+    hasRigidbody.ApplyForce(new Vector2(10.0f, 0));
+    
+    // 瞬間的な衝撃（爆発など）
+    if (KeyboardInput.IsPushedMoment(KeyCode.Space))
+    {
+        hasRigidbody.ApplyImpulse(new Vector2(0, -100));
+    }
+    
+    // 回転力
+    hasRigidbody.ApplyTorque(5.0f);
+    
+    return true;
+}
+</code></pre>
+<h3 id="キネマティック剛体">キネマティック剛体</h3>
+<pre><code class="lang-csharp">public override bool SetUp()
+{
+    hasRigidbody.IsKinematic = true;  // 物理演算の影響を受けない
+    hasRigidbody.Shape = new RectangleShape(100, 20);
+    
+    return true;
+}
+
+public override bool Execute(in Time.Time time)
+{
+    // キネマティック剛体は手動で位置を制御
+    hasPosition.Position = new Point2(
+        400 + MathF.Sin(time.TotalTime) * 200,
+        300
+    );
+    
+    return true;
+}
+</code></pre>
+<h3 id="デバッグ描画の使用">デバッグ描画の使用</h3>
+<p>物理シミュレーションの内部状態を可視化するために、デバッグ描画機能を提供しています。</p>
+<h4 id="方法1-physicsdebugdrawerコンポーネントを使用推奨">方法1: PhysicsDebugDrawerコンポーネントを使用（推奨）</h4>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(PhysicsDebugDrawer), auto_member_generate: true)]
+public partial class MyDebugObject : Object
+{
+    public override bool SetUp()
+    {
+        // デバッグ描画の設定
+        physicsDebugDrawer.IsEnabled = true;
+        physicsDebugDrawer.EnableKeyboardToggle = true;
+        physicsDebugDrawer.ToggleKey = KeyboardInput.KeyCode.F3;
+        physicsDebugDrawer.ShowDebugInfo = true;
+        physicsDebugDrawer.DebugInfoPosition = new Point2(10, 30);
+        
+        return true;
+    }
+}
+</code></pre>
+<h4 id="方法2-手動でデバッグ描画を呼び出す">方法2: 手動でデバッグ描画を呼び出す</h4>
+<pre><code class="lang-csharp">public void Process()
+{
+    // 物理デバッグ描画を実行
+    if (PhysicsSettings.EnableDebugDraw)
+    {
+        PhysicsWorldManager.DebugDraw();
+    }
+}
+</code></pre>
+<h4 id="デバッグ描画の色仕様">デバッグ描画の色仕様</h4>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>色</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>動的剛体</strong></td>
+<td>緑（半透明）</td>
+<td>重力や力の影響を受ける物体</td>
+</tr>
+<tr>
+<td><strong>キネマティック剛体</strong></td>
+<td>青（半透明）</td>
+<td>プログラムで制御される物体</td>
+</tr>
+<tr>
+<td><strong>静的剛体</strong></td>
+<td>グレー（半透明）</td>
+<td>動かない地形や壁など</td>
+</tr>
+<tr>
+<td><strong>ジョイント</strong></td>
+<td>黄色</td>
+<td>剛体間の接続</td>
+</tr>
+<tr>
+<td><strong>回転軸</strong></td>
+<td>赤（X軸）、緑（Y軸）</td>
+<td>剛体の向きを表示</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意</strong>: 現在、SupremeArbiterへの統合が未完成のため、デバッグ描画は手動で呼び出す必要があります。将来的にはYAML設定のみで自動的に描画されるようになります。</p>
+<pre><code>
+## YAML設定
+
+`VaNillaSettings.yaml` に物理設定を追加：
+
+```yaml
+physics_settings:
+  default_world:
+    gravity:
+      x: 0.0
+      y: 9.8  # Y軸下向きが正
+    fixed_time_step: 0.01666667  # 1/60秒
+    velocity_iterations: 8
+    position_iterations: 3
+  pixels_per_meter: 100.0
+  enable_debug_draw: false  # trueにするとデバッグ描画が有効化
+</code></pre>
+<h2 id="supremearbiterとの統合">SupremeArbiterとの統合</h2>
+<p>物理エンジンはSupremeArbiterによって自動的に管理されます：</p>
+<ol>
+<li><strong>初期化</strong>: SupremeArbiterのstaticコンストラクタで自動初期化</li>
+<li><strong>更新</strong>: ObjectExecutor実行後、Collision実行前に物理シミュレーション</li>
+<li><strong>デバッグ描画</strong>: レンダリングフェーズで実行</li>
+</ol>
+<h2 id="依存モジュール">依存モジュール</h2>
+<ul>
+<li>ExpresserComponent</li>
+<li>Transform (HasPosition, HasRotation, HasScale)</li>
+<li>Object</li>
+<li>Shape</li>
+<li>Renderer (デバッグ描画用)</li>
+<li>Time</li>
+<li>DebugLogger</li>
+</ul>
+<h2 id="制約事項">制約事項</h2>
+<ul>
+<li><strong>2D物理のみ</strong>: 3D物理演算は非対応</li>
+<li><strong>スケール制限</strong>: 実行時のスケール変更は物理形状に反映されない</li>
+<li><strong>スレッド</strong>: シングルスレッドモデル</li>
+<li><strong>形状制限</strong>: 凹多角形は非対応（凸多角形のみ）</li>
+</ul>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li>大量の物理オブジェクトを扱う場合はObjectFactoryの使用を推奨</li>
+<li>固定タイムステップにより安定した物理シミュレーションを実現</li>
+<li>デバッグ描画は本番環境では無効化すること</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<ol>
+<li><strong>座標系</strong>: VaNillaはY軸下向き、Box2DはY軸上向き（内部で自動変換）</li>
+<li><strong>単位系</strong>: VaNillaはピクセル単位、Box2Dはメートル単位（内部で自動変換）</li>
+<li><strong>初期化順序</strong>: PhysicsWorldManagerはSupremeArbiterが初期化するため、手動初期化は不要</li>
+<li><strong>モジュール有効化</strong>: <code>#define VANILLA_MODULE_PHYSICS</code> が必要</li>
+<li><strong>ビルド設定</strong>: SharedProjectSnippets/Box2D/Physics.snippetによりBox2D実装がプロジェクトに含まれる</li>
+</ol>
+<h2 id="今後の拡張予定">今後の拡張予定</h2>
+<ul>
+<li>ジョイント（関節）システム</li>
+<li>物理コントローラー（浮力、引力場など）</li>
+<li>レイキャスト機能</li>
+<li>センサー（トリガー）機能</li>
+<li>物理マテリアルのプリセット管理</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Physics/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

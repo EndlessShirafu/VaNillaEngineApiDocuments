@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ShaderFactory </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ShaderFactory ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ShaderFactory/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="shaderfactory">ShaderFactory</h1>
+
+<p>シェーダーリソースの管理とレンダリング効果を提供するVaNillaモジュールです。
+DxLibとUnity両方のプラットフォームで、統一されたシェーダー管理システムを実現します。</p>
+<h2 id="概要">概要</h2>
+<p>ShaderFactoryは、2Dスプライトレンダリングのためのシェーダー管理機能を提供します。
+加算合成、乗算合成、スクリーン合成などの一般的なブレンドモードをサポートし、
+プラットフォーム固有の実装を抽象化して統一されたAPIを提供します。</p>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="シェーダー管理">シェーダー管理</h3>
+<ul>
+<li><strong>ShaderManager</strong>: 統一されたシェーダーリソース管理</li>
+<li><strong>ShaderResourceLoader</strong>: 非同期シェーダーローディング</li>
+<li><strong>ChangeShading</strong>: オブジェクト単位のシェーダー切り替え</li>
+</ul>
+<h3 id="サポートされるブレンドモード">サポートされるブレンドモード</h3>
+<table>
+<thead>
+<tr>
+<th>ブレンドモード</th>
+<th>説明</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DEFAULT</strong></td>
+<td>通常の描画</td>
+<td>基本的なスプライト描画</td>
+</tr>
+<tr>
+<td><strong>ALPHA</strong></td>
+<td>アルファブレンド</td>
+<td>透明度を考慮した描画</td>
+</tr>
+<tr>
+<td><strong>ADD</strong></td>
+<td>加算合成</td>
+<td>光や炎のエフェクト</td>
+</tr>
+<tr>
+<td><strong>SUB</strong></td>
+<td>減算合成</td>
+<td>影や暗化エフェクト</td>
+</tr>
+<tr>
+<td><strong>MUL</strong></td>
+<td>乗算合成</td>
+<td>影や色の変調</td>
+</tr>
+<tr>
+<td><strong>SCREEN</strong></td>
+<td>スクリーン合成</td>
+<td>明るい部分の合成</td>
+</tr>
+<tr>
+<td><strong>INVSRC</strong></td>
+<td>反転ソース</td>
+<td>特殊エフェクト</td>
+</tr>
+</tbody>
+</table>
+<h2 id="基本的な使用方法">基本的な使用方法</h2>
+<h3 id="シェーダーの取得と設定">シェーダーの取得と設定</h3>
+<pre><code class="lang-csharp">using VaNilla.Shader;
+
+// デフォルトシェーダーの取得
+var defaultShader = ShaderManager.GetDefaultShader();
+
+// 特定のシェーダーの取得（Enum指定）
+var addShader = ShaderManager.GetShader(ShaderManager.ShaderEnum.ADD);
+
+// 特定のシェーダーの取得（文字列指定）
+var multiplyShader = ShaderManager.GetShader(&quot;Multiply&quot;);
+</code></pre>
+<h3 id="オブジェクトにシェーダーを適用">オブジェクトにシェーダーを適用</h3>
+<pre><code class="lang-csharp">// ChangeShading コンポーネントを持つオブジェクトに対して
+var changeShading = myObject.GetComponent&lt;ChangeShading&gt;();
+changeShading.UpdateShader(ShaderManager.GetShader(ShaderManager.ShaderEnum.ADD));
+</code></pre>
+<h3 id="カスタムシェーダーの登録">カスタムシェーダーの登録</h3>
+<pre><code class="lang-csharp">// 独自のシェーダーリソースを登録
+var customShader = ShaderResourceLoader.Load(&quot;MyCustomShader&quot;);
+ShaderManager.Register(&quot;MyCustomShader&quot;, customShader);
+
+// 登録したシェーダーの使用
+var myShader = ShaderManager.GetShader(&quot;MyCustomShader&quot;);
+</code></pre>
+<h2 id="アーキテクチャ">アーキテクチャ</h2>
+<h3 id="3層構造">3層構造</h3>
+<ol>
+<li><strong>Interface層</strong> (<code>Interface/</code>): プラットフォーム非依存のAPI</li>
+<li><strong>Implementation層</strong> (<code>Implementation/</code>): プラットフォーム固有の実装
+<ul>
+<li><code>DxLib/</code>: DxLib用の実装</li>
+<li><code>Unity/</code>: Unity用の実装</li>
+</ul>
+</li>
+<li><strong>Fixture層</strong> (<code>Fixture/</code>): Unityプラットフォーム用のシェーダーアセット</li>
+</ol>
+<h3 id="リソース管理">リソース管理</h3>
+<ul>
+<li><strong>非同期ローディング</strong>: <code>ShaderResourceLoader</code>による効率的なリソース管理</li>
+<li><strong>自動キャッシュ</strong>: 一度ロードしたシェーダーは自動的にキャッシュ</li>
+<li><strong>メモリ管理</strong>: 明示的なUnload APIによるメモリ解放</li>
+</ul>
+<h2 id="unity専用シェーダー">Unity専用シェーダー</h2>
+<p><code>Fixture/Unity/</code>フォルダには、Unity用の標準スプライトシェーダーバリエーションが含まれています：</p>
+<ul>
+<li><code>Sprites-Default.shader</code>: 標準描画</li>
+<li><code>Sprites-Alpha.shader</code>: アルファブレンド</li>
+<li><code>Sprites-Add.shader</code>: 加算合成</li>
+<li><code>Sprites-Subtract.shader</code>: 減算合成</li>
+<li><code>Sprites-Multiply.shader</code>: 乗算合成</li>
+<li><code>Sprites-Screen.shader</code>: スクリーン合成</li>
+<li><code>Sprites-Invsrc.shader</code>: 反転ソース合成</li>
+</ul>
+<h2 id="expressercomponent連携">ExpresserComponent連携</h2>
+<p>ShaderFactoryは他のVaNillaモジュールとシームレスに連携します：</p>
+<pre><code class="lang-csharp">[RequiredExpresserComponent(typeof(VaNilla.Renderer.BasicRenderer))]
+public class ChangeShading : IExpresserComponent
+{
+    public ShaderResource shader { get; set; } = ShaderManager.GetDefaultShader();
+    
+    public void UpdateShader(ShaderResource shader__)
+    {
+        shader = shader__;
+        renderer.UpdateRenderer();
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>事前ロード</strong>: 頻繁に使用するシェーダーはゲーム開始時に事前ロード</li>
+<li><strong>シェーダー切り替え</strong>: 過度なシェーダー切り替えはパフォーマンスに影響</li>
+<li><strong>リソース管理</strong>: 使用しなくなったシェーダーは適切にUnload</li>
+</ul>
+<h2 id="拡張性">拡張性</h2>
+<p>新しいブレンドモードやカスタムシェーダーを追加する場合：</p>
+<ol>
+<li><code>ShaderManager.ShaderEnum</code>に新しい列挙値を追加</li>
+<li>対応するシェーダーファイルを<code>Fixture/Unity/</code>に配置</li>
+<li>プラットフォーム固有の実装を<code>Implementation/</code>に追加</li>
+</ol>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><strong>VaNilla.Renderer</strong>: BasicRendererとの連携</li>
+<li><strong>VaNilla.Texture</strong>: テクスチャリソースとの統合</li>
+<li><strong>VaNilla.Execute</strong>: ExpresserComponentシステム</li>
+</ul>
+<h2 id="技術仕様">技術仕様</h2>
+<ul>
+<li><strong>対応プラットフォーム</strong>: DxLib, Unity</li>
+<li><strong>シェーダー言語</strong>: Unity HLSL (Unity), プラットフォーム固有 (DxLib)</li>
+<li><strong>リソースフォーマット</strong>: プラットフォーム依存</li>
+<li><strong>メモリ管理</strong>: 参照カウント方式</li>
+</ul>
+<hr>
+<p>ShaderFactoryモジュールにより、VaNillaアプリケーションで豊富な視覚効果を簡単に実現できます。
+プラットフォーム間の違いを抽象化し、一貫したシェーダー管理体験を提供します。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ShaderFactory/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

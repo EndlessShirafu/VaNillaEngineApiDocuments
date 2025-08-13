@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>AssetManipulator </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="AssetManipulator ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/AssetManipulator/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="assetmanipulator">AssetManipulator</h1>
+
+<p>外部ファイルやアセットの取り扱いを統一的に管理するVaNillaモジュールです。
+暗号化されたアセットデータベースからのファイル読み込み、URLからのリソース取得など、
+プラットフォーム間で一貫したアセット管理機能を提供します。</p>
+<h2 id="概要">概要</h2>
+<p>AssetManipulatorは、ゲームアプリケーションで使用する外部リソースの管理を担当します。
+テキストファイル、設定ファイル、その他のデータファイルを統一的なAPIでアクセスできる仕組みを提供し、
+プラットフォーム間の差異を抽象化します。</p>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="アセットデータベース管理">アセットデータベース管理</h3>
+<ul>
+<li><strong>暗号化されたアセットパッケージ</strong>: セキュアなアセット保存</li>
+<li><strong>統一アドレス変換</strong>: プラットフォーム固有パスへの自動変換</li>
+<li><strong>設定可能な暗号化キー</strong>: アセット保護のカスタマイズ</li>
+</ul>
+<h3 id="ファイル読み込み機能">ファイル読み込み機能</h3>
+<ul>
+<li><strong>テキストファイル読み込み</strong>: 文字列での一括読み込み</li>
+<li><strong>行単位読み込み</strong>: List&lt;string&gt;での行別アクセス</li>
+<li><strong>クロスプラットフォーム対応</strong>: DxLib/Unity両環境での動作</li>
+</ul>
+<h2 id="基本的な使用方法">基本的な使用方法</h2>
+<h3 id="アセットデータベースの初期化">アセットデータベースの初期化</h3>
+<pre><code class="lang-csharp">using VaNilla.Asset;
+
+// デフォルト設定での初期化
+AssetDatabaseManager.Initialize();
+
+// カスタム設定での初期化
+AssetDatabaseManager.SetAssetDatabase(&quot;my_assets.dat&quot;, &quot;my_encryption_key&quot;);
+</code></pre>
+<h3 id="ファイルの読み込み">ファイルの読み込み</h3>
+<pre><code class="lang-csharp">// テキストファイルの全体読み込み
+string content = AssetDatabaseManager.Read(&quot;config/settings.txt&quot;);
+
+// ファイルの行単位読み込み
+List&lt;string&gt; lines = AssetDatabaseManager.ReadAllLines(&quot;data/level_data.csv&quot;);
+
+// 各行を処理
+foreach (string line in lines)
+{
+    // CSVデータの処理など
+    string[] values = line.Split(',');
+    ProcessData(values);
+}
+</code></pre>
+<h3 id="アドレス変換">アドレス変換</h3>
+<pre><code class="lang-csharp">// アセット参照名からフルパスへの変換
+string fullPath = AssetDatabaseManager.ConvertAssetFullAddress(&quot;textures/player.png&quot;);
+
+// Unity: Application.streamingAssetsPath + &quot;textures/player.png&quot;
+// DxLib: &quot;assets.dat&quot; 内の &quot;textures/player.png&quot;
+</code></pre>
+<h2 id="アーキテクチャ">アーキテクチャ</h2>
+<h3 id="2層構造">2層構造</h3>
+<ol>
+<li><strong>Interface層</strong> (<code>Interface/</code>): プラットフォーム非依存のAPI
+<ul>
+<li><code>AssetDatabaseManager.cs</code>: アセット管理の統一インターフェース</li>
+</ul>
+</li>
+<li><strong>Implementation層</strong> (<code>Implementation/</code>): プラットフォーム固有の実装
+<ul>
+<li><code>DxLib/</code>: DxLib用の実装（暗号化アセットパッケージ対応）</li>
+<li><code>Unity/</code>: Unity用の実装（StreamingAssets対応）</li>
+</ul>
+</li>
+</ol>
+<h3 id="データベース方式">データベース方式</h3>
+<table>
+<thead>
+<tr>
+<th>プラットフォーム</th>
+<th>実装方式</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DxLib</strong></td>
+<td>暗号化アーカイブ</td>
+<td>独自の暗号化アセットパッケージ</td>
+</tr>
+<tr>
+<td><strong>Unity</strong></td>
+<td>StreamingAssets</td>
+<td>Unityの標準アセット配置</td>
+</tr>
+</tbody>
+</table>
+<h2 id="設定とカスタマイズ">設定とカスタマイズ</h2>
+<h3 id="デフォルト設定">デフォルト設定</h3>
+<pre><code class="lang-csharp">public static string CurrentAssetDatabase = &quot;asset.dat&quot;;       // データベースファイル名
+public static string CurrentAssetEncryptKey = &quot;vanilla&quot;;      // 暗号化キー
+</code></pre>
+<h3 id="カスタム設定例">カスタム設定例</h3>
+<pre><code class="lang-csharp">// プロダクション環境での設定
+AssetDatabaseManager.SetAssetDatabase(&quot;game_assets.pak&quot;, &quot;production_key_2024&quot;);
+
+// 開発環境での設定
+AssetDatabaseManager.SetAssetDatabase(&quot;dev_assets.dat&quot;, &quot;dev_key&quot;);
+</code></pre>
+<h2 id="実用例">実用例</h2>
+<h3 id="設定ファイルの読み込み">設定ファイルの読み込み</h3>
+<pre><code class="lang-csharp">// ゲーム設定の読み込み
+string configJson = AssetDatabaseManager.Read(&quot;config/game_settings.json&quot;);
+var settings = JsonUtility.FromJson&lt;GameSettings&gt;(configJson);
+
+// レベルデータの読み込み
+List&lt;string&gt; levelData = AssetDatabaseManager.ReadAllLines(&quot;levels/world1.csv&quot;);
+foreach (string line in levelData)
+{
+    var levelInfo = ParseLevelLine(line);
+    LoadLevel(levelInfo);
+}
+</code></pre>
+<h3 id="多言語対応テキスト">多言語対応テキスト</h3>
+<pre><code class="lang-csharp">// 言語ファイルの動的読み込み
+string language = GetCurrentLanguage();
+string textData = AssetDatabaseManager.Read($&quot;localization/{language}.txt&quot;);
+var localizedTexts = ParseLocalizationFile(textData);
+</code></pre>
+<h3 id="データベース切り替え">データベース切り替え</h3>
+<pre><code class="lang-csharp">// DLCコンテンツの読み込み
+if (IsDLCAvailable(&quot;expansion1&quot;))
+{
+    AssetDatabaseManager.SetAssetDatabase(&quot;dlc_expansion1.dat&quot;, &quot;expansion_key&quot;);
+    string dlcContent = AssetDatabaseManager.Read(&quot;expansion/new_levels.json&quot;);
+    LoadDLCContent(dlcContent);
+}
+</code></pre>
+<h2 id="セキュリティ考慮事項">セキュリティ考慮事項</h2>
+<h3 id="暗号化の重要性">暗号化の重要性</h3>
+<ul>
+<li><strong>アセット保護</strong>: 暗号化によりゲームデータの改ざんを防止</li>
+<li><strong>キー管理</strong>: 暗号化キーは適切に保護・管理</li>
+<li><strong>パフォーマンス</strong>: 暗号化処理による読み込み時間への影響を考慮</li>
+</ul>
+<h3 id="推奨実装パターン">推奨実装パターン</h3>
+<pre><code class="lang-csharp">// 暗号化キーの安全な管理例
+public static class SecureAssetConfig
+{
+    private static string GetEncryptionKey()
+    {
+        // 環境変数、レジストリ、または難読化された定数から取得
+        return Environment.GetEnvironmentVariable(&quot;GAME_ASSET_KEY&quot;) ?? &quot;fallback_key&quot;;
+    }
+    
+    public static void InitializeSecureAssets()
+    {
+        string key = GetEncryptionKey();
+        AssetDatabaseManager.SetAssetDatabase(&quot;protected_assets.dat&quot;, key);
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス最適化">パフォーマンス最適化</h2>
+<h3 id="効率的な読み込み">効率的な読み込み</h3>
+<ul>
+<li><strong>事前ロード</strong>: 頻繁にアクセスするファイルはゲーム開始時に読み込み</li>
+<li><strong>キャッシュ戦略</strong>: 一度読み込んだデータのメモリキャッシュ</li>
+<li><strong>非同期読み込み</strong>: 大きなファイルの非ブロッキング読み込み</li>
+</ul>
+<h3 id="メモリ管理">メモリ管理</h3>
+<pre><code class="lang-csharp">// 効率的なデータ管理の例
+public static class AssetCache
+{
+    private static Dictionary&lt;string, string&gt; textCache = new Dictionary&lt;string, string&gt;();
+    
+    public static string GetCachedText(string path)
+    {
+        if (!textCache.ContainsKey(path))
+        {
+            textCache[path] = AssetDatabaseManager.Read(path);
+        }
+        return textCache[path];
+    }
+    
+    public static void ClearCache()
+    {
+        textCache.Clear();
+    }
+}
+</code></pre>
+<h2 id="拡張性">拡張性</h2>
+<h3 id="新しいファイル形式のサポート">新しいファイル形式のサポート</h3>
+<ol>
+<li>AssetDatabaseManagerに新しい読み込みメソッドを追加</li>
+<li>プラットフォーム固有の実装を各Nativeクラスに追加</li>
+<li>暗号化・復号化ロジックの対応（必要に応じて）</li>
+</ol>
+<h3 id="url経由のリソース取得">URL経由のリソース取得</h3>
+<pre><code class="lang-csharp">// 将来の拡張例：HTTP/HTTPS経由のアセット取得
+public static async Task&lt;string&gt; DownloadAssetAsync(string url)
+{
+    // WebRequest実装
+    // キャッシュ機能
+    // 整合性チェック
+}
+</code></pre>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<h3 id="よくある問題">よくある問題</h3>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>原因</th>
+<th>解決方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ファイルが見つからない</td>
+<td>パスの指定ミス</td>
+<td>アドレス変換結果を確認</td>
+</tr>
+<tr>
+<td>暗号化エラー</td>
+<td>キーの不一致</td>
+<td>正しい暗号化キーを設定</td>
+</tr>
+<tr>
+<td>読み込み失敗</td>
+<td>ファイル破損</td>
+<td>アセットデータベースの整合性チェック</td>
+</tr>
+</tbody>
+</table>
+<h3 id="デバッグ支援">デバッグ支援</h3>
+<pre><code class="lang-csharp">// デバッグ用のパス確認
+string debugPath = AssetDatabaseManager.ConvertAssetFullAddress(&quot;debug/test.txt&quot;);
+VaNilla.Debug.Logger.Log($&quot;Resolved path: {debugPath}&quot;);
+
+// ファイル存在確認（プラットフォーム依存）
+#if UNITY_EDITOR
+bool exists = System.IO.File.Exists(debugPath);
+VaNilla.Debug.Logger.Log($&quot;File exists: {exists}&quot;);
+#endif
+</code></pre>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><strong>VaNilla.Debug</strong>: ログ出力機能</li>
+<li><strong>プラットフォーム固有ライブラリ</strong>:
+<ul>
+<li>Unity: UnityEngine (StreamingAssets)</li>
+<li>DxLib: 暗号化ライブラリ</li>
+</ul>
+</li>
+</ul>
+<h2 id="技術仕様">技術仕様</h2>
+<ul>
+<li><strong>対応ファイル形式</strong>: テキストファイル全般（UTF-8推奨）</li>
+<li><strong>暗号化方式</strong>: プラットフォーム依存</li>
+<li><strong>最大ファイルサイズ</strong>: メモリ制限に依存</li>
+<li><strong>パス区切り文字</strong>: &quot;/&quot; （プラットフォーム間で統一）</li>
+</ul>
+<hr>
+<p>AssetManipulatorにより、VaNillaアプリケーションで安全かつ効率的な外部リソース管理が実現できます。
+プラットフォーム間の違いを抽象化し、一貫したアセットアクセス体験を提供します。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントについては、以下のリンクを参照してください：</p>
+<p><a href="https://your-docfx-site.github.io/api/VaNilla.Asset.html">VaNilla.Asset Namespace API Reference</a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/AssetManipulator/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

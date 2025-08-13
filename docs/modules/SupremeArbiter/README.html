@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>SupremeArbiter モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="SupremeArbiter モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/SupremeArbiter/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="supremearbiter-モジュール">SupremeArbiter モジュール</h1>
+
+<p>SupremeArbiterモジュールは、VaNillaエンジンの最上位制御システムです。エンジン全体の初期化、実行サイクル管理、モジュール間の調停、および終了処理を統括する中核的な役割を担います。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>エンジン統制</strong>: VaNillaエンジン全体のライフサイクル管理</li>
+<li><strong>初期化制御</strong>: 全モジュールの依存関係を考慮した初期化順序制御</li>
+<li><strong>実行サイクル管理</strong>: フレームレートとタイマー同期による定期更新処理</li>
+<li><strong>モジュール調停</strong>: 全モジュールの実行順序とタイミング制御</li>
+<li><strong>終了管理</strong>: 適切なリソース解放と終了処理</li>
+<li><strong>設定統括</strong>: アプリケーション全体の基本設定管理</li>
+</ul>
+<h2 id="実装状況">実装状況</h2>
+<p>✅ <strong>完了</strong>: エンジンの中核システムとして完全に実装済みです。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.html">VaNilla SupremeArbiter APIリファレンス</a>をご覧ください。</p>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="1-supremearbiter最高調停者">1. SupremeArbiter（最高調停者）</h3>
+<p>VaNillaエンジンの中央制御システムです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public static partial class SupremeArbiter
+{
+    // エンジン状態管理
+    public static bool VaNillaEngineConstructed { get; }
+    public static bool UseTimerSyncExecute { get; }
+    public static bool IsRequestedVaNillaEngineeEnd { get; private set; }
+    
+    // 中核メソッド
+    public static void RequestVaNillaEngineEnd();
+    public static bool IsRunning();
+    public static void Execute();
+    public static void End();
+}
+</code></pre>
+<h3 id="2-supremearbitersetting設定管理">2. SupremeArbiterSetting（設定管理）</h3>
+<p>アプリケーション全体の基本設定を管理します。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public static partial class SupremeArbiter
+{
+    // フレームレート設定
+    public const float TargetFps = 60.0f;
+    
+    // アプリケーション情報
+    public const string WindowTitle = &quot;VaNillaTestProject&quot;;
+    public const uint AppId = 0;
+    
+    // バージョン情報
+    public const int AppMajorVersion = 1;
+    public const int AppMinorVersion = 0;
+    public const int AppPatchVersion = 0;
+    public const string AppOtherVersionString = &quot;rev.1&quot;;
+    public const bool DisplayAppVersionTitle = false;
+}
+</code></pre>
+<h2 id="エンジンライフサイクル">エンジンライフサイクル</h2>
+<h3 id="初期化フェーズstatic-constructor">初期化フェーズ（Static Constructor）</h3>
+<p>SupremeArbiterは静的コンストラクタで以下の順序で初期化を実行します：</p>
+<ol>
+<li><strong>Assembly管理初期化</strong></li>
+<li><strong>BootLoader実行</strong></li>
+<li><strong>ネイティブ層初期化</strong></li>
+<li><strong>アセット管理初期化</strong></li>
+<li><strong>時間管理初期化</strong></li>
+<li><strong>FPS計算機初期化</strong></li>
+<li><strong>入力システム初期化</strong>（GamePad、Mouse、Keyboard、Player Input）</li>
+<li><strong>乱数生成器初期化</strong></li>
+<li><strong>ウィンドウ管理初期化</strong></li>
+<li><strong>シーン管理初期化</strong></li>
+<li><strong>ExpresserComponent システム初期化</strong></li>
+<li><strong>オブジェクト管理初期化</strong></li>
+<li><strong>リソース管理初期化</strong>（Texture、Sound、Font、Shader）</li>
+<li><strong>描画・衝突システム初期化</strong></li>
+<li><strong>外部API統合初期化</strong>（Steamworks等）</li>
+<li><strong>ゲームBootLoader実行</strong></li>
+<li><strong>シーンプロセッサ初期化</strong></li>
+</ol>
+<h3 id="実行フェーズexecute-メソッド">実行フェーズ（Execute メソッド）</h3>
+<p>毎フレーム以下の順序で実行されます：</p>
+<ol>
+<li><strong>ネイティブ層実行</strong></li>
+<li><strong>時間管理更新</strong></li>
+<li><strong>入力状態更新</strong></li>
+<li><strong>ExecuteManager実行</strong></li>
+<li><strong>オブジェクト実行</strong></li>
+<li><strong>非同期処理実行</strong></li>
+<li><strong>FPS計算更新</strong></li>
+<li><strong>時間管理実行</strong></li>
+<li><strong>ウィンドウ設定更新</strong></li>
+<li><strong>シーン変更検知・処理</strong></li>
+<li><strong>衝突計算実行</strong></li>
+<li><strong>外部API実行</strong></li>
+<li><strong>オブジェクト解放処理</strong></li>
+</ol>
+<h3 id="終了フェーズend-メソッド">終了フェーズ（End メソッド）</h3>
+<p>適切な順序でリソース解放と終了処理を実行します。</p>
+<h2 id="モジュール依存関係マップ">モジュール依存関係マップ</h2>
+<p>SupremeArbiterが管理する主要モジュール：</p>
+<pre><code class="lang-csharp">// コア管理
+AssemblyManager
+BootLoader
+TimeManager
+ExecuteManager
+
+// 入力システム
+GamePadInputManager
+MouseInput
+KeyboardInput
+PlayerInput
+
+// リソース管理
+TextureResourceManager
+SoundResourceManager
+FontResourceManager
+ShaderManager
+OffScreenManager
+
+// オブジェクト管理
+ObjectFactory
+ObjectExecutor
+ExpresserComponent系
+
+// シーン管理
+SceneStateManager
+SceneChangedDetector
+SceneStateProcessor
+
+// 外部統合
+SteamworksManager
+WindowManager
+CollisionCalculator
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的なエンジン起動">基本的なエンジン起動</h3>
+<pre><code class="lang-csharp">using VaNilla;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // SupremeArbiterの静的コンストラクタが自動実行される
+        // エンジン初期化完了まで待機
+        while (!SupremeArbiter.VaNillaEngineConstructed)
+        {
+            Thread.Sleep(1);
+        }
+        
+        // メインゲームループ
+        while (SupremeArbiter.IsRunning())
+        {
+            SupremeArbiter.Execute();  // 毎フレーム実行
+        }
+        
+        // エンジン終了処理
+        SupremeArbiter.End();
+    }
+}
+</code></pre>
+<h3 id="カスタム初期化とbootloader">カスタム初期化とBootLoader</h3>
+<pre><code class="lang-csharp">[BootLoader]
+public class GameBootLoader
+{
+    [VaNillaBootLoader]
+    public static void EarlyInitialize()
+    {
+        // エンジン初期化前の処理
+        Debug.Logger.Log(&quot;Game early initialization&quot;);
+    }
+    
+    [BootLoader]
+    public static void Initialize()
+    {
+        // エンジン初期化後の処理
+        Debug.Logger.Log(&quot;Game initialization complete&quot;);
+    }
+    
+    [Shutdown]
+    public static void Shutdown()
+    {
+        // エンジン終了時の処理
+        Debug.Logger.Log(&quot;Game shutdown&quot;);
+    }
+}
+</code></pre>
+<h3 id="エンジン終了制御">エンジン終了制御</h3>
+<pre><code class="lang-csharp">public class GameManager
+{
+    public void QuitGame()
+    {
+        // エンジンに終了をリクエスト
+        SupremeArbiter.RequestVaNillaEngineEnd();
+    }
+    
+    public bool IsGameRunning()
+    {
+        return SupremeArbiter.IsRunning();
+    }
+    
+    public bool IsEngineReady()
+    {
+        return SupremeArbiter.VaNillaEngineConstructed;
+    }
+}
+</code></pre>
+<h3 id="タイマー同期実行の確認">タイマー同期実行の確認</h3>
+<pre><code class="lang-csharp">public class PerformanceManager
+{
+    public void CheckExecutionMode()
+    {
+        if (SupremeArbiter.UseTimerSyncExecute)
+        {
+            Debug.Logger.Log(&quot;Using timer-synchronized execution&quot;);
+        }
+        else
+        {
+            Debug.Logger.Log(&quot;Using frame-based execution&quot;);
+        }
+    }
+}
+</code></pre>
+<h2 id="ゲーム開発での実用例">ゲーム開発での実用例</h2>
+<h3 id="シーン遷移システム">シーン遷移システム</h3>
+<pre><code class="lang-csharp">public class SceneTransitionManager
+{
+    public void TransitionToScene(SceneState newScene)
+    {
+        // SupremeArbiterが管理するSceneStateManagerを使用
+        Scene.SceneStateManager.SetCurrentScene(newScene);
+    }
+    
+    public void Update()
+    {
+        // SupremeArbiterの実行サイクル内で自動実行される
+        // SceneChangedDetectorによってシーン変更が検知される
+    }
+}
+</code></pre>
+<h3 id="フレームレート制御">フレームレート制御</h3>
+<pre><code class="lang-csharp">public class FrameRateController
+{
+    public float GetCurrentFPS()
+    {
+        // SupremeArbiterが管理するFpsCalculatorから取得
+        return FpsCalculator.GetCurrentFps();
+    }
+    
+    public float GetTargetFPS()
+    {
+        return SupremeArbiter.TargetFps;
+    }
+    
+    public void MonitorPerformance()
+    {
+        float currentFps = GetCurrentFPS();
+        float targetFps = GetTargetFPS();
+        
+        if (currentFps &lt; targetFps * 0.9f)
+        {
+            Debug.Logger.LogWarning($&quot;FPS dropped below 90% of target: {currentFps:F1}/{targetFps:F1}&quot;);
+        }
+    }
+}
+</code></pre>
+<h3 id="リソース管理統合">リソース管理統合</h3>
+<pre><code class="lang-csharp">public class ResourceManager
+{
+    public void InitializeResources()
+    {
+        // SupremeArbiterによって既に初期化済み
+        // 各リソースマネージャーは使用可能状態
+        
+        LoadTextures();
+        LoadSounds();
+        LoadFonts();
+    }
+    
+    private void LoadTextures()
+    {
+        // TextureResourceManagerは初期化済み
+        var texture = Texture.TextureResourceManager.Load(&quot;player.png&quot;);
+    }
+    
+    private void LoadSounds()
+    {
+        // SoundResourceManagerは初期化済み
+        var sound = Sound.SoundResourceManager.Load(&quot;bgm.ogg&quot;);
+    }
+    
+    private void LoadFonts()
+    {
+        // FontResourceManagerは初期化済み
+        var font = Font.FontResourceManager.Load(&quot;default.ttf&quot;);
+    }
+}
+</code></pre>
+<h3 id="入力システム統合">入力システム統合</h3>
+<pre><code class="lang-csharp">public class InputController
+{
+    public void HandleInput()
+    {
+        // SupremeArbiterによって毎フレーム更新される入力状態を使用
+        
+        // キーボード入力
+        if (KeyboardInput.KeyboardInput.IsKeyDown(Key.Escape))
+        {
+            SupremeArbiter.RequestVaNillaEngineEnd();
+        }
+        
+        // マウス入力
+        var mouseState = MouseInput.MouseInput.GetCurrentMouseState();
+        if (mouseState.IsLeftButtonPressed)
+        {
+            HandleMouseClick(mouseState.Position);
+        }
+        
+        // ゲームパッド入力
+        var padState = GamePadInput.GamePadInputManager.GetGamePadState(0);
+        if (padState.IsConnected &amp;&amp; padState.Buttons.Start)
+        {
+            ShowPauseMenu();
+        }
+    }
+    
+    private void HandleMouseClick(Point2 position)
+    {
+        Debug.Logger.Log($&quot;Mouse clicked at: {position}&quot;);
+    }
+    
+    private void ShowPauseMenu()
+    {
+        Debug.Logger.Log(&quot;Pause menu requested&quot;);
+    }
+}
+</code></pre>
+<h3 id="カスタムexecutemanagerの実装">カスタムExecuteManagerの実装</h3>
+<pre><code class="lang-csharp">public class GameSystemManager : IExpresserComponent
+{
+    public bool Execute(Object object__, in Time.Time current_time)
+    {
+        // SupremeArbiterのExecuteサイクル内で実行される
+        UpdateGameSystems(current_time);
+        return true;
+    }
+    
+    private void UpdateGameSystems(Time.Time time)
+    {
+        // ゲーム固有のシステム更新
+        UpdateEnemyAI(time);
+        UpdatePlayerStats(time);
+        UpdateEnvironment(time);
+    }
+    
+    private void UpdateEnemyAI(Time.Time time) { /* AI処理 */ }
+    private void UpdatePlayerStats(Time.Time time) { /* プレイヤー処理 */ }
+    private void UpdateEnvironment(Time.Time time) { /* 環境処理 */ }
+    
+    // IExpresserComponent実装
+    public bool SetUp(Object object__) =&gt; true;
+    public void TearDown(Object object__) { }
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; }
+}
+</code></pre>
+<h3 id="エラーハンドリングと診断">エラーハンドリングと診断</h3>
+<pre><code class="lang-csharp">public class EngineDiagnostics
+{
+    public void PerformDiagnostics()
+    {
+        // エンジン状態診断
+        DiagnoseEngineState();
+        DiagnoseModuleStatus();
+        DiagnosePerformance();
+    }
+    
+    private void DiagnoseEngineState()
+    {
+        Debug.Logger.Log($&quot;Engine Constructed: {SupremeArbiter.VaNillaEngineConstructed}&quot;);
+        Debug.Logger.Log($&quot;Engine Running: {SupremeArbiter.IsRunning()}&quot;);
+        Debug.Logger.Log($&quot;Timer Sync Mode: {SupremeArbiter.UseTimerSyncExecute}&quot;);
+        Debug.Logger.Log($&quot;End Requested: {SupremeArbiter.IsRequestedVaNillaEngineeEnd}&quot;);
+    }
+    
+    private void DiagnoseModuleStatus()
+    {
+        // 各モジュールの状態確認
+        Debug.Logger.Log($&quot;Target FPS: {SupremeArbiter.TargetFps}&quot;);
+        Debug.Logger.Log($&quot;Window Title: {SupremeArbiter.WindowTitle}&quot;);
+        Debug.Logger.Log($&quot;App Version: {SupremeArbiter.AppMajorVersion}.{SupremeArbiter.AppMinorVersion}.{SupremeArbiter.AppPatchVersion}&quot;);
+    }
+    
+    private void DiagnosePerformance()
+    {
+        var currentTime = Time.TimeManager.GetCurrentTime();
+        Debug.Logger.Log($&quot;Current Time: {currentTime.current_time}&quot;);
+        Debug.Logger.Log($&quot;Delta Time: {currentTime.DeltaTime}&quot;);
+        Debug.Logger.Log($&quot;Current FPS: {FpsCalculator.GetCurrentFps()}&quot;);
+    }
+}
+</code></pre>
+<h3 id="デバッグ用制御システム">デバッグ用制御システム</h3>
+<pre><code class="lang-csharp">public class DebugController
+{
+    private bool debugModeEnabled = false;
+    
+    public void ToggleDebugMode()
+    {
+        debugModeEnabled = !debugModeEnabled;
+        
+        if (debugModeEnabled)
+        {
+            EnableDebugSystems();
+        }
+        else
+        {
+            DisableDebugSystems();
+        }
+    }
+    
+    private void EnableDebugSystems()
+    {
+        // デバッグ機能有効化
+        Debug.Logger.Log(&quot;Debug mode enabled&quot;);
+        
+        // フレームレート表示
+        StartFpsDisplay();
+        
+        // メモリ使用量監視
+        StartMemoryMonitoring();
+    }
+    
+    private void DisableDebugSystems()
+    {
+        Debug.Logger.Log(&quot;Debug mode disabled&quot;);
+        StopFpsDisplay();
+        StopMemoryMonitoring();
+    }
+    
+    private void StartFpsDisplay()
+    {
+        // FPS表示用オブジェクト生成
+    }
+    
+    private void StopFpsDisplay()
+    {
+        // FPS表示用オブジェクト削除
+    }
+    
+    private void StartMemoryMonitoring()
+    {
+        // メモリ監視開始
+    }
+    
+    private void StopMemoryMonitoring()
+    {
+        // メモリ監視停止
+    }
+}
+</code></pre>
+<h2 id="設定例yaml">設定例（YAML）</h2>
+<pre><code class="lang-yaml"># VaNillaSettings.yaml
+supreme_arbiter_setting:
+  target_fps: 60.0
+  window_title: &quot;MyVaNillaGame&quot;
+  app_id: 123456
+  app_version:
+    major: 1
+    minor: 2
+    patch: 3
+    other: &quot;beta.1&quot;
+  display_app_version_title: true
+</code></pre>
+<h2 id="モジュール相互作用">モジュール相互作用</h2>
+<h3 id="初期化順序の重要性">初期化順序の重要性</h3>
+<pre><code class="lang-csharp">// 正しい依存関係順序
+// 1. AssemblyManager (基盤)
+// 2. TimeManager (時間基盤)
+// 3. Input系 (入力基盤)
+// 4. Resource系 (リソース基盤)
+// 5. Object系 (オブジェクト管理)
+// 6. Scene系 (シーン管理)
+// 7. Game固有システム
+</code></pre>
+<h3 id="実行順序の制御">実行順序の制御</h3>
+<pre><code class="lang-csharp">// 毎フレームの実行順序
+// 1. ネイティブ層更新
+// 2. 時間管理更新
+// 3. 入力状態更新
+// 4. ゲームロジック実行
+// 5. オブジェクト実行
+// 6. 物理・衝突計算
+// 7. 描画・UI更新
+// 8. 後処理・クリーンアップ
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>初期化最適化</strong>: 必要なモジュールのみを条件付きコンパイルで有効化</li>
+<li><strong>実行効率</strong>: フレーム毎の処理を最小限に抑制</li>
+<li><strong>メモリ管理</strong>: 適切なリソース解放とオブジェクトプール活用</li>
+<li><strong>タイマー同期</strong>: 安定したフレームレート制御</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<h3 id="初期化タイミング">初期化タイミング</h3>
+<ul>
+<li>静的コンストラクタは自動実行されるため明示的な初期化呼び出し不要</li>
+<li>VaNillaEngineConstructedフラグで初期化完了を確認</li>
+</ul>
+<h3 id="モジュール依存">モジュール依存</h3>
+<ul>
+<li>SupremeArbiterに依存する他モジュールは初期化順序に注意</li>
+<li>条件付きコンパイルディレクティブによるモジュール有効/無効制御</li>
+</ul>
+<h3 id="終了処理">終了処理</h3>
+<ul>
+<li>適切な終了処理のためEnd()メソッドを必ず呼び出し</li>
+<li>終了リクエスト後は新たな処理を開始しない</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../BootLoader/README.html">BootLoader</a> - 初期化制御</li>
+<li><a href="../TimeManager/README.html">TimeManager</a> - 時間管理</li>
+<li><a href="../ExecuteManager/README.html">ExecuteManager</a> - 実行制御</li>
+<li><a href="../ObjectExecutor/README.html">ObjectExecutor</a> - オブジェクト実行</li>
+<li><a href="../SceneStateManager/README.html">SceneStateManager</a> - シーン管理</li>
+<li><strong>すべてのVaNillaモジュール</strong> - 統括管理</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../BootLoader/README.html">BootLoader</a> - アプリケーション起動制御</li>
+<li><a href="../TimeManager/README.html">TimeManager</a> - 時間とフレーム管理</li>
+<li><a href="../Debug/README.md">Debug</a> - デバッグとログ出力</li>
+<li><a href="../ExpresserComponent/README.html">ExpresserComponent</a> - コンポーネント実行管理</li>
+</ul>
+<p>このモジュールにより、VaNillaエンジン全体の統一された制御と安定した実行環境が提供されます。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/SupremeArbiter/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

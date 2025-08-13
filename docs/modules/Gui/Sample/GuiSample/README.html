@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNilla開発アシスタント - 包括的なGUIサンプル </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNilla開発アシスタント - 包括的なGUIサンプル ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Gui/Sample/GuiSample/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanilla開発アシスタント---包括的なguiサンプル">VaNilla開発アシスタント - 包括的なGUIサンプル</h1>
+
+<h2 id="概要">概要</h2>
+<p>これはVaNillaのコアシステムの<strong>完全な統合</strong>を示す、完全に再設計および強化されたVaNilla GUIサンプルです：</p>
+<ul>
+<li><strong>Object-ExpresserComponentシステム</strong>： 適切なアーキテクチャパターン</li>
+<li><strong>SupremeArbiter統合</strong>： 完全なエンジンライフサイクル管理</li>
+<li><strong>ObjectExecutorの使用</strong>： 実際のオブジェクト登録と実行</li>
+<li><strong>高度なGUIパターン</strong>： 複雑なインタラクションを持つ複数のウィンドウ</li>
+<li><strong>リソース管理</strong>： VaNillaリソースシステムとの統合</li>
+<li><strong>リアルタイム監視</strong>： パフォーマンスメトリクス、オブジェクト検査、ログ</li>
+</ul>
+<h2 id="このサンプルが示すもの">このサンプルが示すもの</h2>
+<h3 id="1-vanilla開発アシスタント">1. VaNilla開発アシスタント</h3>
+<p>ゲーム開発者が実際に使用する実用的なツールで、以下の機能を備えています：</p>
+<ul>
+<li><strong>メインダッシュボード</strong>： パフォーマンスメトリクスを含む中央制御ハブ</li>
+<li><strong>リソースインスペクタ</strong>： テクスチャ、サウンド、フォントの参照と管理</li>
+<li><strong>オブジェクトエクスプローラ</strong>： ExpresserComponentの詳細を含むリアルタイムオブジェクト階層</li>
+<li><strong>パフォーマンスモニタ</strong>： ライブFPS、メモリ使用量、システムメトリクス</li>
+<li><strong>デバッグコンソール</strong>： コマンドインターフェース付きのフィルタ可能なログビューア</li>
+<li><strong>設定マネージャ</strong>： 保存/読み込み機能付きの設定エディタ</li>
+<li><strong>GUIデザイナ</strong>： GUIレイアウトをテストするためのインタラクティブツール</li>
+</ul>
+<h3 id="2-完全なエンジン統合">2. 完全なエンジン統合</h3>
+<p>以前のシンプルなサンプルとは異なり、これは以下を示しています：</p>
+<pre><code class="lang-csharp">// 適切なVaNillaエンジンライフサイクル
+SupremeArbiter.Execute(); // エンジン初期化
+ObjectExecutor.Register(assistantManager); // オブジェクト登録
+while (SupremeArbiter.IsRunning()) {
+    SupremeArbiter.Execute(); // 標準エンジンループ
+}
+SupremeArbiter.End(); // クリーンなシャットダウン
+</code></pre>
+<h3 id="3-object-expressercomponentアーキテクチャ">3. Object-ExpresserComponentアーキテクチャ</h3>
+<p><code>DevelopmentAssistantManager</code>クラスは適切なVaNillaパターンを示しています：</p>
+<pre><code class="lang-csharp">public class DevelopmentAssistantManager : Object
+{
+    // ExpresserComponentsを含む適切なコンストラクタ
+    public DevelopmentAssistantManager() : base(CreateDefaultComponents()) { }
+    
+    // 必須のSetUp/TearDown実装
+    public override bool SetUp() { /* GUIウィンドウを初期化 */ }
+    public override void TearDown() { /* リソースをクリーンアップ */ }
+}
+</code></pre>
+<h3 id="4-expressercomponentシステム">4. ExpresserComponentシステム</h3>
+<p>コンポーネントの実行順序と依存関係の管理を示しています：</p>
+<pre><code class="lang-csharp">[ExpresserComponentExecutionOrder(10)]  // 入力を最初に
+public class InputHandlerComponent : ExpresserComponent { }
+
+[ExpresserComponentExecutionOrder(50)]  // ロジック処理
+public class PerformanceMonitorComponent : ExpresserComponent { }
+
+[ExpresserComponentExecutionOrder(100)] // GUIレンダリングを最後に
+public class GUIManagerComponent : ExpresserComponent { }
+</code></pre>
+<h3 id="5-高度なguiパターン">5. 高度なGUIパターン</h3>
+<p>各ウィンドウは異なるGUI機能を示しています：</p>
+<ul>
+<li><strong>複雑なレイアウトを持つフォーム</strong>： マルチパネルデザイン</li>
+<li><strong>カスタムデータを持つListControl</strong>： ジェネリック型パラメータ</li>
+<li><strong>イベント処理</strong>： 包括的なコールバックシステム</li>
+<li><strong>リアルタイム更新</strong>： 動的なコンテンツ更新</li>
+<li><strong>フィルタリングと検索</strong>： インタラクティブなデータ操作</li>
+</ul>
+<h2 id="プロジェクト構造">プロジェクト構造</h2>
+<pre><code>GuiSample/
+├── Program.cs                      # エンジン統合を含むメインエントリポイント
+├── DevelopmentAssistantManager.cs  # ExpresserComponentsを含むコアObject
+├── MainDashboardWindow.cs          # 中央制御ダッシュボード
+├── ResourceInspectorWindow.cs      # リソース管理インターフェース
+├── ObjectExplorerWindow.cs         # オブジェクト/コンポーネントリアルタイムビューア
+├── SpecializedWindows.cs           # 追加ツールウィンドウ
+├── GuiSample.csproj               # プロジェクト設定
+├── GuiSample.sln                  # ソリューションファイル
+└── README.md                      # このドキュメント
+</code></pre>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="リアルタイムオブジェクト監視">リアルタイムオブジェクト監視</h3>
+<ul>
+<li><code>ObjectExecutor.CurrentRegisteredObjectNum</code>からのライブオブジェクト数</li>
+<li>ExpresserComponentの検査と実行順序表示</li>
+<li>オブジェクトの有効化/無効化制御</li>
+<li>コンポーネント依存関係の可視化</li>
+</ul>
+<h3 id="パフォーマンス分析">パフォーマンス分析</h3>
+<ul>
+<li>履歴グラフ付きのFPS追跡</li>
+<li>GCコレクション数を含むメモリ使用量監視</li>
+<li>フレーム時間計算</li>
+<li>時間枠での平均パフォーマンスメトリクス</li>
+</ul>
+<h3 id="リソース管理">リソース管理</h3>
+<ul>
+<li>VaNillaリソースマネージャとの統合（概念的）</li>
+<li>テクスチャ、サウンド、フォントリソースの参照</li>
+<li>ロード/アンロード操作（デモンストレーション）</li>
+<li>リソースサイズとステータスの追跡</li>
+</ul>
+<h3 id="インタラクティブ開発ツール">インタラクティブ開発ツール</h3>
+<ul>
+<li>コマンド処理付きデバッグコンソール</li>
+<li>ランタイム設定用の設定マネージャ</li>
+<li>GUIレイアウトデザイナ（概念的フレームワーク）</li>
+<li>ログフィルタリングと検索機能</li>
+</ul>
+<h2 id="サンプルの実行">サンプルの実行</h2>
+<h3 id="前提条件">前提条件</h3>
+<ul>
+<li>すべての必要なモジュールを含むVaNillaエンジン</li>
+<li>.NET 9.0または互換性のあるランタイム</li>
+<li>すべてのVaNilla依存関係が適切に設定されていること</li>
+</ul>
+<h3 id="ビルドと実行">ビルドと実行</h3>
+<pre><code class="lang-bash"># ソリューションのビルド
+dotnet build GuiSample.sln
+
+# アプリケーションの実行
+dotnet run --project GuiSample.csproj
+</code></pre>
+<h3 id="操作方法">操作方法</h3>
+<ul>
+<li><strong>ESC</strong>: アプリケーション終了</li>
+<li><strong>F1</strong>: ヘルプ表示</li>
+<li><strong>F2</strong>: リソースインスペクタの切り替え</li>
+<li><strong>F3</strong>: オブジェクトエクスプローラの切り替え</li>
+<li><strong>F4</strong>: パフォーマンスモニタの切り替え</li>
+<li><strong>F5</strong>: 設定マネージャの切り替え</li>
+<li><strong>F6</strong>: デバッグコンソールの切り替え</li>
+<li><strong>F7</strong>: GUIデザイナの切り替え</li>
+</ul>
+<h2 id="アーキテクチャの利点">アーキテクチャの利点</h2>
+<h3 id="以前のサンプルとの比較">以前のサンプルとの比較</h3>
+<table>
+<thead>
+<tr>
+<th>以前のサンプル</th>
+<th>新しい開発アシスタント</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>静的なGUIのみ</td>
+<td>完全なエンジン統合</td>
+</tr>
+<tr>
+<td>基本コントロールのデモ</td>
+<td>実用的な開発ツール</td>
+</tr>
+<tr>
+<td>Objectシステムなし</td>
+<td>適切なObject-ExpresserComponent</td>
+</tr>
+<tr>
+<td>コンソールベース</td>
+<td>リッチなGUIインターフェース</td>
+</tr>
+<tr>
+<td>限定的な機能</td>
+<td>包括的な機能セット</td>
+</tr>
+</tbody>
+</table>
+<h3 id="教育的価値">教育的価値</h3>
+<ol>
+<li><strong>適切なVaNillaパターン</strong>： 実際のアプリケーションの構築方法を示します</li>
+<li><strong>コンポーネントアーキテクチャ</strong>： ExpresserComponentのベストプラクティスを実演</li>
+<li><strong>リソース統合</strong>： 実世界のリソース管理パターン</li>
+<li><strong>パフォーマンス監視</strong>： 本番環境対応の監視技術</li>
+<li><strong>拡張可能な設計</strong>： 追加開発ツールのためのフレームワーク</li>
+</ol>
+<h2 id="拡張ポイント">拡張ポイント</h2>
+<p>このサンプルは以下の基盤を提供します：</p>
+<ul>
+<li><strong>シーンエディタ</strong>： ビジュアルシーン構築ツール</li>
+<li><strong>アセットパイプライン</strong>： リソースのインポート/エクスポートユーティリティ</li>
+<li><strong>プロファイリングツール</strong>： 高度なパフォーマンス分析</li>
+<li><strong>デバッグユーティリティ</strong>： ランタイム検査と変更</li>
+<li><strong>テスティングフレームワーク</strong>： 自動化されたGUIテストシステム</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<ul>
+<li>一部のリソース操作は概念的なデモンストレーションです</li>
+<li>実際のVaNillaリソース統合には特定のモジュール設定が必要になる場合があります</li>
+<li>GUIデザイナーはインタラクティブデザインツールのフレームワークを示しています</li>
+<li>パフォーマンス監視は利用可能な場合、実際のVaNilla APIを使用します</li>
+</ul>
+<p>このサンプルは、VaNillaベースの開発ツールのための<strong>実用的で本番環境対応の基盤</strong>を表し、実世界のコンテキストでエンジンの完全な機能を実証しています。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Gui/Sample/GuiSample/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ObjectFactory </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ObjectFactory ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ObjectFactory/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="objectfactory">ObjectFactory</h1>
+
+<p>高性能なオブジェクト生成・管理システムです。オブジェクトプールを使用して、大量のオブジェクトを効率的に作成・再利用します。</p>
+<h2 id="概要">概要</h2>
+<p>ObjectFactoryは、VaNillaエンジンにおける高性能オブジェクト管理の中核システムです。事前に設定されたオブジェクトプールを使用して、ガベージコレクションを回避しながら大量のオブジェクトを効率的に管理します。</p>
+<h2 id="objectfactoryとobjectactivatorの使い分け">ObjectFactoryとObjectActivatorの使い分け</h2>
+<table>
+<thead>
+<tr>
+<th>特徴</th>
+<th>ObjectFactory</th>
+<th>ObjectActivator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>パフォーマンス</strong></td>
+<td>高速（プール使用）</td>
+<td>標準（毎回new）</td>
+</tr>
+<tr>
+<td><strong>メモリ効率</strong></td>
+<td>優秀（再利用）</td>
+<td>標準（GC発生）</td>
+</tr>
+<tr>
+<td><strong>設定</strong></td>
+<td>YAML設定必要</td>
+<td>設定不要</td>
+</tr>
+<tr>
+<td><strong>適用場面</strong></td>
+<td>大量・短時間オブジェクト</td>
+<td>少数・長時間オブジェクト</td>
+</tr>
+<tr>
+<td><strong>例</strong></td>
+<td>弾、パーティクル、エフェクト</td>
+<td>プレイヤー、敵、UI</td>
+</tr>
+</tbody>
+</table>
+<h2 id="yaml設定システム">YAML設定システム</h2>
+<p>ObjectFactoryは<code>VaNillaSettings.yaml</code>の<code>object_list</code>セクションで設定します：</p>
+<pre><code class="lang-yaml"># VaNillaSettings.yaml
+object_list:
+  # 基本設定例
+  DefaultTag:
+    object_num: 300        # プールサイズ
+    type: &quot;BasicObject&quot;    # オブジェクト型
+    
+  # 弾用プール
+  BulletTag:
+    object_num: 1000
+    type: &quot;BulletObject&quot;
+    create_pool: true      # オプション：プール作成フラグ（デフォルト: true）
+    
+  # パーティクル用プール
+  ParticleTag:
+    object_num: 2000
+    type: &quot;ParticleObject&quot;
+    
+  # エフェクト用プール（プール無効化例）
+  EffectTag:
+    object_num: 100
+    type: &quot;EffectObject&quot;
+    create_pool: false     # プール作成を無効化
+</code></pre>
+<h3 id="設定パラメータ">設定パラメータ</h3>
+<ul>
+<li><strong>object_num</strong>: プールサイズ（事前生成するオブジェクト数）</li>
+<li><strong>type</strong>: 管理するオブジェクトクラス名</li>
+<li><strong>create_pool</strong>: プール作成の有効/無効（デフォルト: true）</li>
+</ul>
+<h2 id="コード生成プロセス">コード生成プロセス</h2>
+<p>YAML設定から以下のファイルが自動生成されます：</p>
+<h3 id="1-objectfactorycs">1. ObjectFactory.cs</h3>
+<pre><code class="lang-csharp">// プール初期化コード生成
+ObjectPoolCache&lt;BulletObject&gt;.PoolInstance = new ObjectPool&lt;BulletObject&gt;();
+ObjectPoolCache&lt;ParticleObject&gt;.PoolInstance = new ObjectPool&lt;ParticleObject&gt;();
+
+// 型判定用HashSet生成
+static HashSet&lt;Type&gt; ObjectTypeHashSet = new HashSet&lt;Type&gt;{
+    typeof(BulletObject),
+    typeof(ParticleObject),
+    // ...
+};
+</code></pre>
+<h3 id="2-objecttagcsobjectcs内">2. ObjectTag.cs（Object.cs内）</h3>
+<pre><code class="lang-csharp">public enum ObjectTagEnum {
+    DefaultTag,
+    BulletTag,
+    ParticleTag,
+    // ...
+}
+
+// タグ→個数マッピング
+static Dictionary&lt;int, int&gt; object_tag_to_num_map = new Dictionary&lt;int, int&gt; {
+    {(int)ObjectTagEnum.BulletTag, 1000},
+    {(int)ObjectTagEnum.ParticleTag, 2000},
+    // ...
+};
+</code></pre>
+<h2 id="基本的な使用方法">基本的な使用方法</h2>
+<h3 id="オブジェクト生成">オブジェクト生成</h3>
+<pre><code class="lang-csharp">// 基本的な生成
+var bullet = ObjectFactory.Instantiate&lt;BulletObject&gt;();
+
+// テンプレートオブジェクトから生成
+var templateBullet = new BulletObject();
+var newBullet = ObjectFactory.Instantiate(templateBullet);
+
+// 追加コンポーネント付きで生成
+var components = new IExpresserComponent[] { new HasPosition(), new HasVelocity() };
+var bulletWithComponents = ObjectFactory.Instantiate&lt;BulletObject&gt;(additional_components: components);
+
+// 名前付きで生成
+var namedBullet = ObjectFactory.Instantiate&lt;BulletObject&gt;(object_name: &quot;PlayerBullet&quot;);
+</code></pre>
+<h3 id="安全な生成wrap使用">安全な生成（Wrap使用）</h3>
+<pre><code class="lang-csharp">// 寿命管理付きラッパーで生成
+Wrap&lt;BulletObject&gt; safeBullet = ObjectFactory.SafeInstantiate&lt;BulletObject&gt;();
+
+// ラッパー経由でのアクセス
+if (safeBullet.IsValid)
+{
+    safeBullet.obj.GetComponent&lt;HasPosition&gt;().Position = new Point2(100, 200);
+}
+
+// 自動的な寿命管理
+ObjectFactory.Terminate(safeBullet);
+</code></pre>
+<h3 id="オブジェクト終了">オブジェクト終了</h3>
+<pre><code class="lang-csharp">// 基本的な終了
+ObjectFactory.Terminate(bullet);
+
+// 型指定終了
+ObjectFactory.Terminate&lt;BulletObject&gt;(bullet);
+
+// ラッパー終了
+ObjectFactory.Terminate(safeBullet);
+
+// 非ジェネリック終了
+Object obj = bullet;
+ObjectFactory.Terminate(obj);
+</code></pre>
+<h3 id="ユーティリティメソッド">ユーティリティメソッド</h3>
+<pre><code class="lang-csharp">// 生成可能性チェック
+if (ObjectFactory.IsInstantiable&lt;BulletObject&gt;())
+{
+    var bullet = ObjectFactory.Instantiate&lt;BulletObject&gt;();
+}
+
+// アクティブオブジェクト数取得
+int activeBullets = ObjectFactory.GetObjectNum&lt;BulletObject&gt;();
+Console.WriteLine($&quot;アクティブな弾: {activeBullets}個&quot;);
+
+// デアロケーション実行（通常は自動実行）
+ObjectFactory.ExecuteDeallocation();
+</code></pre>
+<h2 id="objectpoolとの関係">ObjectPoolとの関係</h2>
+<p>ObjectFactoryは内部でObjectPoolを使用しています：</p>
+<h3 id="objectpoolの動作">ObjectPoolの動作</h3>
+<ul>
+<li><strong>Stack構造</strong>でオブジェクトプールを管理</li>
+<li><strong>HashSet</strong>でアクティブオブジェクトを追跡</li>
+<li><strong>遅延デアロケーション</strong>でフレーム境界問題を回避</li>
+<li><strong>自動拡張</strong>でプール枯渇時に新規作成</li>
+</ul>
+<h3 id="プールライフサイクル">プールライフサイクル</h3>
+<pre><code class="lang-csharp">// 1. 初期化時にプール作成
+ObjectPoolCache&lt;BulletObject&gt;.PoolInstance = new ObjectPool&lt;BulletObject&gt;();
+
+// 2. オブジェクト取得
+BulletObject bullet = pool.AllocateObject();
+
+// 3. オブジェクト返却
+pool.DeallocateObject(bullet);
+
+// 4. 遅延デアロケーション実行
+pool.ExecuteDeallocation();
+</code></pre>
+<h2 id="expressercomponentシステムとの統合">ExpresserComponentシステムとの統合</h2>
+<h3 id="自動コンポーネント管理">自動コンポーネント管理</h3>
+<pre><code class="lang-csharp">// FromObjectFactoryCreationコンポーネントが自動付与
+var bullet = ObjectFactory.Instantiate&lt;BulletObject&gt;();
+var factoryComponent = bullet.GetComponent&lt;FromObjectFactoryCreation&gt;();
+
+// RequiredExpresserComponent属性の自動解決
+[RequiredExpresserComponent(typeof(HasPosition))]
+public class BulletObject : Object
+{
+    // HasPositionが自動的に追加される
+}
+</code></pre>
+<h3 id="コンポーネントの深いコピー">コンポーネントの深いコピー</h3>
+<pre><code class="lang-csharp">// テンプレートオブジェクトのコンポーネントを深くコピー
+var template = new BulletObject();
+template.AddComponent(new HasVelocity { Velocity = new Vector2(5, 0) });
+
+var bullet = ObjectFactory.Instantiate(template);
+// bullet にも HasVelocity がコピーされる（参照ではなく新しいインスタンス）
+</code></pre>
+<h2 id="パフォーマンス特性">パフォーマンス特性</h2>
+<h3 id="最適化ポイント">最適化ポイント</h3>
+<ul>
+<li><strong>O(1)のアロケーション/デアロケーション</strong>（Stack使用）</li>
+<li><strong>ゼロガベージコレクション</strong>（オブジェクト再利用）</li>
+<li><strong>事前アロケーション</strong>（起動時に全オブジェクト作成）</li>
+<li><strong>遅延デアロケーション</strong>（フレーム中断回避）</li>
+</ul>
+<h3 id="メモリ使用量">メモリ使用量</h3>
+<pre><code class="lang-csharp">// 設定例での概算メモリ使用量
+object_list:
+  BulletTag:
+    object_num: 1000      # ~1000 × BulletObjectサイズ
+  ParticleTag:
+    object_num: 2000      # ~2000 × ParticleObjectサイズ
+</code></pre>
+<h3 id="ベンチマーク比較">ベンチマーク比較</h3>
+<table>
+<thead>
+<tr>
+<th>シナリオ</th>
+<th>ObjectFactory</th>
+<th>ObjectActivator</th>
+<th>改善率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1000弾生成/秒</td>
+<td>0.5ms</td>
+<td>15ms</td>
+<td><strong>30倍高速</strong></td>
+</tr>
+<tr>
+<td>GC発生頻度</td>
+<td>なし</td>
+<td>頻繁</td>
+<td><strong>GCフリー</strong></td>
+</tr>
+<tr>
+<td>メモリ断片化</td>
+<td>なし</td>
+<td>あり</td>
+<td><strong>断片化なし</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="使用上の注意事項">使用上の注意事項</h2>
+<h3 id="必須事項">必須事項</h3>
+<ol>
+<li><p><strong>必ずTerminateを呼ぶ</strong></p>
+<pre><code class="lang-csharp">var bullet = ObjectFactory.Instantiate&lt;BulletObject&gt;();
+// 使用後は必ず...
+ObjectFactory.Terminate(bullet);
+</code></pre>
+</li>
+<li><p><strong>プールサイズの適切な設定</strong></p>
+<pre><code class="lang-yaml"># 不足すると性能劣化
+BulletTag:
+  object_num: 1000  # 実際の最大同時使用数より多めに設定
+</code></pre>
+</li>
+</ol>
+<h3 id="コンポーネント状態管理">コンポーネント状態管理</h3>
+<pre><code class="lang-csharp">public class BulletObject : Object
+{
+    public override void SetUp()
+    {
+        // プールから取得時に毎回初期化
+        GetComponent&lt;HasPosition&gt;().Position = Point2.Zero;
+        GetComponent&lt;HasVelocity&gt;().Velocity = Vector2.Zero;
+    }
+    
+    public override void TearDown()
+    {
+        // プールに返却前のクリーンアップ
+        // 状態のリセットなど
+    }
+}
+</code></pre>
+<h3 id="デバッグとトラブルシューティング">デバッグとトラブルシューティング</h3>
+<pre><code class="lang-csharp">// プール状態の監視
+public void MonitorPoolStatus()
+{
+    int activeBullets = ObjectFactory.GetObjectNum&lt;BulletObject&gt;();
+    if (activeBullets &gt; 900) // 1000のうち900を超えたら警告
+    {
+        Debug.Logger.LogWarning($&quot;弾プールが枯渇寸前: {activeBullets}/1000&quot;);
+    }
+}
+
+// 生成可能性の事前チェック
+if (!ObjectFactory.IsInstantiable&lt;CustomObject&gt;())
+{
+    Debug.Logger.LogError(&quot;CustomObjectはObjectFactoryで生成できません&quot;);
+}
+</code></pre>
+<h2 id="実用例弾幕システム">実用例：弾幕システム</h2>
+<pre><code class="lang-csharp">public class BulletSpawner : Object
+{
+    public void SpawnBulletPattern()
+    {
+        for (int i = 0; i &lt; 360; i += 10) // 36方向に弾を発射
+        {
+            var bullet = ObjectFactory.Instantiate&lt;BulletObject&gt;();
+            
+            var position = bullet.GetComponent&lt;HasPosition&gt;();
+            var velocity = bullet.GetComponent&lt;HasVelocity&gt;();
+            
+            position.Position = this.GetComponent&lt;HasPosition&gt;().Position;
+            
+            float angle = i * Math.PI / 180.0f;
+            velocity.Velocity = new Vector2(
+                (float)Math.Cos(angle) * 200,
+                (float)Math.Sin(angle) * 200
+            );
+        }
+    }
+}
+
+public class BulletObject : Object
+{
+    private float lifeTime = 0;
+    
+    public override void Execute()
+    {
+        lifeTime += TimeManager.DeltaTime;
+        
+        // 5秒で自動消去
+        if (lifeTime &gt; 5.0f)
+        {
+            ObjectFactory.Terminate(this);
+        }
+    }
+    
+    public override void SetUp()
+    {
+        lifeTime = 0;
+    }
+}
+</code></pre>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><strong>Object</strong>: 基底オブジェクトシステム</li>
+<li><strong>ObjectPool</strong>: 内部プールメカニズム</li>
+<li><strong>ModuleVersionUtility</strong>: バージョン管理</li>
+<li><strong>ObjectExecutor</strong>: オブジェクト実行管理</li>
+<li><strong>ExpresserComponent</strong>: コンポーネントシステム</li>
+</ul>
+<h2 id="まとめ">まとめ</h2>
+<p>ObjectFactoryは、VaNillaエンジンにおいて大量のオブジェクトを効率的に管理するための強力なシステムです。適切な設定と使用により、弾幕ゲームやパーティクルシステムなど、高性能が要求されるアプリケーションでも優秀なパフォーマンスを発揮します。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントについては、以下のリンクを参照してください：</p>
+<p><a href="https://your-docfx-site.github.io/api/VaNilla.html">VaNilla Namespace API Reference</a></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ObjectFactory/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

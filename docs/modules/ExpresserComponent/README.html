@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ExpresserComponent </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ExpresserComponent ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ExpresserComponent/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="expressercomponent">ExpresserComponent</h1>
+
+<p><strong>機能単位で区切られた振る舞い</strong> を表象するためのコンポーネントです。<br>
+VaNillaエンジンの機能のうち、「 <code>Object</code> と協調動作する」系統の機能はこの <code>ExpresserComponent</code> の機能を用いて実現されることが多いです。</p>
+<h2 id="機能単位で区切られた振る舞いとは何か">「機能単位で区切られた振る舞い」とは何か？</h2>
+<p><code>ExpresserComponent</code> は、名前の通り <strong>何者であるかを表象するコンポーネント</strong> のことです。
+VaNillaエンジンでは、<code>Object</code> を核として、それがどういう振る舞いをするのかを <strong>属性的に多数付与していく</strong> という考えを採用しています。
+この <strong><code>Object</code> の振る舞いを表象するコンポーネント</strong> を <code>ExpressorComponent</code> と呼びます。</p>
+<p><code>ExpresserComponent</code> はVaNillaエンジン内部にも多数用意されていますし、自作することも可能です。
+以下に、 <code>ExpresserComponent</code> の例を挙げます。</p>
+<p>例：</p>
+<ul>
+<li>動く物体であることを表象する</li>
+<li>当たり判定があることを表象する</li>
+<li>プレイヤーが操作できることを表象する</li>
+<li>敵キャラクターであることを表象する</li>
+<li>地形であることを表象する</li>
+<li>無敵であることを表象する</li>
+<li>アイテムを落とすことを表象する</li>
+<li>クリックで反応することを表象する</li>
+<li>etcetc...</li>
+</ul>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.html">VaNilla ExpresserComponent APIリファレンス</a>をご覧ください。</p>
+<h2 id="expressercomponentの機能">ExpresserComponentの機能</h2>
+<ul>
+<li><p><code>Object</code> へ関連付けることで、<code>SetUp</code>、<code>Execute</code>、<code>TearDown</code>などのインターフェースメソッドが<code>Object</code>の状態に紐づいて呼び出されるようになります。
+関連付けの方法には、コンストラクタで指定する方法、<code>DefaultExpresserComponentAttribute</code>属性で指定する方法が存在します。</p>
+<ul>
+<li>事前に（実行前に）指定すべき <code>ExpresserComponent</code> の種類が分かる場合には、<code>DefaultExpresserComponentAttribute</code>属性で指定するのが望ましいです。</li>
+<li>実行時に、指定すべき <code>ExpresserComponent</code> の種別が動的に決まるようなケースでは、コンストラクタで指定すべきです。
+<ul>
+<li><code>ObjectActivator.Activate()</code> のコンストラクタ、または <code>ObjectFactory.Instantiate()</code> のコンストラクタに指定もできます</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>ExpresserComponent</code> に対して、 <code>RequiredExpresserComponentAttribute</code> 属性を付与することで、属性で指定された<code>ExpresserComponent</code>も連鎖的にインスタンス化することができます。</p>
+<ul>
+<li><code>RequiredExpresserComponentAttribute</code> は <code>ExpresserComponent</code> の「依存関係」を表現したものです。
+依存関係の例については下記節で解説します。</li>
+</ul>
+</li>
+<li><p><code>ExpresserComponentExecutionOrderAttribute</code> を付与することで、実行順序（優先度）を指定することができます。</p>
+<ul>
+<li>例えば、「座標を計算する処理」と「計算した座標に基づいて描画する処理」を分けたい場合に、
+「座標計算処理のためのExpresserComponent」 と 「描画処理のためのExpresserComponent」を作り、<code>ExpresserComponentExecutionOrderAttribute</code> を各々の <code>ExpresserComponent</code> に適切に付与することで、
+<strong>「必ず座標計算を先に処理し」、「その後に、計算された座標に基づいて描画処理する」</strong> という挙動を実現できます。</li>
+</ul>
+</li>
+</ul>
+<h2 id="expressercomponent-の一例とexpressercomponent-の依存関係の例">ExpresserComponent の一例と、ExpresserComponent の依存関係の例</h2>
+<p>例えば、「2Dグラフィック（テクスチャ）を描画する」ということを表象する、<code>BasicRenderer</code> という名前の <code>ExpresserComponent</code> を考えてみます。</p>
+<ul>
+<li>例1: 「2Dグラフィック（テクスチャ）を描画する」ことを表象する <code>ExpresserComponent</code>: <code>BasicRenderer</code> の依存関係の例
+<ul>
+<li>「2Dグラフィック（テクスチャ）を描画する」ということは「描画する位置などの情報を持つ」概念が必要: <code>Transform.HasTransform</code>
+<ul>
+<li>「位置などの情報」は具体的に「座標」「角度」「スケール」に分解される:<br>
+<code>Transform.HasPosition</code>、 <code>Transform.HasRotation</code>、<code>Transform.HasScale</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-mermaid">graph LR
+   ID1(BasicRenderer) --&gt; ID2(Transform.HasTransform)
+   ID2(Transform.HasTransform) --&gt; ID3(Transform.HasPosition)
+   ID2(Transform.HasTransform) --&gt; ID4(Transform.HasRotation)
+   ID2(Transform.HasTransform) --&gt; ID5(Transform.HasScale)
+</code></pre>
+<p>上記の依存関係を、<code>BasicRenderer</code> や <code>Transform</code> の疑似コードで下記に示します。<br>
+クラスに対して <code>RequiredExpresserComponentAttribute</code> 属性が付与されている部分に注目してみてください。</p>
+<pre><code class="lang-csharp">namespace VaNilla.Renderer
+{
+    /* BasicRendererが「描画する位置などの情報を持つ」ことを RequiredExpresserComponent で表現 */
+	[RequiredExpresserComponent(typeof(Transform.HasTransform))]
+    /* ExpresserComponent は IExpresserComponent を継承 */
+    public class BasicRenderer : IExpresserComponent 
+    {
+        /* 実装は省略 */
+    }
+}
+
+namespace VaNilla.Transform
+{
+    /* HasPosition, HasRotation, HasScaleを依存ExpresserComponentに持つ */
+    [RequiredExpresserComponent(typeof(HasPosition))]
+    [RequiredExpresserComponent(typeof(HasRotation))]
+    [RequiredExpresserComponent(typeof(HasScale))]
+    public class HasTransform : IExpresserComponent
+    {
+		/* 実装は省略 */
+    }
+    
+	public class HasPosition : IExpresserComponent
+    {
+		/* 実装は省略 */
+    }
+    
+	public class HasRotation : IExpresserComponent
+    {
+		/* 実装は省略 */
+    }
+    
+	public class HasScale : IExpresserComponent
+    {
+		/* 実装は省略 */
+    }
+}
+</code></pre>
+<p>上記の疑似コードでは、説明を簡単にするため実装は省略しています。<br>
+完全なコードは、 <a href="../Transform/README.html">Transform</a> を参照してください。</p>
+<p>よりゲームに即した例を挙げると、例えば以下のようになります。</p>
+<ul>
+<li>例2: 「1面のボスキャラクターである」ことを表象する <code>ExpresserComponent</code>
+<ul>
+<li>「1面のボスキャラクターである」 ならば 「ボスキャラクターである」「敵キャラクターである」
+<ul>
+<li>「敵キャラクターである」ならば「当たり判定がある」「HPがある」「アイテムを落とす」「動く物体である」
+<ul>
+<li>「HPがある」ならば「HPバーを表示する」…</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>疑似コードは示しませんが、<code>ExpresserComponent</code> の依存関係の表現方法は <code>BasicRenderer</code>の例と同様です。<br>
+<a href="">∀stralbringer</a> のソースコードが参考になるかと思われます。</p>
+<h2 id="iexpressercomponent">IExpresserComponent</h2>
+<p><code>ExpresserComponent</code> はすべてこのインターフェースを継承する必要があります。<br>
+実装が必要なインターフェースは以下です。</p>
+<h3 id="setup">SetUp</h3>
+<p>コンストラクタ相当の機能を実装します。</p>
+<p><strong>基本的に、ExpresserComponent系クラスの持つメンバ変数および自動プロパティはすべて<code>SetUp</code> メソッド内で初期化するようにしてください。</strong><br>
+<code>ExpresserComponent</code>はデストラクトされないまま<strong>使いまわされる</strong> ケースが多いため、<br>
+そのようなケースではコンストラクタが呼ばれないまま動作し、以前の状態を引き継いだまま動作するという非常に危険な状態となります。</p>
+<p>上記に反するケースでは<code>SetUp</code>でメンバ変数などを初期化する必要はありませんが、そのようなケースはほぼ無いと思われるので<br>
+<strong><code>SetUp</code>での初期化は必須</strong> と思って実装した方がいいです。</p>
+<h3 id="teardown">TearDown</h3>
+<p>デストラクタ相当の機能を実装します。</p>
+<p><code>SetUp</code>内や<code>Execute</code>内で動的確保したメモリや、アクセスしている資源は<strong>必ず</strong><code>TearDown</code>で解放するようにしてください。<br>
+上にも記述したように、<code>ExpresserComponent</code>は<strong>使いまわされる</strong>前提で実装をする必要があるため、<br>
+メモリやリソースを確保したまま<code>TearDown</code>が終了した場合、次回の使い回しでの動作時に意図しない挙動となる可能性が高いです。</p>
+<h3 id="execute">Execute</h3>
+<p>インスタンス化後、定期的に実行されるべき処理を実装します。</p>
+<p>実装の指針として、<strong>事前に用意可能なリソースはすべて事前に用意しておく</strong> というのがVaNillaエンジンの指針のため、
+基本的に<code>Execute</code>内ではメモリやリソースの確保は行わないようにしてください。</p>
+<h2 id="defaultexpressercomponentattribute">DefaultExpresserComponentAttribute</h2>
+<p><code>Object</code> に付与する属性です。<br>
+指定した <code>Object</code> にデフォルトで与える <code>ExpresserComponent</code> を表象するための属性です。<br>
+<code>Object</code> 以外に本属性を付与した場合、実行時エラーとなります。</p>
+<h2 id="requiredexpressercomponentattribute">RequiredExpresserComponentAttribute</h2>
+<p><code>ExpresserComponent</code> に付与する属性です。<br>
+指定した <code>ExpresserComponent</code> が必要とする(依存している)コンポーネントを指定するための属性です。<br>
+本属性で指定した <code>ExpresserComponent</code> は、<code>Object</code> の <code>SetUp</code> 実行時にインスタンス化されます。</p>
+<h3 id="requiredexpressercomponentcollector">RequiredExpresserComponentCollector</h3>
+<p><code>RequiredExpresserComponentAttribute</code> を管理するためのマネージャクラスです。<br>
+実行時（ゲーム起動時）に、存在するすべての <code>RequiredExpresserComponentAttribute</code> を収集してキャッシュ化します。<br>
+本クラスの実装をVaNillaエンジンの使用者が詳細に理解する必要性は低いです。</p>
+<h2 id="expressercomponentexecutionorderattribute">ExpresserComponentExecutionOrderAttribute</h2>
+<p><code>ExpresserComponent</code> に付与する属性です。<br>
+<code>ExpresserComponent</code> の実行順序を設定するための属性です。<br>
+本属性で設定した実行順序は、指定した <code>ExpresserComponent</code> に対して一律で作用するため、<br>
+インスタンスごとに個別に実行順序を設定することはできません。</p>
+<h3 id="expressercomponentexecutionorderlist">ExpresserComponentExecutionOrderList</h3>
+<p>定義された実行順序を enum 値で保持するファイルです。<br>
+本ファイルは <code>Fixture/Script/process.bat</code> を実行することで、ソースファイルレベルで事前生成されます。<br>
+詳細は下記 <code>Fixture/Script/process.bat (convert.py)</code>の項目を確認してください。</p>
+<h3 id="fixturescriptprocessbat-convertpy">Fixture/Script/process.bat (convert.py)</h3>
+<p>上記 <code>ExpresserComponentExecutionOrderList</code> を事前生成するためのPythonスクリプトです。<br>
+<code>Fixture/Script/execution_order_list.yaml</code> に記載されている項目を基にして、実行順序定義ファイルを事前生成します。<br>
+性質上、本batファイルを起動して実行順序定義を生成しない場合、<code>ExpresserComponentExecutionOrderAttribute</code> 属性を使用しているファイルで
+コンパイルエラーとなる可能性が非常に高いです。<br>
+はじめに本batファイルを実行して <code>ExpresserComponentExecutionOrderList</code> を事前生成することを推奨します。<br>
+実行には <code>Python3.6</code> 以上の実行環境のほか、<code>PyYAML</code> パッケージのインストールが必要です。</p>
+<h3 id="expressercomponentexecutionordercollector">ExpresserComponentExecutionOrderCollector</h3>
+<p><code>ExpresserComponentExecutionOrderAttribute</code> を管理するためのマネージャクラスです。<br>
+実行時（ゲーム起動時）に、存在するすべての <code>ExpresserComponentExecutionOrderAttribute</code> を収集してキャッシュ化します。<br>
+本クラスの実装をVaNillaエンジンの使用者が詳細に理解する必要性は低いです。</p>
+<h2 id="expressercomponent実装時の指針">ExpresserComponent実装時の指針</h2>
+<p>本節では、なんらかの <code>ExpresserComponent</code> を独自に作る上での指針となる情報をまとめます。<br>
+実装者本人（あなた）だけが使う分にはどのような形で <code>ExpresserComponent</code> を組んでも問題ありませんが、<br>
+もしあなたが作った <code>ExpresserComponent</code> を何らかの形でソースコード公開することを考えているならば、下記に示す指針に沿った方がより良いでしょう。</p>
+<ul>
+<li><p><code>ExpresserComponent</code> 同士は基本的に<strong>全く関係性のない 完全に独立したものである</strong>と考える。</p>
+<ul>
+<li>ある <code>ExpresserComponent</code> 単体は、自分以外の「利用しない」 <code>ExpresserComponent</code> については感知しない。
+<ul>
+<li>名前や利用方法が似たようなものだったとしてもこれらは適用される。
+<ul>
+<li>ex.) <code>Transform.HasScale</code> と <code>Transform.HasIndependentScale</code> 、 <code>Input.KeybordInputComponent</code> と <code>Input.MouseInputComponent</code> など</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>利用しない <code>ExpresserComponent</code> は<strong>利用者側(当該 <code>ExpresserComponent</code> を利用するObject または <code>ExpresserComponent</code> )の責任</strong>で運用方法を決める。</p>
+<ul>
+<li>特に以下については<strong>利用者側の責任で設定する</strong>ようにする。
+<ul>
+<li><code>ExpresserComponent</code> 同士の値の同期や優先度の設定</li>
+<li>利用する際に特定の <code>ExporessorComponent</code> の｢共存｣｢排他｣についてどうするかなどのルール</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>ExpresserComponent</code> を利用する <code>ExpresserComponent</code> や <code>Object</code>については、<code>[DefaultExpresserComponent(Type)]</code> 属性、<code>[RequiredExpresserComponent(Type)]</code> 属性を使用し、<strong>明確にどの<code>ExpresserComponent</code> を利用しているか</strong>を属性でわかりやすくしておく。</p>
+</li>
+<li><p>継承、依存性注入を利用しているなどで、<code>ExpresserComponent</code> 同士になんらかの関係がある場合、以上の限りではない。</p>
+</li>
+</ul>
+<h2 id="制約">制約</h2>
+<ul>
+<li><strong>同一種類</strong>の <code>ExpresserComponent </code>は、1つの <code>Object </code>に対して複数多重に持つことができません。
+<ul>
+<li>例：ある <code>Object </code>が持つことのできる「 <code>Transform.HasPosition</code> 」という <code>ExpresserComponent</code> は常に1つ。
+<ul>
+<li>仮に「1つの <code>Object</code> で複数の座標を持ちたい」場合には、 <code>Object</code> を複数に分割したり、「<code>HasPositionSet</code> 」という別の <code>ExpresserComponent</code> などを持ったりする、といった方法が考えられます。</li>
+</ul>
+</li>
+<li>上記の制約は、あくまで「同一種類の <code>ExpresserComponent</code> 」についての制約です。</li>
+</ul>
+</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ExpresserComponent/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

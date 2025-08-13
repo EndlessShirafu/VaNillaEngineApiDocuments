@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNillaPatcher テストスイート </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNillaPatcher テストスイート ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTools/VaNillaPatcher/Test/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanillapatcher-テストスイート">VaNillaPatcher テストスイート</h1>
+
+<p>このディレクトリには、VaNillaPatcherの機能をテストするためのスクリプトとテストデータが含まれています。</p>
+<h2 id="-ディレクトリ構造">📁 ディレクトリ構造</h2>
+<pre><code>Test/
+├── game_v1.0.0/        # バージョン1.0.0のゲームファイル
+├── game_v1.1.0/        # バージョン1.1.0のゲームファイル
+├── run_all_tests.bat   # 全テストを実行するメインスクリプト
+├── test_exclusion_feature.bat  # 除外機能の詳細テスト
+├── test_config_protection.bat  # config.ini保護の実演
+├── cleanup_test.bat    # テスト結果のクリーンアップ
+└── README.md          # このファイル
+</code></pre>
+<h2 id="-クイックスタート">🚀 クイックスタート</h2>
+<h3 id="1-全テストの実行">1. 全テストの実行</h3>
+<pre><code class="lang-batch">run_all_tests.bat
+</code></pre>
+<p>このスクリプトは以下をテストします：</p>
+<ul>
+<li>基本的なパッチ作成</li>
+<li>除外機能付きパッチ作成</li>
+<li>パッチ適用</li>
+<li>config.ini保護機能</li>
+<li>大きなファイルとスペース含むファイル名の処理</li>
+</ul>
+<h3 id="2-テスト結果のクリーンアップ">2. テスト結果のクリーンアップ</h3>
+<pre><code class="lang-batch">cleanup_test.bat
+</code></pre>
+<p>生成されたパッチファイルとターゲットディレクトリを削除します。</p>
+<h2 id="-個別テスト">🧪 個別テスト</h2>
+<h3 id="除外機能の詳細テスト">除外機能の詳細テスト</h3>
+<pre><code class="lang-batch">test_exclusion_feature.bat
+</code></pre>
+<p>異なる除外パターンでパッチを作成し、結果を比較します。</p>
+<h3 id="configini保護の実演">config.ini保護の実演</h3>
+<pre><code class="lang-batch">test_config_protection.bat
+</code></pre>
+<p>ユーザー設定ファイルが保護される様子を実際に確認できます。</p>
+<h2 id="-テストケース">📋 テストケース</h2>
+<h3 id="game_v100--game_v110-の変更点">game_v1.0.0 → game_v1.1.0 の変更点</h3>
+<ol>
+<li><p><strong>追加されたファイル:</strong></p>
+<ul>
+<li><code>data/audio/sub/se3.abc</code></li>
+<li><code>data/audio/sub/sub2/se4.abc</code></li>
+</ul>
+</li>
+<li><p><strong>変更されたファイル:</strong></p>
+<ul>
+<li><code>data/graphics/sub/player.aaa</code> → <code>data/graphics/sub/enemy.aaa</code></li>
+</ul>
+</li>
+<li><p><strong>特殊なケース:</strong></p>
+<ul>
+<li><code>file with spaces.txt</code> - スペースを含むファイル名</li>
+<li><code>data/large_file.dat</code> - 大きなファイル（50MB以上の場合は差分ではなく完全置換）</li>
+</ul>
+</li>
+</ol>
+<h2 id="-重要な注意事項">⚠️ 重要な注意事項</h2>
+<h3 id="除外機能の動作">除外機能の動作</h3>
+<ul>
+<li>除外されたファイルは、パッチに<strong>一切含まれません</strong></li>
+<li>新バージョンに存在しなくても<strong>削除されません</strong></li>
+<li>これにより、ユーザー設定が完全に保護されます</li>
+</ul>
+<h3 id="テスト環境">テスト環境</h3>
+<ul>
+<li>Python 3.6以上が必要</li>
+<li>必要なパッケージ: bsdiff4, pycryptodome</li>
+</ul>
+<h2 id="-使用例">💡 使用例</h2>
+<h3 id="実際のゲーム更新シナリオ">実際のゲーム更新シナリオ</h3>
+<pre><code class="lang-batch">:: ユーザー設定を保護しながらパッチを作成
+python ..\PatchFileCreation\DirectoryPatchMaker\directory_patch_maker.py ^
+  -f game_v1.0.0 ^
+  -t game_v1.1.0 ^
+  -o update_v1.1.0.zip ^
+  -e &quot;config.ini&quot; &quot;settings.ini&quot; &quot;keybind.ini&quot; &quot;saves/*&quot; &quot;*.log&quot;
+</code></pre>
+<h2 id="-トラブルシューティング">🔍 トラブルシューティング</h2>
+<h3 id="パッチ作成が失敗する場合">パッチ作成が失敗する場合</h3>
+<ol>
+<li>Pythonが正しくインストールされているか確認</li>
+<li>必要なパッケージがインストールされているか確認:
+<pre><code>pip install bsdiff4
+</code></pre>
+</li>
+</ol>
+<h3 id="文字化けが発生する場合">文字化けが発生する場合</h3>
+<p>コマンドプロンプトで以下を実行:</p>
+<pre><code>chcp 65001
+</code></pre>
+<h2 id="-期待される結果">📊 期待される結果</h2>
+<h3 id="正常なテスト結果">正常なテスト結果</h3>
+<ul>
+<li>✅ 基本パッチが正常に作成される</li>
+<li>✅ 除外機能が正しく動作する</li>
+<li>✅ config.iniが削除されない</li>
+<li>✅ 新しいファイルが追加される</li>
+<li>✅ 変更されたファイルが更新される</li>
+</ul>
+<h3 id="除外機能の効果">除外機能の効果</h3>
+<ul>
+<li>パッチサイズが小さくなる</li>
+<li>ユーザー設定が保護される</li>
+<li>不要なファイルがパッチに含まれない</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTools/VaNillaPatcher/Test/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

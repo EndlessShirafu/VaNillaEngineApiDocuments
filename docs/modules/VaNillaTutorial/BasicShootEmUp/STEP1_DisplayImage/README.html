@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>STEP 1: 画面に画像を表示しよう </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="STEP 1: 画面に画像を表示しよう ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTutorial/BasicShootEmUp/STEP1_DisplayImage/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="step-1-画面に画像を表示しよう">STEP 1: 画面に画像を表示しよう</h1>
+
+<p>このステップでは、プレイヤーキャラクター（自機）の画像を画面に表示する方法を学びます。</p>
+<h2 id="-このステップで学ぶこと">🎯 このステップで学ぶこと</h2>
+<ul>
+<li>テクスチャリソースの設定方法</li>
+<li>スプライト画像の表示方法</li>
+<li>座標の指定方法</li>
+<li>VaNillaのリソース管理システム</li>
+</ul>
+<h2 id="-新しく追加するファイル">📁 新しく追加するファイル</h2>
+<pre><code>STEP1_DisplayImage/
+├── assets/
+│   └── image/
+│       └── player.png         # プレイヤーの画像（32x32ピクセル）
+├── src/
+│   ├── Game.cs               # メインゲームクラス（更新）
+│   └── Player.cs             # プレイヤークラス（新規）
+└── VaNillaSettings/
+    └── VaNillaSettings.yaml  # 設定ファイル（更新）
+</code></pre>
+<h2 id="-画像の準備">🖼️ 画像の準備</h2>
+<p><code>assets/image/player.png</code>に32x32ピクセルの自機画像を配置してください。
+（簡単な四角形や三角形でも構いません）</p>
+<h2 id="-コードの実装">💻 コードの実装</h2>
+<h3 id="1-playercs---プレイヤークラスの作成">1. Player.cs - プレイヤークラスの作成</h3>
+<p><code>src/Player.cs</code>を作成します：</p>
+<pre><code class="lang-csharp">using VaNilla;
+using VaNilla.Render;
+using VaNilla.Transform;
+
+namespace Tutorial
+{
+    /// &lt;summary&gt;
+    /// プレイヤー（自機）を表すクラス
+    /// &lt;/summary&gt;
+    public class Player : BasicObject, HasPosition, HasTexture
+    {
+        // === HasPositionインターフェースの実装 ===
+        // オブジェクトの位置を管理します
+        public Point2 Position { get; set; }
+        
+        // === HasTextureインターフェースの実装 ===
+        // 表示するテクスチャを管理します
+        private TextureResource texture;
+        public TextureResource Texture 
+        { 
+            get =&gt; texture;
+            set =&gt; texture = value;
+        }
+        
+        /// &lt;summary&gt;
+        /// 初期化処理
+        /// &lt;/summary&gt;
+        public override void Setup()
+        {
+            // プレイヤーを画面中央下部に配置
+            // 画面サイズは640x480なので、中央は320
+            Position = new Point2(320, 400);
+            
+            // テクスチャをロード
+            // TextureResourceType.Playerは、VaNillaSettings.yamlで定義します
+            Texture = TextureResourceManager.GetTextureResource(TextureResourceType.Player);
+            
+            Logger.Log($&quot;プレイヤーを作成しました: 位置({Position.X}, {Position.Y})&quot;);
+        }
+        
+        /// &lt;summary&gt;
+        /// 毎フレームの更新処理
+        /// &lt;/summary&gt;
+        public override void Update()
+        {
+            // STEP1では移動処理はまだ実装しません
+        }
+        
+        /// &lt;summary&gt;
+        /// 描画処理
+        /// &lt;/summary&gt;
+        public override void Draw()
+        {
+            // BasicRendererを使って画像を描画
+            BasicRenderer.Render(this);
+        }
+    }
+}
+</code></pre>
+<h3 id="2-gamecs---メインクラスの更新">2. Game.cs - メインクラスの更新</h3>
+<p><code>src/Game.cs</code>を更新します：</p>
+<pre><code class="lang-csharp">using VaNilla;
+using VaNilla.Renderer;
+
+namespace Tutorial
+{
+    /// &lt;summary&gt;
+    /// ゲームのメインクラス
+    /// &lt;/summary&gt;
+    public class Game : BasicObject
+    {
+        private Player player;  // プレイヤーのインスタンス
+        
+        public override void Setup()
+        {
+            Logger.Log(&quot;STEP1: 画像を表示しよう&quot;);
+            
+            // プレイヤーオブジェクトを作成
+            // ObjectActivatorを使用して、VaNillaのオブジェクト管理システムに登録
+            player = ObjectActivator.Activate&lt;Player&gt;();
+        }
+
+        public override void Update()
+        {
+            // 画面を濃い青色でクリア（空っぽい背景）
+            Utils.ClearScreen((20, 20, 60));
+        }
+
+        public override void Draw()
+        {
+            // タイトルを表示
+            Utils.DrawString(
+                &quot;STEP 1: Display Image&quot;, 
+                10, 10,
+                (255, 255, 255)
+            );
+            
+            // プレイヤーの位置情報を表示（デバッグ用）
+            if (player != null)
+            {
+                Utils.DrawString(
+                    $&quot;Player Position: ({player.Position.X}, {player.Position.Y})&quot;,
+                    10, 30,
+                    (255, 255, 0)  // 黄色
+                );
+            }
+        }
+    }
+}
+</code></pre>
+<h3 id="3-vanillasettingsyaml---設定ファイルの更新">3. VaNillaSettings.yaml - 設定ファイルの更新</h3>
+<p><code>VaNillaSettings/VaNillaSettings.yaml</code>を更新します：</p>
+<pre><code class="lang-yaml"># ゲームの基本設定
+supreme_arbiter_setting:
+  target_fps: 60.0
+  window_title: &quot;VaNilla Tutorial - STEP 1&quot;
+
+# ウィンドウサイズ設定
+window_size:
+  - [640, 480]
+
+# 画面解像度設定  
+screen_resolution:
+  - [[640, 480], [4, 3]]
+
+# ビューポート解像度
+viewport_resolution: [640, 480]
+
+# テクスチャリソースの定義
+texture_pool:
+  Player:
+    path: image/player.png    # 画像ファイルのパス
+    category: game           # カテゴリ（ゲーム用）
+    type: full_one_shot     # 単一画像タイプ
+
+# オブジェクトリストの定義
+object_list:
+  Game:
+    object_num: 1
+    type: Tutorial.Game
+  Player:
+    object_num: 10          # 最大10体まで作成可能
+    type: Tutorial.Player
+
+# 実行順序設定
+execution_order:
+  SCREEN_CLEAR: -50
+  EARLY: -10
+  NORMAL: 0
+  DRAW_NORMAL: 80
+  LATE: 130
+  PRVILEGE_DRAW: 170
+  SCENE_TRANSITION: 180
+  SCREEN_RENDER: 190
+
+# シーン定義
+scene_state:
+  Main:
+    group: 0
+    transit: []
+
+# コリジョングループ設定
+collision_group_settings:
+  Default:
+    number: 0
+    collide_with:
+      - Default
+</code></pre>
+<h2 id="-重要な概念">🔑 重要な概念</h2>
+<h3 id="haspositionインターフェース">HasPositionインターフェース</h3>
+<ul>
+<li>オブジェクトに位置情報を持たせるためのインターフェース</li>
+<li><code>Position</code>プロパティで座標を管理</li>
+</ul>
+<h3 id="hastextureインターフェース">HasTextureインターフェース</h3>
+<ul>
+<li>オブジェクトにテクスチャを持たせるためのインターフェース</li>
+<li><code>Texture</code>プロパティでテクスチャリソースを管理</li>
+</ul>
+<h3 id="textureresourcemanager">TextureResourceManager</h3>
+<ul>
+<li>テクスチャリソースを管理するマネージャー</li>
+<li>YAMLで定義したテクスチャをロード</li>
+</ul>
+<h3 id="basicrenderer">BasicRenderer</h3>
+<ul>
+<li>基本的な描画機能を提供</li>
+<li><code>HasPosition</code>と<code>HasTexture</code>を実装したオブジェクトを自動的に描画</li>
+</ul>
+<h3 id="objectactivator">ObjectActivator</h3>
+<ul>
+<li>VaNillaのオブジェクト管理システム</li>
+<li>オブジェクトの作成と登録を行う</li>
+</ul>
+<h2 id="-実行結果">🎮 実行結果</h2>
+<p>実行すると：</p>
+<ul>
+<li>濃い青色の背景</li>
+<li>画面中央下部にプレイヤーキャラクターが表示</li>
+<li>左上にタイトルとプレイヤーの位置情報が表示</li>
+</ul>
+<h2 id="-学んだこと">📝 学んだこと</h2>
+<p>✅ テクスチャリソースの設定方法<br>
+✅ HasPosition、HasTextureインターフェースの使い方<br>
+✅ BasicRendererによる画像描画<br>
+✅ ObjectActivatorによるオブジェクト作成</p>
+<h2 id="-チャレンジ課題">🤔 チャレンジ課題</h2>
+<ol>
+<li>プレイヤーの初期位置を変更してみましょう</li>
+<li>画像のサイズを変更してみましょう（HasScaleインターフェースを追加）</li>
+<li>背景色を変更してみましょう</li>
+</ol>
+<h2 id="-次のステップ">⏭️ 次のステップ</h2>
+<p>STEP 2では、キーボード入力を使ってプレイヤーを移動させる方法を学びます。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTutorial/BasicShootEmUp/STEP1_DisplayImage/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

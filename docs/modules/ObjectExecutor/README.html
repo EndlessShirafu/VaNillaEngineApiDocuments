@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ObjectExecutor </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ObjectExecutor ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ObjectExecutor/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="objectexecutor">ObjectExecutor</h1>
+
+<p><code>VaNilla.Object</code> の定期更新処理を行うためのモジュールです。<br>
+VaNillaエンジンにおいて、本モジュールへ登録された<code>VaNilla.Object</code>のみが<br>
+実際にゲームループ内で更新されます。</p>
+<p>本モジュールはstaticクラスです。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.html">VaNilla ObjectExecutor APIリファレンス</a>をご覧ください。</p>
+<h2 id="vanillaobjectを登録するには">VaNilla.Objectを登録するには</h2>
+<p><code>ObjectExecutor.Register</code>メソッドを利用します。<br>
+<code>ObjectExecutor.Register</code>を使って登録された<code>VaNilla.Object</code>はゲームループ内で定期的に更新されます。</p>
+<p><code>ObjectExecutor.Register</code>による<code>VaNilla.Object</code>の登録時に、内部で<code>VaNilla.Object</code>の<code>SetUp</code>および、紐づいている各<code>ExpresserComponent</code>の<code>SetUp</code>が呼ばれます。</p>
+<h3 id="注意点">注意点</h3>
+<ul>
+<li><p><code>ObjectFactory.Instantiate</code> を利用して複製した<code>VaNilla.Object</code>の場合、<code>ObjectFactory.Instantiate</code> の実行完了時点で自動的に<code>ObjectExecutor</code>に登録されます。</p>
+</li>
+<li><p><code>ObjectActivator.Activate</code> を利用して生成した<code>VaNilla.Object</code> の場合、<code>ObjectActivator.Activate</code>  の実行完了時点で自動的に<code>ObjectExecutor</code>に登録されます。</p>
+</li>
+<li><p>上記の場合、 <code>ObjectExecutor.Register</code> を手動で呼び出してしまうと二重登録となり、不具合の原因になるため注意してください。</p>
+</li>
+</ul>
+<h2 id="vanillaobjectを登録解除するには">VaNilla.Objectを登録解除するには</h2>
+<p><code>ObjectExecutor.Unregister</code>メソッドを利用します。<br>
+<code>ObjectExecutor.Unregister</code>された<code>VaNilla.Object</code>はゲームループ内で更新されることが無くなります。</p>
+<p><code>ObjectExecutor.Unregister</code>による<code>VaNilla.Object</code>の登録解除時に、内部で<code>VaNilla.Object</code>の<code>TearDown</code>および、紐づいている各<code>ExpresserComponent</code>の<code>TearDown</code>が呼ばれます。</p>
+<h3 id="注意点-1">注意点</h3>
+<ul>
+<li><code>ObjectFactory.Instantiate</code>を利用して複製した<code>VaNilla.Object</code>の場合、<code>ObjectExecutor.Unregister</code>の代わりに必ず <code>ObjectFactory.Terminate</code>を呼び出すようにしてください。<br>
+<code>ObjectFactory.Terminate</code> 内部で<code>ObjectExecutor.Unregister</code>を呼び出すため、自動的に<code>ObjectExecutor</code>から登録解除されます。<br>
+そのため、<code>ObjectFactory</code>経由で複製した<code>VaNilla.Object</code>については、明示的に<code>Unregister</code>を呼び出す必要はありません。<br>
+(呼び出してもよいですが、意味はありません)</li>
+<li><code>ObjectActivator.Activate</code> を利用して生成した<code>VaNilla.Object</code> の場合、<code>ObjectExecutor.Unregister</code>の代わりに必ず <code>ObjectActivator.Deactivate</code>を呼び出すようにしてください。
+<ul>
+<li>こちらも、内部で<code>ObjectExecutor.Unregister</code>を呼び出すため、自動的に<code>ObjectExecutor</code>から登録解除されます。</li>
+</ul>
+</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/ObjectExecutor/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

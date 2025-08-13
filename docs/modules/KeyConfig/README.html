@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>KeyConfig </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="KeyConfig ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/KeyConfig/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="keyconfig">KeyConfig</h1>
+
+<p>ゲームアクションと入力デバイス（キーボード、ゲームパッド、マウス）のマッピング管理を行うモジュールです。ユーザーカスタマイズ可能なキー設定システムを提供します。</p>
+<h2 id="概要">概要</h2>
+<p>KeyConfigは、VaNillaエンジンにおける入力システムの中核となる設定管理モジュールです。抽象的なゲームアクション（決定、キャンセル等）を具体的な入力ボタン・キーにマッピングし、ユーザーによるカスタマイズとファイル永続化をサポートします。</p>
+<h2 id="主要機能">主要機能</h2>
+<h3 id="アクション中心の入力管理">アクション中心の入力管理</h3>
+<ul>
+<li><strong>抽象アクション</strong>: <code>Decide</code>, <code>Cancel</code>, <code>Pause</code>など、ゲーム固有の動作を定義</li>
+<li><strong>マルチデバイス対応</strong>: キーボード、ゲームパッド、マウスを統一的に管理</li>
+<li><strong>ランタイム再設定</strong>: ゲーム実行中のキー割り当て変更をサポート</li>
+</ul>
+<h3 id="ファイル永続化">ファイル永続化</h3>
+<ul>
+<li><strong>JSON形式</strong>: 設定をJSON形式で保存（<code>keyconfig.ini</code>ファイル）</li>
+<li><strong>自動生成</strong>: デフォルト設定ファイルの自動作成</li>
+<li><strong>エラー処理</strong>: 破損ファイルの検出と自動復旧</li>
+</ul>
+<h3 id="コード生成システム">コード生成システム</h3>
+<ul>
+<li><strong>YAML駆動</strong>: VaNillaSettings.yamlからの自動コード生成</li>
+<li><strong>型安全性</strong>: コンパイル時の型チェックによるバグ防止</li>
+<li><strong>カスタマイズ</strong>: プロジェクト固有のアクション定義をサポート</li>
+</ul>
+<h2 id="yaml設定システム">YAML設定システム</h2>
+<p>KeyConfigは<code>VaNillaSettings.yaml</code>の<code>key_config</code>セクションで設定します：</p>
+<pre><code class="lang-yaml"># VaNillaSettings.yaml
+key_config:
+  # 基本アクション
+  Decide:
+    default_keyboard: &quot;Z&quot;           # デフォルトキーボードキー
+    default_pad: &quot;Button0&quot;          # デフォルトパッドボタン
+    default_mouse: &quot;Left&quot;           # デフォルトマウスボタン
+  
+  Cancel:
+    default_keyboard: &quot;X&quot;
+    default_pad: &quot;Button1&quot;
+    default_mouse: &quot;Right&quot;
+  
+  # システム操作
+  Pause:
+    default_keyboard: &quot;Escape&quot;
+    default_pad: &quot;Button11&quot;         # Startボタン（XInput）
+  
+  # 移動操作
+  MoveUp:
+    default_keyboard: &quot;W&quot;
+    default_pad: &quot;DPadUp&quot;
+  
+  MoveDown:
+    default_keyboard: &quot;S&quot;
+    default_pad: &quot;DPadDown&quot;
+  
+  MoveLeft:
+    default_keyboard: &quot;A&quot;
+    default_pad: &quot;DPadLeft&quot;
+  
+  MoveRight:
+    default_keyboard: &quot;D&quot;
+    default_pad: &quot;DPadRight&quot;
+  
+  # 攻撃アクション
+  Attack:
+    default_keyboard: &quot;Space&quot;
+    default_pad: &quot;Button2&quot;
+    default_mouse: &quot;Left&quot;
+  
+  # 特殊操作
+  Menu:
+    default_keyboard: &quot;Tab&quot;
+    default_pad: &quot;Button10&quot;         # Backボタン（XInput）
+</code></pre>
+<h3 id="設定パラメータ">設定パラメータ</h3>
+<ul>
+<li><strong>default_keyboard</strong>: デフォルトキーボードキー（<code>KeyboardInput.KeyCode</code>）</li>
+<li><strong>default_pad</strong>: デフォルトゲームパッドボタン（<code>GamePadInputManager.Button</code>）</li>
+<li><strong>default_mouse</strong>: デフォルトマウスボタン（<code>MouseInput.ButtonCode</code>）</li>
+</ul>
+<h2 id="コード生成プロセス">コード生成プロセス</h2>
+<p>YAML設定から以下が自動生成されます：</p>
+<h3 id="1-actionenum">1. Actionenum</h3>
+<pre><code class="lang-csharp">public enum Action {
+    Decide,
+    Cancel,
+    Pause,
+    MoveUp,
+    MoveDown,
+    MoveLeft,
+    MoveRight,
+    Attack,
+    Menu,
+    MaxNum  // 自動追加
+}
+</code></pre>
+<h3 id="2-設定キーマッピング">2. 設定キーマッピング</h3>
+<pre><code class="lang-csharp">private static readonly Dictionary&lt;string, Action&gt; configKeys = new Dictionary&lt;string, Action&gt; {
+    {&quot;DECIDE_KEYBOARD&quot;, Action.Decide},
+    {&quot;DECIDE_PAD&quot;, Action.Decide},
+    {&quot;DECIDE_MOUSE&quot;, Action.Decide},
+    {&quot;CANCEL_KEYBOARD&quot;, Action.Cancel},
+    // ...
+};
+</code></pre>
+<h3 id="3-デフォルト値復元メソッド">3. デフォルト値復元メソッド</h3>
+<pre><code class="lang-csharp">public static void ResetConfig()
+{
+    SetKeyboardInput(Action.Decide, KeyboardInput.KeyCode.Z);
+    SetGamepadButton(Action.Decide, GamePadInputManager.Button.Button0, GamePadInputManager.Index.Any);
+    SetMouseButton(Action.Decide, MouseInput.ButtonCode.Left);
+    // ...
+}
+</code></pre>
+<h2 id="基本的な使用方法">基本的な使用方法</h2>
+<h3 id="初期化">初期化</h3>
+<pre><code class="lang-csharp">// ゲーム開始時の初期化
+public void InitializeKeyConfig()
+{
+    // 設定ファイルの存在確認
+    if (!VaNilla.KeyConfig.IsExistConfig())
+    {
+        // デフォルト設定ファイルの作成
+        VaNilla.KeyConfig.InitConfig();
+    }
+    
+    // 設定の読み込み
+    VaNilla.KeyConfig.LoadConfig();
+    
+    VaNilla.Debug.Logger.LogInfo(&quot;KeyConfig initialized successfully&quot;);
+}
+</code></pre>
+<h3 id="入力取得">入力取得</h3>
+<pre><code class="lang-csharp">public class InputHandler
+{
+    public void UpdateInput()
+    {
+        // キーボード入力の取得
+        var decideKey = VaNilla.KeyConfig.GetKeyboardInput(KeyConfig.Action.Decide);
+        if (VaNilla.KeyboardInput.IsPressed(decideKey))
+        {
+            OnDecidePressed();
+        }
+        
+        // ゲームパッド入力の取得
+        var (cancelButton, padIndex) = VaNilla.KeyConfig.GetGamepadButton(KeyConfig.Action.Cancel);
+        if (VaNilla.GamePadInput.IsPressed(cancelButton, padIndex))
+        {
+            OnCancelPressed();
+        }
+        
+        // マウス入力の取得
+        var attackMouseButton = VaNilla.KeyConfig.GetMouseButton(KeyConfig.Action.Attack);
+        if (VaNilla.MouseInput.IsPressed(attackMouseButton))
+        {
+            OnAttackPressed();
+        }
+    }
+}
+</code></pre>
+<h3 id="設定変更">設定変更</h3>
+<pre><code class="lang-csharp">public class KeyConfigMenu
+{
+    public void RemapKey(KeyConfig.Action action, KeyboardInput.KeyCode newKey)
+    {
+        // キー割り当ての変更
+        VaNilla.KeyConfig.SetKeyboardInput(action, newKey);
+        
+        // 設定の保存
+        VaNilla.KeyConfig.SaveConfig();
+        
+        VaNilla.Debug.Logger.LogInfo($&quot;Remapped {action} to {newKey}&quot;);
+    }
+    
+    public void RemapGamepadButton(KeyConfig.Action action, 
+                                   GamePadInputManager.Button button, 
+                                   GamePadInputManager.Index controllerIndex)
+    {
+        // ゲームパッドボタン割り当ての変更
+        VaNilla.KeyConfig.SetGamepadButton(action, button, controllerIndex);
+        VaNilla.KeyConfig.SaveConfig();
+    }
+    
+    public void ResetToDefaults()
+    {
+        // デフォルト設定に復元
+        VaNilla.KeyConfig.ResetConfig();
+        VaNilla.KeyConfig.SaveConfig();
+        
+        VaNilla.Debug.Logger.LogInfo(&quot;Key configuration reset to defaults&quot;);
+    }
+}
+</code></pre>
+<h2 id="高度な機能">高度な機能</h2>
+<h3 id="マルチコントローラー対応">マルチコントローラー対応</h3>
+<pre><code class="lang-csharp">public class MultiPlayerInput
+{
+    public void HandlePlayer1Input()
+    {
+        // プレイヤー1（コントローラー1）
+        var (button, _) = VaNilla.KeyConfig.GetGamepadButton(KeyConfig.Action.Attack);
+        if (VaNilla.GamePadInput.IsPressed(button, GamePadInputManager.Index.Index1))
+        {
+            Player1Attack();
+        }
+    }
+    
+    public void HandlePlayer2Input()
+    {
+        // プレイヤー2（コントローラー2）
+        var (button, _) = VaNilla.KeyConfig.GetGamepadButton(KeyConfig.Action.Attack);
+        if (VaNilla.GamePadInput.IsPressed(button, GamePadInputManager.Index.Index2))
+        {
+            Player2Attack();
+        }
+    }
+    
+    public void SetupMultiController()
+    {
+        // プレイヤー1用設定
+        VaNilla.KeyConfig.SetGamepadButton(KeyConfig.Action.Attack, 
+                                          GamePadInputManager.Button.Button0, 
+                                          GamePadInputManager.Index.Index1);
+        
+        // プレイヤー2用設定（同じボタンを異なるコントローラーに）
+        VaNilla.KeyConfig.SetGamepadButton(KeyConfig.Action.Attack, 
+                                          GamePadInputManager.Button.Button0, 
+                                          GamePadInputManager.Index.Index2);
+    }
+}
+</code></pre>
+<h3 id="動的アクション管理">動的アクション管理</h3>
+<pre><code class="lang-csharp">public class DynamicKeyConfig
+{
+    public void ValidateConfiguration()
+    {
+        // 設定の有効性確認
+        for (int i = 0; i &lt; (int)KeyConfig.Action.MaxNum; i++)
+        {
+            var action = (KeyConfig.Action)i;
+            
+            var keyboardKey = VaNilla.KeyConfig.GetKeyboardInput(action);
+            var (padButton, padIndex) = VaNilla.KeyConfig.GetGamepadButton(action);
+            var mouseButton = VaNilla.KeyConfig.GetMouseButton(action);
+            
+            VaNilla.Debug.Logger.LogInfo($&quot;{action}: KB={keyboardKey}, PAD={padButton}({padIndex}), MOUSE={mouseButton}&quot;);
+        }
+    }
+    
+    public void DisableAction(KeyConfig.Action action)
+    {
+        // アクションの無効化
+        VaNilla.KeyConfig.SetKeyboardInput(action, KeyboardInput.KeyCode.None);
+        VaNilla.KeyConfig.SetGamepadButton(action, GamePadInputManager.Button.None, GamePadInputManager.Index.Any);
+        VaNilla.KeyConfig.SetMouseButton(action, MouseInput.ButtonCode.None);
+    }
+}
+</code></pre>
+<h2 id="設定ファイル形式">設定ファイル形式</h2>
+<p>設定は<code>keyconfig.ini</code>にJSON形式で保存されます：</p>
+<pre><code class="lang-json">{
+  &quot;DECIDE_KEYBOARD&quot;: &quot;Z&quot;,
+  &quot;DECIDE_PAD&quot;: &quot;(Button0, Any)&quot;,
+  &quot;DECIDE_MOUSE&quot;: &quot;Left&quot;,
+  &quot;CANCEL_KEYBOARD&quot;: &quot;X&quot;,
+  &quot;CANCEL_PAD&quot;: &quot;(Button1, Any)&quot;,
+  &quot;CANCEL_MOUSE&quot;: &quot;Right&quot;,
+  &quot;PAUSE_KEYBOARD&quot;: &quot;Escape&quot;,
+  &quot;PAUSE_PAD&quot;: &quot;(Button11, Any)&quot;,
+  &quot;MOVEUP_KEYBOARD&quot;: &quot;W&quot;,
+  &quot;MOVEUP_PAD&quot;: &quot;(LeftStickUp, Any)&quot;,
+  &quot;MOVEDOWN_KEYBOARD&quot;: &quot;S&quot;,
+  &quot;MOVEDOWN_PAD&quot;: &quot;(LeftStickDown, Any)&quot;,
+  &quot;MOVELEFT_KEYBOARD&quot;: &quot;A&quot;,
+  &quot;MOVELEFT_PAD&quot;: &quot;(LeftStickLeft, Any)&quot;,
+  &quot;MOVERIGHT_KEYBOARD&quot;: &quot;D&quot;,
+  &quot;MOVERIGHT_PAD&quot;: &quot;(LeftStickRight, Any)&quot;,
+  &quot;ATTACK_KEYBOARD&quot;: &quot;Space&quot;,
+  &quot;ATTACK_PAD&quot;: &quot;(Button2, Any)&quot;,
+  &quot;ATTACK_MOUSE&quot;: &quot;Left&quot;,
+  &quot;MENU_KEYBOARD&quot;: &quot;Tab&quot;,
+  &quot;MENU_PAD&quot;: &quot;(Button10, Any)&quot;
+}
+</code></pre>
+<h3 id="データ形式の詳細">データ形式の詳細</h3>
+<ul>
+<li><strong>Keyboard</strong>: 文字列形式（例: <code>&quot;Z&quot;</code>, <code>&quot;Space&quot;</code>, <code>&quot;Escape&quot;</code>）</li>
+<li><strong>Gamepad</strong>: タプル形式（例: <code>&quot;(Button0, Any)&quot;</code>, <code>&quot;(Button2, Index1)&quot;</code>）</li>
+<li><strong>Mouse</strong>: 文字列形式（例: <code>&quot;Left&quot;</code>, <code>&quot;Right&quot;</code>, <code>&quot;Middle&quot;</code>）</li>
+</ul>
+<h2 id="playerinputシステムとの統合">PlayerInputシステムとの統合</h2>
+<pre><code class="lang-csharp">public class GameInputManager
+{
+    public void SetupInputMapping()
+    {
+        // PlayerInputシステムでKeyConfigを使用
+        var inputInterpreter = new UserDataInputInterpreter();
+        
+        // アクションマッピングの設定
+        inputInterpreter.RegisterAction(&quot;decide&quot;, () =&gt; 
+        {
+            var key = VaNilla.KeyConfig.GetKeyboardInput(KeyConfig.Action.Decide);
+            var (button, index) = VaNilla.KeyConfig.GetGamepadButton(KeyConfig.Action.Decide);
+            var mouseBtn = VaNilla.KeyConfig.GetMouseButton(KeyConfig.Action.Decide);
+            
+            return VaNilla.KeyboardInput.IsPressed(key) ||
+                   VaNilla.GamePadInput.IsPressed(button, index) ||
+                   VaNilla.MouseInput.IsPressed(mouseBtn);
+        });
+    }
+}
+</code></pre>
+<h2 id="エラーハンドリング">エラーハンドリング</h2>
+<pre><code class="lang-csharp">public class KeyConfigErrorHandler
+{
+    public void HandleConfigurationErrors()
+    {
+        try
+        {
+            VaNilla.KeyConfig.LoadConfig();
+        }
+        catch (Exception ex)
+        {
+            VaNilla.Debug.Logger.LogError($&quot;Failed to load key configuration: {ex.Message}&quot;);
+            
+            // 設定ファイルの復旧
+            VaNilla.KeyConfig.ResetConfig();
+            VaNilla.KeyConfig.SaveConfig();
+            
+            VaNilla.Debug.Logger.LogInfo(&quot;Key configuration restored to defaults&quot;);
+        }
+    }
+    
+    public bool ValidateKeyConfiguration()
+    {
+        // 重複チェック
+        var usedKeys = new HashSet&lt;KeyboardInput.KeyCode&gt;();
+        
+        for (int i = 0; i &lt; (int)KeyConfig.Action.MaxNum; i++)
+        {
+            var action = (KeyConfig.Action)i;
+            var key = VaNilla.KeyConfig.GetKeyboardInput(action);
+            
+            if (key != KeyboardInput.KeyCode.None)
+            {
+                if (usedKeys.Contains(key))
+                {
+                    VaNilla.Debug.Logger.LogWarning($&quot;Duplicate key assignment detected: {key} for {action}&quot;);
+                    return false;
+                }
+                usedKeys.Add(key);
+            }
+        }
+        
+        return true;
+    }
+}
+</code></pre>
+<h2 id="ベストプラクティス">ベストプラクティス</h2>
+<h3 id="1-適切な初期化タイミング">1. 適切な初期化タイミング</h3>
+<pre><code class="lang-csharp">[GameBootLoader]
+public static void InitializeInputSystems()
+{
+    // 1. KeyConfigを最初に初期化
+    InitializeKeyConfig();
+    
+    // 2. 入力システムの初期化
+    VaNilla.KeyboardInput.Initialize();
+    VaNilla.GamePadInput.Initialize();
+    VaNilla.MouseInput.Initialize();
+    
+    // 3. PlayerInputシステムの設定
+    SetupPlayerInput();
+}
+</code></pre>
+<h3 id="2-設定変更の検証">2. 設定変更の検証</h3>
+<pre><code class="lang-csharp">public bool TrySetKeyMapping(KeyConfig.Action action, KeyboardInput.KeyCode newKey)
+{
+    // 重要なシステムキーの保護
+    var systemKeys = new[] { 
+        KeyboardInput.KeyCode.Alt, 
+        KeyboardInput.KeyCode.Tab, 
+        KeyboardInput.KeyCode.Windows 
+    };
+    
+    if (systemKeys.Contains(newKey))
+    {
+        VaNilla.Debug.Logger.LogWarning($&quot;Cannot assign system key {newKey}&quot;);
+        return false;
+    }
+    
+    VaNilla.KeyConfig.SetKeyboardInput(action, newKey);
+    return true;
+}
+</code></pre>
+<h3 id="3-ユーザビリティの向上">3. ユーザビリティの向上</h3>
+<pre><code class="lang-csharp">public class KeyConfigUI
+{
+    public string GetActionDisplayName(KeyConfig.Action action)
+    {
+        // ユーザーフレンドリーな表示名
+        return action switch
+        {
+            KeyConfig.Action.Decide =&gt; &quot;決定&quot;,
+            KeyConfig.Action.Cancel =&gt; &quot;キャンセル&quot;,
+            KeyConfig.Action.Pause =&gt; &quot;ポーズ&quot;,
+            KeyConfig.Action.Attack =&gt; &quot;攻撃&quot;,
+            _ =&gt; action.ToString()
+        };
+    }
+    
+    public string GetKeyDisplayName(KeyboardInput.KeyCode key)
+    {
+        // キーの表示名変換
+        return key switch
+        {
+            KeyboardInput.KeyCode.Space =&gt; &quot;スペース&quot;,
+            KeyboardInput.KeyCode.Escape =&gt; &quot;エスケープ&quot;,
+            KeyboardInput.KeyCode.Enter =&gt; &quot;エンター&quot;,
+            _ =&gt; key.ToString()
+        };
+    }
+}
+</code></pre>
+<h2 id="デバッグ機能">デバッグ機能</h2>
+<pre><code class="lang-csharp">public class KeyConfigDebugger
+{
+    public void LogCurrentConfiguration()
+    {
+        VaNilla.Debug.Logger.LogInfo(&quot;=== Current Key Configuration ===&quot;);
+        
+        for (int i = 0; i &lt; (int)KeyConfig.Action.MaxNum; i++)
+        {
+            var action = (KeyConfig.Action)i;
+            var kb = VaNilla.KeyConfig.GetKeyboardInput(action);
+            var (pad, idx) = VaNilla.KeyConfig.GetGamepadButton(action);
+            var mouse = VaNilla.KeyConfig.GetMouseButton(action);
+            
+            VaNilla.Debug.Logger.LogInfo($&quot;{action}: KB={kb}, PAD={pad}({idx}), MOUSE={mouse}&quot;);
+        }
+    }
+    
+    [Conditional(&quot;DEBUG&quot;)]
+    public void TestAllInputs()
+    {
+        for (int i = 0; i &lt; (int)KeyConfig.Action.MaxNum; i++)
+        {
+            var action = (KeyConfig.Action)i;
+            TestActionInput(action);
+        }
+    }
+    
+    private void TestActionInput(KeyConfig.Action action)
+    {
+        var key = VaNilla.KeyConfig.GetKeyboardInput(action);
+        var (button, index) = VaNilla.KeyConfig.GetGamepadButton(action);
+        var mouseBtn = VaNilla.KeyConfig.GetMouseButton(action);
+        
+        bool pressed = VaNilla.KeyboardInput.IsPressed(key) ||
+                      VaNilla.GamePadInput.IsPressed(button, index) ||
+                      VaNilla.MouseInput.IsPressed(mouseBtn);
+        
+        if (pressed)
+        {
+            VaNilla.Debug.Logger.LogInfo($&quot;Action {action} triggered!&quot;);
+        }
+    }
+}
+</code></pre>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><strong>KeyboardInput</strong>: キーボード入力システム</li>
+<li><strong>GamePadInput</strong>: ゲームパッド入力システム</li>
+<li><strong>MouseInput</strong>: マウス入力システム</li>
+<li><strong>PlayerInput</strong>: 上位入力抽象化システム</li>
+<li><strong>DebugLogger</strong>: ログ出力</li>
+<li><strong>ExternalConfigUtil</strong>: JSON設定管理</li>
+</ul>
+<h2 id="まとめ">まとめ</h2>
+<p>KeyConfigは、VaNillaエンジンにおける入力システムの基盤となるモジュールです。YAML駆動のコード生成により、プロジェクト固有のアクション定義と型安全性を両立し、ユーザーカスタマイズ可能な入力システムを提供します。適切な設定と使用により、多様な入力デバイスに対応した柔軟なゲーム操作システムを構築できます。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/KeyConfig/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

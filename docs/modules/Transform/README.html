@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Transform モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Transform モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Transform/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="transform-モジュール">Transform モジュール</h1>
+
+<p>Transformモジュールは、VaNillaエンジンで位置・回転・スケール等の空間変換情報を管理するための基盤システムです。2D空間での座標系、角度系、ベクトル演算、および変換の履歴管理機能を提供します。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>基本空間コンポーネント</strong>: 位置、回転、スケール情報の管理</li>
+<li><strong>数学的基盤</strong>: 2Dベクトル、座標点、角度値の型システム</li>
+<li><strong>演算子オーバーロード</strong>: 直感的な数学演算サポート</li>
+<li><strong>座標変換</strong>: 直交座標系と極座標系の相互変換</li>
+<li><strong>履歴管理</strong>: 位置・回転の変化を時系列で追跡</li>
+<li><strong>型安全性</strong>: 角度の弧度法・度数法の明確な区別</li>
+</ul>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.Transform.html">VaNilla Transform APIリファレンス</a>をご覧ください。</p>
+<h2 id="実装状況">実装状況</h2>
+<p>✅ <strong>完了</strong>: 全ての基本コンポーネントと数学的基盤が実装済みです。</p>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="1-hasposition位置コンポーネント">1. HasPosition（位置コンポーネント）</h3>
+<p>2D空間での位置情報を管理するコンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public class HasPosition : IExpresserComponent
+{
+    /// &lt;summary&gt;
+    /// 位置(X, Y)
+    /// &lt;/summary&gt;
+    public Point2 Position { get; set; } = new Point2();
+}
+</code></pre>
+<h3 id="2-hasrotation回転コンポーネント">2. HasRotation（回転コンポーネント）</h3>
+<p>単軸（Z軸）回転情報を管理するコンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public class HasRotation : IExpresserComponent
+{
+    /// &lt;summary&gt;
+    /// 1軸の回転値(ラジアン)
+    /// &lt;/summary&gt;
+    public Radian Rotation { get; set; } = new Radian();
+}
+</code></pre>
+<h3 id="3-hasscaleスケールコンポーネント">3. HasScale（スケールコンポーネント）</h3>
+<p>統一スケール値を管理するコンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public class HasScale : IExpresserComponent
+{
+    public float Scale { get; set; }  // デフォルト: 1.0f
+}
+</code></pre>
+<h3 id="4-hasindependentscale軸独立スケールコンポーネント">4. HasIndependentScale（軸独立スケールコンポーネント）</h3>
+<p>X軸とY軸を個別にスケールできるコンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+public class HasIndependentScale : IExpresserComponent
+{
+    /// &lt;summary&gt;
+    /// 軸独立なスケール(X,Y)
+    /// &lt;/summary&gt;
+    public Vector2 IndependentScale { get; set; }  // デフォルト: (1.0f, 1.0f)
+}
+</code></pre>
+<h3 id="5-hastransform統合変換コンポーネント">5. HasTransform（統合変換コンポーネント）</h3>
+<p>位置・回転・スケールを統合管理するコンポーネントです。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
+[RequiredExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[RequiredExpresserComponent(typeof(HasRotation), auto_member_generate: true)]
+[RequiredExpresserComponent(typeof(HasScale), auto_member_generate: true)]
+public partial class HasTransform : IExpresserComponent
+{
+    // 自動生成されるメンバー:
+    // public HasPosition hasPosition;
+    // public HasRotation hasRotation;
+    // public HasScale hasScale;
+}
+</code></pre>
+<h2 id="数学的基盤型">数学的基盤型</h2>
+<h3 id="point22d座標点">Point2（2D座標点）</h3>
+<p>2D空間での位置を表現する構造体です。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 3, 1)]
+public struct Point2 : System.IEquatable&lt;Point2&gt;
+{
+    public float X { get; set; }
+    public float Y { get; set; }
+    
+    // コンストラクタ
+    public Point2(float x, float y);
+    public Point2(Point2 point);
+    public Point2((float x, float y) point);
+    
+    // 演算子オーバーロード
+    public static Point2 operator +(Point2 lhs, Point2 rhs);
+    public static Point2 operator +(Point2 lhs, Vector2 rhs);
+    public static Point2 operator -(Point2 lhs, Point2 rhs);
+    public static Point2 operator *(Point2 lhs, float rhs);
+    public static Point2 operator /(Point2 lhs, float rhs);
+    
+    // 便利関数
+    public float GetDistanceTo(Point2 a);
+    public float GetDistanceSquareTo(Point2 a);
+    public Vector2 GetVectorTo(Point2 a);
+}
+</code></pre>
+<h4 id="point2utilユーティリティ関数">Point2.Util（ユーティリティ関数）</h4>
+<pre><code class="lang-csharp">public static class Util
+{
+    public static Point2 Origin { get; }                                    // 原点 (0, 0)
+    public static float GetDistance(Point2 a, Point2 b);                   // 2点間距離
+    public static float GetDistanceSquare(Point2 a, Point2 b);             // 2点間距離の2乗
+    public static Vector2 GetVector(Point2 from, Point2 to);               // 2点間ベクトル
+    public static Point2 RectangularToPolar(Point2 rectangular);           // 直交座標→極座標
+    public static Point2 PolarToRectangular(Point2 polar);                 // 極座標→直交座標
+    public static Point2 GetRandomPoint2(float x_min, float x_max, float y_min, float y_max);  // ランダム座標生成
+}
+</code></pre>
+<h3 id="vector22dベクトル">Vector2（2Dベクトル）</h3>
+<p>2D空間でのベクトルを表現する構造体です。</p>
+<pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 3, 1)]
+public struct Vector2 : System.IEquatable&lt;Vector2&gt;
+{
+    public float X { get; set; }
+    public float Y { get; set; }
+    
+    // コンストラクタ
+    public Vector2(float x, float y);
+    public Vector2(Vector2 vector);
+    public Vector2((float x, float y) point);
+    
+    // 演算子オーバーロード
+    public static Vector2 operator +(Vector2 lhs, Vector2 rhs);
+    public static Vector2 operator -(Vector2 lhs, Vector2 rhs);
+    public static Vector2 operator *(Vector2 lhs, float rhs);
+    public static Vector2 operator /(Vector2 lhs, float rhs);
+    public static Vector2 operator -(Vector2 a);  // 単項マイナス
+    
+    // ベクトル演算
+    public float GetLength();                      // ベクトルの長さ
+    public float GetLengthSquare();               // ベクトルの長さの2乗
+    public Vector2 GetNormalized();               // 正規化されたベクトル
+    public void Normalize();                      // 自身を正規化
+    public float Dot(Vector2 rhs);                // 内積
+}
+</code></pre>
+<h4 id="vector2util定数とユーティリティ">Vector2.Util（定数とユーティリティ）</h4>
+<pre><code class="lang-csharp">public static class Util
+{
+    public static Vector2 Zero { get; }   // ゼロベクトル (0, 0)
+    public static Vector2 Right { get; }  // 右方向の単位ベクトル (1, 0)
+    public static Vector2 Left { get; }   // 左方向の単位ベクトル (-1, 0)
+    public static Vector2 Up { get; }     // 上方向の単位ベクトル (0, 1)
+    public static Vector2 Down { get; }   // 下方向の単位ベクトル (0, -1)
+    public static Vector2 GetRandomVector2(float x_min, float x_max, float y_min, float y_max);  // ランダムベクトル生成
+}
+</code></pre>
+<h3 id="角度値型radian--degree">角度値型（Radian / Degree）</h3>
+<p>型安全な角度値システムです。</p>
+<pre><code class="lang-csharp">// 弧度法（ラジアン）
+[VaNillaModuleVersion(0, 0, 1, 0)]
+public struct Radian : System.IEquatable&lt;Radian&gt;
+{
+    public Radian(float value);
+    public Radian(double value);
+    public Degree ToDegree();
+    
+    // 暗黙的型変換
+    public static implicit operator float(Radian obj);
+    public static implicit operator Radian(float value);
+    public static implicit operator Radian(double value);
+}
+
+// 度数法（度）
+[VaNillaModuleVersion(0, 0, 1, 0)]
+public struct Degree : System.IEquatable&lt;Degree&gt;
+{
+    public Degree(float value);
+    public Degree(double value);
+    public Radian ToRadian();
+    
+    // 暗黙的型変換
+    public static implicit operator float(Degree obj);
+    public static implicit operator Degree(float value);
+    public static implicit operator Degree(double value);
+}
+</code></pre>
+<h2 id="履歴管理コンポーネント">履歴管理コンポーネント</h2>
+<h3 id="haspositionhistories位置履歴管理">HasPositionHistories（位置履歴管理）</h3>
+<p>位置の変化を時系列で記録・追跡するコンポーネントです。</p>
+<pre><code class="lang-csharp">[RequiredExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[VaNillaModuleVersion(0, 0, 1, 0)]
+[ExpresserComponentExecutionOrder(ExpresserComponentExecutionOrder.LATE)]
+public partial class HasPositionHistries : IExpresserComponent
+{
+    public enum HistoryAddMode
+    {
+        Manual,  // 手動記録（デフォルト）
+        Auto,    // 自動記録
+    }
+    
+    public HistoryAddMode historyAddMode { get; set; }
+    public int MaxHistories { get; set; }                    // 最大履歴数（デフォルト: 100）
+    public LinkedList&lt;Point2&gt; Histories { get; set; }
+    
+    // 履歴操作
+    public bool AddHistory(Point2 point);                   // 手動で履歴追加
+    public Point2 RefHistory(int index_from_newest);        // 履歴参照（0が最新）
+}
+</code></pre>
+<h3 id="hasrotationhistories回転履歴管理">HasRotationHistories（回転履歴管理）</h3>
+<p>回転の変化を時系列で記録・追跡するコンポーネントです。</p>
+<pre><code class="lang-csharp">[RequiredExpresserComponent(typeof(HasRotation), auto_member_generate: true)]
+[VaNillaModuleVersion(0, 0, 1, 0)]
+[ExpresserComponentExecutionOrder(ExpresserComponentExecutionOrder.LATE)]
+public partial class HasRotationHistries : IExpresserComponent
+{
+    public enum HistoryAddMode
+    {
+        Manual,  // 手動記録（デフォルト）
+        Auto,    // 自動記録
+    }
+    
+    public HistoryAddMode historyAddMode { get; set; }
+    public int MaxHistories { get; set; }                    // 最大履歴数（デフォルト: 100）
+    public LinkedList&lt;Radian&gt; Histories { get; set; }
+    
+    // 履歴操作
+    public bool AddHistory(Radian rotation);                // 手動で履歴追加
+    public Radian RefHistory(int index_from_newest);        // 履歴参照（0が最新）
+}
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的なオブジェクト位置管理">基本的なオブジェクト位置管理</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+public partial class MovableObject : Object
+{
+    public override bool SetUp()
+    {
+        hasPosition.Position = new Point2(100.0f, 200.0f);
+        return true;
+    }
+    
+    public void MoveTo(Point2 targetPosition)
+    {
+        hasPosition.Position = targetPosition;
+    }
+    
+    public void MoveBy(Vector2 offset)
+    {
+        hasPosition.Position += offset;
+    }
+}
+</code></pre>
+<h3 id="回転可能なオブジェクト">回転可能なオブジェクト</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasRotation), auto_member_generate: true)]
+public partial class RotatableObject : Object
+{
+    public override bool SetUp()
+    {
+        hasRotation.Rotation = Math.Util.PI_F / 4.0f;  // 45度回転
+        return true;
+    }
+    
+    public void RotateBy(Radian angle)
+    {
+        hasRotation.Rotation += angle;
+    }
+    
+    public void SetRotationDegrees(float degrees)
+    {
+        hasRotation.Rotation = new Degree(degrees).ToRadian();
+    }
+}
+</code></pre>
+<h3 id="完全な変換を持つオブジェクト">完全な変換を持つオブジェクト</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasTransform), auto_member_generate: true)]
+public partial class TransformableObject : Object
+{
+    public override bool SetUp()
+    {
+        // 位置設定
+        hasTransform.hasPosition.Position = new Point2(300.0f, 200.0f);
+        
+        // 回転設定（90度）
+        hasTransform.hasRotation.Rotation = new Degree(90).ToRadian();
+        
+        // スケール設定（1.5倍）
+        hasTransform.hasScale.Scale = 1.5f;
+        
+        return true;
+    }
+    
+    public void SetTransform(Point2 position, Radian rotation, float scale)
+    {
+        hasTransform.hasPosition.Position = position;
+        hasTransform.hasRotation.Rotation = rotation;
+        hasTransform.hasScale.Scale = scale;
+    }
+}
+</code></pre>
+<h3 id="軸独立スケールの活用">軸独立スケールの活用</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasIndependentScale), auto_member_generate: true)]
+public partial class StretchableObject : Object
+{
+    public override bool SetUp()
+    {
+        // X軸とY軸を個別にスケール
+        hasIndependentScale.IndependentScale = new Vector2(2.0f, 0.5f);  // 横に2倍、縦に0.5倍
+        
+        return true;
+    }
+    
+    public void StretchHorizontally(float factor)
+    {
+        hasIndependentScale.IndependentScale = new Vector2(factor, hasIndependentScale.IndependentScale.Y);
+    }
+    
+    public void StretchVertically(float factor)
+    {
+        hasIndependentScale.IndependentScale = new Vector2(hasIndependentScale.IndependentScale.X, factor);
+    }
+}
+</code></pre>
+<h3 id="vector2とpoint2の演算活用">Vector2とPoint2の演算活用</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+public partial class VectorMathExample : Object
+{
+    public override bool SetUp()
+    {
+        DemonstrateVectorOperations();
+        DemonstratePointOperations();
+        
+        return true;
+    }
+    
+    private void DemonstrateVectorOperations()
+    {
+        // ベクトル演算の例
+        Vector2 velocity = new Vector2(100.0f, 50.0f);
+        Vector2 acceleration = new Vector2(10.0f, -9.8f);
+        
+        // ベクトル加算
+        Vector2 newVelocity = velocity + acceleration;
+        
+        // スカラー倍
+        Vector2 doubleVelocity = velocity * 2.0f;
+        
+        // 長さ計算
+        float speed = velocity.GetLength();
+        
+        // 正規化
+        Vector2 direction = velocity.GetNormalized();
+        
+        // 内積（同方向かどうかの判定に使用）
+        float dotProduct = velocity.Dot(acceleration);
+        
+        // 定数ベクトル使用
+        Vector2 rightMovement = Vector2.Util.Right * 50.0f;
+        Vector2 upMovement = Vector2.Util.Up * 30.0f;
+    }
+    
+    private void DemonstratePointOperations()
+    {
+        Point2 start = new Point2(100.0f, 100.0f);
+        Point2 end = new Point2(200.0f, 150.0f);
+        
+        // 2点間距離
+        float distance = start.GetDistanceTo(end);
+        
+        // 2点間ベクトル
+        Vector2 direction = start.GetVectorTo(end);
+        
+        // 中点計算
+        Point2 midpoint = (start + end) / 2.0f;
+        
+        // 点の移動
+        Vector2 offset = new Vector2(50.0f, 25.0f);
+        Point2 newPosition = start + offset;
+    }
+}
+</code></pre>
+<h3 id="履歴管理システムの活用">履歴管理システムの活用</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasRotation), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasPositionHistries), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasRotationHistries), auto_member_generate: true)]
+public partial class TrackedMovement : Object
+{
+    public override bool SetUp()
+    {
+        // 自動履歴記録を有効化
+        hasPositionHistries.historyAddMode = HasPositionHistries.HistoryAddMode.Auto;
+        hasRotationHistries.historyAddMode = HasRotationHistries.HistoryAddMode.Auto;
+        
+        // 履歴保持数設定
+        hasPositionHistries.MaxHistories = 60;  // 60フレーム分の履歴
+        hasRotationHistries.MaxHistories = 60;
+        
+        return true;
+    }
+    
+    public Point2 GetPositionFramesAgo(int frames)
+    {
+        return hasPositionHistries.RefHistory(frames);
+    }
+    
+    public Radian GetRotationFramesAgo(int frames)
+    {
+        return hasRotationHistries.RefHistory(frames);
+    }
+    
+    public void CreateTrail()
+    {
+        // 過去5フレーム分の位置でトレイル描画
+        for (int i = 0; i &lt; 5; i++)
+        {
+            Point2 pastPosition = hasPositionHistries.RefHistory(i);
+            float alpha = 1.0f - (i * 0.2f);  // 過去ほど薄く
+            // トレイル描画処理...
+        }
+    }
+}
+</code></pre>
+<h3 id="座標変換システム">座標変換システム</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+public partial class CoordinateConversion : Object
+{
+    public override bool SetUp()
+    {
+        DemonstrateCoordinateConversions();
+        DemonstrateAngleConversions();
+        
+        return true;
+    }
+    
+    private void DemonstrateCoordinateConversions()
+    {
+        // 直交座標系での点
+        Point2 cartesian = new Point2(100.0f, 100.0f);
+        
+        // 極座標系に変換（r, θ）
+        Point2 polar = Point2.Util.RectangularToPolar(cartesian);
+        float radius = polar.X;     // 距離
+        float angle = polar.Y;      // 角度（ラジアン）
+        
+        // 極座標系から直交座標系に戻す
+        Point2 backToCartesian = Point2.Util.PolarToRectangular(polar);
+        
+        // ランダムな座標生成
+        Point2 randomPoint = Point2.Util.GetRandomPoint2(0.0f, 800.0f, 0.0f, 600.0f);
+        Vector2 randomVector = Vector2.Util.GetRandomVector2(-100.0f, 100.0f, -100.0f, 100.0f);
+    }
+    
+    private void DemonstrateAngleConversions()
+    {
+        // 角度変換
+        Degree deg90 = new Degree(90.0f);
+        Radian rad90 = deg90.ToRadian();
+        
+        // 暗黙的変換
+        float degreeValue = deg90;      // 90.0f
+        float radianValue = rad90;      // π/2
+        
+        // 計算での使用
+        Radian fullRotation = Math.Util.PI_F * 2.0f;
+        Degree halfRotation = new Degree(180.0f);
+        
+        // 回転角度の加算
+        Radian totalRotation = rad90 + halfRotation.ToRadian();
+    }
+}
+</code></pre>
+<h2 id="ゲーム開発での実用例">ゲーム開発での実用例</h2>
+<h3 id="カメラシステム">カメラシステム</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasTransform), auto_member_generate: true)]
+public partial class Camera2D : Object
+{
+    private Point2 targetPosition;
+    private float followSpeed = 5.0f;
+    
+    public void SetTarget(Point2 target)
+    {
+        targetPosition = target;
+    }
+    
+    public void SmoothFollow(in VaNilla.Time.Time currentTime)
+    {
+        // 現在位置からターゲットへのベクトル
+        Vector2 toTarget = hasTransform.hasPosition.Position.GetVectorTo(targetPosition);
+        
+        // スムーズな追従
+        float distance = toTarget.GetLength();
+        if (distance &gt; 0.1f)
+        {
+            Vector2 movement = toTarget.GetNormalized() * followSpeed * currentTime.DeltaTime;
+            hasTransform.hasPosition.Position += movement;
+        }
+    }
+}
+</code></pre>
+<h3 id="パーティクルシステム">パーティクルシステム</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasRotation), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasScale), auto_member_generate: true)]
+public partial class Particle : Object
+{
+    private Vector2 velocity;
+    private Vector2 acceleration;
+    private float lifetime;
+    private float maxLifetime = 3.0f;
+    
+    public override bool SetUp()
+    {
+        // ランダムな初期設定
+        velocity = Vector2.Util.GetRandomVector2(-200.0f, 200.0f, -200.0f, 200.0f);
+        acceleration = new Vector2(0.0f, -98.0f);  // 重力
+        
+        hasScale.Scale = Random.RandomNumberGenerator.Range(0.5f, 1.5f);
+        
+        return true;
+    }
+    
+    public bool UpdateParticle(in VaNilla.Time.Time currentTime)
+    {
+        // 物理更新
+        velocity += acceleration * currentTime.DeltaTime;
+        hasPosition.Position += velocity * currentTime.DeltaTime;
+        
+        // 回転更新
+        hasRotation.Rotation += 3.0f * currentTime.DeltaTime;
+        
+        // ライフタイム更新
+        lifetime += currentTime.DeltaTime;
+        
+        // スケールのフェードアウト
+        float lifeRatio = 1.0f - (lifetime / maxLifetime);
+        hasScale.Scale *= lifeRatio;
+        
+        return lifetime &lt; maxLifetime;
+    }
+}
+</code></pre>
+<h3 id="uiアニメーション">UIアニメーション</h3>
+<pre><code class="lang-csharp">[AutoGenerateConstructor]
+[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasIndependentScale), auto_member_generate: true)]
+public partial class AnimatedButton : Object
+{
+    private Point2 originalPosition;
+    private Vector2 originalScale;
+    private bool isPressed = false;
+    
+    public override bool SetUp()
+    {
+        originalPosition = hasPosition.Position;
+        originalScale = hasIndependentScale.IndependentScale;
+        
+        return true;
+    }
+    
+    public void OnMouseDown()
+    {
+        if (!isPressed)
+        {
+            isPressed = true;
+            
+            // 押し込み効果
+            hasPosition.Position = originalPosition + new Vector2(2.0f, -2.0f);
+            hasIndependentScale.IndependentScale = originalScale * 0.95f;
+        }
+    }
+    
+    public void OnMouseUp()
+    {
+        if (isPressed)
+        {
+            isPressed = false;
+            
+            // 元に戻す
+            hasPosition.Position = originalPosition;
+            hasIndependentScale.IndependentScale = originalScale;
+        }
+    }
+}
+</code></pre>
+<h3 id="軌道計算システム">軌道計算システム</h3>
+<pre><code class="lang-csharp">public class TrajectoryCalculator
+{
+    public static Point2[] CalculateParabolicTrajectory(
+        Point2 startPosition, 
+        Vector2 initialVelocity, 
+        Vector2 gravity, 
+        float timeStep, 
+        int steps)
+    {
+        Point2[] trajectory = new Point2[steps];
+        
+        Point2 currentPosition = startPosition;
+        Vector2 currentVelocity = initialVelocity;
+        
+        for (int i = 0; i &lt; steps; i++)
+        {
+            trajectory[i] = currentPosition;
+            
+            // 物理シミュレーション
+            currentVelocity += gravity * timeStep;
+            currentPosition += currentVelocity * timeStep;
+        }
+        
+        return trajectory;
+    }
+    
+    public static Point2[] CalculateCircularOrbit(
+        Point2 center, 
+        float radius, 
+        Radian startAngle, 
+        Radian angularVelocity, 
+        float timeStep, 
+        int steps)
+    {
+        Point2[] orbit = new Point2[steps];
+        
+        for (int i = 0; i &lt; steps; i++)
+        {
+            Radian currentAngle = startAngle + (angularVelocity * timeStep * i);
+            
+            orbit[i] = new Point2(
+                center.X + radius * Math.Util.Cos(currentAngle),
+                center.Y + radius * Math.Util.Sin(currentAngle)
+            );
+        }
+        
+        return orbit;
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>struct型の活用</strong>: Point2、Vector2、角度値は値型として実装されGC負荷を軽減</li>
+<li><strong>演算子オーバーロード</strong>: 直感的な記述と最適化された演算の両立</li>
+<li><strong>履歴管理の最適化</strong>: LinkedListを使用した効率的な履歴追加・削除</li>
+<li><strong>自動生成メンバー</strong>: コンポーネント参照の高速アクセス</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<h3 id="座標系の一貫性">座標系の一貫性</h3>
+<ul>
+<li>VaNillaエンジンはY軸上向きの座標系を採用</li>
+<li>Point2とVector2は同じ座標空間を共有</li>
+<li>角度は標準的にラジアンで内部管理</li>
+</ul>
+<h3 id="履歴管理のメモリ">履歴管理のメモリ</h3>
+<ul>
+<li>履歴コンポーネントは適切なMaxHistories設定が重要</li>
+<li>自動記録モードは毎フレーム履歴を追加するためメモリ使用量に注意</li>
+</ul>
+<h3 id="型安全性">型安全性</h3>
+<ul>
+<li>RadianとDegreeは明確に区別されており、暗黙的変換に注意</li>
+<li>float精度の限界を理解して使用</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../MathUtil/README.html">MathUtil</a> - 三角関数、座標変換</li>
+<li><a href="../RandomNumberGenerator/README.html">RandomNumberGenerator</a> - ランダム値生成</li>
+<li><a href="../Debug/README.md">Debug</a> - ログ出力</li>
+<li><a href="../Time/README.md">Time</a> - 時間管理</li>
+<li><a href="../ExpresserComponent/README.html">ExpresserComponent</a> - コンポーネントシステム</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../Movement/README.html">Movement</a> - 移動システム</li>
+<li><a href="../Physics/README.html">Physics</a> - 物理演算システム</li>
+<li><a href="../Animation/README.md">Animation</a> - アニメーションシステム</li>
+<li><a href="../Rendering/README.md">Rendering</a> - 描画システム</li>
+</ul>
+<p>このモジュールにより、VaNillaエンジンで正確で効率的な空間変換管理が可能になります。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Transform/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VaNilla Test Project for DxLib </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VaNilla Test Project for DxLib ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTestProject/DxLib/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vanilla-test-project-for-dxlib">VaNilla Test Project for DxLib</h1>
+
+<h2 id="これはなに">これはなに</h2>
+<p>DxLib実装向けのVaNillaエンジンのテストを行うためのプロジェクトです。</p>
+<h2 id="ディレクトリ構成">ディレクトリ構成</h2>
+<ul>
+<li>code:  <code>DxLib実装向けのVaNillaエンジンのテスト実施に必要なソースコードが入っています。</code></li>
+<li>DxLibDotNet: <code>依存ライブラリである、DxLibを配置したディレクトリです。</code></li>
+<li>project: <code>ビルドプロジェクトを配置したディレクトリです。</code>
+<ul>
+<li>vs2022: <code>Visual Studio 2022向けのプロジェクトファイルを配置したディレクトリです。</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="実行環境">実行環境</h2>
+<ul>
+<li>Microsoft Visual Studio 2022 Version 17.8.6</li>
+<li>.NET 9.0以上
+<ul>
+<li>コマンドプロンプトで<code>dotnet</code>コマンドが利用できる状態</li>
+</ul>
+</li>
+</ul>
+<h2 id="実行環境のインストール方法">実行環境のインストール方法</h2>
+<p>本READMEと同階層に存在する<code>install_and_run_test.bat</code>を実行します。<br>
+自動的に.NET SDK 9.x がインストールされます。（途中で認証を要求されます）<br>
+その後、コマンドプロンプトで<code>dotnet</code>コマンドを認識していればインストール成功です。</p>
+<h2 id="テストの実行方法">テストの実行方法</h2>
+<h3 id="dotnet-コマンド経由での実行方法">dotnet コマンド経由での実行方法</h3>
+<ul>
+<li>コマンドプロンプトで<code>\VaNillaTestProject\DxLib\project\vs2022\</code>ディレクトリを開きます。</li>
+<li><code>dotnet run</code>コマンドを実行します。</li>
+</ul>
+<h3 id="visual-studioからの実行方法">Visual Studioからの実行方法</h3>
+<ul>
+<li><code>\VaNillaTestProject\DxLib\project\vs2022\TestProject.sln</code> を Visual Studio 2022 で開きます。</li>
+<li>ソリューション エクスプローラー上の <code>TestProject</code> を右クリックし、「リビルド(E)」をクリックします。</li>
+<li>ビルド完了したら、ソリューション エクスプローラー上の <code>TestProject</code> を右クリックし、「デバッグ(G) -&gt; 新しいインスタンスの開始(I)」をクリックします。</li>
+<li>テストが実行されます。</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/VaNillaTestProject/DxLib/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

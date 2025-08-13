@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>GamePadInput モジュール </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="GamePadInput モジュール ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/GamePadInput/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="gamepadinput-モジュール">GamePadInput モジュール</h1>
+
+<p>GamePadInputモジュールは、VaNillaエンジンでゲームパッド（コントローラー）からの入力を処理するためのシステムです。複数のゲームパッドの同時接続、ボタン入力とアナログスティック入力の両方をサポートし、ゲーム開発で必要な包括的なコントローラー入力機能を提供します。</p>
+<h2 id="概要">概要</h2>
+<p>このモジュールは以下の機能を提供します：</p>
+<ul>
+<li><strong>マルチコントローラー対応</strong>: 最大4台のゲームパッド同時接続</li>
+<li><strong>ボタン入力管理</strong>: 12ボタンの押下・離上・継続押下状態検知</li>
+<li><strong>アナログスティック</strong>: 左右スティックとD-padの軸入力</li>
+<li><strong>フレーム間状態管理</strong>: 前フレームと現在フレームの状態比較</li>
+<li><strong>統合入力検知</strong>: 任意のコントローラーからの入力検知</li>
+<li><strong>低遅延入力</strong>: ネイティブ層との直接連携による高速応答</li>
+</ul>
+<h2 id="実装状況">実装状況</h2>
+<p>✅ <strong>完了</strong>: 全てのゲームパッド入力機能が実装済みです。</p>
+<h2 id="apiリファレンス">APIリファレンス</h2>
+<p>詳細なAPIドキュメントは<a href="https://endlessshirafu.github.io/VaNillaEngineApiDocuments/api/VaNilla.GamePadInput.html">VaNilla GamePadInput APIリファレンス</a>をご覧ください。</p>
+<h2 id="主要コンポーネント">主要コンポーネント</h2>
+<h3 id="1-gamepadinputmanager入力管理">1. GamePadInputManager（入力管理）</h3>
+<p>ゲームパッド入力の中央管理システムです。</p>
+<pre><code class="lang-csharp">public static class GamePadInputManager
+{
+    // 初期化・更新
+    public static void Initialize();
+    public static void UpdateState();
+    
+    // 状態取得
+    public static GamepadState GetState(Index index);
+    
+    // ボタン入力
+    public static bool GetButton(Button button, Index index);
+    public static bool GetButtonDown(Button button, Index index);
+    public static bool GetButtonUp(Button button, Index index);
+    
+    // アナログ入力
+    public static float GetAxis(AXISTYPE type, Index index);
+}
+</code></pre>
+<h3 id="2-入力定義型">2. 入力定義型</h3>
+<h4 id="buttonボタン種別">Button（ボタン種別）</h4>
+<pre><code class="lang-csharp">public enum Button
+{
+    Button0,    // 一般的にA/Cross
+    Button1,    // 一般的にB/Circle
+    Button2,    // 一般的にX/Square
+    Button3,    // 一般的にY/Triangle
+    Button4,    // 一般的にLB/L1
+    Button5,    // 一般的にRB/R1
+    Button6,    // 一般的にBack/Select
+    Button7,    // 一般的にStart
+    Button8,    // 一般的にLeft Stick
+    Button9,    // 一般的にRight Stick
+    Button10,   // 一般的にLT/L2
+    Button11,   // 一般的にRT/R2
+    MaxNum
+}
+</code></pre>
+<h4 id="indexコントローラー識別">Index（コントローラー識別）</h4>
+<pre><code class="lang-csharp">public enum Index
+{
+    Any,    // 任意のコントローラー
+    One,    // プレイヤー1
+    Two,    // プレイヤー2
+    Three,  // プレイヤー3
+    Four,   // プレイヤー4
+    MaxNum
+}
+</code></pre>
+<h4 id="axisアナログ軸種別">Axis（アナログ軸種別）</h4>
+<pre><code class="lang-csharp">public enum Axis
+{
+    LeftStick,   // 左アナログスティック
+    RightStick,  // 右アナログスティック
+    Dpad        // 方向パッド
+}
+
+public enum AXISTYPE
+{
+    AXISTYPE_X = 0,  // X軸（左右）
+    AXISTYPE_Y       // Y軸（上下）
+}
+</code></pre>
+<h3 id="3-gamepadstate入力状態">3. GamepadState（入力状態）</h3>
+<p>ゲームパッドの現在の入力状態を保持するクラスです。</p>
+<pre><code class="lang-csharp">public class GamepadState
+{
+    // 現在フレームのボタン状態
+    public uint Button0;
+    public uint Button1;
+    // ... Button11まで
+    
+    // 前フレームのボタン状態
+    public uint Button0Before;
+    public uint Button1Before;
+    // ... Button11Beforeまで
+    
+    // アナログスティック値
+    public (float X, float Y) LeftStickAxis;   // 左スティック (-1.0f ～ 1.0f)
+    public (float X, float Y) RightStickAxis;  // 右スティック (-1.0f ～ 1.0f)
+    public (float X, float Y) dPadAxis;        // D-pad (-1.0f ～ 1.0f)
+}
+</code></pre>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="基本的なボタン入力検知">基本的なボタン入力検知</h3>
+<pre><code class="lang-csharp">public class InputController : IExpresserComponent
+{
+    public bool Execute(Object object__, in VaNilla.Time.Time current_time)
+    {
+        // プレイヤー1のコントローラーでボタン入力をチェック
+        
+        // Aボタン（Button0）が押されているかチェック
+        if (GamePadInputManager.GetButton(GamePadInputManager.Button.Button0, GamePadInputManager.Index.One))
+        {
+            Debug.Logger.Log(&quot;A button is being held&quot;);
+        }
+        
+        // Aボタンが押された瞬間をチェック
+        if (GamePadInputManager.GetButtonDown(GamePadInputManager.Button.Button0, GamePadInputManager.Index.One))
+        {
+            Debug.Logger.Log(&quot;A button was just pressed&quot;);
+            OnJumpPressed();
+        }
+        
+        // Aボタンが離された瞬間をチェック
+        if (GamePadInputManager.GetButtonUp(GamePadInputManager.Button.Button0, GamePadInputManager.Index.One))
+        {
+            Debug.Logger.Log(&quot;A button was just released&quot;);
+            OnJumpReleased();
+        }
+        
+        return true;
+    }
+    
+    private void OnJumpPressed() { /* ジャンプ処理 */ }
+    private void OnJumpReleased() { /* ジャンプ終了処理 */ }
+    
+    // IExpresserComponent実装
+    public bool SetUp(Object object__) =&gt; true;
+    public void TearDown(Object object__) { }
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; }
+}
+</code></pre>
+<h3 id="アナログスティック入力">アナログスティック入力</h3>
+<pre><code class="lang-csharp">public class MovementController : IExpresserComponent
+{
+    public bool Execute(Object object__, in VaNilla.Time.Time current_time)
+    {
+        // 左スティックで移動制御
+        float moveX = GamePadInputManager.GetAxis(GamePadInputManager.AXISTYPE.AXISTYPE_X, GamePadInputManager.Index.One);
+        float moveY = GamePadInputManager.GetAxis(GamePadInputManager.AXISTYPE.AXISTYPE_Y, GamePadInputManager.Index.One);
+        
+        // デッドゾーン処理
+        const float deadZone = 0.1f;
+        if (Math.Abs(moveX) &lt; deadZone) moveX = 0.0f;
+        if (Math.Abs(moveY) &lt; deadZone) moveY = 0.0f;
+        
+        // 移動ベクトル計算
+        Vector2 moveVector = new Vector2(moveX, moveY);
+        float moveSpeed = 200.0f;
+        
+        // オブジェクト移動
+        var position = object__.GetExpresserComponent&lt;HasPosition&gt;();
+        position.Position += moveVector * moveSpeed * current_time.DeltaTime;
+        
+        Debug.Logger.Log($&quot;Move input: X={moveX:F2}, Y={moveY:F2}&quot;);
+        
+        return true;
+    }
+    
+    // IExpresserComponent実装
+    public bool SetUp(Object object__) =&gt; true;
+    public void TearDown(Object object__) { }
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; }
+}
+</code></pre>
+<h3 id="マルチプレイヤー対応">マルチプレイヤー対応</h3>
+<pre><code class="lang-csharp">public class MultiPlayerInputManager : IExpresserComponent
+{
+    private struct PlayerInput
+    {
+        public bool Jump;
+        public bool Attack;
+        public Vector2 Movement;
+    }
+    
+    private PlayerInput[] playerInputs = new PlayerInput[4];
+    
+    public bool Execute(Object object__, in VaNilla.Time.Time current_time)
+    {
+        // 4人分の入力をチェック
+        for (int i = 0; i &lt; 4; i++)
+        {
+            var index = (GamePadInputManager.Index)(i + 1); // One, Two, Three, Four
+            
+            // ボタン入力
+            playerInputs[i].Jump = GamePadInputManager.GetButtonDown(
+                GamePadInputManager.Button.Button0, index);
+            playerInputs[i].Attack = GamePadInputManager.GetButtonDown(
+                GamePadInputManager.Button.Button1, index);
+            
+            // スティック入力
+            float x = GamePadInputManager.GetAxis(GamePadInputManager.AXISTYPE.AXISTYPE_X, index);
+            float y = GamePadInputManager.GetAxis(GamePadInputManager.AXISTYPE.AXISTYPE_Y, index);
+            playerInputs[i].Movement = new Vector2(x, y);
+            
+            // プレイヤー固有の処理
+            HandlePlayerInput(i, playerInputs[i]);
+        }
+        
+        return true;
+    }
+    
+    private void HandlePlayerInput(int playerIndex, PlayerInput input)
+    {
+        if (input.Jump)
+        {
+            Debug.Logger.Log($&quot;Player {playerIndex + 1} jumped!&quot;);
+        }
+        
+        if (input.Attack)
+        {
+            Debug.Logger.Log($&quot;Player {playerIndex + 1} attacked!&quot;);
+        }
+        
+        if (input.Movement.GetLength() &gt; 0.1f)
+        {
+            Debug.Logger.Log($&quot;Player {playerIndex + 1} moving: {input.Movement}&quot;);
+        }
+    }
+    
+    // IExpresserComponent実装
+    public bool SetUp(Object object__) =&gt; true;
+    public void TearDown(Object object__) { }
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; }
+}
+</code></pre>
+<h3 id="コントローラー状態の詳細取得">コントローラー状態の詳細取得</h3>
+<pre><code class="lang-csharp">public class GamepadMonitor : IExpresserComponent
+{
+    public bool Execute(Object object__, in VaNilla.Time.Time current_time)
+    {
+        // プレイヤー1のコントローラー状態を詳細取得
+        var state = GamePadInputManager.GetState(GamePadInputManager.Index.One);
+        
+        if (state != null)
+        {
+            // 左右スティックの状態表示
+            LogStickState(&quot;Left Stick&quot;, state.LeftStickAxis);
+            LogStickState(&quot;Right Stick&quot;, state.RightStickAxis);
+            LogStickState(&quot;D-Pad&quot;, state.dPadAxis);
+            
+            // 全ボタンの状態をチェック
+            CheckAllButtons(state);
+        }
+        
+        return true;
+    }
+    
+    private void LogStickState(string stickName, (float X, float Y) axis)
+    {
+        if (Math.Abs(axis.X) &gt; 0.1f || Math.Abs(axis.Y) &gt; 0.1f)
+        {
+            Debug.Logger.Log($&quot;{stickName}: X={axis.X:F2}, Y={axis.Y:F2}&quot;);
+        }
+    }
+    
+    private void CheckAllButtons(GamepadState state)
+    {
+        for (int i = 0; i &lt; (int)GamePadInputManager.Button.MaxNum; i++)
+        {
+            var button = (GamePadInputManager.Button)i;
+            if (GamePadInputManager.GetButtonDown(button, GamePadInputManager.Index.One))
+            {
+                Debug.Logger.Log($&quot;Button {i} pressed&quot;);
+            }
+        }
+    }
+    
+    // IExpresserComponent実装
+    public bool SetUp(Object object__) =&gt; true;
+    public void TearDown(Object object__) { }
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; }
+}
+</code></pre>
+<h2 id="ゲーム開発での実用例">ゲーム開発での実用例</h2>
+<h3 id="アクションゲームのプレイヤー制御">アクションゲームのプレイヤー制御</h3>
+<pre><code class="lang-csharp">public class ActionPlayerController : IExpresserComponent
+{
+    private float moveSpeed = 300.0f;
+    private bool isJumping = false;
+    private float jumpCooldown = 0.0f;
+    
+    public bool Execute(Object object__, in VaNilla.Time.Time current_time)
+    {
+        var transform = object__.GetExpresserComponent&lt;HasTransform&gt;();
+        
+        // 移動制御
+        HandleMovement(transform, current_time);
+        
+        // アクション制御
+        HandleActions(current_time);
+        
+        // クールダウン更新
+        UpdateCooldowns(current_time);
+        
+        return true;
+    }
+    
+    private void HandleMovement(HasTransform transform, VaNilla.Time.Time time)
+    {
+        // 左スティックで移動
+        float moveX = GamePadInputManager.GetAxis(
+            GamePadInputManager.AXISTYPE.AXISTYPE_X, 
+            GamePadInputManager.Index.One);
+        float moveY = GamePadInputManager.GetAxis(
+            GamePadInputManager.AXISTYPE.AXISTYPE_Y, 
+            GamePadInputManager.Index.One);
+        
+        // デッドゾーン適用
+        Vector2 movement = ApplyDeadZone(new Vector2(moveX, moveY), 0.15f);
+        
+        // 移動適用
+        if (movement.GetLength() &gt; 0)
+        {
+            Vector2 velocity = movement * moveSpeed * time.DeltaTime;
+            transform.hasPosition.Position += velocity;
+            
+            // 移動方向に向きを変更
+            if (Math.Abs(movement.X) &gt; 0.1f)
+            {
+                transform.hasRotation.Rotation = movement.X &gt; 0 ? 0 : Math.Util.PI_F;
+            }
+        }
+    }
+    
+    private void HandleActions(VaNilla.Time.Time time)
+    {
+        // ジャンプ（Aボタン）
+        if (GamePadInputManager.GetButtonDown(GamePadInputManager.Button.Button0, GamePadInputManager.Index.One) &amp;&amp; 
+            !isJumping &amp;&amp; jumpCooldown &lt;= 0)
+        {
+            PerformJump();
+        }
+        
+        // 攻撃（Xボタン）
+        if (GamePadInputManager.GetButtonDown(GamePadInputManager.Button.Button2, GamePadInputManager.Index.One))
+        {
+            PerformAttack();
+        }
+        
+        // ダッシュ（RB）
+        if (GamePadInputManager.GetButtonDown(GamePadInputManager.Button.Button5, GamePadInputManager.Index.One))
+        {
+            PerformDash();
+        }
+    }
+    
+    private Vector2 ApplyDeadZone(Vector2 input, float deadZone)
+    {
+        float magnitude = input.GetLength();
+        if (magnitude &lt; deadZone)
+            return Vector2.Util.Zero;
+        
+        return input.GetNormalized() * ((magnitude - deadZone) / (1.0f - deadZone));
+    }
+    
+    private void PerformJump()
+    {
+        isJumping = true;
+        jumpCooldown = 0.5f;
+        Debug.Logger.Log(&quot;Player jumped!&quot;);
+    }
+    
+    private void PerformAttack()
+    {
+        Debug.Logger.Log(&quot;Player attacked!&quot;);
+    }
+    
+    private void PerformDash()
+    {
+        Debug.Logger.Log(&quot;Player dashed!&quot;);
+    }
+    
+    private void UpdateCooldowns(VaNilla.Time.Time time)
+    {
+        if (jumpCooldown &gt; 0)
+            jumpCooldown -= time.DeltaTime;
+    }
+    
+    // IExpresserComponent実装
+    public bool SetUp(Object object__) =&gt; true;
+    public void TearDown(Object object__) { }
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; }
+}
+</code></pre>
+<h3 id="格闘ゲームのコマンド入力">格闘ゲームのコマンド入力</h3>
+<pre><code class="lang-csharp">public class FightingGameInputDetector : IExpresserComponent
+{
+    private List&lt;InputCommand&gt; inputHistory = new List&lt;InputCommand&gt;();
+    private const int MaxHistorySize = 30; // 約0.5秒分のフレーム履歴
+    
+    private struct InputCommand
+    {
+        public GamePadInputManager.Button Button;
+        public Vector2 StickDirection;
+        public float TimeStamp;
+    }
+    
+    public bool Execute(Object object__, in VaNilla.Time.Time current_time)
+    {
+        // 入力履歴を更新
+        UpdateInputHistory(current_time);
+        
+        // コマンド検出
+        CheckSpecialMoves();
+        
+        return true;
+    }
+    
+    private void UpdateInputHistory(VaNilla.Time.Time time)
+    {
+        // スティック入力記録
+        float x = GamePadInputManager.GetAxis(GamePadInputManager.AXISTYPE.AXISTYPE_X, GamePadInputManager.Index.One);
+        float y = GamePadInputManager.GetAxis(GamePadInputManager.AXISTYPE.AXISTYPE_Y, GamePadInputManager.Index.One);
+        Vector2 stickInput = new Vector2(x, y);
+        
+        // 方向入力が変化した場合は記録
+        if (stickInput.GetLength() &gt; 0.5f)
+        {
+            AddInputToHistory(GamePadInputManager.Button.MaxNum, stickInput, time.current_time);
+        }
+        
+        // ボタン入力記録
+        for (int i = 0; i &lt; (int)GamePadInputManager.Button.MaxNum; i++)
+        {
+            var button = (GamePadInputManager.Button)i;
+            if (GamePadInputManager.GetButtonDown(button, GamePadInputManager.Index.One))
+            {
+                AddInputToHistory(button, Vector2.Util.Zero, time.current_time);
+            }
+        }
+        
+        // 古い履歴を削除
+        CleanupOldHistory(time.current_time);
+    }
+    
+    private void AddInputToHistory(GamePadInputManager.Button button, Vector2 direction, float timeStamp)
+    {
+        inputHistory.Add(new InputCommand
+        {
+            Button = button,
+            StickDirection = direction,
+            TimeStamp = timeStamp
+        });
+        
+        if (inputHistory.Count &gt; MaxHistorySize)
+        {
+            inputHistory.RemoveAt(0);
+        }
+    }
+    
+    private void CleanupOldHistory(float currentTime)
+    {
+        const float maxAge = 1.0f; // 1秒以上古い入力は削除
+        
+        for (int i = inputHistory.Count - 1; i &gt;= 0; i--)
+        {
+            if (currentTime - inputHistory[i].TimeStamp &gt; maxAge)
+            {
+                inputHistory.RemoveAt(i);
+            }
+        }
+    }
+    
+    private void CheckSpecialMoves()
+    {
+        // 波動拳コマンド: ↓↘→ + パンチ
+        if (DetectHadokenCommand())
+        {
+            ExecuteHadoken();
+        }
+        
+        // 昇龍拳コマンド: →↓↘ + パンチ
+        if (DetectShoryukenCommand())
+        {
+            ExecuteShoryuken();
+        }
+    }
+    
+    private bool DetectHadokenCommand()
+    {
+        // 簡略化された波動拳検出ロジック
+        if (inputHistory.Count &lt; 4) return false;
+        
+        // 最新の入力がパンチボタンかチェック
+        var lastInput = inputHistory[inputHistory.Count - 1];
+        if (lastInput.Button != GamePadInputManager.Button.Button0 &amp;&amp; 
+            lastInput.Button != GamePadInputManager.Button.Button1) 
+            return false;
+        
+        // 方向入力の順序をチェック
+        // 実際のゲームではより複雑な判定が必要
+        
+        return true; // 簡略化
+    }
+    
+    private bool DetectShoryukenCommand()
+    {
+        // 昇龍拳コマンド検出ロジック
+        return false; // 簡略化
+    }
+    
+    private void ExecuteHadoken()
+    {
+        Debug.Logger.Log(&quot;Hadoken executed!&quot;);
+        inputHistory.Clear(); // コマンド実行後は履歴をクリア
+    }
+    
+    private void ExecuteShoryuken()
+    {
+        Debug.Logger.Log(&quot;Shoryuken executed!&quot;);
+        inputHistory.Clear();
+    }
+    
+    // IExpresserComponent実装
+    public bool SetUp(Object object__) =&gt; true;
+    public void TearDown(Object object__) { }
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; }
+}
+</code></pre>
+<h3 id="レーシングゲームのステアリング制御">レーシングゲームのステアリング制御</h3>
+<pre><code class="lang-csharp">public class RacingCarController : IExpresserComponent
+{
+    private float currentSpeed = 0.0f;
+    private float maxSpeed = 500.0f;
+    private float acceleration = 200.0f;
+    private float deceleration = 300.0f;
+    private float steering = 0.0f;
+    private float maxSteeringAngle = 45.0f;
+    
+    public bool Execute(Object object__, in VaNilla.Time.Time current_time)
+    {
+        var transform = object__.GetExpresserComponent&lt;HasTransform&gt;();
+        
+        // ステアリング制御（左スティック X軸）
+        HandleSteering(current_time);
+        
+        // アクセル・ブレーキ制御
+        HandleThrottle(current_time);
+        
+        // 車両物理更新
+        UpdateVehiclePhysics(transform, current_time);
+        
+        return true;
+    }
+    
+    private void HandleSteering(VaNilla.Time.Time time)
+    {
+        float steerInput = GamePadInputManager.GetAxis(
+            GamePadInputManager.AXISTYPE.AXISTYPE_X, 
+            GamePadInputManager.Index.One);
+        
+        // ステアリングの感度調整
+        steering = steerInput * maxSteeringAngle * Math.Util.PI_F / 180.0f;
+        
+        Debug.Logger.Log($&quot;Steering: {steering * 180.0f / Math.Util.PI_F:F1}°&quot;);
+    }
+    
+    private void HandleThrottle(VaNilla.Time.Time time)
+    {
+        // RT（右トリガー）でアクセル
+        bool accelPressed = GamePadInputManager.GetButton(
+            GamePadInputManager.Button.Button11, GamePadInputManager.Index.One);
+        
+        // LT（左トリガー）でブレーキ
+        bool brakePressed = GamePadInputManager.GetButton(
+            GamePadInputManager.Button.Button10, GamePadInputManager.Index.One);
+        
+        if (accelPressed &amp;&amp; !brakePressed)
+        {
+            // 加速
+            currentSpeed = Math.Min(currentSpeed + acceleration * time.DeltaTime, maxSpeed);
+        }
+        else if (brakePressed)
+        {
+            // ブレーキ
+            currentSpeed = Math.Max(currentSpeed - deceleration * time.DeltaTime, 0.0f);
+        }
+        else
+        {
+            // 自然減速
+            currentSpeed = Math.Max(currentSpeed - deceleration * 0.3f * time.DeltaTime, 0.0f);
+        }
+        
+        Debug.Logger.Log($&quot;Speed: {currentSpeed:F1}/{maxSpeed:F1}&quot;);
+    }
+    
+    private void UpdateVehiclePhysics(HasTransform transform, VaNilla.Time.Time time)
+    {
+        if (currentSpeed &gt; 0.1f)
+        {
+            // 車両の向き更新（ステアリング）
+            float steeringFactor = currentSpeed / maxSpeed; // 速度に応じてステアリング効果調整
+            transform.hasRotation.Rotation += steering * steeringFactor * time.DeltaTime;
+            
+            // 前進移動
+            float moveX = Math.Util.Cos(transform.hasRotation.Rotation) * currentSpeed * time.DeltaTime;
+            float moveY = Math.Util.Sin(transform.hasRotation.Rotation) * currentSpeed * time.DeltaTime;
+            
+            transform.hasPosition.Position += new Vector2(moveX, moveY);
+        }
+    }
+    
+    // IExpresserComponent実装
+    public bool SetUp(Object object__) =&gt; true;
+    public void TearDown(Object object__) { }
+    public bool Active { get; set; } = true;
+    public Execute.ExecuteType ExecuteType { get; set; }
+}
+</code></pre>
+<h3 id="設定可能な入力マッピング">設定可能な入力マッピング</h3>
+<pre><code class="lang-csharp">public class InputMapper
+{
+    public enum GameAction
+    {
+        Jump, Attack, Dash, Menu, Confirm, Cancel
+    }
+    
+    private Dictionary&lt;GameAction, GamePadInputManager.Button&gt; actionMap;
+    
+    public InputMapper()
+    {
+        // デフォルトのボタンマッピング
+        actionMap = new Dictionary&lt;GameAction, GamePadInputManager.Button&gt;
+        {
+            { GameAction.Jump, GamePadInputManager.Button.Button0 },      // A
+            { GameAction.Attack, GamePadInputManager.Button.Button2 },    // X
+            { GameAction.Dash, GamePadInputManager.Button.Button5 },      // RB
+            { GameAction.Menu, GamePadInputManager.Button.Button7 },      // Start
+            { GameAction.Confirm, GamePadInputManager.Button.Button0 },   // A
+            { GameAction.Cancel, GamePadInputManager.Button.Button1 }     // B
+        };
+    }
+    
+    public bool IsActionPressed(GameAction action, GamePadInputManager.Index playerIndex)
+    {
+        if (actionMap.TryGetValue(action, out var button))
+        {
+            return GamePadInputManager.GetButtonDown(button, playerIndex);
+        }
+        return false;
+    }
+    
+    public bool IsActionHeld(GameAction action, GamePadInputManager.Index playerIndex)
+    {
+        if (actionMap.TryGetValue(action, out var button))
+        {
+            return GamePadInputManager.GetButton(button, playerIndex);
+        }
+        return false;
+    }
+    
+    public bool IsActionReleased(GameAction action, GamePadInputManager.Index playerIndex)
+    {
+        if (actionMap.TryGetValue(action, out var button))
+        {
+            return GamePadInputManager.GetButtonUp(button, playerIndex);
+        }
+        return false;
+    }
+    
+    public void RemapAction(GameAction action, GamePadInputManager.Button newButton)
+    {
+        actionMap[action] = newButton;
+        Debug.Logger.Log($&quot;Remapped {action} to {newButton}&quot;);
+    }
+}
+</code></pre>
+<h2 id="パフォーマンス考慮事項">パフォーマンス考慮事項</h2>
+<ul>
+<li><strong>低遅延設計</strong>: ネイティブ層との直接連携による最小限の入力遅延</li>
+<li><strong>フレーム間状態管理</strong>: 効率的な前フレーム状態保持システム</li>
+<li><strong>メモリ効率</strong>: 固定サイズの状態構造による一定メモリ使用量</li>
+<li><strong>マルチコントローラー最適化</strong>: 同時接続時のパフォーマンス維持</li>
+</ul>
+<h2 id="注意事項">注意事項</h2>
+<h3 id="初期化順序">初期化順序</h3>
+<ul>
+<li>SupremeArbiterによって自動初期化されるため明示的な初期化不要</li>
+<li>UpdateState()はSupremeArbiterの実行サイクル内で自動呼び出し</li>
+</ul>
+<h3 id="プラットフォーム依存">プラットフォーム依存</h3>
+<ul>
+<li>ネイティブ層実装によりプラットフォーム固有のコントローラー対応</li>
+<li>ボタンマッピングはプラットフォームにより異なる場合がある</li>
+</ul>
+<h3 id="入力精度">入力精度</h3>
+<ul>
+<li>アナログスティック値は-1.0f～1.0fの範囲</li>
+<li>デッドゾーン処理は使用側で実装が推奨</li>
+</ul>
+<h2 id="依存関係">依存関係</h2>
+<ul>
+<li><a href="../SupremeArbiter/README.html">SupremeArbiter</a> - 初期化と定期更新</li>
+<li><a href="../Debug/README.md">Debug</a> - ログ出力</li>
+<li><a href="../Transform/README.html">Transform</a> - Vector2型</li>
+<li><strong>Native.GamePadInputNative</strong> - ネイティブ層入力実装</li>
+</ul>
+<h2 id="関連モジュール">関連モジュール</h2>
+<ul>
+<li><a href="../KeyboardInput/README.html">KeyboardInput</a> - キーボード入力</li>
+<li><a href="../MouseInput/README.html">MouseInput</a> - マウス入力</li>
+<li><a href="../PlayerInput/README.html">PlayerInput</a> - 統合入力管理</li>
+</ul>
+<p>このモジュールにより、VaNillaエンジンで包括的で応答性の高いゲームパッド入力制御が可能になります。</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/GamePadInput/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
