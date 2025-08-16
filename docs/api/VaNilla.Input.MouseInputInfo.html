@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class MouseInputInfo ">
       
-      
+      <meta name="description" content="マウス入力情報を管理するクラス。 マウスボタンの押下状態とカーソル位置を追跡する。">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -85,7 +85,7 @@
 
 
   <h1 id="VaNilla_Input_MouseInputInfo" data-uid="VaNilla.Input.MouseInputInfo" class="text-break">
-Class MouseInputInfo  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L24"><i class="bi bi-code-slash"></i></a>
+Class MouseInputInfo  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L66"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -93,7 +93,9 @@ Class MouseInputInfo  <a class="header-action link-secondary" title="View source
   <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>マウス入力情報を管理するクラス。
+マウスボタンの押下状態とカーソル位置を追跡する。</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -151,10 +153,11 @@ Class MouseInputInfo  <a class="header-action link-secondary" title="View source
 
   <h3 id="VaNilla_Input_MouseInputInfo_CurrentPosX" data-uid="VaNilla.Input.MouseInputInfo.CurrentPosX">
   CurrentPosX
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L83"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>現在のマウスカーソルのX座標</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -181,10 +184,11 @@ Class MouseInputInfo  <a class="header-action link-secondary" title="View source
 
   <h3 id="VaNilla_Input_MouseInputInfo_CurrentPosY" data-uid="VaNilla.Input.MouseInputInfo.CurrentPosY">
   CurrentPosY
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L88"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>現在のマウスカーソルのY座標</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -211,10 +215,12 @@ Class MouseInputInfo  <a class="header-action link-secondary" title="View source
 
   <h3 id="VaNilla_Input_MouseInputInfo_button" data-uid="VaNilla.Input.MouseInputInfo.button">
   button
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L78"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>マウスボタンが押されている継続フレーム数を記録する配列。
+押されていない場合は0、押されている間はフレーム数がカウントアップされる。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -241,10 +247,12 @@ Class MouseInputInfo  <a class="header-action link-secondary" title="View source
 
   <h3 id="VaNilla_Input_MouseInputInfo_button_off_moment_flag" data-uid="VaNilla.Input.MouseInputInfo.button_off_moment_flag">
   button_off_moment_flag
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>マウスボタンが離された瞬間を検出するフラグ配列。
+ボタンが離された瞬間のフレームでtrueになる。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -276,10 +284,12 @@ Class MouseInputInfo  <a class="header-action link-secondary" title="View source
 
   <h3 id="VaNilla_Input_MouseInputInfo_Initialize" data-uid="VaNilla.Input.MouseInputInfo.Initialize">
   Initialize()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L94"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>マウス入力情報を初期化する。
+すべてのボタン状態をリセットし、カーソル位置を原点に設定する。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -302,10 +312,12 @@ Class MouseInputInfo  <a class="header-action link-secondary" title="View source
 
   <h3 id="VaNilla_Input_MouseInputInfo_SetInputDisable" data-uid="VaNilla.Input.MouseInputInfo.SetInputDisable">
   SetInputDisable()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L130"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>入力を無効化する。
+すべての入力状態を初期値にリセットする。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -328,10 +340,12 @@ Class MouseInputInfo  <a class="header-action link-secondary" title="View source
 
   <h3 id="VaNilla_Input_MouseInputInfo_UpdateInfo" data-uid="VaNilla.Input.MouseInputInfo.UpdateInfo">
   UpdateInfo()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L109"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>マウス入力情報を更新する。
+現在のマウス状態を取得し、内部データを最新の状態に更新する。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -354,7 +368,7 @@ Class MouseInputInfo  <a class="header-action link-secondary" title="View source
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L24" class="edit-link">Edit this page</a>
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L66" class="edit-link">Edit this page</a>
         </div>
 
 

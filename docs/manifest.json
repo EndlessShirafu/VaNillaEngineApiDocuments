@@ -2716,7 +2716,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "VaNilla.Input.GamepadInputInfo",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/VaNilla.Input.GamepadInputInfo.yml\" sourcestartlinenumber=\"1\">ゲームパッド入力情報を管理するクラス。\nスティック入力、ボタン状態、方向入力を追跡する。</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2730,7 +2730,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "VaNilla.Input.InputInfoStruct.ButtonKind",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/VaNilla.Input.InputInfoStruct.ButtonKind.yml\" sourcestartlinenumber=\"1\">ボタンの種類を定義する列挙型。\nkey_configの設定から自動生成される。</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2744,7 +2744,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "VaNilla.Input.InputInfoStruct.INPUTSTATE",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/VaNilla.Input.InputInfoStruct.INPUTSTATE.yml\" sourcestartlinenumber=\"1\">入力状態を定義する列挙型</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2758,7 +2758,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "VaNilla.Input.InputInfoStruct.InputSystem",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/VaNilla.Input.InputInfoStruct.InputSystem.yml\" sourcestartlinenumber=\"1\">入力システムの種類を定義する列挙型</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2772,7 +2772,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "VaNilla.Input.InputInfoStruct",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/VaNilla.Input.InputInfoStruct.yml\" sourcestartlinenumber=\"1\">統合入力情報を管理する構造体。\nマウス、キーボード、ゲームパッドの入力を統合的に管理し、\nkey_configの設定に基づいて抽象化された入力を提供する。</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2800,7 +2800,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "VaNilla.Input.KeyDirection",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/VaNilla.Input.KeyDirection.yml\" sourcestartlinenumber=\"1\">入力方向を表す列挙型。8方向+ニュートラル（無入力）を定義。\n時計回りの順序で方向が定義されている。</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2814,7 +2814,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "VaNilla.Input.KeyboardInputInfo",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/VaNilla.Input.KeyboardInputInfo.yml\" sourcestartlinenumber=\"1\">キーボード入力情報を管理するクラス。\n各キーの押下状態と継続時間を追跡する。</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2828,7 +2828,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "VaNilla.Input.MouseInputInfo",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/VaNilla.Input.MouseInputInfo.yml\" sourcestartlinenumber=\"1\">マウス入力情報を管理するクラス。\nマウスボタンの押下状態とカーソル位置を追跡する。</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2870,7 +2870,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "VaNilla.Input.StaticInputInfo",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/VaNilla.Input.StaticInputInfo.yml\" sourcestartlinenumber=\"1\">静的入力情報アクセサクラス。\nグローバルな入力状態にアクセスするための静的メソッドを提供する。\nPlayerAbstractInputや入力記録システムで使用される。</p>\n"
     },
     {
       "type": "ManagedReference",

@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class KeyboardInputInfo ">
       
-      
+      <meta name="description" content="キーボード入力情報を管理するクラス。 各キーの押下状態と継続時間を追跡する。">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -85,7 +85,7 @@
 
 
   <h1 id="VaNilla_Input_KeyboardInputInfo" data-uid="VaNilla.Input.KeyboardInputInfo" class="text-break">
-Class KeyboardInputInfo  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L65"><i class="bi bi-code-slash"></i></a>
+Class KeyboardInputInfo  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L140"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -93,7 +93,9 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
   <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>キーボード入力情報を管理するクラス。
+各キーの押下状態と継続時間を追跡する。</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -151,10 +153,12 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
 
   <h3 id="VaNilla_Input_KeyboardInputInfo_key" data-uid="VaNilla.Input.KeyboardInputInfo.key">
   key
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L68"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L152"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>キーが押されている継続フレーム数を記録する配列。
+押されていない場合は0、押されている間はフレーム数がカウントアップされる。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -181,10 +185,12 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
 
   <h3 id="VaNilla_Input_KeyboardInputInfo_key_off_moment_flag" data-uid="VaNilla.Input.KeyboardInputInfo.key_off_moment_flag">
   key_off_moment_flag
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L146"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>キーが離された瞬間を検出するフラグ配列。
+キーが離された瞬間のフレームでtrueになる。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -216,10 +222,11 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
 
   <h3 id="VaNilla_Input_KeyboardInputInfo_Down_VaNilla_KeyboardInput_KeyCode_" data-uid="VaNilla.Input.KeyboardInputInfo.Down(VaNilla.KeyboardInput.KeyCode)">
   Down(KeyCode)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L98"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L200"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>指定されたキーが押されているかを判定する。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -229,13 +236,15 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>code</code> <a class="xref" href="VaNilla.KeyboardInput.KeyCode.html">KeyCode</a></dt>
-    <dd></dd>
+    <dd><p>判定するキーコード</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
+    <dd><p>キーが押されている場合はtrue、そうでない場合はfalse</p>
+</dd>
   </dl>
 
 
@@ -252,10 +261,12 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
 
   <h3 id="VaNilla_Input_KeyboardInputInfo_Initialize" data-uid="VaNilla.Input.KeyboardInputInfo.Initialize">
   Initialize()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L158"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>キーボード入力情報を初期化する。
+すべてのキー状態をリセットする。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -278,10 +289,11 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
 
   <h3 id="VaNilla_Input_KeyboardInputInfo_JustDown_VaNilla_KeyboardInput_KeyCode_" data-uid="VaNilla.Input.KeyboardInputInfo.JustDown(VaNilla.KeyboardInput.KeyCode)">
   JustDown(KeyCode)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L102"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L210"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>指定されたキーが押された瞬間かを判定する。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -291,13 +303,15 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>code</code> <a class="xref" href="VaNilla.KeyboardInput.KeyCode.html">KeyCode</a></dt>
-    <dd></dd>
+    <dd><p>判定するキーコード</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
+    <dd><p>キーが押された瞬間の場合はtrue、そうでない場合はfalse</p>
+</dd>
   </dl>
 
 
@@ -314,10 +328,11 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
 
   <h3 id="VaNilla_Input_KeyboardInputInfo_JustUp_VaNilla_KeyboardInput_KeyCode_" data-uid="VaNilla.Input.KeyboardInputInfo.JustUp(VaNilla.KeyboardInput.KeyCode)">
   JustUp(KeyCode)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L106"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L220"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>指定されたキーが離された瞬間かを判定する。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -327,13 +342,15 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>code</code> <a class="xref" href="VaNilla.KeyboardInput.KeyCode.html">KeyCode</a></dt>
-    <dd></dd>
+    <dd><p>判定するキーコード</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
+    <dd><p>キーが離された瞬間の場合はtrue、そうでない場合はfalse</p>
+</dd>
   </dl>
 
 
@@ -350,10 +367,12 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
 
   <h3 id="VaNilla_Input_KeyboardInputInfo_SetInputDisable" data-uid="VaNilla.Input.KeyboardInputInfo.SetInputDisable">
   SetInputDisable()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L190"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>入力を無効化する。
+すべての入力状態を初期値にリセットする。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -376,10 +395,12 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
 
   <h3 id="VaNilla_Input_KeyboardInputInfo_UpdateInfo" data-uid="VaNilla.Input.KeyboardInputInfo.UpdateInfo">
   UpdateInfo()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L171"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>キーボード入力情報を更新する。
+現在のキーボード状態を取得し、内部データを最新の状態に更新する。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -402,7 +423,7 @@ Class KeyboardInputInfo  <a class="header-action link-secondary" title="View sou
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L65" class="edit-link">Edit this page</a>
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L140" class="edit-link">Edit this page</a>
         </div>
 
 

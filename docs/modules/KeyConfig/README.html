@@ -180,48 +180,25 @@ key_config:
 }
 </code></pre>
 <h2 id="基本的な使用方法">基本的な使用方法</h2>
-<h3 id="初期化">初期化</h3>
-<pre><code class="lang-csharp">// ゲーム開始時の初期化
-public void InitializeKeyConfig()
+<h3 id="コンフィグの取得">コンフィグの取得</h3>
+<p>コンフィグに対応した実際のキー/ボタンなどが押されているかどうかの入力判定は、 <code>VaNilla.Input.StaticInputInfo</code> を使ってください。
+本クラスは、あくまで「【設定したキー/ボタン】と【設定されたアクション】の相互変換（マッピング）をする」のみの機能です。
+有り体に言うと、本クラスはゲーム内のキーコンフィグ設定画面でのみ使えば大体のケースでは事足ります。</p>
+<pre><code class="lang-csharp">public class KeyConfigHandler
 {
-    // 設定ファイルの存在確認
-    if (!VaNilla.KeyConfig.IsExistConfig())
+    public string GetCurrentKeyConfigString()
     {
-        // デフォルト設定ファイルの作成
-        VaNilla.KeyConfig.InitConfig();
-    }
-    
-    // 設定の読み込み
-    VaNilla.KeyConfig.LoadConfig();
-    
-    VaNilla.Debug.Logger.LogInfo(&quot;KeyConfig initialized successfully&quot;);
-}
-</code></pre>
-<h3 id="入力取得">入力取得</h3>
-<pre><code class="lang-csharp">public class InputHandler
-{
-    public void UpdateInput()
-    {
-        // キーボード入力の取得
+        // キーボードのコンフィグ内容の取得
         var decideKey = VaNilla.KeyConfig.GetKeyboardInput(KeyConfig.Action.Decide);
-        if (VaNilla.KeyboardInput.IsPressed(decideKey))
-        {
-            OnDecidePressed();
-        }
-        
-        // ゲームパッド入力の取得
+        // ゲームパッドのコンフィグ内容の取得
         var (cancelButton, padIndex) = VaNilla.KeyConfig.GetGamepadButton(KeyConfig.Action.Cancel);
-        if (VaNilla.GamePadInput.IsPressed(cancelButton, padIndex))
-        {
-            OnCancelPressed();
-        }
-        
-        // マウス入力の取得
+        // マウスのコンフィグ内容の取得
         var attackMouseButton = VaNilla.KeyConfig.GetMouseButton(KeyConfig.Action.Attack);
-        if (VaNilla.MouseInput.IsPressed(attackMouseButton))
-        {
-            OnAttackPressed();
-        }
+        return $&quot;&quot;&quot;
+            キーボードの Decide アクションのコンフィグ内容は {decideKey.ToString()} です。
+            ゲームパッドの Cancel アクションのコンフィグ内容は {padIndex.ToString()} 番パッドの {cancelButton.ToString()} です。
+            マウスの Attack アクションのコンフィグ内容は {attackMouseButton.ToString()} です。
+        &quot;&quot;&quot;;
     }
 }
 </code></pre>
@@ -258,6 +235,25 @@ public void InitializeKeyConfig()
     }
 }
 </code></pre>
+<h3 id="初期化">初期化</h3>
+<p>本クラスの初期化は、基本的に <code>SupremeArbiter</code> でなされるので、ユーザー側では行う必要はありません。
+一応、初期化手順を下記に示します。</p>
+<pre><code class="lang-csharp">// ゲーム開始時の初期化
+public void InitializeKeyConfig()
+{
+    // 設定ファイルの存在確認
+    if (!VaNilla.KeyConfig.IsExistConfig())
+    {
+        // デフォルト設定ファイルの作成
+        VaNilla.KeyConfig.InitConfig();
+    }
+    
+    // 設定の読み込み
+    VaNilla.KeyConfig.LoadConfig();
+    
+    VaNilla.Debug.Logger.LogInfo(&quot;KeyConfig initialized successfully&quot;);
+}
+</code></pre>
 <h2 id="高度な機能">高度な機能</h2>
 <h3 id="マルチコントローラー対応">マルチコントローラー対応</h3>
 <pre><code class="lang-csharp">public class MultiPlayerInput
@@ -266,7 +262,7 @@ public void InitializeKeyConfig()
     {
         // プレイヤー1（コントローラー1）
         var (button, _) = VaNilla.KeyConfig.GetGamepadButton(KeyConfig.Action.Attack);
-        if (VaNilla.GamePadInput.IsPressed(button, GamePadInputManager.Index.Index1))
+        if (VaNilla.GamePadInput.JustDown(button, GamePadInputManager.Index.Index1))
         {
             Player1Attack();
         }
@@ -276,7 +272,7 @@ public void InitializeKeyConfig()
     {
         // プレイヤー2（コントローラー2）
         var (button, _) = VaNilla.KeyConfig.GetGamepadButton(KeyConfig.Action.Attack);
-        if (VaNilla.GamePadInput.IsPressed(button, GamePadInputManager.Index.Index2))
+        if (VaNilla.GamePadInput.JustDown(button, GamePadInputManager.Index.Index2))
         {
             Player2Attack();
         }
@@ -355,28 +351,6 @@ public void InitializeKeyConfig()
 <li><strong>Gamepad</strong>: タプル形式（例: <code>&quot;(Button0, Any)&quot;</code>, <code>&quot;(Button2, Index1)&quot;</code>）</li>
 <li><strong>Mouse</strong>: 文字列形式（例: <code>&quot;Left&quot;</code>, <code>&quot;Right&quot;</code>, <code>&quot;Middle&quot;</code>）</li>
 </ul>
-<h2 id="playerinputシステムとの統合">PlayerInputシステムとの統合</h2>
-<pre><code class="lang-csharp">public class GameInputManager
-{
-    public void SetupInputMapping()
-    {
-        // PlayerInputシステムでKeyConfigを使用
-        var inputInterpreter = new UserDataInputInterpreter();
-        
-        // アクションマッピングの設定
-        inputInterpreter.RegisterAction(&quot;decide&quot;, () =&gt; 
-        {
-            var key = VaNilla.KeyConfig.GetKeyboardInput(KeyConfig.Action.Decide);
-            var (button, index) = VaNilla.KeyConfig.GetGamepadButton(KeyConfig.Action.Decide);
-            var mouseBtn = VaNilla.KeyConfig.GetMouseButton(KeyConfig.Action.Decide);
-            
-            return VaNilla.KeyboardInput.IsPressed(key) ||
-                   VaNilla.GamePadInput.IsPressed(button, index) ||
-                   VaNilla.MouseInput.IsPressed(mouseBtn);
-        });
-    }
-}
-</code></pre>
 <h2 id="エラーハンドリング">エラーハンドリング</h2>
 <pre><code class="lang-csharp">public class KeyConfigErrorHandler
 {
@@ -424,23 +398,7 @@ public void InitializeKeyConfig()
 }
 </code></pre>
 <h2 id="ベストプラクティス">ベストプラクティス</h2>
-<h3 id="1-適切な初期化タイミング">1. 適切な初期化タイミング</h3>
-<pre><code class="lang-csharp">[GameBootLoader]
-public static void InitializeInputSystems()
-{
-    // 1. KeyConfigを最初に初期化
-    InitializeKeyConfig();
-    
-    // 2. 入力システムの初期化
-    VaNilla.KeyboardInput.Initialize();
-    VaNilla.GamePadInput.Initialize();
-    VaNilla.MouseInput.Initialize();
-    
-    // 3. PlayerInputシステムの設定
-    SetupPlayerInput();
-}
-</code></pre>
-<h3 id="2-設定変更の検証">2. 設定変更の検証</h3>
+<h3 id="1-設定変更の検証">1. 設定変更の検証</h3>
 <pre><code class="lang-csharp">public bool TrySetKeyMapping(KeyConfig.Action action, KeyboardInput.KeyCode newKey)
 {
     // 重要なシステムキーの保護
@@ -460,7 +418,7 @@ public static void InitializeInputSystems()
     return true;
 }
 </code></pre>
-<h3 id="3-ユーザビリティの向上">3. ユーザビリティの向上</h3>
+<h3 id="2-ユーザビリティの向上">2. ユーザビリティの向上</h3>
 <pre><code class="lang-csharp">public class KeyConfigUI
 {
     public string GetActionDisplayName(KeyConfig.Action action)
@@ -519,14 +477,7 @@ public static void InitializeInputSystems()
     
     private void TestActionInput(KeyConfig.Action action)
     {
-        var key = VaNilla.KeyConfig.GetKeyboardInput(action);
-        var (button, index) = VaNilla.KeyConfig.GetGamepadButton(action);
-        var mouseBtn = VaNilla.KeyConfig.GetMouseButton(action);
-        
-        bool pressed = VaNilla.KeyboardInput.IsPressed(key) ||
-                      VaNilla.GamePadInput.IsPressed(button, index) ||
-                      VaNilla.MouseInput.IsPressed(mouseBtn);
-        
+        bool pressed = VaNilla.Input.StaticInputInfo.JustDown(action);
         if (pressed)
         {
             VaNilla.Debug.Logger.LogInfo($&quot;Action {action} triggered!&quot;);

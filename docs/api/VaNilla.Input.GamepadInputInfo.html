@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class GamepadInputInfo ">
       
-      
+      <meta name="description" content="ゲームパッド入力情報を管理するクラス。 スティック入力、ボタン状態、方向入力を追跡する。">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -85,7 +85,7 @@
 
 
   <h1 id="VaNilla_Input_GamepadInputInfo" data-uid="VaNilla.Input.GamepadInputInfo" class="text-break">
-Class GamepadInputInfo  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L112"><i class="bi bi-code-slash"></i></a>
+Class GamepadInputInfo  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L230"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -93,7 +93,9 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
   <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>ゲームパッド入力情報を管理するクラス。
+スティック入力、ボタン状態、方向入力を追跡する。</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -151,10 +153,12 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
 
   <h3 id="VaNilla_Input_GamepadInputInfo_button" data-uid="VaNilla.Input.GamepadInputInfo.button">
   button
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L267"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>ボタンが押されている継続フレーム数を記録する配列。
+押されていない場合は0、押されている間はフレーム数がカウントアップされる。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -181,10 +185,12 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
 
   <h3 id="VaNilla_Input_GamepadInputInfo_button_off_moment_flag" data-uid="VaNilla.Input.GamepadInputInfo.button_off_moment_flag">
   button_off_moment_flag
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L121"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L261"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>ボタンが離された瞬間を検出するフラグ配列。
+ボタンが離された瞬間のフレームでtrueになる。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -211,10 +217,11 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
 
   <h3 id="VaNilla_Input_GamepadInputInfo_current_key_direction" data-uid="VaNilla.Input.GamepadInputInfo.current_key_direction">
   current_key_direction
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L240"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>現在の方向入力状態</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -241,10 +248,11 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
 
   <h3 id="VaNilla_Input_GamepadInputInfo_gamepad_index" data-uid="VaNilla.Input.GamepadInputInfo.gamepad_index">
   gamepad_index
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L114"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L235"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>ゲームパッドのインデックス。どのコントローラーから入力を取得するかを指定。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -271,10 +279,11 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
 
   <h3 id="VaNilla_Input_GamepadInputInfo_horizontal_input_val" data-uid="VaNilla.Input.GamepadInputInfo.horizontal_input_val">
   horizontal_input_val
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L118"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L250"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>スティックの水平方向入力値（-1.0～1.0）。負の値が左、正の値が右。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -301,10 +310,11 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
 
   <h3 id="VaNilla_Input_GamepadInputInfo_keydirection_pushedlong" data-uid="VaNilla.Input.GamepadInputInfo.keydirection_pushedlong">
   keydirection_pushedlong
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L119"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L255"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>方向キーが押されている継続フレーム数</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -331,10 +341,11 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
 
   <h3 id="VaNilla_Input_GamepadInputInfo_vertical_input_val" data-uid="VaNilla.Input.GamepadInputInfo.vertical_input_val">
   vertical_input_val
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L117"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L245"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>スティックの垂直方向入力値（-1.0～1.0）。負の値が上、正の値が下。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -366,10 +377,11 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
 
   <h3 id="VaNilla_Input_GamepadInputInfo_Initialize_VaNilla_GamePadInput_GamePadInputManager_Index_" data-uid="VaNilla.Input.GamepadInputInfo.Initialize(VaNilla.GamePadInput.GamePadInputManager.Index)">
   Initialize(Index)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L124"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L273"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>ゲームパッド入力情報を初期化する。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -379,7 +391,8 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>index</code> <a class="xref" href="VaNilla.GamePadInput.GamePadInputManager.html">GamePadInputManager</a>.<a class="xref" href="VaNilla.GamePadInput.GamePadInputManager.Index.html">Index</a></dt>
-    <dd></dd>
+    <dd><p>初期化するゲームパッドのインデックス</p>
+</dd>
   </dl>
 
 
@@ -397,10 +410,12 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
 
   <h3 id="VaNilla_Input_GamepadInputInfo_SetInputDisable" data-uid="VaNilla.Input.GamepadInputInfo.SetInputDisable">
   SetInputDisable()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L197"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L354"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>入力を無効化する。
+すべての入力状態を初期値にリセットする。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -423,10 +438,12 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
 
   <h3 id="VaNilla_Input_GamepadInputInfo_UpdateInfo" data-uid="VaNilla.Input.GamepadInputInfo.UpdateInfo">
   UpdateInfo()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L138"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L291"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>ゲームパッド入力情報を更新する。
+スティック入力の闾値を基に方向を判定し、ボタン状態を更新する。</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -449,7 +466,7 @@ Class GamepadInputInfo  <a class="header-action link-secondary" title="View sour
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L112" class="edit-link">Edit this page</a>
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/PlayerInput/Interface/InputInfoStruct.cs/#L230" class="edit-link">Edit this page</a>
         </div>
 
 
