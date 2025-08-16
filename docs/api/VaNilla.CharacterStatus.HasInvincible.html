@@ -161,7 +161,7 @@ public class HasInvincible : IExpresserComponent, IExecuter</code></pre>
 
   <h3 id="VaNilla_CharacterStatus_HasInvincible_Active" data-uid="VaNilla.CharacterStatus.HasInvincible.Active">
   Active
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L82"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>コンポーネントのアクティブ状態を取得または設定します。</p>
@@ -193,7 +193,7 @@ public class HasInvincible : IExpresserComponent, IExecuter</code></pre>
 
   <h3 id="VaNilla_CharacterStatus_HasInvincible_ExecuteType" data-uid="VaNilla.CharacterStatus.HasInvincible.ExecuteType">
   ExecuteType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L68"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L87"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>コンポーネントの実行タイプを取得または設定します。</p>
@@ -221,11 +221,47 @@ public class HasInvincible : IExpresserComponent, IExecuter</code></pre>
 
 
 
+  <a id="VaNilla_CharacterStatus_HasInvincible_InvincibleRestTime_" data-uid="VaNilla.CharacterStatus.HasInvincible.InvincibleRestTime*"></a>
+
+  <h3 id="VaNilla_CharacterStatus_HasInvincible_InvincibleRestTime" data-uid="VaNilla.CharacterStatus.HasInvincible.InvincibleRestTime">
+  InvincibleRestTime
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>残りの無敵時間を表します。
+invincibleState == InvincibleState.Invincible であり、かつ本プロパティの値が 0.0 より大きい場合に
+自動でカウントダウンします。
+カウントが0になった瞬間に自発的に invincibleState = InvincibleState.NoInvincible に変化します。
+invincibleState = InvincibleState.NoInvincible への代入は、カウントが0になった瞬間に一度だけ行われます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float InvincibleRestTime { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="VaNilla_CharacterStatus_HasInvincible_invincibleState_" data-uid="VaNilla.CharacterStatus.HasInvincible.invincibleState*"></a>
 
   <h3 id="VaNilla_CharacterStatus_HasInvincible_invincibleState" data-uid="VaNilla.CharacterStatus.HasInvincible.invincibleState">
   invincibleState
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>現在の無敵状態を取得または設定します。
@@ -262,7 +298,7 @@ public class HasInvincible : IExpresserComponent, IExecuter</code></pre>
 
   <h3 id="VaNilla_CharacterStatus_HasInvincible_Execute_VaNilla_Object_VaNilla_Time_Time__" data-uid="VaNilla.CharacterStatus.HasInvincible.Execute(VaNilla.Object,VaNilla.Time.Time@)">
   Execute(Object, in Time)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L64"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>コンポーネントの定期実行処理です。無敵コンポーネントは特に定期処理を行いません。</p>
@@ -304,7 +340,7 @@ public class HasInvincible : IExpresserComponent, IExecuter</code></pre>
 
   <h3 id="VaNilla_CharacterStatus_HasInvincible_SetUp_VaNilla_Object_" data-uid="VaNilla.CharacterStatus.HasInvincible.SetUp(VaNilla.Object)">
   SetUp(Object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>コンポーネントの初期化を行います。無敵状態を通常状態にリセットします。</p>
@@ -343,7 +379,7 @@ public class HasInvincible : IExpresserComponent, IExecuter</code></pre>
 
   <h3 id="VaNilla_CharacterStatus_HasInvincible_TearDown_VaNilla_Object_" data-uid="VaNilla.CharacterStatus.HasInvincible.TearDown(VaNilla.Object)">
   TearDown(Object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/CharacterBasicStatus/Interface/HasInvincible.cs/#L54"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>コンポーネントの終了処理を行います。無敵状態を通常状態にリセットします。</p>

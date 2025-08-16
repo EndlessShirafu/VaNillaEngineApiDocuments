@@ -732,6 +732,24 @@ Console.WriteLine($&quot;実際のサイズ: {width}x{height}ピクセル&quot;)
     }
 }
 </code></pre>
+<h2 id="api-reference">API Reference</h2>
+<p>詳細なAPIドキュメントについては、<a href="https://vanilla-engine.github.io/VaNilla/api/VaNilla.Window.WindowSizeManager.html">VaNillaのAPIリファレンス</a>を参照してください。</p>
+<h3 id="windowsizemanager-1">WindowSizeManager</h3>
+<p>アプリケーションウィンドウの物理的なサイズとフルスクリーンモードを管理するクラスです。</p>
+<h4 id="静的メソッド">静的メソッド</h4>
+<ul>
+<li><code>GetRealWindowSize(WindowSize windowSize)</code> - 指定されたウィンドウサイズの実際のピクセル数を取得</li>
+<li><code>SetCurrentWindowSize(WindowSize windowSize, bool fullScreenFlag)</code> - 現在のウィンドウサイズとフルスクリーンフラグを設定</li>
+<li><code>GetCurrentWindowSize()</code> - 現在のウィンドウサイズとフルスクリーンフラグを取得</li>
+</ul>
+<h4 id="列挙型">列挙型</h4>
+<ul>
+<li><code>WindowSize</code> - 利用可能なウィンドウサイズ（YAML設定から自動生成）
+<ul>
+<li>例: <code>SIZE_1280x720</code>, <code>SIZE_1920x1080</code></li>
+</ul>
+</li>
+</ul>
 <h2 id="技術仕様">技術仕様</h2>
 <ul>
 <li><strong>ウィンドウ管理</strong>: YAML設定ファイルベースの自動生成</li>

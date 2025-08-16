@@ -155,53 +155,20 @@ Class GameConfig  <a class="header-action link-secondary" title="View source" hr
 </h2>
 
 
-  <a id="VaNilla_Config_GameConfig_AdditionalFx_" data-uid="VaNilla.Config.GameConfig.AdditionalFx*"></a>
+  <a id="VaNilla_Config_GameConfig_BgmVolume_" data-uid="VaNilla.Config.GameConfig.BgmVolume*"></a>
 
-  <h3 id="VaNilla_Config_GameConfig_AdditionalFx" data-uid="VaNilla.Config.GameConfig.AdditionalFx">
-  AdditionalFx
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  <h3 id="VaNilla_Config_GameConfig_BgmVolume" data-uid="VaNilla.Config.GameConfig.BgmVolume">
+  BgmVolume
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>追加エフェクト設定</p>
+  <div class="markdown level1 summary"><p>BGM音量</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[ConfigurableValue(false, &quot;additionalfx&quot;)]
-public int AdditionalFx { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="VaNilla_Config_GameConfig_InitMouseSensitivity_" data-uid="VaNilla.Config.GameConfig.InitMouseSensitivity*"></a>
-
-  <h3 id="VaNilla_Config_GameConfig_InitMouseSensitivity" data-uid="VaNilla.Config.GameConfig.InitMouseSensitivity">
-  InitMouseSensitivity
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L95"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>ゲーム初期状態のマウス入力感度。ゲーム終了時に設定を戻すために使われる。</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[ConfigurableValue(false, &quot;init_mouse_sensitivity&quot;)]
-public float InitMouseSensitivity { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[ConfigurableValue(false, &quot;volume_bgm&quot;)]
+public float BgmVolume { get; set; }</code></pre>
   </div>
 
 
@@ -254,77 +221,11 @@ public bool IsFullScreen { get; set; }</code></pre>
 
 
 
-  <a id="VaNilla_Config_GameConfig_IsMoviePlaying_" data-uid="VaNilla.Config.GameConfig.IsMoviePlaying*"></a>
-
-  <h3 id="VaNilla_Config_GameConfig_IsMoviePlaying" data-uid="VaNilla.Config.GameConfig.IsMoviePlaying">
-  IsMoviePlaying
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L101"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>ムービーの再生を行うか否か</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[ConfigurableValue(false, &quot;is_movie_playing&quot;)]
-public bool IsMoviePlaying { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="VaNilla_Config_GameConfig_IsPlayerMoveAbsolute_" data-uid="VaNilla.Config.GameConfig.IsPlayerMoveAbsolute*"></a>
-
-  <h3 id="VaNilla_Config_GameConfig_IsPlayerMoveAbsolute" data-uid="VaNilla.Config.GameConfig.IsPlayerMoveAbsolute">
-  IsPlayerMoveAbsolute
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L119"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>絶対座標指定で動作するか否か</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[ConfigurableValue(false, &quot;is_player_move_absolute&quot;)]
-public bool IsPlayerMoveAbsolute { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
   <a id="VaNilla_Config_GameConfig_LanguageSetting_" data-uid="VaNilla.Config.GameConfig.LanguageSetting*"></a>
 
   <h3 id="VaNilla_Config_GameConfig_LanguageSetting" data-uid="VaNilla.Config.GameConfig.LanguageSetting">
   LanguageSetting
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L125"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L51"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>言語設定</p>
@@ -343,169 +244,6 @@ public LanguageType LanguageSetting { get; set; }</code></pre>
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="VaNilla.Localization.LanguageType.html">LanguageType</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="VaNilla_Config_GameConfig_MasterBgmVolume_" data-uid="VaNilla.Config.GameConfig.MasterBgmVolume*"></a>
-
-  <h3 id="VaNilla_Config_GameConfig_MasterBgmVolume" data-uid="VaNilla.Config.GameConfig.MasterBgmVolume">
-  MasterBgmVolume
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L52"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[ConfigurableValue(false, &quot;master_volume_bgm&quot;)]
-public float MasterBgmVolume { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="VaNilla_Config_GameConfig_MasterSeVolume_" data-uid="VaNilla.Config.GameConfig.MasterSeVolume*"></a>
-
-  <h3 id="VaNilla_Config_GameConfig_MasterSeVolume" data-uid="VaNilla.Config.GameConfig.MasterSeVolume">
-  MasterSeVolume
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L73"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[ConfigurableValue(false, &quot;master_volume_se&quot;)]
-public float MasterSeVolume { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="VaNilla_Config_GameConfig_MouseSensitivity_" data-uid="VaNilla.Config.GameConfig.MouseSensitivity*"></a>
-
-  <h3 id="VaNilla_Config_GameConfig_MouseSensitivity" data-uid="VaNilla.Config.GameConfig.MouseSensitivity">
-  MouseSensitivity
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L89"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>マウス感度設定</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[ConfigurableValue(false, &quot;mouse_sensitivity&quot;)]
-public float MouseSensitivity { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="VaNilla_Config_GameConfig_MoveInputType_" data-uid="VaNilla.Config.GameConfig.MoveInputType*"></a>
-
-  <h3 id="VaNilla_Config_GameConfig_MoveInputType" data-uid="VaNilla.Config.GameConfig.MoveInputType">
-  MoveInputType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L113"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>操作入力方法</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[ConfigurableValue(false, &quot;mouse_input_type&quot;)]
-public GameConfig.PlayerMoveType MoveInputType { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="VaNilla.Config.GameConfig.html">GameConfig</a>.<a class="xref" href="VaNilla.Config.GameConfig.PlayerMoveType.html">PlayerMoveType</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="VaNilla_Config_GameConfig_PostEffect_" data-uid="VaNilla.Config.GameConfig.PostEffect*"></a>
-
-  <h3 id="VaNilla_Config_GameConfig_PostEffect" data-uid="VaNilla.Config.GameConfig.PostEffect">
-  PostEffect
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L39"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>ポストエフェクト設定(0～4)</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[ConfigurableValue(false, &quot;posteffect&quot;)]
-public int PostEffect { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
   </dl>
 
@@ -549,20 +287,20 @@ public int Resolution { get; set; }</code></pre>
 
 
 
-  <a id="VaNilla_Config_GameConfig_UseVSync_" data-uid="VaNilla.Config.GameConfig.UseVSync*"></a>
+  <a id="VaNilla_Config_GameConfig_SeVolume_" data-uid="VaNilla.Config.GameConfig.SeVolume*"></a>
 
-  <h3 id="VaNilla_Config_GameConfig_UseVSync" data-uid="VaNilla.Config.GameConfig.UseVSync">
-  UseVSync
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  <h3 id="VaNilla_Config_GameConfig_SeVolume" data-uid="VaNilla.Config.GameConfig.SeVolume">
+  SeVolume
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>VSyncを利用するか否か</p>
+  <div class="markdown level1 summary"><p>SE音量</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[ConfigurableValue(false, &quot;use_vsync&quot;)]
-public bool UseVSync { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[ConfigurableValue(false, &quot;volume_se&quot;)]
+public float SeVolume { get; set; }</code></pre>
   </div>
 
 
@@ -571,7 +309,7 @@ public bool UseVSync { get; set; }</code></pre>
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
     <dd></dd>
   </dl>
 
@@ -590,7 +328,7 @@ public bool UseVSync { get; set; }</code></pre>
 
   <h3 id="VaNilla_Config_GameConfig_Init_System_String_" data-uid="VaNilla.Config.GameConfig.Init(System.String)">
   Init(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L139"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L65"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>ゲーム全体のコンフィグを初期化します。</p>
@@ -622,7 +360,7 @@ public bool UseVSync { get; set; }</code></pre>
 
   <h3 id="VaNilla_Config_GameConfig_IsExist_System_String_" data-uid="VaNilla.Config.GameConfig.IsExist(System.String)">
   IsExist(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L131"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L57"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>ファイルが存在するか否かを返します。</p>
@@ -659,7 +397,7 @@ public bool UseVSync { get; set; }</code></pre>
 
   <h3 id="VaNilla_Config_GameConfig_Load_System_String_" data-uid="VaNilla.Config.GameConfig.Load(System.String)">
   Load(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L166"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L84"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>ゲーム全体のコンフィグをロードします。</p>
@@ -696,7 +434,7 @@ public bool UseVSync { get; set; }</code></pre>
 
   <h3 id="VaNilla_Config_GameConfig_Save_System_String_" data-uid="VaNilla.Config.GameConfig.Save(System.String)">
   Save(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L247"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/develop/GameConfig/Interface/GameConfig.cs/#L124"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>ゲーム全体のコンフィグをセーブします。</p>

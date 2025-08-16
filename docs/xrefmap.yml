@@ -2503,6 +2503,19 @@ references:
   isSpec: "True"
   fullName: VaNilla.CharacterStatus.HasInvincible.ExecuteType
   nameWithType: HasInvincible.ExecuteType
+- uid: VaNilla.CharacterStatus.HasInvincible.InvincibleRestTime
+  name: InvincibleRestTime
+  href: api/VaNilla.CharacterStatus.HasInvincible.html#VaNilla_CharacterStatus_HasInvincible_InvincibleRestTime
+  commentId: P:VaNilla.CharacterStatus.HasInvincible.InvincibleRestTime
+  fullName: VaNilla.CharacterStatus.HasInvincible.InvincibleRestTime
+  nameWithType: HasInvincible.InvincibleRestTime
+- uid: VaNilla.CharacterStatus.HasInvincible.InvincibleRestTime*
+  name: InvincibleRestTime
+  href: api/VaNilla.CharacterStatus.HasInvincible.html#VaNilla_CharacterStatus_HasInvincible_InvincibleRestTime_
+  commentId: Overload:VaNilla.CharacterStatus.HasInvincible.InvincibleRestTime
+  isSpec: "True"
+  fullName: VaNilla.CharacterStatus.HasInvincible.InvincibleRestTime
+  nameWithType: HasInvincible.InvincibleRestTime
 - uid: VaNilla.CharacterStatus.HasInvincible.InvincibleState
   name: HasInvincible.InvincibleState
   href: api/VaNilla.CharacterStatus.HasInvincible.InvincibleState.html
@@ -6094,19 +6107,19 @@ references:
   commentId: T:VaNilla.Config.GameConfig
   fullName: VaNilla.Config.GameConfig
   nameWithType: GameConfig
-- uid: VaNilla.Config.GameConfig.AdditionalFx
-  name: AdditionalFx
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_AdditionalFx
-  commentId: P:VaNilla.Config.GameConfig.AdditionalFx
-  fullName: VaNilla.Config.GameConfig.AdditionalFx
-  nameWithType: GameConfig.AdditionalFx
-- uid: VaNilla.Config.GameConfig.AdditionalFx*
-  name: AdditionalFx
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_AdditionalFx_
-  commentId: Overload:VaNilla.Config.GameConfig.AdditionalFx
+- uid: VaNilla.Config.GameConfig.BgmVolume
+  name: BgmVolume
+  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_BgmVolume
+  commentId: P:VaNilla.Config.GameConfig.BgmVolume
+  fullName: VaNilla.Config.GameConfig.BgmVolume
+  nameWithType: GameConfig.BgmVolume
+- uid: VaNilla.Config.GameConfig.BgmVolume*
+  name: BgmVolume
+  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_BgmVolume_
+  commentId: Overload:VaNilla.Config.GameConfig.BgmVolume
   isSpec: "True"
-  fullName: VaNilla.Config.GameConfig.AdditionalFx
-  nameWithType: GameConfig.AdditionalFx
+  fullName: VaNilla.Config.GameConfig.BgmVolume
+  nameWithType: GameConfig.BgmVolume
 - uid: VaNilla.Config.GameConfig.Init(System.String)
   name: Init(string)
   href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_Init_System_String_
@@ -6123,19 +6136,6 @@ references:
   isSpec: "True"
   fullName: VaNilla.Config.GameConfig.Init
   nameWithType: GameConfig.Init
-- uid: VaNilla.Config.GameConfig.InitMouseSensitivity
-  name: InitMouseSensitivity
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_InitMouseSensitivity
-  commentId: P:VaNilla.Config.GameConfig.InitMouseSensitivity
-  fullName: VaNilla.Config.GameConfig.InitMouseSensitivity
-  nameWithType: GameConfig.InitMouseSensitivity
-- uid: VaNilla.Config.GameConfig.InitMouseSensitivity*
-  name: InitMouseSensitivity
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_InitMouseSensitivity_
-  commentId: Overload:VaNilla.Config.GameConfig.InitMouseSensitivity
-  isSpec: "True"
-  fullName: VaNilla.Config.GameConfig.InitMouseSensitivity
-  nameWithType: GameConfig.InitMouseSensitivity
 - uid: VaNilla.Config.GameConfig.IsExist(System.String)
   name: IsExist(string)
   href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_IsExist_System_String_
@@ -6165,32 +6165,6 @@ references:
   isSpec: "True"
   fullName: VaNilla.Config.GameConfig.IsFullScreen
   nameWithType: GameConfig.IsFullScreen
-- uid: VaNilla.Config.GameConfig.IsMoviePlaying
-  name: IsMoviePlaying
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_IsMoviePlaying
-  commentId: P:VaNilla.Config.GameConfig.IsMoviePlaying
-  fullName: VaNilla.Config.GameConfig.IsMoviePlaying
-  nameWithType: GameConfig.IsMoviePlaying
-- uid: VaNilla.Config.GameConfig.IsMoviePlaying*
-  name: IsMoviePlaying
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_IsMoviePlaying_
-  commentId: Overload:VaNilla.Config.GameConfig.IsMoviePlaying
-  isSpec: "True"
-  fullName: VaNilla.Config.GameConfig.IsMoviePlaying
-  nameWithType: GameConfig.IsMoviePlaying
-- uid: VaNilla.Config.GameConfig.IsPlayerMoveAbsolute
-  name: IsPlayerMoveAbsolute
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_IsPlayerMoveAbsolute
-  commentId: P:VaNilla.Config.GameConfig.IsPlayerMoveAbsolute
-  fullName: VaNilla.Config.GameConfig.IsPlayerMoveAbsolute
-  nameWithType: GameConfig.IsPlayerMoveAbsolute
-- uid: VaNilla.Config.GameConfig.IsPlayerMoveAbsolute*
-  name: IsPlayerMoveAbsolute
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_IsPlayerMoveAbsolute_
-  commentId: Overload:VaNilla.Config.GameConfig.IsPlayerMoveAbsolute
-  isSpec: "True"
-  fullName: VaNilla.Config.GameConfig.IsPlayerMoveAbsolute
-  nameWithType: GameConfig.IsPlayerMoveAbsolute
 - uid: VaNilla.Config.GameConfig.LanguageSetting
   name: LanguageSetting
   href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_LanguageSetting
@@ -6220,58 +6194,6 @@ references:
   isSpec: "True"
   fullName: VaNilla.Config.GameConfig.Load
   nameWithType: GameConfig.Load
-- uid: VaNilla.Config.GameConfig.MasterBgmVolume
-  name: MasterBgmVolume
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_MasterBgmVolume
-  commentId: P:VaNilla.Config.GameConfig.MasterBgmVolume
-  fullName: VaNilla.Config.GameConfig.MasterBgmVolume
-  nameWithType: GameConfig.MasterBgmVolume
-- uid: VaNilla.Config.GameConfig.MasterBgmVolume*
-  name: MasterBgmVolume
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_MasterBgmVolume_
-  commentId: Overload:VaNilla.Config.GameConfig.MasterBgmVolume
-  isSpec: "True"
-  fullName: VaNilla.Config.GameConfig.MasterBgmVolume
-  nameWithType: GameConfig.MasterBgmVolume
-- uid: VaNilla.Config.GameConfig.MasterSeVolume
-  name: MasterSeVolume
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_MasterSeVolume
-  commentId: P:VaNilla.Config.GameConfig.MasterSeVolume
-  fullName: VaNilla.Config.GameConfig.MasterSeVolume
-  nameWithType: GameConfig.MasterSeVolume
-- uid: VaNilla.Config.GameConfig.MasterSeVolume*
-  name: MasterSeVolume
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_MasterSeVolume_
-  commentId: Overload:VaNilla.Config.GameConfig.MasterSeVolume
-  isSpec: "True"
-  fullName: VaNilla.Config.GameConfig.MasterSeVolume
-  nameWithType: GameConfig.MasterSeVolume
-- uid: VaNilla.Config.GameConfig.MouseSensitivity
-  name: MouseSensitivity
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_MouseSensitivity
-  commentId: P:VaNilla.Config.GameConfig.MouseSensitivity
-  fullName: VaNilla.Config.GameConfig.MouseSensitivity
-  nameWithType: GameConfig.MouseSensitivity
-- uid: VaNilla.Config.GameConfig.MouseSensitivity*
-  name: MouseSensitivity
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_MouseSensitivity_
-  commentId: Overload:VaNilla.Config.GameConfig.MouseSensitivity
-  isSpec: "True"
-  fullName: VaNilla.Config.GameConfig.MouseSensitivity
-  nameWithType: GameConfig.MouseSensitivity
-- uid: VaNilla.Config.GameConfig.MoveInputType
-  name: MoveInputType
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_MoveInputType
-  commentId: P:VaNilla.Config.GameConfig.MoveInputType
-  fullName: VaNilla.Config.GameConfig.MoveInputType
-  nameWithType: GameConfig.MoveInputType
-- uid: VaNilla.Config.GameConfig.MoveInputType*
-  name: MoveInputType
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_MoveInputType_
-  commentId: Overload:VaNilla.Config.GameConfig.MoveInputType
-  isSpec: "True"
-  fullName: VaNilla.Config.GameConfig.MoveInputType
-  nameWithType: GameConfig.MoveInputType
 - uid: VaNilla.Config.GameConfig.PlayerMoveType
   name: GameConfig.PlayerMoveType
   href: api/VaNilla.Config.GameConfig.PlayerMoveType.html
@@ -6296,19 +6218,6 @@ references:
   commentId: F:VaNilla.Config.GameConfig.PlayerMoveType.Mouse
   fullName: VaNilla.Config.GameConfig.PlayerMoveType.Mouse
   nameWithType: GameConfig.PlayerMoveType.Mouse
-- uid: VaNilla.Config.GameConfig.PostEffect
-  name: PostEffect
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_PostEffect
-  commentId: P:VaNilla.Config.GameConfig.PostEffect
-  fullName: VaNilla.Config.GameConfig.PostEffect
-  nameWithType: GameConfig.PostEffect
-- uid: VaNilla.Config.GameConfig.PostEffect*
-  name: PostEffect
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_PostEffect_
-  commentId: Overload:VaNilla.Config.GameConfig.PostEffect
-  isSpec: "True"
-  fullName: VaNilla.Config.GameConfig.PostEffect
-  nameWithType: GameConfig.PostEffect
 - uid: VaNilla.Config.GameConfig.Resolution
   name: Resolution
   href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_Resolution
@@ -6338,19 +6247,19 @@ references:
   isSpec: "True"
   fullName: VaNilla.Config.GameConfig.Save
   nameWithType: GameConfig.Save
-- uid: VaNilla.Config.GameConfig.UseVSync
-  name: UseVSync
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_UseVSync
-  commentId: P:VaNilla.Config.GameConfig.UseVSync
-  fullName: VaNilla.Config.GameConfig.UseVSync
-  nameWithType: GameConfig.UseVSync
-- uid: VaNilla.Config.GameConfig.UseVSync*
-  name: UseVSync
-  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_UseVSync_
-  commentId: Overload:VaNilla.Config.GameConfig.UseVSync
+- uid: VaNilla.Config.GameConfig.SeVolume
+  name: SeVolume
+  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_SeVolume
+  commentId: P:VaNilla.Config.GameConfig.SeVolume
+  fullName: VaNilla.Config.GameConfig.SeVolume
+  nameWithType: GameConfig.SeVolume
+- uid: VaNilla.Config.GameConfig.SeVolume*
+  name: SeVolume
+  href: api/VaNilla.Config.GameConfig.html#VaNilla_Config_GameConfig_SeVolume_
+  commentId: Overload:VaNilla.Config.GameConfig.SeVolume
   isSpec: "True"
-  fullName: VaNilla.Config.GameConfig.UseVSync
-  nameWithType: GameConfig.UseVSync
+  fullName: VaNilla.Config.GameConfig.SeVolume
+  nameWithType: GameConfig.SeVolume
 - uid: VaNilla.Config.GameConfigManager
   name: GameConfigManager
   href: api/VaNilla.Config.GameConfigManager.html
@@ -7852,12 +7761,6 @@ references:
   commentId: F:VaNilla.Debug.DebugArguments.DebugFeatureEnum.DebugLogWriteToFile
   fullName: VaNilla.Debug.DebugArguments.DebugFeatureEnum.DebugLogWriteToFile
   nameWithType: DebugArguments.DebugFeatureEnum.DebugLogWriteToFile
-- uid: VaNilla.Debug.DebugArguments.DebugFeatureEnum.Invincible
-  name: Invincible
-  href: api/VaNilla.Debug.DebugArguments.DebugFeatureEnum.html#VaNilla_Debug_DebugArguments_DebugFeatureEnum_Invincible
-  commentId: F:VaNilla.Debug.DebugArguments.DebugFeatureEnum.Invincible
-  fullName: VaNilla.Debug.DebugArguments.DebugFeatureEnum.Invincible
-  nameWithType: DebugArguments.DebugFeatureEnum.Invincible
 - uid: VaNilla.Debug.DebugArguments.DebugFeatureEnum.LogAppear
   name: LogAppear
   href: api/VaNilla.Debug.DebugArguments.DebugFeatureEnum.html#VaNilla_Debug_DebugArguments_DebugFeatureEnum_LogAppear
@@ -7876,12 +7779,6 @@ references:
   commentId: F:VaNilla.Debug.DebugArguments.DebugFeatureEnum.ShowFps
   fullName: VaNilla.Debug.DebugArguments.DebugFeatureEnum.ShowFps
   nameWithType: DebugArguments.DebugFeatureEnum.ShowFps
-- uid: VaNilla.Debug.DebugArguments.DebugFeatureEnum.SkipIntro
-  name: SkipIntro
-  href: api/VaNilla.Debug.DebugArguments.DebugFeatureEnum.html#VaNilla_Debug_DebugArguments_DebugFeatureEnum_SkipIntro
-  commentId: F:VaNilla.Debug.DebugArguments.DebugFeatureEnum.SkipIntro
-  fullName: VaNilla.Debug.DebugArguments.DebugFeatureEnum.SkipIntro
-  nameWithType: DebugArguments.DebugFeatureEnum.SkipIntro
 - uid: VaNilla.Debug.DebugArguments.DebugFeatureEnum.UnlimitedResources
   name: UnlimitedResources
   href: api/VaNilla.Debug.DebugArguments.DebugFeatureEnum.html#VaNilla_Debug_DebugArguments_DebugFeatureEnum_UnlimitedResources
@@ -7919,12 +7816,6 @@ references:
   commentId: F:VaNilla.Debug.DebugArguments.DebugModeTypeEnum.None
   fullName: VaNilla.Debug.DebugArguments.DebugModeTypeEnum.None
   nameWithType: DebugArguments.DebugModeTypeEnum.None
-- uid: VaNilla.Debug.DebugArguments.DebugModeTypeEnum.Stage
-  name: Stage
-  href: api/VaNilla.Debug.DebugArguments.DebugModeTypeEnum.html#VaNilla_Debug_DebugArguments_DebugModeTypeEnum_Stage
-  commentId: F:VaNilla.Debug.DebugArguments.DebugModeTypeEnum.Stage
-  fullName: VaNilla.Debug.DebugArguments.DebugModeTypeEnum.Stage
-  nameWithType: DebugArguments.DebugModeTypeEnum.Stage
 - uid: VaNilla.Debug.DebugArguments.DebugModeTypeEnum.Test
   name: Test
   href: api/VaNilla.Debug.DebugArguments.DebugModeTypeEnum.html#VaNilla_Debug_DebugArguments_DebugModeTypeEnum_Test
@@ -10563,24 +10454,24 @@ references:
   commentId: T:VaNilla.Font.FontResourceType
   fullName: VaNilla.Font.FontResourceType
   nameWithType: FontResourceType
-- uid: VaNilla.Font.FontResourceType.CentauriMid
-  name: CentauriMid
-  href: api/VaNilla.Font.FontResourceType.html#VaNilla_Font_FontResourceType_CentauriMid
-  commentId: F:VaNilla.Font.FontResourceType.CentauriMid
-  fullName: VaNilla.Font.FontResourceType.CentauriMid
-  nameWithType: FontResourceType.CentauriMid
-- uid: VaNilla.Font.FontResourceType.TestCentauriSmall
-  name: TestCentauriSmall
-  href: api/VaNilla.Font.FontResourceType.html#VaNilla_Font_FontResourceType_TestCentauriSmall
-  commentId: F:VaNilla.Font.FontResourceType.TestCentauriSmall
-  fullName: VaNilla.Font.FontResourceType.TestCentauriSmall
-  nameWithType: FontResourceType.TestCentauriSmall
-- uid: VaNilla.Font.FontResourceType.TestGothicSmall
-  name: TestGothicSmall
-  href: api/VaNilla.Font.FontResourceType.html#VaNilla_Font_FontResourceType_TestGothicSmall
-  commentId: F:VaNilla.Font.FontResourceType.TestGothicSmall
-  fullName: VaNilla.Font.FontResourceType.TestGothicSmall
-  nameWithType: FontResourceType.TestGothicSmall
+- uid: VaNilla.Font.FontResourceType.GothicBig
+  name: GothicBig
+  href: api/VaNilla.Font.FontResourceType.html#VaNilla_Font_FontResourceType_GothicBig
+  commentId: F:VaNilla.Font.FontResourceType.GothicBig
+  fullName: VaNilla.Font.FontResourceType.GothicBig
+  nameWithType: FontResourceType.GothicBig
+- uid: VaNilla.Font.FontResourceType.GothicMid
+  name: GothicMid
+  href: api/VaNilla.Font.FontResourceType.html#VaNilla_Font_FontResourceType_GothicMid
+  commentId: F:VaNilla.Font.FontResourceType.GothicMid
+  fullName: VaNilla.Font.FontResourceType.GothicMid
+  nameWithType: FontResourceType.GothicMid
+- uid: VaNilla.Font.FontResourceType.GothicSmall
+  name: GothicSmall
+  href: api/VaNilla.Font.FontResourceType.html#VaNilla_Font_FontResourceType_GothicSmall
+  commentId: F:VaNilla.Font.FontResourceType.GothicSmall
+  fullName: VaNilla.Font.FontResourceType.GothicSmall
+  nameWithType: FontResourceType.GothicSmall
 - uid: VaNilla.Font.HasFont
   name: HasFont
   href: api/VaNilla.Font.HasFont.html
@@ -28678,18 +28569,18 @@ references:
   commentId: T:VaNilla.OffScreen.OffScreenCategory
   fullName: VaNilla.OffScreen.OffScreenCategory
   nameWithType: OffScreenCategory
+- uid: VaNilla.OffScreen.OffScreenCategory.Sample
+  name: Sample
+  href: api/VaNilla.OffScreen.OffScreenCategory.html#VaNilla_OffScreen_OffScreenCategory_Sample
+  commentId: F:VaNilla.OffScreen.OffScreenCategory.Sample
+  fullName: VaNilla.OffScreen.OffScreenCategory.Sample
+  nameWithType: OffScreenCategory.Sample
 - uid: VaNilla.OffScreen.OffScreenCategory.System
   name: System
   href: api/VaNilla.OffScreen.OffScreenCategory.html#VaNilla_OffScreen_OffScreenCategory_System
   commentId: F:VaNilla.OffScreen.OffScreenCategory.System
   fullName: VaNilla.OffScreen.OffScreenCategory.System
   nameWithType: OffScreenCategory.System
-- uid: VaNilla.OffScreen.OffScreenCategory.Test
-  name: Test
-  href: api/VaNilla.OffScreen.OffScreenCategory.html#VaNilla_OffScreen_OffScreenCategory_Test
-  commentId: F:VaNilla.OffScreen.OffScreenCategory.Test
-  fullName: VaNilla.OffScreen.OffScreenCategory.Test
-  nameWithType: OffScreenCategory.Test
 - uid: VaNilla.OffScreen.OffScreenInfo
   name: OffScreenInfo
   href: api/VaNilla.OffScreen.OffScreenInfo.html
@@ -29009,12 +28900,12 @@ references:
   commentId: F:VaNilla.OffScreen.OffScreenResourceType.BackScreen
   fullName: VaNilla.OffScreen.OffScreenResourceType.BackScreen
   nameWithType: OffScreenResourceType.BackScreen
-- uid: VaNilla.OffScreen.OffScreenResourceType.Test01
-  name: Test01
-  href: api/VaNilla.OffScreen.OffScreenResourceType.html#VaNilla_OffScreen_OffScreenResourceType_Test01
-  commentId: F:VaNilla.OffScreen.OffScreenResourceType.Test01
-  fullName: VaNilla.OffScreen.OffScreenResourceType.Test01
-  nameWithType: OffScreenResourceType.Test01
+- uid: VaNilla.OffScreen.OffScreenResourceType.SampleScreen
+  name: SampleScreen
+  href: api/VaNilla.OffScreen.OffScreenResourceType.html#VaNilla_OffScreen_OffScreenResourceType_SampleScreen
+  commentId: F:VaNilla.OffScreen.OffScreenResourceType.SampleScreen
+  fullName: VaNilla.OffScreen.OffScreenResourceType.SampleScreen
+  nameWithType: OffScreenResourceType.SampleScreen
 - uid: VaNilla.OffScreen.Utils
   name: Utils
   href: api/VaNilla.OffScreen.Utils.html
@@ -34244,54 +34135,30 @@ references:
   commentId: T:VaNilla.Scene.SceneStateManager.SceneState
   fullName: VaNilla.Scene.SceneStateManager.SceneState
   nameWithType: SceneStateManager.SceneState
-- uid: VaNilla.Scene.SceneStateManager.SceneState.CircleLogo
-  name: CircleLogo
-  href: api/VaNilla.Scene.SceneStateManager.SceneState.html#VaNilla_Scene_SceneStateManager_SceneState_CircleLogo
-  commentId: F:VaNilla.Scene.SceneStateManager.SceneState.CircleLogo
-  fullName: VaNilla.Scene.SceneStateManager.SceneState.CircleLogo
-  nameWithType: SceneStateManager.SceneState.CircleLogo
-- uid: VaNilla.Scene.SceneStateManager.SceneState.Config
-  name: Config
-  href: api/VaNilla.Scene.SceneStateManager.SceneState.html#VaNilla_Scene_SceneStateManager_SceneState_Config
-  commentId: F:VaNilla.Scene.SceneStateManager.SceneState.Config
-  fullName: VaNilla.Scene.SceneStateManager.SceneState.Config
-  nameWithType: SceneStateManager.SceneState.Config
-- uid: VaNilla.Scene.SceneStateManager.SceneState.InitialLoading
-  name: InitialLoading
-  href: api/VaNilla.Scene.SceneStateManager.SceneState.html#VaNilla_Scene_SceneStateManager_SceneState_InitialLoading
-  commentId: F:VaNilla.Scene.SceneStateManager.SceneState.InitialLoading
-  fullName: VaNilla.Scene.SceneStateManager.SceneState.InitialLoading
-  nameWithType: SceneStateManager.SceneState.InitialLoading
-- uid: VaNilla.Scene.SceneStateManager.SceneState.RootConsole
-  name: RootConsole
-  href: api/VaNilla.Scene.SceneStateManager.SceneState.html#VaNilla_Scene_SceneStateManager_SceneState_RootConsole
-  commentId: F:VaNilla.Scene.SceneStateManager.SceneState.RootConsole
-  fullName: VaNilla.Scene.SceneStateManager.SceneState.RootConsole
-  nameWithType: SceneStateManager.SceneState.RootConsole
+- uid: VaNilla.Scene.SceneStateManager.SceneState.GameMain
+  name: GameMain
+  href: api/VaNilla.Scene.SceneStateManager.SceneState.html#VaNilla_Scene_SceneStateManager_SceneState_GameMain
+  commentId: F:VaNilla.Scene.SceneStateManager.SceneState.GameMain
+  fullName: VaNilla.Scene.SceneStateManager.SceneState.GameMain
+  nameWithType: SceneStateManager.SceneState.GameMain
+- uid: VaNilla.Scene.SceneStateManager.SceneState.GameResult
+  name: GameResult
+  href: api/VaNilla.Scene.SceneStateManager.SceneState.html#VaNilla_Scene_SceneStateManager_SceneState_GameResult
+  commentId: F:VaNilla.Scene.SceneStateManager.SceneState.GameResult
+  fullName: VaNilla.Scene.SceneStateManager.SceneState.GameResult
+  nameWithType: SceneStateManager.SceneState.GameResult
 - uid: VaNilla.Scene.SceneStateManager.SceneState.Title
   name: Title
   href: api/VaNilla.Scene.SceneStateManager.SceneState.html#VaNilla_Scene_SceneStateManager_SceneState_Title
   commentId: F:VaNilla.Scene.SceneStateManager.SceneState.Title
   fullName: VaNilla.Scene.SceneStateManager.SceneState.Title
   nameWithType: SceneStateManager.SceneState.Title
-- uid: VaNilla.Scene.SceneStateManager.SceneState.Tutorial
-  name: Tutorial
-  href: api/VaNilla.Scene.SceneStateManager.SceneState.html#VaNilla_Scene_SceneStateManager_SceneState_Tutorial
-  commentId: F:VaNilla.Scene.SceneStateManager.SceneState.Tutorial
-  fullName: VaNilla.Scene.SceneStateManager.SceneState.Tutorial
-  nameWithType: SceneStateManager.SceneState.Tutorial
 - uid: VaNilla.Scene.SceneStateManager.SceneStateGroup
   name: SceneStateManager.SceneStateGroup
   href: api/VaNilla.Scene.SceneStateManager.SceneStateGroup.html
   commentId: T:VaNilla.Scene.SceneStateManager.SceneStateGroup
   fullName: VaNilla.Scene.SceneStateManager.SceneStateGroup
   nameWithType: SceneStateManager.SceneStateGroup
-- uid: VaNilla.Scene.SceneStateManager.SceneStateGroup.GROUP_0
-  name: GROUP_0
-  href: api/VaNilla.Scene.SceneStateManager.SceneStateGroup.html#VaNilla_Scene_SceneStateManager_SceneStateGroup_GROUP_0
-  commentId: F:VaNilla.Scene.SceneStateManager.SceneStateGroup.GROUP_0
-  fullName: VaNilla.Scene.SceneStateManager.SceneStateGroup.GROUP_0
-  nameWithType: SceneStateManager.SceneStateGroup.GROUP_0
 - uid: VaNilla.Scene.SceneStateManager.SceneStateGroup.GROUP_1
   name: GROUP_1
   href: api/VaNilla.Scene.SceneStateManager.SceneStateGroup.html#VaNilla_Scene_SceneStateManager_SceneStateGroup_GROUP_1
@@ -35932,18 +35799,18 @@ references:
   commentId: T:VaNilla.Sound.SoundResourceType
   fullName: VaNilla.Sound.SoundResourceType
   nameWithType: SoundResourceType
-- uid: VaNilla.Sound.SoundResourceType.TestMusic
-  name: TestMusic
-  href: api/VaNilla.Sound.SoundResourceType.html#VaNilla_Sound_SoundResourceType_TestMusic
-  commentId: F:VaNilla.Sound.SoundResourceType.TestMusic
-  fullName: VaNilla.Sound.SoundResourceType.TestMusic
-  nameWithType: SoundResourceType.TestMusic
-- uid: VaNilla.Sound.SoundResourceType.TestSE
-  name: TestSE
-  href: api/VaNilla.Sound.SoundResourceType.html#VaNilla_Sound_SoundResourceType_TestSE
-  commentId: F:VaNilla.Sound.SoundResourceType.TestSE
-  fullName: VaNilla.Sound.SoundResourceType.TestSE
-  nameWithType: SoundResourceType.TestSE
+- uid: VaNilla.Sound.SoundResourceType.SampleMusic
+  name: SampleMusic
+  href: api/VaNilla.Sound.SoundResourceType.html#VaNilla_Sound_SoundResourceType_SampleMusic
+  commentId: F:VaNilla.Sound.SoundResourceType.SampleMusic
+  fullName: VaNilla.Sound.SoundResourceType.SampleMusic
+  nameWithType: SoundResourceType.SampleMusic
+- uid: VaNilla.Sound.SoundResourceType.SampleSoundEffect
+  name: SampleSoundEffect
+  href: api/VaNilla.Sound.SoundResourceType.html#VaNilla_Sound_SoundResourceType_SampleSoundEffect
+  commentId: F:VaNilla.Sound.SoundResourceType.SampleSoundEffect
+  fullName: VaNilla.Sound.SoundResourceType.SampleSoundEffect
+  nameWithType: SoundResourceType.SampleSoundEffect
 - uid: VaNilla.Sound.Utils
   name: Utils
   href: api/VaNilla.Sound.Utils.html
@@ -37586,18 +37453,12 @@ references:
   commentId: F:VaNilla.Texture.TextureCategory.common
   fullName: VaNilla.Texture.TextureCategory.common
   nameWithType: TextureCategory.common
-- uid: VaNilla.Texture.TextureCategory.gui
-  name: gui
-  href: api/VaNilla.Texture.TextureCategory.html#VaNilla_Texture_TextureCategory_gui
-  commentId: F:VaNilla.Texture.TextureCategory.gui
-  fullName: VaNilla.Texture.TextureCategory.gui
-  nameWithType: TextureCategory.gui
-- uid: VaNilla.Texture.TextureCategory.test
-  name: test
-  href: api/VaNilla.Texture.TextureCategory.html#VaNilla_Texture_TextureCategory_test
-  commentId: F:VaNilla.Texture.TextureCategory.test
-  fullName: VaNilla.Texture.TextureCategory.test
-  nameWithType: TextureCategory.test
+- uid: VaNilla.Texture.TextureCategory.main
+  name: main
+  href: api/VaNilla.Texture.TextureCategory.html#VaNilla_Texture_TextureCategory_main
+  commentId: F:VaNilla.Texture.TextureCategory.main
+  fullName: VaNilla.Texture.TextureCategory.main
+  nameWithType: TextureCategory.main
 - uid: VaNilla.Texture.TextureInfo
   name: TextureInfo
   href: api/VaNilla.Texture.TextureInfo.html
@@ -38280,108 +38141,30 @@ references:
   commentId: T:VaNilla.Texture.TextureResourceType
   fullName: VaNilla.Texture.TextureResourceType
   nameWithType: TextureResourceType
-- uid: VaNilla.Texture.TextureResourceType.GuiButtonHover
-  name: GuiButtonHover
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_GuiButtonHover
-  commentId: F:VaNilla.Texture.TextureResourceType.GuiButtonHover
-  fullName: VaNilla.Texture.TextureResourceType.GuiButtonHover
-  nameWithType: TextureResourceType.GuiButtonHover
-- uid: VaNilla.Texture.TextureResourceType.GuiButtonNormal
-  name: GuiButtonNormal
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_GuiButtonNormal
-  commentId: F:VaNilla.Texture.TextureResourceType.GuiButtonNormal
-  fullName: VaNilla.Texture.TextureResourceType.GuiButtonNormal
-  nameWithType: TextureResourceType.GuiButtonNormal
-- uid: VaNilla.Texture.TextureResourceType.GuiButtonPressed
-  name: GuiButtonPressed
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_GuiButtonPressed
-  commentId: F:VaNilla.Texture.TextureResourceType.GuiButtonPressed
-  fullName: VaNilla.Texture.TextureResourceType.GuiButtonPressed
-  nameWithType: TextureResourceType.GuiButtonPressed
-- uid: VaNilla.Texture.TextureResourceType.GuiControlDefault
-  name: GuiControlDefault
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_GuiControlDefault
-  commentId: F:VaNilla.Texture.TextureResourceType.GuiControlDefault
-  fullName: VaNilla.Texture.TextureResourceType.GuiControlDefault
-  nameWithType: TextureResourceType.GuiControlDefault
-- uid: VaNilla.Texture.TextureResourceType.GuiFormIcons
-  name: GuiFormIcons
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_GuiFormIcons
-  commentId: F:VaNilla.Texture.TextureResourceType.GuiFormIcons
-  fullName: VaNilla.Texture.TextureResourceType.GuiFormIcons
-  nameWithType: TextureResourceType.GuiFormIcons
-- uid: VaNilla.Texture.TextureResourceType.GuiFormSkin
-  name: GuiFormSkin
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_GuiFormSkin
-  commentId: F:VaNilla.Texture.TextureResourceType.GuiFormSkin
-  fullName: VaNilla.Texture.TextureResourceType.GuiFormSkin
-  nameWithType: TextureResourceType.GuiFormSkin
-- uid: VaNilla.Texture.TextureResourceType.GuiListControlSkin
-  name: GuiListControlSkin
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_GuiListControlSkin
-  commentId: F:VaNilla.Texture.TextureResourceType.GuiListControlSkin
-  fullName: VaNilla.Texture.TextureResourceType.GuiListControlSkin
-  nameWithType: TextureResourceType.GuiListControlSkin
-- uid: VaNilla.Texture.TextureResourceType.GuiScrollBarSkin
-  name: GuiScrollBarSkin
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_GuiScrollBarSkin
-  commentId: F:VaNilla.Texture.TextureResourceType.GuiScrollBarSkin
-  fullName: VaNilla.Texture.TextureResourceType.GuiScrollBarSkin
-  nameWithType: TextureResourceType.GuiScrollBarSkin
-- uid: VaNilla.Texture.TextureResourceType.GuiTextBoxFocused
-  name: GuiTextBoxFocused
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_GuiTextBoxFocused
-  commentId: F:VaNilla.Texture.TextureResourceType.GuiTextBoxFocused
-  fullName: VaNilla.Texture.TextureResourceType.GuiTextBoxFocused
-  nameWithType: TextureResourceType.GuiTextBoxFocused
-- uid: VaNilla.Texture.TextureResourceType.GuiTextBoxNormal
-  name: GuiTextBoxNormal
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_GuiTextBoxNormal
-  commentId: F:VaNilla.Texture.TextureResourceType.GuiTextBoxNormal
-  fullName: VaNilla.Texture.TextureResourceType.GuiTextBoxNormal
-  nameWithType: TextureResourceType.GuiTextBoxNormal
+- uid: VaNilla.Texture.TextureResourceType.GameResult
+  name: GameResult
+  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_GameResult
+  commentId: F:VaNilla.Texture.TextureResourceType.GameResult
+  fullName: VaNilla.Texture.TextureResourceType.GameResult
+  nameWithType: TextureResourceType.GameResult
+- uid: VaNilla.Texture.TextureResourceType.MainBackground
+  name: MainBackground
+  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_MainBackground
+  commentId: F:VaNilla.Texture.TextureResourceType.MainBackground
+  fullName: VaNilla.Texture.TextureResourceType.MainBackground
+  nameWithType: TextureResourceType.MainBackground
 - uid: VaNilla.Texture.TextureResourceType.ScreenTransition
   name: ScreenTransition
   href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_ScreenTransition
   commentId: F:VaNilla.Texture.TextureResourceType.ScreenTransition
   fullName: VaNilla.Texture.TextureResourceType.ScreenTransition
   nameWithType: TextureResourceType.ScreenTransition
-- uid: VaNilla.Texture.TextureResourceType.Test01
-  name: Test01
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_Test01
-  commentId: F:VaNilla.Texture.TextureResourceType.Test01
-  fullName: VaNilla.Texture.TextureResourceType.Test01
-  nameWithType: TextureResourceType.Test01
-- uid: VaNilla.Texture.TextureResourceType.Test02
-  name: Test02
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_Test02
-  commentId: F:VaNilla.Texture.TextureResourceType.Test02
-  fullName: VaNilla.Texture.TextureResourceType.Test02
-  nameWithType: TextureResourceType.Test02
-- uid: VaNilla.Texture.TextureResourceType.Test03
-  name: Test03
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_Test03
-  commentId: F:VaNilla.Texture.TextureResourceType.Test03
-  fullName: VaNilla.Texture.TextureResourceType.Test03
-  nameWithType: TextureResourceType.Test03
-- uid: VaNilla.Texture.TextureResourceType.Test04
-  name: Test04
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_Test04
-  commentId: F:VaNilla.Texture.TextureResourceType.Test04
-  fullName: VaNilla.Texture.TextureResourceType.Test04
-  nameWithType: TextureResourceType.Test04
-- uid: VaNilla.Texture.TextureResourceType.Test05
-  name: Test05
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_Test05
-  commentId: F:VaNilla.Texture.TextureResourceType.Test05
-  fullName: VaNilla.Texture.TextureResourceType.Test05
-  nameWithType: TextureResourceType.Test05
-- uid: VaNilla.Texture.TextureResourceType.Test06
-  name: Test06
-  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_Test06
-  commentId: F:VaNilla.Texture.TextureResourceType.Test06
-  fullName: VaNilla.Texture.TextureResourceType.Test06
-  nameWithType: TextureResourceType.Test06
+- uid: VaNilla.Texture.TextureResourceType.Title
+  name: Title
+  href: api/VaNilla.Texture.TextureResourceType.html#VaNilla_Texture_TextureResourceType_Title
+  commentId: F:VaNilla.Texture.TextureResourceType.Title
+  fullName: VaNilla.Texture.TextureResourceType.Title
+  nameWithType: TextureResourceType.Title
 - uid: VaNilla.Texture.TextureSharedType
   name: TextureSharedType
   href: api/VaNilla.Texture.TextureSharedType.html

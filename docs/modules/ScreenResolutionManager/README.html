@@ -567,6 +567,34 @@ viewport_resolution: [2560, 1080]
     }
 }
 </code></pre>
+<h2 id="api-reference">API Reference</h2>
+<p>詳細なAPIドキュメントについては、<a href="https://vanilla-engine.github.io/VaNilla/api/VaNilla.ScreenResolutionManager.html">VaNillaのAPIリファレンス</a>を参照してください。</p>
+<h3 id="screenresolutionmanager-1">ScreenResolutionManager</h3>
+<p>画面解像度を管理するクラスです。</p>
+<h4 id="静的メソッド">静的メソッド</h4>
+<ul>
+<li><code>GetResolutionSize(ScreenResolution resolution)</code> - 指定された解像度のサイズを取得</li>
+<li><code>GetAspectRatio(ScreenResolution resolution)</code> - 指定された解像度のアスペクト比を取得</li>
+<li><code>SetCurrentResolution(ScreenResolution resolution)</code> - 現在の解像度を設定</li>
+<li><code>GetCurrentResolution()</code> - 現在の解像度を取得</li>
+<li><code>GetViewportResolution()</code> - ビューポート解像度を取得</li>
+<li><code>GetCurrentResolutionSize()</code> - 現在の解像度のサイズを取得</li>
+<li><code>GetCurrentResolutionWidth()</code> - 現在の解像度の幅を取得</li>
+<li><code>GetCurrentResolutionHeight()</code> - 現在の解像度の高さを取得</li>
+</ul>
+<h4 id="静的プロパティ">静的プロパティ</h4>
+<ul>
+<li><code>CurrentResolution</code> - 現在の解像度のサイズ（タプル）</li>
+<li><code>CurrentResolutionPoint</code> - 現在の解像度のサイズ（Point2）</li>
+<li><code>Center</code> - 画面中央の座標（タプル）</li>
+<li><code>CenterPoint</code> - 画面中央の座標（Point2）</li>
+<li><code>CurrentWidth</code> - 現在の解像度の幅</li>
+<li><code>CurrentHeight</code> - 現在の解像度の高さ</li>
+</ul>
+<h4 id="列挙型">列挙型</h4>
+<ul>
+<li><code>ScreenResolution</code> - 利用可能な画面解像度（YAML設定から自動生成）</li>
+</ul>
 <h2 id="技術仕様">技術仕様</h2>
 <ul>
 <li><strong>解像度管理</strong>: YAML設定ファイルベースの自動生成</li>

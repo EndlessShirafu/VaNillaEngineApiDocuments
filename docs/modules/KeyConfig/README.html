@@ -534,6 +534,48 @@ public static void InitializeInputSystems()
     }
 }
 </code></pre>
+<h2 id="api-reference">API Reference</h2>
+<p>詳細なAPIドキュメントについては、<a href="https://vanilla-engine.github.io/VaNilla/api/VaNilla.KeyConfig.html">VaNillaのAPIリファレンス</a>を参照してください。</p>
+<h3 id="keyconfig-1">KeyConfig</h3>
+<p>ゲームアクションと入力デバイス（キーボード、ゲームパッド、マウス）のマッピング管理を行うクラスです。</p>
+<h4 id="静的メソッド">静的メソッド</h4>
+<p><strong>設定管理</strong></p>
+<ul>
+<li><code>ResetConf()</code> - キーコンフィグ情報をデフォルト設定にリセット</li>
+<li><code>InvalidateConf()</code> - キーコンフィグ情報を無効値に設定</li>
+</ul>
+<p><strong>キー設定</strong></p>
+<ul>
+<li><code>SetKeyboardInput(Action action, KeyboardInput.KeyCode keyCode)</code> - 指定アクションにキーボードキーを設定</li>
+<li><code>SetMouseButton(Action action, MouseInput.Button mouseButton)</code> - 指定アクションにマウスボタンを設定</li>
+<li><code>SetGamepadButton(Action action, GamePadInputManager.Button button, GamePadInputManager.Index index)</code> - 指定アクションにゲームパッドボタンを設定</li>
+</ul>
+<p><strong>キー取得</strong></p>
+<ul>
+<li><code>GetKeyboardInput(Action action)</code> - 指定アクションに割り当てられたキーボードキーを取得</li>
+<li><code>GetMouseButton(Action action)</code> - 指定アクションに割り当てられたマウスボタンを取得</li>
+<li><code>GetGamepadButton(Action action)</code> - 指定アクションに割り当てられたゲームパッドボタンとコントローラーインデックスを取得</li>
+</ul>
+<p><strong>ファイル操作</strong></p>
+<ul>
+<li><code>IsExistConfig()</code> - キーコンフィグファイルの存在確認</li>
+<li><code>InitConfig()</code> - キーコンフィグの初期化とデフォルトファイル作成</li>
+<li><code>DeleteConfig()</code> - キーコンフィグファイルの削除</li>
+<li><code>SaveConfig()</code> - 現在の設定をファイルに保存</li>
+<li><code>LoadConfig()</code> - ファイルから設定を読み込み</li>
+</ul>
+<h4 id="列挙型">列挙型</h4>
+<p><strong>Action</strong></p>
+<ul>
+<li>ゲーム内アクション（YAML設定から自動生成）</li>
+<li>例: <code>Decide</code>, <code>Cancel</code>, <code>Pause</code></li>
+</ul>
+<p><strong>InputType</strong></p>
+<ul>
+<li><code>Keyboard</code> - キーボード入力</li>
+<li><code>Gamepad</code> - ゲームパッド入力</li>
+<li><code>Mousebutton</code> - マウスボタン入力</li>
+</ul>
 <h2 id="依存関係">依存関係</h2>
 <ul>
 <li><strong>KeyboardInput</strong>: キーボード入力システム</li>

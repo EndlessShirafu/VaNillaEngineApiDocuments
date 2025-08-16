@@ -141,29 +141,44 @@ cd VaNilla
 <h3 id="1-設定ファイルの準備">1. 設定ファイルの準備</h3>
 <p>まず、ゲーム用の設定ファイル（YAML）を作成します。</p>
 <p><code>VaNillaTestProject/DxLib/VaNillaSettings.yaml</code>を開いて、自分のプロジェクト用に編集します：</p>
-<pre><code class="lang-yaml"># テクスチャリソースの定義
-textures:
-  - name: Player
+<pre><code class="lang-yaml"># VaNillaSettings.yaml
+
+# テクスチャリソースの定義
+texture_pool:
+  Player:
     path: &quot;data/player.png&quot;
-  - name: Enemy
+    category: &quot;character&quot;
+    type: &quot;full_one_shot&quot;
+    
+  Enemy:
     path: &quot;data/enemy.png&quot;
-  - name: Bullet
+    category: &quot;character&quot;
+    type: &quot;full_one_shot&quot;
+    
+  Bullet:
     path: &quot;data/bullet.png&quot;
+    category: &quot;effect&quot;
+    type: &quot;full_one_shot&quot;
 
 # シーン定義
-scenes:
-  - name: Title
-  - name: Game
-  - name: GameOver
+scene_state:
+  Title:
+    group: 0
+    transit: [Game]
+    
+  Game:
+    group: 1
+    transit: [GameOver, Title]
+    
+  GameOver:
+    group: 2
+    transit: [Title]
 
 # 実行順序の定義
 execution_order:
-  - name: Input
-    priority: 100
-  - name: Logic
-    priority: 200
-  - name: Rendering
-    priority: 300
+  Input: 100
+  Logic: 200
+  Rendering: 300
 </code></pre>
 <h3 id="2-コード生成重要">2. コード生成（重要！）</h3>
 <p>VaNillaエンジンはYAMLからC#コードを生成します。この手順を飛ばすとビルドエラーになります。</p>
@@ -556,12 +571,14 @@ dotnet run
 </ul>
 <h3 id="2-パフォーマンスを向上させよう">2. パフォーマンスを向上させよう</h3>
 <p>大量のオブジェクトを扱う場合は、ObjectFactoryを使用：</p>
-<pre><code class="lang-csharp">// YAMLでプール設定
-object_factory:
-  - type: Bullet
-    count: 100  # 100個の弾をプール
-
-// コード内で使用
+<pre><code class="lang-yaml"># VaNillaSettings.yaml内でプール設定
+object_list:
+  Bullet:
+    object_num: 100  # 100個の弾をプール
+    type: &quot;Bullet&quot;
+    create_pool: true
+</code></pre>
+<pre><code class="lang-csharp">// コード内で使用
 var bullet = ObjectFactory.Activate&lt;Bullet&gt;();
 </code></pre>
 <h3 id="3-より高度な機能">3. より高度な機能</h3>

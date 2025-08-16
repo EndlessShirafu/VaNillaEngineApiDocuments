@@ -6887,10 +6887,10 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "modules/NineSliceRenderer/ReadMe.md",
+      "source_relative_path": "modules/NineSliceRenderer/README.md",
       "output": {
         ".html": {
-          "relative_path": "modules/NineSliceRenderer/ReadMe.html"
+          "relative_path": "modules/NineSliceRenderer/README.html"
         }
       },
       "version": ""

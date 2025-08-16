@@ -71,6 +71,61 @@
 
 <p><code>Object</code> の実体を保持するプールです。
 本モジュールは <code>ObjectFactory</code> と協調動作することを前提に設計してありますが、単体でも動作します。</p>
+<h2 id="概要">概要</h2>
+<p>ObjectPoolは、VaNillaエンジンにおけるオブジェクトの効率的な管理のためのプーリングシステムです。オブジェクトの頻繁な生成・削除によるガベージコレクション圧を軽減し、パフォーマンスを向上させます。</p>
+<h2 id="主要機能">主要機能</h2>
+<ul>
+<li><strong>オブジェクト再利用</strong>: 一度生成されたオブジェクトをプールして再利用</li>
+<li><strong>メモリ効率</strong>: ガベージコレクションの負荷を軽減</li>
+<li><strong>型安全</strong>: ジェネリクスによる型安全なオブジェクトプール</li>
+<li><strong>自動拡張</strong>: プール不足時の自動オブジェクト生成</li>
+<li><strong>統計情報</strong>: アクティブオブジェクト数の追跡</li>
+</ul>
+<h2 id="基本的な使用方法">基本的な使用方法</h2>
+<pre><code class="lang-csharp">// オブジェクトプールの作成
+var pool = new ObjectPool&lt;MyObject&gt;(100); // 100個のMyObjectをプール
+
+// オブジェクトの取得
+MyObject obj = pool.AllocateObject();
+
+// オブジェクトの使用
+// ... オブジェクトを使用 ...
+
+// オブジェクトの返却
+pool.DeallocateObject(obj);
+
+// デアロケート処理の実行（通常はフレーム終了時）
+pool.ExecuteDeallocation();
+</code></pre>
+<h2 id="api-reference">API Reference</h2>
+<p>詳細なAPIドキュメントについては、<a href="https://vanilla-engine.github.io/VaNilla/api/VaNilla.ObjectPool-1.html">VaNillaのAPIリファレンス</a>を参照してください。</p>
+<h3 id="objectpool-1">ObjectPool<objecttype></objecttype></h3>
+<p>指定型のVaNillaオブジェクトをプーリングする機構です。</p>
+<h4 id="コンストラクタ">コンストラクタ</h4>
+<ul>
+<li><code>ObjectPool(int objectPoolSize = 2000)</code> - 指定サイズでオブジェクトプールを初期化</li>
+</ul>
+<h4 id="メソッド">メソッド</h4>
+<ul>
+<li><code>AllocateObject()</code> - プールからオブジェクトを取得（プールが空の場合は新規生成）</li>
+<li><code>DeallocateObject(in ObjectType obj)</code> - オブジェクトをプールに返却予約</li>
+<li><code>ExecuteDeallocation()</code> - デアロケート待ちのオブジェクトを実際にプールに返却</li>
+<li><code>GetAllocatedObjectNum()</code> - 現在アクティブなオブジェクト数を取得</li>
+</ul>
+<h3 id="objectpoolcache">ObjectPoolCache<objecttype></objecttype></h3>
+<p>指定型のオブジェクトプールをキャッシュする機構です。</p>
+<h4 id="静的プロパティ">静的プロパティ</h4>
+<ul>
+<li><code>PoolInstance</code> - オブジェクトプールのキャッシュインスタンス</li>
+</ul>
+<h2 id="使用上の注意">使用上の注意</h2>
+<ul>
+<li><code>DeallocateObject</code>は即座にプールに戻すのではなく、返却予約をします</li>
+<li>実際の返却処理は<code>ExecuteDeallocation</code>を呼び出したときに実行されます</li>
+<li>プールサイズは動的に拡張されますが、初期サイズを適切に設定することでパフォーマンスが向上します</li>
+</ul>
+<h2 id="objectfactory連携">ObjectFactory連携</h2>
+<p>ObjectPoolは<a href="../ObjectFactory/README.html">ObjectFactory</a>と組み合わせて使用することで、より高度なオブジェクト管理が可能になります。</p>
 
 </article>
 

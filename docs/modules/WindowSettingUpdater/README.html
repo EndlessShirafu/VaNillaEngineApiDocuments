@@ -70,6 +70,52 @@
 <h1 id="windowsettingupdater">WindowSettingUpdater</h1>
 
 <p>画面サイズや画面解像度などの情報を反映するためのモジュールです。</p>
+<h2 id="概要">概要</h2>
+<p>WindowSettingUpdaterは、VaNillaエンジンにおける画面設定の変更をプラットフォーム固有の実装に反映するための中間モジュールです。ScreenResolutionManagerとWindowSizeManagerで管理される論理的な設定を、DxLibやUnityの実際の画面設定に同期させる役割を担います。</p>
+<h2 id="主要機能">主要機能</h2>
+<ul>
+<li><strong>自動設定同期</strong>: 画面解像度、ウィンドウサイズ、フレームレートの変更を自動検出</li>
+<li><strong>差分更新</strong>: 変更が検出された場合のみプラットフォーム固有の更新処理を実行</li>
+<li><strong>統一API</strong>: DxLibとUnityの両プラットフォームで同一のインターフェースを提供</li>
+<li><strong>定期実行対応</strong>: ゲームループ内での定期的な呼び出しに最適化</li>
+</ul>
+<h2 id="基本的な使用方法">基本的な使用方法</h2>
+<pre><code class="lang-csharp">using VaNilla.Window;
+
+// ゲームループ内で定期的に呼び出す
+void Update()
+{
+    // 画面設定の変更を検出し、必要に応じてプラットフォームに反映
+    WindowSettingUpdater.UpdateSetting();
+}
+</code></pre>
+<h2 id="動作の仕組み">動作の仕組み</h2>
+<p>WindowSettingUpdaterは以下の流れで動作します：</p>
+<ol>
+<li><strong>現在の設定取得</strong>: ScreenResolutionManager、WindowSizeManager、FpsCalculatorから現在の設定を取得</li>
+<li><strong>差分検出</strong>: 前回の設定と比較し、変更があったかを確認</li>
+<li><strong>プラットフォーム反映</strong>: 変更が検出された場合、ネイティブ実装を通じてプラットフォームに反映</li>
+</ol>
+<h2 id="連携モジュール">連携モジュール</h2>
+<ul>
+<li><strong>ScreenResolutionManager</strong>: 論理解像度の管理</li>
+<li><strong>WindowSizeManager</strong>: ウィンドウサイズとフルスクリーン設定の管理</li>
+<li><strong>FpsCalculator</strong>: フレームレート設定の管理</li>
+</ul>
+<h2 id="api-reference">API Reference</h2>
+<p>詳細なAPIドキュメントについては、<a href="https://vanilla-engine.github.io/VaNilla/api/VaNilla.Window.WindowSettingUpdater.html">VaNillaのAPIリファレンス</a>を参照してください。</p>
+<h3 id="windowsettingupdater-1">WindowSettingUpdater</h3>
+<p>画面設定の変更をプラットフォーム固有の実装に反映するクラスです。</p>
+<h4 id="静的メソッド">静的メソッド</h4>
+<ul>
+<li><code>UpdateSetting()</code> - 画面解像度やウィンドウサイズ、リフレッシュレートに関する設定値をプラットフォームに反映</li>
+</ul>
+<h2 id="使用上の注意">使用上の注意</h2>
+<ul>
+<li>本モジュールは画面描画更新と同程度の粒度で定期的に実行されることを想定しています</li>
+<li>変更検出は差分ベースのため、頻繁な呼び出しでもパフォーマンスへの影響は最小限です</li>
+<li>プラットフォーム固有の実装に依存するため、対応プラットフォームでのみ動作します</li>
+</ul>
 
 </article>
 

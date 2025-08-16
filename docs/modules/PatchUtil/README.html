@@ -79,6 +79,32 @@
 <li>ダウンロードした差分パッチを適用する</li>
 <li>以上の処理を、新しいバージョンが見つからなくなるまで再帰的に実行する</li>
 </ul>
+<h2 id="api-reference">API Reference</h2>
+<p>詳細なAPIドキュメントについては、<a href="https://vanilla-engine.github.io/VaNilla/api/VaNilla.Patch.Util.html">VaNillaのAPIリファレンス</a>を参照してください。</p>
+<h3 id="vanillapatchutil">VaNilla.Patch.Util</h3>
+<p>バイナリ差分パッチの自動適用を行うユーティリティクラスです。</p>
+<h4 id="静的プロパティ">静的プロパティ</h4>
+<ul>
+<li><code>IsExecutable</code> - 本ユーティリティが実行可能かどうか（バックエンドexe存在とネット接続確認）</li>
+</ul>
+<h4 id="静的メソッド">静的メソッド</h4>
+<p><strong>主要機能</strong></p>
+<ul>
+<li><code>RecursiveApply()</code> - 再帰的なパッチ適用処理</li>
+<li><code>QueryUpdateInformation(string serverDirectoryPath, string fileName)</code> - 更新情報の問い合わせ</li>
+</ul>
+<p><strong>バージョン管理</strong></p>
+<ul>
+<li><code>GetNowVersionNum(string fileName)</code> - 現在のバージョン番号を取得</li>
+<li><code>GetNewestVersionNum(string serverDirectoryPath, string fileName)</code> - サーバから最新バージョン番号を取得</li>
+<li><code>RewriteVersionNum(string fileName, int newVersion)</code> - バージョン情報を更新</li>
+</ul>
+<p><strong>ファイル操作</strong></p>
+<ul>
+<li><code>DownloadDiffFile(string serverDirectoryPath, string fileName, string dlPath)</code> - 差分ファイルのダウンロード</li>
+<li><code>MakeBATFile(string diffFileName)</code> - 差分パッチ実行用バッチファイルの作成</li>
+<li><code>CallBatch(string param = &quot;&quot;)</code> - バッチファイルの実行</li>
+</ul>
 <h2 id="注意点">注意点</h2>
 <p>サーバへの問い合わせ処理は同期実行されます。
 通信負荷も掛かるため、ゲーム/アプリ起動直後のみサーバへ問い合わせするように実装してください。
