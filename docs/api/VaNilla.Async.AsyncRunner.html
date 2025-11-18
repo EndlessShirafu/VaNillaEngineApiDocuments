@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class AsyncRunner </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class AsyncRunner ">
+      
+      <meta name="description" content="非同期メソッドを動作させるランナー">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/feature/apply-net10-and-csharp14/apiSpec/new?filename=VaNilla_Async_AsyncRunner.md&amp;value=---%0Auid%3A%20VaNilla.Async.AsyncRunner%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.Async.AsyncRunner">
+
+
+
+  <h1 id="VaNilla_Async_AsyncRunner" data-uid="VaNilla.Async.AsyncRunner" class="text-break">
+Class AsyncRunner  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L89"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a>.<a class="xref" href="VaNilla.Async.html">Async</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>非同期メソッドを動作させるランナー</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class AsyncRunner</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">AsyncRunner</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="VaNilla_Async_AsyncRunner_AddToRunner_" data-uid="VaNilla.Async.AsyncRunner.AddToRunner*"></a>
+
+  <h3 id="VaNilla_Async_AsyncRunner_AddToRunner_VaNilla_Async_IAwaiter_VaNilla_Async_VaNillaAsyncTask__System_Action_" data-uid="VaNilla.Async.AsyncRunner.AddToRunner(VaNilla.Async.IAwaiter{VaNilla.Async.VaNillaAsyncTask},System.Action)">
+  AddToRunner(IAwaiter&lt;VaNillaAsyncTask&gt;, Action)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L290"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddToRunner(IAwaiter&lt;VaNillaAsyncTask&gt; awaiter, Action action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>awaiter</code> <a class="xref" href="VaNilla.Async.IAwaiter-1.html">IAwaiter</a>&lt;<a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Async_AsyncRunner_Cancel_" data-uid="VaNilla.Async.AsyncRunner.Cancel*"></a>
+
+  <h3 id="VaNilla_Async_AsyncRunner_Cancel_VaNilla_Async_VaNillaAsyncTask_" data-uid="VaNilla.Async.AsyncRunner.Cancel(VaNilla.Async.VaNillaAsyncTask)">
+  Cancel(VaNillaAsyncTask)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L243"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したタスクをキャンセルする</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Cancel(VaNillaAsyncTask task)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>task</code> <a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a></dt>
+    <dd><p>キャンセル対象のタスク</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Async_AsyncRunner_Execute_" data-uid="VaNilla.Async.AsyncRunner.Execute*"></a>
+
+  <h3 id="VaNilla_Async_AsyncRunner_Execute" data-uid="VaNilla.Async.AsyncRunner.Execute">
+  Execute()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L305"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Execute()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Async_AsyncRunner_Pause_" data-uid="VaNilla.Async.AsyncRunner.Pause*"></a>
+
+  <h3 id="VaNilla_Async_AsyncRunner_Pause_VaNilla_Async_VaNillaAsyncTask_" data-uid="VaNilla.Async.AsyncRunner.Pause(VaNilla.Async.VaNillaAsyncTask)">
+  Pause(VaNillaAsyncTask)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L260"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したタスクを一時停止する</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Pause(VaNillaAsyncTask task)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>task</code> <a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Async_AsyncRunner_Remove_" data-uid="VaNilla.Async.AsyncRunner.Remove*"></a>
+
+  <h3 id="VaNilla_Async_AsyncRunner_Remove_VaNilla_Async_IAwaiter_VaNilla_Async_VaNillaAsyncTask__" data-uid="VaNilla.Async.AsyncRunner.Remove(VaNilla.Async.IAwaiter{VaNilla.Async.VaNillaAsyncTask})">
+  Remove(IAwaiter&lt;VaNillaAsyncTask&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L300"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Remove(IAwaiter&lt;VaNillaAsyncTask&gt; awaiter)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>awaiter</code> <a class="xref" href="VaNilla.Async.IAwaiter-1.html">IAwaiter</a>&lt;<a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Async_AsyncRunner_Run_" data-uid="VaNilla.Async.AsyncRunner.Run*"></a>
+
+  <h3 id="VaNilla_Async_AsyncRunner_Run_System_Func_System_Collections_Generic_List_System_Object__VaNilla_Async_VaNillaAsyncTask__System_Collections_Generic_List_System_Object___" data-uid="VaNilla.Async.AsyncRunner.Run(System.Func{System.Collections.Generic.List{System.Object},VaNilla.Async.VaNillaAsyncTask},System.Collections.Generic.List{System.Object}@)">
+  Run(Func&lt;List&lt;object&gt;, VaNillaAsyncTask&gt;, in List&lt;object&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L222"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定のタスクを起動(複数のObjectをタスク引数として指定)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static VaNillaAsyncTask Run(Func&lt;List&lt;object&gt;, VaNillaAsyncTask&gt; func, in List&lt;object&gt; target)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>func</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;, <a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a>&gt;</dt>
+    <dd><p>タスク関数</p>
+</dd>
+    <dt><code>target</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a></dt>
+    <dd><p>タスク状態</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Async_AsyncRunner_Run_" data-uid="VaNilla.Async.AsyncRunner.Run*"></a>
+
+  <h3 id="VaNilla_Async_AsyncRunner_Run_System_Func_System_Collections_Generic_List_VaNilla_Object__VaNilla_Async_VaNillaAsyncTask__System_Collections_Generic_List_VaNilla_Object___" data-uid="VaNilla.Async.AsyncRunner.Run(System.Func{System.Collections.Generic.List{VaNilla.Object},VaNilla.Async.VaNillaAsyncTask},System.Collections.Generic.List{VaNilla.Object}@)">
+  Run(Func&lt;List&lt;Object&gt;, VaNillaAsyncTask&gt;, in List&lt;Object&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L200"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定のタスクを起動(複数のObjectをタスク引数として指定)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static VaNillaAsyncTask Run(Func&lt;List&lt;Object&gt;, VaNillaAsyncTask&gt; func, in List&lt;Object&gt; target)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>func</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="VaNilla.Object.html">Object</a>&gt;, <a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a>&gt;</dt>
+    <dd><p>タスク関数</p>
+</dd>
+    <dt><code>target</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="VaNilla.Object.html">Object</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a></dt>
+    <dd><p>タスク状態</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Async_AsyncRunner_Run_" data-uid="VaNilla.Async.AsyncRunner.Run*"></a>
+
+  <h3 id="VaNilla_Async_AsyncRunner_Run_System_Func_System_Object_VaNilla_Async_VaNillaAsyncTask__System_Object__" data-uid="VaNilla.Async.AsyncRunner.Run(System.Func{System.Object,VaNilla.Async.VaNillaAsyncTask},System.Object@)">
+  Run(Func&lt;object, VaNillaAsyncTask&gt;, in object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L233"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定のタスクを起動(任意型のObjectをタスク引数として指定)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static VaNillaAsyncTask Run(Func&lt;object, VaNillaAsyncTask&gt; func, in object target)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>func</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a>&gt;</dt>
+    <dd><p>タスク関数</p>
+</dd>
+    <dt><code>target</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a></dt>
+    <dd><p>タスク状態</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Async_AsyncRunner_Run_" data-uid="VaNilla.Async.AsyncRunner.Run*"></a>
+
+  <h3 id="VaNilla_Async_AsyncRunner_Run_System_Func_VaNilla_Async_VaNillaAsyncTask__" data-uid="VaNilla.Async.AsyncRunner.Run(System.Func{VaNilla.Async.VaNillaAsyncTask})">
+  Run(Func&lt;VaNillaAsyncTask&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定のタスクを起動</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static VaNillaAsyncTask Run(Func&lt;VaNillaAsyncTask&gt; func)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>func</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a>&gt;</dt>
+    <dd><p>タスク関数</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a></dt>
+    <dd><p>タスク状態</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Async_AsyncRunner_Run_" data-uid="VaNilla.Async.AsyncRunner.Run*"></a>
+
+  <h3 id="VaNilla_Async_AsyncRunner_Run_System_Func_VaNilla_Object_System_Object_VaNilla_Async_VaNillaAsyncTask__VaNilla_Object__System_Object__" data-uid="VaNilla.Async.AsyncRunner.Run(System.Func{VaNilla.Object,System.Object,VaNilla.Async.VaNillaAsyncTask},VaNilla.Object@,System.Object@)">
+  Run(Func&lt;Object, object, VaNillaAsyncTask&gt;, in Object, in object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L211"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定のタスクを起動(任意型のObjectをタスク引数として指定)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static VaNillaAsyncTask Run(Func&lt;Object, object, VaNillaAsyncTask&gt; func, in Object target1, in object target2)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>func</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="VaNilla.Object.html">Object</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a>&gt;</dt>
+    <dd><p>タスク関数</p>
+</dd>
+    <dt><code>target1</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd></dd>
+    <dt><code>target2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a></dt>
+    <dd><p>タスク状態</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Async_AsyncRunner_Run_" data-uid="VaNilla.Async.AsyncRunner.Run*"></a>
+
+  <h3 id="VaNilla_Async_AsyncRunner_Run_System_Func_VaNilla_Object_VaNilla_Async_VaNillaAsyncTask__VaNilla_Object__" data-uid="VaNilla.Async.AsyncRunner.Run(System.Func{VaNilla.Object,VaNilla.Async.VaNillaAsyncTask},VaNilla.Object@)">
+  Run(Func&lt;Object, VaNillaAsyncTask&gt;, in Object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L189"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定のタスクを起動(Objectをタスク引数として指定)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static VaNillaAsyncTask Run(Func&lt;Object, VaNillaAsyncTask&gt; func, in Object target)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>func</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="VaNilla.Object.html">Object</a>, <a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a>&gt;</dt>
+    <dd><p>タスク関数</p>
+</dd>
+    <dt><code>target</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a></dt>
+    <dd><p>タスク状態</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Async_AsyncRunner_Unpause_" data-uid="VaNilla.Async.AsyncRunner.Unpause*"></a>
+
+  <h3 id="VaNilla_Async_AsyncRunner_Unpause_VaNilla_Async_VaNillaAsyncTask_" data-uid="VaNilla.Async.AsyncRunner.Unpause(VaNilla.Async.VaNillaAsyncTask)">
+  Unpause(VaNillaAsyncTask)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L277"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したタスクを一時停止解除する</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Unpause(VaNillaAsyncTask task)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>task</code> <a class="xref" href="VaNilla.Async.VaNillaAsyncTask.html">VaNillaAsyncTask</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Task/Interface/VaNillaAsyncTask.cs/#L89" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

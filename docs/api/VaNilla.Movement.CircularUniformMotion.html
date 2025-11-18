@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class CircularUniformMotion </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class CircularUniformMotion ">
+      
+      <meta name="description" content="等速円運動を行うためのクラスです。">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/feature/apply-net10-and-csharp14/apiSpec/new?filename=VaNilla_Movement_CircularUniformMotion.md&amp;value=---%0Auid%3A%20VaNilla.Movement.CircularUniformMotion%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.Movement.CircularUniformMotion">
+
+
+
+  <h1 id="VaNilla_Movement_CircularUniformMotion" data-uid="VaNilla.Movement.CircularUniformMotion" class="text-break">
+Class CircularUniformMotion  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L8"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a>.<a class="xref" href="VaNilla.Movement.html">Movement</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>等速円運動を行うためのクラスです。</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[VaNillaModuleVersion(0, 0, 1, 0)]
+[RequiredExpresserComponent(typeof(HasTransform), false)]
+public class CircularUniformMotion : IExpresserComponent, IExecuter</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">CircularUniformMotion</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="VaNilla.IExpresserComponent.html">IExpresserComponent</a></div>
+      <div><a class="xref" href="VaNilla.Execute.IExecuter.html">IExecuter</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="VaNilla_Movement_CircularUniformMotion_Active_" data-uid="VaNilla.Movement.CircularUniformMotion.Active*"></a>
+
+  <h3 id="VaNilla_Movement_CircularUniformMotion_Active" data-uid="VaNilla.Movement.CircularUniformMotion.Active">
+  Active
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L125"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コンポーネントのアクティブ状態を取得または設定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Active { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Movement_CircularUniformMotion_CenterPoint_" data-uid="VaNilla.Movement.CircularUniformMotion.CenterPoint*"></a>
+
+  <h3 id="VaNilla_Movement_CircularUniformMotion_CenterPoint" data-uid="VaNilla.Movement.CircularUniformMotion.CenterPoint">
+  CenterPoint
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>円運動の中心点</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Point2 CenterPoint { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Transform.Point2.html">Point2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Movement_CircularUniformMotion_ExecuteType_" data-uid="VaNilla.Movement.CircularUniformMotion.ExecuteType*"></a>
+
+  <h3 id="VaNilla_Movement_CircularUniformMotion_ExecuteType" data-uid="VaNilla.Movement.CircularUniformMotion.ExecuteType">
+  ExecuteType
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L130"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コンポーネントの実行タイプを取得または設定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ExecuteType ExecuteType { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Execute.ExecuteType.html">ExecuteType</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Movement_CircularUniformMotion_IsMoveXAxis_" data-uid="VaNilla.Movement.CircularUniformMotion.IsMoveXAxis*"></a>
+
+  <h3 id="VaNilla_Movement_CircularUniformMotion_IsMoveXAxis" data-uid="VaNilla.Movement.CircularUniformMotion.IsMoveXAxis">
+  IsMoveXAxis
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>X軸方向に運動するか否か</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsMoveXAxis { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Movement_CircularUniformMotion_IsMoveYAxis_" data-uid="VaNilla.Movement.CircularUniformMotion.IsMoveYAxis*"></a>
+
+  <h3 id="VaNilla_Movement_CircularUniformMotion_IsMoveYAxis" data-uid="VaNilla.Movement.CircularUniformMotion.IsMoveYAxis">
+  IsMoveYAxis
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Y軸方向に運動するか否か</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsMoveYAxis { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Movement_CircularUniformMotion_Phase_" data-uid="VaNilla.Movement.CircularUniformMotion.Phase*"></a>
+
+  <h3 id="VaNilla_Movement_CircularUniformMotion_Phase" data-uid="VaNilla.Movement.CircularUniformMotion.Phase">
+  Phase
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>円運動の現在の位相</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Radian Phase { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Transform.Radian.html">Radian</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Movement_CircularUniformMotion_RotaryVelocity_" data-uid="VaNilla.Movement.CircularUniformMotion.RotaryVelocity*"></a>
+
+  <h3 id="VaNilla_Movement_CircularUniformMotion_RotaryVelocity" data-uid="VaNilla.Movement.CircularUniformMotion.RotaryVelocity">
+  RotaryVelocity
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>角速度(ラジアン)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Radian RotaryVelocity { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Transform.Radian.html">Radian</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Movement_CircularUniformMotion_XRadius_" data-uid="VaNilla.Movement.CircularUniformMotion.XRadius*"></a>
+
+  <h3 id="VaNilla_Movement_CircularUniformMotion_XRadius" data-uid="VaNilla.Movement.CircularUniformMotion.XRadius">
+  XRadius
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>X軸方向の半径</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float XRadius { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Movement_CircularUniformMotion_YRadius_" data-uid="VaNilla.Movement.CircularUniformMotion.YRadius*"></a>
+
+  <h3 id="VaNilla_Movement_CircularUniformMotion_YRadius" data-uid="VaNilla.Movement.CircularUniformMotion.YRadius">
+  YRadius
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Y軸方向の半径</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float YRadius { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="VaNilla_Movement_CircularUniformMotion_Execute_" data-uid="VaNilla.Movement.CircularUniformMotion.Execute*"></a>
+
+  <h3 id="VaNilla_Movement_CircularUniformMotion_Execute_VaNilla_Object_VaNilla_Time_Time__" data-uid="VaNilla.Movement.CircularUniformMotion.Execute(VaNilla.Object,VaNilla.Time.Time@)">
+  Execute(Object, in Time)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>等速円運動の物理計算を実行します。
+位相を角速度分進め、新しい位置を三角関数で計算して適用します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Execute(Object object__, in Time current_time)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>object__</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd><p>関連付けられているオブジェクト</p>
+</dd>
+    <dt><code>current_time</code> <a class="xref" href="VaNilla.Time.Time.html">Time</a></dt>
+    <dd><p>現在の時刻</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>コンポーネントがアクティブな場合はtrue、非アクティブな場合はfalse</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_Movement_CircularUniformMotion_Execute_VaNilla_Object_VaNilla_Time_Time___remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>円運動の数学的計算: x = XRadius * cos(Phase) + CenterX, y = YRadius * sin(Phase) + CenterY
+IsMoveXAxis、IsMoveYAxisフラグによって、片軸のみの運動も可能です。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_Movement_CircularUniformMotion_SetUp_" data-uid="VaNilla.Movement.CircularUniformMotion.SetUp*"></a>
+
+  <h3 id="VaNilla_Movement_CircularUniformMotion_SetUp_VaNilla_Object_" data-uid="VaNilla.Movement.CircularUniformMotion.SetUp(VaNilla.Object)">
+  SetUp(Object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コンポーネントの初期化を行います。円運動のパラメータをデフォルト値に設定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SetUp(Object object__)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>object__</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd><p>関連付けられるオブジェクト</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>初期化が成功した場合はtrue、失敗した場合はfalse</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Movement_CircularUniformMotion_TearDown_" data-uid="VaNilla.Movement.CircularUniformMotion.TearDown*"></a>
+
+  <h3 id="VaNilla_Movement_CircularUniformMotion_TearDown_VaNilla_Object_" data-uid="VaNilla.Movement.CircularUniformMotion.TearDown(VaNilla.Object)">
+  TearDown(Object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コンポーネントの終了処理を行います。全てのパラメータをリセットします。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void TearDown(Object object__)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>object__</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd><p>関連付けられているオブジェクト</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Movement/Interface/CircularUniformMotion.cs/#L8" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

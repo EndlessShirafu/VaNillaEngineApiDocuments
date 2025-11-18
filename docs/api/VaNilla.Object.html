@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Object </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Object ">
+      
+      <meta name="description" content="基底のObjectクラスです。">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/feature/apply-net10-and-csharp14/apiSpec/new?filename=VaNilla_Object.md&amp;value=---%0Auid%3A%20VaNilla.Object%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.Object">
+
+
+
+  <h1 id="VaNilla_Object" data-uid="VaNilla.Object" class="text-break">
+Class Object  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/ObjectFactory/Interface/ObjectImplForObjectFactory.cs/#L6"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>基底のObjectクラスです。</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[VaNillaModuleVersion(0, 0, 1, 0)]
+public abstract class Object : IExecuter, IEqualityComparer&lt;Object&gt;, IEquatable&lt;Object&gt;</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Object</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="VaNilla.Execute.IExecuter.html">IExecuter</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iequalitycomparer-1">IEqualityComparer</a>&lt;<a class="xref" href="VaNilla.Object.html">Object</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="VaNilla.Object.html">Object</a>&gt;</div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="VaNilla.BasicObject.html">BasicObject</a></div>
+      <div><a class="xref" href="VaNilla.ObjectSample.html">ObjectSample</a></div>
+      <div><a class="xref" href="VaNilla.OffScreenObject.html">OffScreenObject</a></div>
+      <div><a class="xref" href="VaNilla.Scene.FadeTransitioner.html">FadeTransitioner</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="VaNilla_Object__ctor_" data-uid="VaNilla.Object.#ctor*"></a>
+
+  <h3 id="VaNilla_Object__ctor_VaNilla_IExpresserComponent____" data-uid="VaNilla.Object.#ctor(VaNilla.IExpresserComponent[]@)">
+  Object(in IExpresserComponent[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L308"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>初期 ExpresserComponent のリスト付きコンストラクタです</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Object(in IExpresserComponent[] expresser_components)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>expresser_components</code> <a class="xref" href="VaNilla.IExpresserComponent.html">IExpresserComponent</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object__ctor_" data-uid="VaNilla.Object.#ctor*"></a>
+
+  <h3 id="VaNilla_Object__ctor_VaNilla_Object__" data-uid="VaNilla.Object.#ctor(VaNilla.Object@)">
+  Object(in Object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L317"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コピーコンストラクタです</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Object(in Object source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="VaNilla_Object_ObjectSerialNumber" data-uid="VaNilla.Object.ObjectSerialNumber">
+  ObjectSerialNumber
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>このオブジェクト自身のシリアルナンバーです。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ulong ObjectSerialNumber</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_Object_ObjectVersion" data-uid="VaNilla.Object.ObjectVersion">
+  ObjectVersion
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>このオブジェクトのバージョン番号です。Objectの生成時および破棄時にバージョンがインクリメントされます。
+一度上がったバージョンは下がることはありません。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ulong ObjectVersion</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_Object_RegisterdCalled" data-uid="VaNilla.Object.RegisterdCalled">
+  RegisterdCalled
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RegisterdCalled</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_Object_UnregisterdCalled" data-uid="VaNilla.Object.UnregisterdCalled">
+  UnregisterdCalled
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UnregisterdCalled</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="VaNilla_Object_Active_" data-uid="VaNilla.Object.Active*"></a>
+
+  <h3 id="VaNilla_Object_Active" data-uid="VaNilla.Object.Active">
+  Active
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>オブジェクトが有効状態であるかどうかを表します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Active { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_AdditionalExpresserComponents_" data-uid="VaNilla.Object.AdditionalExpresserComponents*"></a>
+
+  <h3 id="VaNilla_Object_AdditionalExpresserComponents" data-uid="VaNilla.Object.AdditionalExpresserComponents">
+  AdditionalExpresserComponents
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;Type, IExpresserComponent&gt; AdditionalExpresserComponents { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>, <a class="xref" href="VaNilla.IExpresserComponent.html">IExpresserComponent</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_ExecuteType_" data-uid="VaNilla.Object.ExecuteType*"></a>
+
+  <h3 id="VaNilla_Object_ExecuteType" data-uid="VaNilla.Object.ExecuteType">
+  ExecuteType
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/Object.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>定期処理の種類です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ExecuteType ExecuteType { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Execute.ExecuteType.html">ExecuteType</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_ExpresserComponents_" data-uid="VaNilla.Object.ExpresserComponents*"></a>
+
+  <h3 id="VaNilla_Object_ExpresserComponents" data-uid="VaNilla.Object.ExpresserComponents">
+  ExpresserComponents
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;Type, IExpresserComponent&gt; ExpresserComponents { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>, <a class="xref" href="VaNilla.IExpresserComponent.html">IExpresserComponent</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_ExpresserComponentsInExpresserComponentExecutionOrder_" data-uid="VaNilla.Object.ExpresserComponentsInExpresserComponentExecutionOrder*"></a>
+
+  <h3 id="VaNilla_Object_ExpresserComponentsInExpresserComponentExecutionOrder" data-uid="VaNilla.Object.ExpresserComponentsInExpresserComponentExecutionOrder">
+  ExpresserComponentsInExpresserComponentExecutionOrder
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;IExpresserComponent&gt;[] ExpresserComponentsInExpresserComponentExecutionOrder { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="VaNilla.IExpresserComponent.html">IExpresserComponent</a>&gt;[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_Name_" data-uid="VaNilla.Object.Name*"></a>
+
+  <h3 id="VaNilla_Object_Name" data-uid="VaNilla.Object.Name">
+  Name
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>このオブジェクトの名前です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_ObjectTag_" data-uid="VaNilla.Object.ObjectTag*"></a>
+
+  <h3 id="VaNilla_Object_ObjectTag" data-uid="VaNilla.Object.ObjectTag">
+  ObjectTag
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectTag.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Objectに設定されてるオブジェクトタグです。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Object.ObjectTagEnum ObjectTag { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Object.html">Object</a>.<a class="xref" href="VaNilla.Object.ObjectTagEnum.html">ObjectTagEnum</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="VaNilla_Object_Activate_" data-uid="VaNilla.Object.Activate*"></a>
+
+  <h3 id="VaNilla_Object_Activate__1_System_Collections_Generic_List_VaNilla_IExpresserComponent__System_String_" data-uid="VaNilla.Object.Activate``1(System.Collections.Generic.List{VaNilla.IExpresserComponent},System.String)">
+  Activate&lt;ObjectType&gt;(List&lt;IExpresserComponent&gt;, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/ObjectFactory/Interface/ObjectImplForObjectFactory.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定された型のオブジェクトを生成し、初期化してObjectExecutorに登録します。
+ObjectType が ObjectFactory に登録されている場合、ObjectFactory 経由で指定のオブジェクトを生成します。
+ObjectType が ObjectFactory に登録されていない場合、ObjectActivator 経由で指定のオブジェクトを生成します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ObjectType Activate&lt;ObjectType&gt;(List&lt;IExpresserComponent&gt; additional_components = null, string object_name = null) where ObjectType : Object, new()</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>additional_components</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="VaNilla.IExpresserComponent.html">IExpresserComponent</a>&gt;</dt>
+    <dd><p>追加するコンポーネントのリスト</p>
+</dd>
+    <dt><code>object_name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>オブジェクトの名前</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ObjectType</span></dt>
+    <dd><p>生成されたオブジェクト</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ObjectType</code></dt>
+    <dd><p>生成するオブジェクトの型</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_Deactivate_" data-uid="VaNilla.Object.Deactivate*"></a>
+
+  <h3 id="VaNilla_Object_Deactivate" data-uid="VaNilla.Object.Deactivate">
+  Deactivate()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/ObjectFactory/Interface/ObjectImplForObjectFactory.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>オブジェクトの使用を終了する</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Deactivate()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_Deactivate_" data-uid="VaNilla.Object.Deactivate*"></a>
+
+  <h3 id="VaNilla_Object_Deactivate_VaNilla_Object__" data-uid="VaNilla.Object.Deactivate(VaNilla.Object@)">
+  Deactivate(in Object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/ObjectFactory/Interface/ObjectImplForObjectFactory.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定されたオブジェクトの登録を解除します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Deactivate(in Object obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd><p>登録を解除するオブジェクト</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_DefaultInitialize_" data-uid="VaNilla.Object.DefaultInitialize*"></a>
+
+  <h3 id="VaNilla_Object_DefaultInitialize_VaNilla_IExpresserComponent____System_String__" data-uid="VaNilla.Object.DefaultInitialize(VaNilla.IExpresserComponent[]@,System.String@)">
+  DefaultInitialize(in IExpresserComponent[], in string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void DefaultInitialize(in IExpresserComponent[] default_expresser_components = null, in string name = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>default_expresser_components</code> <a class="xref" href="VaNilla.IExpresserComponent.html">IExpresserComponent</a>[]</dt>
+    <dd></dd>
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_Equals_" data-uid="VaNilla.Object.Equals*"></a>
+
+  <h3 id="VaNilla_Object_Equals_System_Object_" data-uid="VaNilla.Object.Equals(System.Object)">
+  Equals(object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether the specified object is equal to the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The object to compare with the current object.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the specified object  is equal to the current object; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_Equals_" data-uid="VaNilla.Object.Equals*"></a>
+
+  <h3 id="VaNilla_Object_Equals_VaNilla_Object_" data-uid="VaNilla.Object.Equals(VaNilla.Object)">
+  Equals(Object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether the current object is equal to another object of the same type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(Object other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd><p>An object to compare with this object.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the current object is equal to the <code class="paramref">other</code> parameter; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_Equals_" data-uid="VaNilla.Object.Equals*"></a>
+
+  <h3 id="VaNilla_Object_Equals_VaNilla_Object_VaNilla_Object_" data-uid="VaNilla.Object.Equals(VaNilla.Object,VaNilla.Object)">
+  Equals(Object, Object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether the specified objects are equal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(Object x, Object y)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>x</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd><p>The first object of type <code class="paramref">T</code> to compare.</p>
+</dd>
+    <dt><code>y</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd><p>The second object of type <code class="paramref">T</code> to compare.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the specified objects are equal; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_ExpresserComponentExecute_" data-uid="VaNilla.Object.ExpresserComponentExecute*"></a>
+
+  <h3 id="VaNilla_Object_ExpresserComponentExecute_VaNilla_Time_Time__System_Int32_" data-uid="VaNilla.Object.ExpresserComponentExecute(VaNilla.Time.Time@,System.Int32)">
+  ExpresserComponentExecute(in Time, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L441"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ExpresserComponentの定期処理関数です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ExpresserComponentExecute(in Time current_time, int exec_order)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>current_time</code> <a class="xref" href="VaNilla.Time.Time.html">Time</a></dt>
+    <dd></dd>
+    <dt><code>exec_order</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_ExpresserComponentSetUp_" data-uid="VaNilla.Object.ExpresserComponentSetUp*"></a>
+
+  <h3 id="VaNilla_Object_ExpresserComponentSetUp" data-uid="VaNilla.Object.ExpresserComponentSetUp">
+  ExpresserComponentSetUp()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L386"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ExpresserComponentの初期化処理関数です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ExpresserComponentSetUp()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_ExpresserComponentTearDown_" data-uid="VaNilla.Object.ExpresserComponentTearDown*"></a>
+
+  <h3 id="VaNilla_Object_ExpresserComponentTearDown" data-uid="VaNilla.Object.ExpresserComponentTearDown">
+  ExpresserComponentTearDown()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L421"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ExpresserComponentの破棄処理関数です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ExpresserComponentTearDown()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_GetComponentForSetUp_" data-uid="VaNilla.Object.GetComponentForSetUp*"></a>
+
+  <h3 id="VaNilla_Object_GetComponentForSetUp_VaNilla_Object__" data-uid="VaNilla.Object.GetComponentForSetUp(VaNilla.Object@)">
+  GetComponentForSetUp(in Object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L494"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Auto-Generated GetComponent Function for Setup</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void GetComponentForSetUp(in Object object__)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>object__</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_GetComponent_" data-uid="VaNilla.Object.GetComponent*"></a>
+
+  <h3 id="VaNilla_Object_GetComponent__1" data-uid="VaNilla.Object.GetComponent``1">
+  GetComponent&lt;ComponentType&gt;()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L481"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Objectに設定されているExpresserComponentを取得する</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ComponentType GetComponent&lt;ComponentType&gt;() where ComponentType : class, IExpresserComponent</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ComponentType</span></dt>
+    <dd><p>ExpresserComponent。見つからなかったり取得に失敗したらnull</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ComponentType</code></dt>
+    <dd><p>取得したいExpresserComponentの型</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_GetHashCode_" data-uid="VaNilla.Object.GetHashCode*"></a>
+
+  <h3 id="VaNilla_Object_GetHashCode" data-uid="VaNilla.Object.GetHashCode">
+  GetHashCode()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Serves as the default hash function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>A hash code for the current object.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_GetHashCode_" data-uid="VaNilla.Object.GetHashCode*"></a>
+
+  <h3 id="VaNilla_Object_GetHashCode_VaNilla_Object_" data-uid="VaNilla.Object.GetHashCode(VaNilla.Object)">
+  GetHashCode(Object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a hash code for the specified object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetHashCode(Object obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> for which a hash code is to be returned.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>A hash code for the specified object.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p>The type of <code class="paramref">obj</code> is a reference type and <code class="paramref">obj</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="VaNilla_Object_GetObject_" data-uid="VaNilla.Object.GetObject*"></a>
+
+  <h3 id="VaNilla_Object_GetObject" data-uid="VaNilla.Object.GetObject">
+  GetObject()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L514"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>現オブジェクトを返却します。
+override 先で戻り値型を変更可能です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Object GetObject()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_GetObjectNumFromObjectTag_" data-uid="VaNilla.Object.GetObjectNumFromObjectTag*"></a>
+
+  <h3 id="VaNilla_Object_GetObjectNumFromObjectTag_VaNilla_Object_ObjectTagEnum_" data-uid="VaNilla.Object.GetObjectNumFromObjectTag(VaNilla.Object.ObjectTagEnum)">
+  GetObjectNumFromObjectTag(ObjectTagEnum)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectTag.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>オブジェクトタグからオブジェクトの個数への変換です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int GetObjectNumFromObjectTag(Object.ObjectTagEnum tag)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>tag</code> <a class="xref" href="VaNilla.Object.html">Object</a>.<a class="xref" href="VaNilla.Object.ObjectTagEnum.html">ObjectTagEnum</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_GetObjectTypeFromObjectTag_" data-uid="VaNilla.Object.GetObjectTypeFromObjectTag*"></a>
+
+  <h3 id="VaNilla_Object_GetObjectTypeFromObjectTag_VaNilla_Object_ObjectTagEnum_" data-uid="VaNilla.Object.GetObjectTypeFromObjectTag(VaNilla.Object.ObjectTagEnum)">
+  GetObjectTypeFromObjectTag(ObjectTagEnum)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectTag.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>オブジェクトタグからオブジェクトのクラス型への変換です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Type GetObjectTypeFromObjectTag(Object.ObjectTagEnum tag)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>tag</code> <a class="xref" href="VaNilla.Object.html">Object</a>.<a class="xref" href="VaNilla.Object.ObjectTagEnum.html">ObjectTagEnum</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_Initialize_" data-uid="VaNilla.Object.Initialize*"></a>
+
+  <h3 id="VaNilla_Object_Initialize_System_Collections_Generic_Dictionary_System_Type_VaNilla_IExpresserComponent___System_String__" data-uid="VaNilla.Object.Initialize(System.Collections.Generic.Dictionary{System.Type,VaNilla.IExpresserComponent}@,System.String@)">
+  Initialize(in Dictionary&lt;Type, IExpresserComponent&gt;, in string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L272"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize(in Dictionary&lt;Type, IExpresserComponent&gt; expresser_components, in string name = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>expresser_components</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>, <a class="xref" href="VaNilla.IExpresserComponent.html">IExpresserComponent</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_Initialize_" data-uid="VaNilla.Object.Initialize*"></a>
+
+  <h3 id="VaNilla_Object_Initialize_VaNilla_IExpresserComponent____System_String__" data-uid="VaNilla.Object.Initialize(VaNilla.IExpresserComponent[]@,System.String@)">
+  Initialize(in IExpresserComponent[], in string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L267"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>オブジェクトプール経由でのコンストラクタ互換機能です</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize(in IExpresserComponent[] expresser_components, in string name = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>expresser_components</code> <a class="xref" href="VaNilla.IExpresserComponent.html">IExpresserComponent</a>[]</dt>
+    <dd></dd>
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_PostAutoActivateForTearDown_" data-uid="VaNilla.Object.PostAutoActivateForTearDown*"></a>
+
+  <h3 id="VaNilla_Object_PostAutoActivateForTearDown" data-uid="VaNilla.Object.PostAutoActivateForTearDown">
+  PostAutoActivateForTearDown()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L507"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Auto-Generated Deactivate Component Function for TearDown</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void PostAutoActivateForTearDown()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_PreAutoActivateForSetUp_" data-uid="VaNilla.Object.PreAutoActivateForSetUp*"></a>
+
+  <h3 id="VaNilla_Object_PreAutoActivateForSetUp" data-uid="VaNilla.Object.PreAutoActivateForSetUp">
+  PreAutoActivateForSetUp()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L503"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Auto-Generated Activate Function for Setup</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void PreAutoActivateForSetUp()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_ReleaseComponentForTearDown_" data-uid="VaNilla.Object.ReleaseComponentForTearDown*"></a>
+
+  <h3 id="VaNilla_Object_ReleaseComponentForTearDown_VaNilla_Object__" data-uid="VaNilla.Object.ReleaseComponentForTearDown(VaNilla.Object@)">
+  ReleaseComponentForTearDown(in Object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L498"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Auto-Generated Release Component Function for TearDown</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void ReleaseComponentForTearDown(in Object object__)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>object__</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_SearchRequiredComponents_" data-uid="VaNilla.Object.SearchRequiredComponents*"></a>
+
+  <h3 id="VaNilla_Object_SearchRequiredComponents_System_Type___System_Collections_Generic_HashSet_System_Type__" data-uid="VaNilla.Object.SearchRequiredComponents(System.Type[],System.Collections.Generic.HashSet{System.Type})">
+  SearchRequiredComponents(Type[], HashSet&lt;Type&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static HashSet&lt;Type&gt; SearchRequiredComponents(Type[] type_array, HashSet&lt;Type&gt; type_set)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>type_array</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>[]</dt>
+    <dd></dd>
+    <dt><code>type_set</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_SetUp_" data-uid="VaNilla.Object.SetUp*"></a>
+
+  <h3 id="VaNilla_Object_SetUp" data-uid="VaNilla.Object.SetUp">
+  SetUp()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/Object.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>生成処理関数です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool SetUp()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_TearDown_" data-uid="VaNilla.Object.TearDown*"></a>
+
+  <h3 id="VaNilla_Object_TearDown" data-uid="VaNilla.Object.TearDown">
+  TearDown()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/Object.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>破棄処理関数です。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void TearDown()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_Terminate_" data-uid="VaNilla.Object.Terminate*"></a>
+
+  <h3 id="VaNilla_Object_Terminate" data-uid="VaNilla.Object.Terminate">
+  Terminate()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L367"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>使用終了関数です</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Terminate()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Object_ToString_" data-uid="VaNilla.Object.ToString*"></a>
+
+  <h3 id="VaNilla_Object_ToString" data-uid="VaNilla.Object.ToString">
+  ToString()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Object/Interface/ObjectImpl.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>A string that represents the current object.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/ObjectFactory/Interface/ObjectImplForObjectFactory.cs/#L6" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

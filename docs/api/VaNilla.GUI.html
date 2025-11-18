@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Namespace VaNilla.GUI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Namespace VaNilla.GUI ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.GUI">
+
+  <h1 id="VaNilla_GUI" data-uid="VaNilla.GUI" class="text-break">Namespace VaNilla.GUI</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+
+    <h3 id="classes">
+Classes
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.Button.html">Button</a></dt>
+      <dd><p>クリック可能なボタンコントロールを表します。
+テキストの自動中央揃え機能を提供し、様々な用途に使用できる基本的なUIボタンです。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.Control.html">Control</a></dt>
+      <dd><p>すべてのGUIコントロールの基底クラスです。
+位置、サイズ、外観、イベント処理などの基本機能を提供します。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.ControlSkin.html">ControlSkin</a></dt>
+      <dd><p>基本コントロール用のスキン定義を表すクラスです。
+9パッチレンダリングシステムでコントロールの外観をカスタマイズします。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.DXEx.html">DXEx</a></dt>
+      <dd><p>VaNilla GUI用のDxLib拡張ユーティリティクラスです。
+文字列の折り返し処理と描画の補助機能を提供します。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.EventArguments.html">EventArguments</a></dt>
+      <dd><p>GUIイベントの基本イベント引数クラスです。
+現在は空の実装ですが、将来的にイベント情報を追加できるようにクラスとして定義されています。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.Form.html">Form</a></dt>
+      <dd><p>ウィンドウフォームを表すコントロールです。
+タイトルバーと各種ウィンドウボタンを持ち、ドラッグで移動可能なウィンドウを提供します。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.FormSkin.html">FormSkin</a></dt>
+      <dd><p>Form用のスキン定義を表すクラスです。
+ControlSkinを継承し、タイトルバーとウィンドウボタンのテクスチャを追加で定義します。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.GraphicalUI.html">GraphicalUI</a></dt>
+      <dd><p>VaNilla GUIシステムの中核クラスです。
+GUIメッセージの管理、フォーム管理、入力処理を統括します。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.HScrollBar.html">HScrollBar</a></dt>
+      <dd><p>水平スクロールバーコントロールを表します。
+ScrollBarクラスを継承し、水平方向のスクロール機能を提供します。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.Label.html">Label</a></dt>
+      <dd><p>テキストを表示するためのラベルコントロールです。
+自動折り返し機能を持ち、複数行のテキスト表示に対応しています。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.ListControl-1.html">ListControl&lt;Type&gt;</a></dt>
+      <dd><p>アイテムのリストを表示し、選択できるジェネリックリストコントロールです。
+サムネイルとキャプション付きのアイテム表示、スクロール、単一/複数選択をサポートします。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.ListControl-1.ListItem.html">ListControl&lt;Type&gt;.ListItem</a></dt>
+      <dd><p>リストコントロール内の各アイテムを表すクラスです。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.MessageBox.html">MessageBox</a></dt>
+      <dd><p>メッセージボックスを表示するクラスです。
+簡易的なダイアログを表示し、ユーザーの選択を取得できます。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.MouseArgs.html">MouseArgs</a></dt>
+      <dd><p>マウスイベントの引数を表すクラスです。
+マウスの位置、移動量、クリック状態などの情報を保持します。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.ResourceManager.html">ResourceManager</a></dt>
+      <dd><p>GUIコントロールのリソース管理を行うクラスです。
+XMLファイルからコントロールのデフォルト設定を読み込み、デフォルトインスタンスを提供します。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.ScrollBar.html">ScrollBar</a></dt>
+      <dd><p>スクロールバーコントロールの基底クラスです。
+水平（HScrollBar）および垂直（VScrollBar）スクロールバーの共通機能を提供します。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.ScrollBarSkin.html">ScrollBarSkin</a></dt>
+      <dd><p>ScrollBar用のスキン定義を表すクラスです。
+ControlSkinを継承し、スクロールボタンのテクスチャを追加で定義します。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.TextBox.html">TextBox</a></dt>
+      <dd><p>テキスト入力を受け付けるテキストボックスコントロールです。
+フォーカス取得時に自動的に入力受付を開始し、様々な入力モードをサポートします。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.VScrollBar.html">VScrollBar</a></dt>
+      <dd><p>垂直スクロールバーコントロールを表します。
+ScrollBarクラスを継承し、垂直方向のスクロール機能を提供します。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.XmlGUICreator.html">XmlGUICreator</a></dt>
+      <dd><p>XMLファイルからGUIレイアウトを生成するクラスです。
+Formを継承し、XML定義に基づいてコントロールを動的に配置します。</p>
+</dd>
+    </dl>
+    <h3 id="structs">
+Structs
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.GUIMessage.html">GUIMessage</a></dt>
+      <dd><p>GUIシステムで使用されるメッセージ構造体です。
+マウス、キーボード、その他の入力イベント情報を保持し、コントロール間で伝達されます。</p>
+</dd>
+    </dl>
+    <h3 id="enums">
+Enums
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.DialogResult.html">DialogResult</a></dt>
+      <dd><p>ダイアログの結果を表す列挙型です。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.MessageBoxButtons.html">MessageBoxButtons</a></dt>
+      <dd><p>メッセージボックスに表示するボタンの種類を表す列挙型です。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.MessageBoxIcon.html">MessageBoxIcon</a></dt>
+      <dd><p>メッセージボックスに表示するアイコンの種類を表す列挙型です。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.TextAlign.html">TextAlign</a></dt>
+      <dd><p>テキストの配置方法を表す列挙型です。</p>
+</dd>
+    </dl>
+    <h3 id="delegates">
+Delegates
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.EventHandler.html">EventHandler</a></dt>
+      <dd><p>VaNilla GUIで使用されるイベントハンドラのデリゲートです。
+注意：.NET標準のEventHandlerとは異なるカスタム定義です。</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="VaNilla.GUI.EventHandler-1.html">EventHandler&lt;T&gt;</a></dt>
+      <dd></dd>
+    </dl>
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

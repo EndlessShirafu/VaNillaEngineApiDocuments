@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class PlayerAbstructInput </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class PlayerAbstructInput ">
+      
+      <meta name="description" content="プレイヤーの抽象的な入力を表すクラスです。">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/feature/apply-net10-and-csharp14/apiSpec/new?filename=VaNilla_Input_PlayerAbstructInput.md&amp;value=---%0Auid%3A%20VaNilla.Input.PlayerAbstructInput%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.Input.PlayerAbstructInput">
+
+
+
+  <h1 id="VaNilla_Input_PlayerAbstructInput" data-uid="VaNilla.Input.PlayerAbstructInput" class="text-break">
+Class PlayerAbstructInput  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a>.<a class="xref" href="VaNilla.Input.html">Input</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>プレイヤーの抽象的な入力を表すクラスです。</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[VaNillaModuleVersion(0, 0, 1, 0)]
+public class PlayerAbstructInput : IExpresserComponent, IExecuter</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">PlayerAbstructInput</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="VaNilla.IExpresserComponent.html">IExpresserComponent</a></div>
+      <div><a class="xref" href="VaNilla.Execute.IExecuter.html">IExecuter</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="VaNilla_Input_PlayerAbstructInput_input_kind" data-uid="VaNilla.Input.PlayerAbstructInput.input_kind">
+  input_kind
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>入力の種類</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected PlayerAbstructInput.InputKind input_kind</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Input.PlayerAbstructInput.html">PlayerAbstructInput</a>.<a class="xref" href="VaNilla.Input.PlayerAbstructInput.InputKind.html">InputKind</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_Input_PlayerAbstructInput_now_time" data-uid="VaNilla.Input.PlayerAbstructInput.now_time">
+  now_time
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>現在の時間</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Time now_time</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Time.Time.html">Time</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="VaNilla_Input_PlayerAbstructInput_past_time" data-uid="VaNilla.Input.PlayerAbstructInput.past_time">
+  past_time
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>過去の時間</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Time past_time</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Time.Time.html">Time</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="VaNilla_Input_PlayerAbstructInput_Active_" data-uid="VaNilla.Input.PlayerAbstructInput.Active*"></a>
+
+  <h3 id="VaNilla_Input_PlayerAbstructInput_Active" data-uid="VaNilla.Input.PlayerAbstructInput.Active">
+  Active
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>コンポーネントの有効状態</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Active { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Input_PlayerAbstructInput_ExecuteType_" data-uid="VaNilla.Input.PlayerAbstructInput.ExecuteType*"></a>
+
+  <h3 id="VaNilla_Input_PlayerAbstructInput_ExecuteType" data-uid="VaNilla.Input.PlayerAbstructInput.ExecuteType">
+  ExecuteType
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>実行の種類</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ExecuteType ExecuteType { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Execute.ExecuteType.html">ExecuteType</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="VaNilla_Input_PlayerAbstructInput_Execute_" data-uid="VaNilla.Input.PlayerAbstructInput.Execute*"></a>
+
+  <h3 id="VaNilla_Input_PlayerAbstructInput_Execute_VaNilla_Object_VaNilla_Time_Time__" data-uid="VaNilla.Input.PlayerAbstructInput.Execute(VaNilla.Object,VaNilla.Time.Time@)">
+  Execute(Object, in Time)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>実行メソッド</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Execute(Object object__, in Time current_time)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>object__</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd><p>このコンポーネントを保持するオブジェクト</p>
+</dd>
+    <dt><code>current_time</code> <a class="xref" href="VaNilla.Time.Time.html">Time</a></dt>
+    <dd><p>現在時刻</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>実行が成功したか否か</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Input_PlayerAbstructInput_GetNowInput_" data-uid="VaNilla.Input.PlayerAbstructInput.GetNowInput*"></a>
+
+  <h3 id="VaNilla_Input_PlayerAbstructInput_GetNowInput_System_Single_" data-uid="VaNilla.Input.PlayerAbstructInput.GetNowInput(System.Single)">
+  GetNowInput(float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L126"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>現在の入力情報を取得する</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InputInfoStruct GetNowInput(float now_time__)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>now_time__</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>現在時刻</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="VaNilla.Input.InputInfoStruct.html">InputInfoStruct</a></dt>
+    <dd><p>現在の入力情報</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Input_PlayerAbstructInput_SetInputKind_" data-uid="VaNilla.Input.PlayerAbstructInput.SetInputKind*"></a>
+
+  <h3 id="VaNilla_Input_PlayerAbstructInput_SetInputKind_VaNilla_Input_PlayerAbstructInput_InputKind_" data-uid="VaNilla.Input.PlayerAbstructInput.SetInputKind(VaNilla.Input.PlayerAbstructInput.InputKind)">
+  SetInputKind(InputKind)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>入力の種類を設定する</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetInputKind(PlayerAbstructInput.InputKind kind)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>kind</code> <a class="xref" href="VaNilla.Input.PlayerAbstructInput.html">PlayerAbstructInput</a>.<a class="xref" href="VaNilla.Input.PlayerAbstructInput.InputKind.html">InputKind</a></dt>
+    <dd><p>設定する入力の種類</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Input_PlayerAbstructInput_SetNowInput_" data-uid="VaNilla.Input.PlayerAbstructInput.SetNowInput*"></a>
+
+  <h3 id="VaNilla_Input_PlayerAbstructInput_SetNowInput_System_Single_VaNilla_Input_InputInfoStruct_" data-uid="VaNilla.Input.PlayerAbstructInput.SetNowInput(System.Single,VaNilla.Input.InputInfoStruct)">
+  SetNowInput(float, InputInfoStruct)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L145"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>現在の入力情報を設定する</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetNowInput(float now_time__, InputInfoStruct inputinfo)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>now_time__</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>現在時刻</p>
+</dd>
+    <dt><code>inputinfo</code> <a class="xref" href="VaNilla.Input.InputInfoStruct.html">InputInfoStruct</a></dt>
+    <dd><p>設定する入力情報</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Input_PlayerAbstructInput_SetUp_" data-uid="VaNilla.Input.PlayerAbstructInput.SetUp*"></a>
+
+  <h3 id="VaNilla_Input_PlayerAbstructInput_SetUp_VaNilla_Object_" data-uid="VaNilla.Input.PlayerAbstructInput.SetUp(VaNilla.Object)">
+  SetUp(Object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>初期化メソッド</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SetUp(Object object__)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>object__</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd><p>このコンポーネントを保持するオブジェクト</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>正常に初期化が完了したか否か</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Input_PlayerAbstructInput_TearDown_" data-uid="VaNilla.Input.PlayerAbstructInput.TearDown*"></a>
+
+  <h3 id="VaNilla_Input_PlayerAbstructInput_TearDown_VaNilla_Object_" data-uid="VaNilla.Input.PlayerAbstructInput.TearDown(VaNilla.Object)">
+  TearDown(Object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>破棄メソッド</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void TearDown(Object object__)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>object__</code> <a class="xref" href="VaNilla.Object.html">Object</a></dt>
+    <dd><p>このコンポーネントを保持するオブジェクト</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/PlayerInput/Interface/PlayerAbstructInput.cs/#L10" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

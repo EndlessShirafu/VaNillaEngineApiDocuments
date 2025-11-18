@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Utils </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Utils ">
+      
+      <meta name="description" content="サウンドに関する処理を行うためのユーティリティです。 SoundResourceType に対応するサウンドリソースを再生/停止/一時停止/再開/音量調整などを行います。">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/feature/apply-net10-and-csharp14/apiSpec/new?filename=VaNilla_Sound_Utils.md&amp;value=---%0Auid%3A%20VaNilla.Sound.Utils%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.Sound.Utils">
+
+
+
+  <h1 id="VaNilla_Sound_Utils" data-uid="VaNilla.Sound.Utils" class="text-break">
+Class Utils  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a>.<a class="xref" href="VaNilla.Sound.html">Sound</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>サウンドに関する処理を行うためのユーティリティです。
+SoundResourceType に対応するサウンドリソースを再生/停止/一時停止/再開/音量調整などを行います。</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class Utils</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Utils</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="VaNilla_Sound_Utils_FadeInPlay_" data-uid="VaNilla.Sound.Utils.FadeInPlay*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_FadeInPlay_VaNilla_Sound_SoundResourceType_System_Single_" data-uid="VaNilla.Sound.Utils.FadeInPlay(VaNilla.Sound.SoundResourceType,System.Single)">
+  FadeInPlay(SoundResourceType, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L151"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>再生時に音量を徐々に大きくしながら再生します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FadeInPlay(SoundResourceType sound_type, float time_sec = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>サウンドリソース種別</p>
+</dd>
+    <dt><code>time_sec</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>音量値を大きくする期間の秒数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Sound_Utils_FadeOutStop_" data-uid="VaNilla.Sound.Utils.FadeOutStop*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_FadeOutStop_VaNilla_Sound_SoundResourceType_System_Single_" data-uid="VaNilla.Sound.Utils.FadeOutStop(VaNilla.Sound.SoundResourceType,System.Single)">
+  FadeOutStop(SoundResourceType, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L193"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>再生停止時に音量を徐々に小さくしながら停止します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FadeOutStop(SoundResourceType sound_type, float time_sec = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>サウンドリソース種別</p>
+</dd>
+    <dt><code>time_sec</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>音量値を小さくする期間の秒数</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Sound_Utils_GetCurrentPlayPosition_" data-uid="VaNilla.Sound.Utils.GetCurrentPlayPosition*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_GetCurrentPlayPosition_VaNilla_Sound_SoundResourceType_" data-uid="VaNilla.Sound.Utils.GetCurrentPlayPosition(VaNilla.Sound.SoundResourceType)">
+  GetCurrentPlayPosition(SoundResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L276"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したサウンドの現在の再生位置をサンプル単位で取得します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static long GetCurrentPlayPosition(SoundResourceType sound_type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>再生位置を取得するサウンドリソース種別</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd><p>現在の再生位置（サンプル単位）</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_Sound_Utils_GetCurrentPlayPosition_VaNilla_Sound_SoundResourceType__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>再生中でない場合は0が返されます。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_Sound_Utils_GetCurrentRegion_" data-uid="VaNilla.Sound.Utils.GetCurrentRegion*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_GetCurrentRegion_VaNilla_Sound_SoundResourceType_" data-uid="VaNilla.Sound.Utils.GetCurrentRegion(VaNilla.Sound.SoundResourceType)">
+  GetCurrentRegion(SoundResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L291"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>リージョンループ再生中のサウンドの現在のリージョンインデックスを取得します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int GetCurrentRegion(SoundResourceType sound_type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>リージョン情報を取得するサウンドリソース種別</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>現在のリージョンインデックス</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_Sound_Utils_GetCurrentRegion_VaNilla_Sound_SoundResourceType__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>SoundPlayTypeがSoundPlayType.RegionLoopのリソースのみで使用可能です。</p>
+<p>その他の再生タイプでは無意味な値が返されます。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_Sound_Utils_GetPan_" data-uid="VaNilla.Sound.Utils.GetPan*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_GetPan_VaNilla_Sound_SoundResourceType_" data-uid="VaNilla.Sound.Utils.GetPan(VaNilla.Sound.SoundResourceType)">
+  GetPan(SoundResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L214"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>パニング(L, R)を取得します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float GetPan(SoundResourceType sound_type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>サウンドリソース種別</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Sound_Utils_GetVolume_" data-uid="VaNilla.Sound.Utils.GetVolume*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_GetVolume_VaNilla_Sound_SoundResourceType_" data-uid="VaNilla.Sound.Utils.GetVolume(VaNilla.Sound.SoundResourceType)">
+  GetVolume(SoundResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L248"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>音量値を取得します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float GetVolume(SoundResourceType sound_type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>サウンドリソース種別</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Sound_Utils_IsInnerLoopPoint_" data-uid="VaNilla.Sound.Utils.IsInnerLoopPoint*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_IsInnerLoopPoint_VaNilla_Sound_SoundResourceType_" data-uid="VaNilla.Sound.Utils.IsInnerLoopPoint(VaNilla.Sound.SoundResourceType)">
+  IsInnerLoopPoint(SoundResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L311"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>リージョンループ再生中のサウンドが現在ループポイント内にいるかどうかを判定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsInnerLoopPoint(SoundResourceType sound_type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>判定するサウンドリソース種別</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><ul><li><code>true</code>: ループポイント内で再生中</li><li><code>false</code>: ループポイント外で再生中、またはループポイント未設定</li></ul>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_Sound_Utils_IsInnerLoopPoint_VaNilla_Sound_SoundResourceType__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>SoundPlayTypeがSoundPlayType.RegionLoopのリソースのみで使用可能です。</p>
+<p>ループポイント設定のないリージョンでは常にfalseが返されます。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_Sound_Utils_IsPlaying_" data-uid="VaNilla.Sound.Utils.IsPlaying*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_IsPlaying_VaNilla_Sound_SoundResourceType_" data-uid="VaNilla.Sound.Utils.IsPlaying(VaNilla.Sound.SoundResourceType)">
+  IsPlaying(SoundResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>再生中か否かを判別します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsPlaying(SoundResourceType sound_type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>サウンドリソース種別</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>再生中か否か</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Sound_Utils_Pause_" data-uid="VaNilla.Sound.Utils.Pause*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_Pause_VaNilla_Sound_SoundResourceType_" data-uid="VaNilla.Sound.Utils.Pause(VaNilla.Sound.SoundResourceType)">
+  Pause(SoundResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L95"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したサウンドの再生を一時停止します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Pause(SoundResourceType sound_type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>サウンドリソース種別</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Sound_Utils_Play_" data-uid="VaNilla.Sound.Utils.Play*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_Play_VaNilla_Sound_SoundResourceType_" data-uid="VaNilla.Sound.Utils.Play(VaNilla.Sound.SoundResourceType)">
+  Play(SoundResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定した種別のサウンドリソースを再生します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Play(SoundResourceType sound_type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>サウンドリソース種別</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Sound_Utils_ResetRegion_" data-uid="VaNilla.Sound.Utils.ResetRegion*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_ResetRegion_VaNilla_Sound_SoundResourceType_" data-uid="VaNilla.Sound.Utils.ResetRegion(VaNilla.Sound.SoundResourceType)">
+  ResetRegion(SoundResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L342"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>リージョンループ再生中のサウンドのリージョン状態を初期化します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ResetRegion(SoundResourceType sound_type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>リセットするサウンドリソース種別</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_Sound_Utils_ResetRegion_VaNilla_Sound_SoundResourceType__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>SoundPlayTypeがSoundPlayType.RegionLoopのリソースのみで使用可能です。</p>
+<p>再生位置が最初のリージョンの開始位置にリセットされます。</p>
+<p>再生中のサウンドに対して実行すると、音飛びが発生する可能性があります。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_Sound_Utils_SetCurrentPlayPosition_" data-uid="VaNilla.Sound.Utils.SetCurrentPlayPosition*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_SetCurrentPlayPosition_VaNilla_Sound_SoundResourceType_System_Int64_" data-uid="VaNilla.Sound.Utils.SetCurrentPlayPosition(VaNilla.Sound.SoundResourceType,System.Int64)">
+  SetCurrentPlayPosition(SoundResourceType, long)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L262"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したサウンドの再生位置をサンプル単位で設定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetCurrentPlayPosition(SoundResourceType sound_type, long current_samples)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>再生位置を設定するサウンドリソース種別</p>
+</dd>
+    <dt><code>current_samples</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd><p>設定する再生位置（サンプル単位）</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_Sound_Utils_SetCurrentPlayPosition_VaNilla_Sound_SoundResourceType_System_Int64__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>サンプル値はサウンドファイルのサンプルレートに依存します。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_Sound_Utils_SetPan_" data-uid="VaNilla.Sound.Utils.SetPan*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_SetPan_VaNilla_Sound_SoundResourceType_System_Single_" data-uid="VaNilla.Sound.Utils.SetPan(VaNilla.Sound.SoundResourceType,System.Single)">
+  SetPan(SoundResourceType, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L204"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>パニング(L, R)を設定します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetPan(SoundResourceType sound_type, float pan)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>サウンドリソース種別</p>
+</dd>
+    <dt><code>pan</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>パンの値(0.0 - 1.0)</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Sound_Utils_SetVolume_" data-uid="VaNilla.Sound.Utils.SetVolume*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_SetVolume_VaNilla_Sound_SoundInfo_System_Single_" data-uid="VaNilla.Sound.Utils.SetVolume(VaNilla.Sound.SoundInfo,System.Single)">
+  SetVolume(SoundInfo, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L239"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定されたサウンド情報に対して直接音量を設定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetVolume(SoundInfo info, float volume)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>info</code> <a class="xref" href="VaNilla.Sound.SoundInfo.html">SoundInfo</a></dt>
+    <dd><p>音量を設定するサウンド情報</p>
+</dd>
+    <dt><code>volume</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>設定する音量値（0.0～1.0）</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_Sound_Utils_SetVolume_VaNilla_Sound_SoundInfo_System_Single__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>このメソッドはサウンドリソース種別ではなく、直接SoundInfoを指定します。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_Sound_Utils_SetVolume_" data-uid="VaNilla.Sound.Utils.SetVolume*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_SetVolume_VaNilla_Sound_SoundResourceType_System_Single_" data-uid="VaNilla.Sound.Utils.SetVolume(VaNilla.Sound.SoundResourceType,System.Single)">
+  SetVolume(SoundResourceType, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L225"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>音量値を設定します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetVolume(SoundResourceType sound_type, float volume)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>サウンドリソース種別</p>
+</dd>
+    <dt><code>volume</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>音量値</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Sound_Utils_Stop_" data-uid="VaNilla.Sound.Utils.Stop*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_Stop_VaNilla_Sound_SoundResourceType_" data-uid="VaNilla.Sound.Utils.Stop(VaNilla.Sound.SoundResourceType)">
+  Stop(SoundResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定した種別のサウンドリソースを停止します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Stop(SoundResourceType sound_type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>サウンドリソース種別</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Sound_Utils_StopCategory_" data-uid="VaNilla.Sound.Utils.StopCategory*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_StopCategory_VaNilla_Sound_SoundCategory_" data-uid="VaNilla.Sound.Utils.StopCategory(VaNilla.Sound.SoundCategory)">
+  StopCategory(SoundCategory)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したカテゴリのサウンドを一括停止します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void StopCategory(SoundCategory category)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>category</code> <a class="xref" href="VaNilla.Sound.SoundCategory.html">SoundCategory</a></dt>
+    <dd><p>サウンドのカテゴリ</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_Sound_Utils_TransitToNextRegion_" data-uid="VaNilla.Sound.Utils.TransitToNextRegion*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_TransitToNextRegion_VaNilla_Sound_SoundResourceType_System_Int32_" data-uid="VaNilla.Sound.Utils.TransitToNextRegion(VaNilla.Sound.SoundResourceType,System.Int32)">
+  TransitToNextRegion(SoundResourceType, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L327"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>リージョンループ再生中のサウンドを指定したリージョンに遷移させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void TransitToNextRegion(SoundResourceType sound_type, int region_index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>遷移させるサウンドリソース種別</p>
+</dd>
+    <dt><code>region_index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>遷移先のリージョンインデックス</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_Sound_Utils_TransitToNextRegion_VaNilla_Sound_SoundResourceType_System_Int32__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>SoundPlayTypeがSoundPlayType.RegionLoopのリソースのみで使用可能です。</p>
+<p>無効なリージョンインデックスを指定した場合の動作は未定義です。</p>
+<p>遷移は次のフレームから有効になります。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_Sound_Utils_Unpause_" data-uid="VaNilla.Sound.Utils.Unpause*"></a>
+
+  <h3 id="VaNilla_Sound_Utils_Unpause_VaNilla_Sound_SoundResourceType_" data-uid="VaNilla.Sound.Utils.Unpause(VaNilla.Sound.SoundResourceType)">
+  Unpause(SoundResourceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したサウンドの一時停止を解除し、再生を再開します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Unpause(SoundResourceType sound_type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound_type</code> <a class="xref" href="VaNilla.Sound.SoundResourceType.html">SoundResourceType</a></dt>
+    <dd><p>再開するサウンドリソース種別</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_Sound_Utils_Unpause_VaNilla_Sound_SoundResourceType__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Pauseメソッドで一時停止されたサウンドのみに有効です。</p>
+</div>
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/SoundManager/Interface/Utils.cs/#L13" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class RegularlyMissionManager </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class RegularlyMissionManager ">
+      
+      <meta name="description" content="定期ミッション（週次・月次）を管理するマネージャークラス">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/new/feature/apply-net10-and-csharp14/apiSpec/new?filename=VaNilla_DailySystem_RegularlyMissionManager.md&amp;value=---%0Auid%3A%20VaNilla.DailySystem.RegularlyMissionManager%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="VaNilla.DailySystem.RegularlyMissionManager">
+
+
+
+  <h1 id="VaNilla_DailySystem_RegularlyMissionManager" data-uid="VaNilla.DailySystem.RegularlyMissionManager" class="text-break">
+Class RegularlyMissionManager  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/DailySystem/Interface/RegularlyMissionList.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="VaNilla.html">VaNilla</a>.<a class="xref" href="VaNilla.DailySystem.html">DailySystem</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>autogen.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>定期ミッション（週次・月次）を管理するマネージャークラス</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[VaNillaModuleVersion(0, 0, 1, 0)]
+public static class RegularlyMissionManager</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">RegularlyMissionManager</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="VaNilla_DailySystem_RegularlyMissionManager_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>週次および月次ミッションの進捗管理、リセット処理、
+セーブ・ロード機能を提供します。</p>
+</div>
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="VaNilla_DailySystem_RegularlyMissionManager_CompleteMission_" data-uid="VaNilla.DailySystem.RegularlyMissionManager.CompleteMission*"></a>
+
+  <h3 id="VaNilla_DailySystem_RegularlyMissionManager_CompleteMission_System_String_" data-uid="VaNilla.DailySystem.RegularlyMissionManager.CompleteMission(System.String)">
+  CompleteMission(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/DailySystem/Interface/RegularlyMission.cs/#L127"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したミッションを強制的に完了状態にします</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CompleteMission(string missionId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>missionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>ミッションID</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_DailySystem_RegularlyMissionManager_CompleteMission_System_String__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>ミッションの進捗を目標値まで一気に進めます。
+指定したIDのミッションが存在しない場合は何も行いません。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_DailySystem_RegularlyMissionManager_Finalize_" data-uid="VaNilla.DailySystem.RegularlyMissionManager.Finalize*"></a>
+
+  <h3 id="VaNilla_DailySystem_RegularlyMissionManager_Finalize" data-uid="VaNilla.DailySystem.RegularlyMissionManager.Finalize">
+  Finalize()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/DailySystem/Interface/RegularlyMission.cs/#L241"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>定期ミッションマネージャーを終了処理します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Finalize()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_DailySystem_RegularlyMissionManager_Finalize_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>現在のミッション状態をセーブします。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_DailySystem_RegularlyMissionManager_GetAllMissions_" data-uid="VaNilla.DailySystem.RegularlyMissionManager.GetAllMissions*"></a>
+
+  <h3 id="VaNilla_DailySystem_RegularlyMissionManager_GetAllMissions" data-uid="VaNilla.DailySystem.RegularlyMissionManager.GetAllMissions">
+  GetAllMissions()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/DailySystem/Interface/RegularlyMission.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>すべての定期ミッションを取得します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static List&lt;RegularlyMission&gt; GetAllMissions()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="VaNilla.DailySystem.RegularlyMission.html">RegularlyMission</a>&gt;</dt>
+    <dd><p>すべての定期ミッションのリスト</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_DailySystem_RegularlyMissionManager_GetCompletedMissions_" data-uid="VaNilla.DailySystem.RegularlyMissionManager.GetCompletedMissions*"></a>
+
+  <h3 id="VaNilla_DailySystem_RegularlyMissionManager_GetCompletedMissions" data-uid="VaNilla.DailySystem.RegularlyMissionManager.GetCompletedMissions">
+  GetCompletedMissions()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/DailySystem/Interface/RegularlyMission.cs/#L102"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>完了済みの定期ミッションを取得します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static List&lt;RegularlyMission&gt; GetCompletedMissions()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="VaNilla.DailySystem.RegularlyMission.html">RegularlyMission</a>&gt;</dt>
+    <dd><p>完了済みの定期ミッションのリスト</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_DailySystem_RegularlyMissionManager_GetIncompleteMissions_" data-uid="VaNilla.DailySystem.RegularlyMissionManager.GetIncompleteMissions*"></a>
+
+  <h3 id="VaNilla_DailySystem_RegularlyMissionManager_GetIncompleteMissions" data-uid="VaNilla.DailySystem.RegularlyMissionManager.GetIncompleteMissions">
+  GetIncompleteMissions()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/DailySystem/Interface/RegularlyMission.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>未完了の定期ミッションを取得します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static List&lt;RegularlyMission&gt; GetIncompleteMissions()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="VaNilla.DailySystem.RegularlyMission.html">RegularlyMission</a>&gt;</dt>
+    <dd><p>未完了の定期ミッションのリスト</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="VaNilla_DailySystem_RegularlyMissionManager_Initialize_" data-uid="VaNilla.DailySystem.RegularlyMissionManager.Initialize*"></a>
+
+  <h3 id="VaNilla_DailySystem_RegularlyMissionManager_Initialize" data-uid="VaNilla.DailySystem.RegularlyMissionManager.Initialize">
+  Initialize()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/DailySystem/Interface/RegularlyMission.cs/#L230"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>定期ミッションマネージャーを初期化します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Initialize()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_DailySystem_RegularlyMissionManager_Initialize_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>セーブデータからミッション情報をロードします。
+初回起動時は初期ミッションが作成されます。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_DailySystem_RegularlyMissionManager_ResetAllMissions_" data-uid="VaNilla.DailySystem.RegularlyMissionManager.ResetAllMissions*"></a>
+
+  <h3 id="VaNilla_DailySystem_RegularlyMissionManager_ResetAllMissions" data-uid="VaNilla.DailySystem.RegularlyMissionManager.ResetAllMissions">
+  ResetAllMissions()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/DailySystem/Interface/RegularlyMission.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>すべての定期ミッションをリセットします</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ResetAllMissions()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_DailySystem_RegularlyMissionManager_ResetAllMissions_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>すべてのミッションの進捗をリセットし、セーブします。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_DailySystem_RegularlyMissionManager_ResetMonthlyMissions_" data-uid="VaNilla.DailySystem.RegularlyMissionManager.ResetMonthlyMissions*"></a>
+
+  <h3 id="VaNilla_DailySystem_RegularlyMissionManager_ResetMonthlyMissions" data-uid="VaNilla.DailySystem.RegularlyMissionManager.ResetMonthlyMissions">
+  ResetMonthlyMissions()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/DailySystem/Interface/RegularlyMission.cs/#L176"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>月次ミッションをリセットします</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ResetMonthlyMissions()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_DailySystem_RegularlyMissionManager_ResetMonthlyMissions_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>月次ミッションのみを選別してリセットします。
+月が変わったタイミングで自動的に呼び出されます。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_DailySystem_RegularlyMissionManager_ResetWeeklyMissions_" data-uid="VaNilla.DailySystem.RegularlyMissionManager.ResetWeeklyMissions*"></a>
+
+  <h3 id="VaNilla_DailySystem_RegularlyMissionManager_ResetWeeklyMissions" data-uid="VaNilla.DailySystem.RegularlyMissionManager.ResetWeeklyMissions">
+  ResetWeeklyMissions()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/DailySystem/Interface/RegularlyMission.cs/#L159"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>週次ミッションをリセットします</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ResetWeeklyMissions()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_DailySystem_RegularlyMissionManager_ResetWeeklyMissions_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>週次ミッションのみを選別してリセットします。
+週が変わったタイミングで自動的に呼び出されます。</p>
+</div>
+
+
+
+
+  <a id="VaNilla_DailySystem_RegularlyMissionManager_UpdateMissionProgress_" data-uid="VaNilla.DailySystem.RegularlyMissionManager.UpdateMissionProgress*"></a>
+
+  <h3 id="VaNilla_DailySystem_RegularlyMissionManager_UpdateMissionProgress_System_String_System_Int32_" data-uid="VaNilla.DailySystem.RegularlyMissionManager.UpdateMissionProgress(System.String,System.Int32)">
+  UpdateMissionProgress(string, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/DailySystem/Interface/RegularlyMission.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>指定したミッションの進捗を更新します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void UpdateMissionProgress(string missionId, int amount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>missionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>ミッションID</p>
+</dd>
+    <dt><code>amount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>進捗に加算する量</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="VaNilla_DailySystem_RegularlyMissionManager_UpdateMissionProgress_System_String_System_Int32__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>指定したIDのミッションが存在しない場合は何も行いません。</p>
+</div>
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/DailySystem/Interface/RegularlyMissionList.cs/#L10" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
