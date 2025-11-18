@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Physics/README.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Documents/docfx/modules/Physics/README.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -90,9 +90,9 @@ using VaNilla.Physics;
 using VaNilla.Shape;
 
 [AutoGenerateConstructor]
-[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasRotation), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasRigidbody), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasPosition))]
+[DefaultExpresserComponent(typeof(HasRotation))]
+[DefaultExpresserComponent(typeof(HasRigidbody))]
 public partial class PhysicsBox : Object
 {
     public override bool SetUp()
@@ -112,10 +112,10 @@ public partial class PhysicsBox : Object
 </code></pre>
 <h3 id="スケール対応の物理オブジェクト">スケール対応の物理オブジェクト</h3>
 <pre><code class="lang-csharp">[AutoGenerateConstructor]
-[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasRotation), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasScale), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasRigidbody), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasPosition))]
+[DefaultExpresserComponent(typeof(HasRotation))]
+[DefaultExpresserComponent(typeof(HasScale))]
+[DefaultExpresserComponent(typeof(HasRigidbody))]
 public partial class ScaledPhysicsCircle : Object
 {
     public override bool SetUp()
@@ -173,7 +173,7 @@ public override bool Execute(in Time.Time time)
 <p>物理シミュレーションの内部状態を可視化するために、デバッグ描画機能を提供しています。</p>
 <h4 id="方法1-physicsdebugdrawerコンポーネントを使用推奨">方法1: PhysicsDebugDrawerコンポーネントを使用（推奨）</h4>
 <pre><code class="lang-csharp">[AutoGenerateConstructor]
-[DefaultExpresserComponent(typeof(PhysicsDebugDrawer), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(PhysicsDebugDrawer))]
 public partial class MyDebugObject : Object
 {
     public override bool SetUp()
@@ -304,7 +304,7 @@ physics_settings:
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Physics/README.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Documents/docfx/modules/Physics/README.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

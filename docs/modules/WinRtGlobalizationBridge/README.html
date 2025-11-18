@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/WinRtGlobalizationBridge/README.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Documents/docfx/modules/WinRtGlobalizationBridge/README.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,13 +75,13 @@
 <h2 id="アーキテクチャ">アーキテクチャ</h2>
 <h3 id="1-ラッパーdll-winrtglobalizationbridgedll">1. ラッパーDLL (WinRtGlobalizationBridge.dll)</h3>
 <ul>
-<li><strong>ターゲットフレームワーク</strong>: <code>net9.0-windows10.0.19041.0</code></li>
+<li><strong>ターゲットフレームワーク</strong>: <code>net10.0-windows10.0.19041.0</code></li>
 <li><strong>依存関係</strong>: <code>Microsoft.Windows.SDK.Contracts</code></li>
 <li><strong>WinRT API</strong>: <code>Windows.System.UserProfile.GlobalizationPreferences</code> を直接使用</li>
 </ul>
 <h3 id="2-メインプロジェクト-vanilla">2. メインプロジェクト (VaNilla)</h3>
 <ul>
-<li><strong>ターゲットフレームワーク</strong>: <code>net9.0</code> (WinRT 非依存)</li>
+<li><strong>ターゲットフレームワーク</strong>: <code>net10.0</code> (WinRT 非依存)</li>
 <li><strong>DLL 呼び出し</strong>: リフレクションによる動的呼び出し</li>
 <li><strong>フォールバック</strong>: DLL が利用できない場合は &quot;en-US&quot; を返却</li>
 </ul>
@@ -128,7 +128,7 @@ foreach (var lang in languages)
 <h2 id="依存関係">依存関係</h2>
 <ul>
 <li>Microsoft.Windows.SDK.Contracts (10.0.22621.30401)</li>
-<li>.NET 9.0 targeting Windows 10.0.19041.0</li>
+<li>.NET 10.0 targeting Windows 10.0.19041.0</li>
 </ul>
 <h2 id="注意事項">注意事項</h2>
 <ul>
@@ -140,7 +140,7 @@ foreach (var lang in languages)
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/WinRtGlobalizationBridge/README.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Documents/docfx/modules/WinRtGlobalizationBridge/README.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

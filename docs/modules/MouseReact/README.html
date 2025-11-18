@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/MouseReact/README.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Documents/docfx/modules/MouseReact/README.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -86,8 +86,8 @@
 <h3 id="followmouseposition-クラス">FollowMousePosition クラス</h3>
 <p>マウスカーソルの位置を追従するExpresserComponentです。</p>
 <pre><code class="lang-csharp">[VaNillaModuleVersion(0, 0, 1, 0)]
-[RequiredExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
-[RequiredExpresserComponent(typeof(MouseInput.MouseInputComponent), auto_member_generate: true)]
+[RequiredExpresserComponent(typeof(HasPosition))]
+[RequiredExpresserComponent(typeof(MouseInput.MouseInputComponent))]
 public partial class FollowMousePostion : IExpresserComponent
 {
     // HasPositionとMouseInputComponentは自動生成される
@@ -110,8 +110,8 @@ public partial class FollowMousePostion : IExpresserComponent
 <h3 id="基本的なマウス追従オブジェクト">基本的なマウス追従オブジェクト</h3>
 <pre><code class="lang-csharp">// マウスカーソルを追従するオブジェクト
 [AutoGenerateConstructor]
-[DefaultExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(FollowMousePostion), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(Transform.HasPosition))]
+[DefaultExpresserComponent(typeof(FollowMousePostion))]
 public partial class MouseFollower : Object
 {
     public override bool SetUp()
@@ -132,9 +132,9 @@ var mouseFollower = ObjectActivator.Activate&lt;MouseFollower&gt;();
 </code></pre>
 <h3 id="ui要素のマウス追従">UI要素のマウス追従</h3>
 <pre><code class="lang-csharp">[AutoGenerateConstructor]
-[DefaultExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(Texture.HasTexture), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(FollowMousePostion), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(Transform.HasPosition))]
+[DefaultExpresserComponent(typeof(Texture.HasTexture))]
+[DefaultExpresserComponent(typeof(FollowMousePostion))]
 public partial class DynamicTooltip : Object
 {
     public override bool SetUp()
@@ -160,10 +160,10 @@ var tooltip = ObjectActivator.Activate&lt;DynamicTooltip&gt;();
 </code></pre>
 <h3 id="マウス追従カーソル">マウス追従カーソル</h3>
 <pre><code class="lang-csharp">[AutoGenerateConstructor]
-[DefaultExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(Transform.HasScale), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(Texture.HasTexture), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(FollowMousePostion), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(Transform.HasPosition))]
+[DefaultExpresserComponent(typeof(Transform.HasScale))]
+[DefaultExpresserComponent(typeof(Texture.HasTexture))]
+[DefaultExpresserComponent(typeof(FollowMousePostion))]
 public partial class CustomCursor : Object
 {
     public override bool SetUp()
@@ -217,11 +217,11 @@ public partial class CustomCursor : Object
 
 // 使用例
 [AutoGenerateConstructor]
-[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasTextureRenderer), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(MouseInput.MouseInputComponent), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(OffsetMouseFollower), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasPosition))]
+[DefaultExpresserComponent(typeof(HasTexture))]
+[DefaultExpresserComponent(typeof(HasTextureRenderer))]
+[DefaultExpresserComponent(typeof(MouseInput.MouseInputComponent))]
+[DefaultExpresserComponent(typeof(OffsetMouseFollower))]
 public partial class OffsetTooltip : Object
 {
     public override bool SetUp()
@@ -331,12 +331,12 @@ component.FollowCondition = () =&gt;
 <h2 id="ゲーム開発での実用例">ゲーム開発での実用例</h2>
 <h3 id="インベントリアイテムのドラッグ">インベントリアイテムのドラッグ</h3>
 <pre><code class="lang-csharp">[AutoGenerateConstructor]
-[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasTextureRenderer), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(MouseInput.MouseInputComponent), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasCollision), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(DragBehavior), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasPosition))]
+[DefaultExpresserComponent(typeof(HasTexture))]
+[DefaultExpresserComponent(typeof(HasTextureRenderer))]
+[DefaultExpresserComponent(typeof(MouseInput.MouseInputComponent))]
+[DefaultExpresserComponent(typeof(HasCollision))]
+[DefaultExpresserComponent(typeof(DragBehavior))]
 public partial class DraggableItem : Object
 {
     private bool isDragging = false;
@@ -498,7 +498,7 @@ public class DragBehavior : IExpresserComponent
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/MouseReact/README.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Documents/docfx/modules/MouseReact/README.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Region/README.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Documents/docfx/modules/Region/README.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -325,10 +325,10 @@ if (damageArea.Contains(playerPos))
 <h3 id="expressercomponentでの使用">ExpresserComponentでの使用</h3>
 <pre><code class="lang-csharp">// 爆発エフェクトオブジェクト
 [AutoGenerateConstructor]
-[DefaultExpresserComponent(typeof(HasPosition), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasRegion), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(RegionTrigger), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(DamageDealer), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(HasPosition))]
+[DefaultExpresserComponent(typeof(HasRegion))]
+[DefaultExpresserComponent(typeof(RegionTrigger))]
+[DefaultExpresserComponent(typeof(DamageDealer))]
 public partial class ExplosionEffect : Object
 {
     public override bool SetUp()
@@ -521,7 +521,7 @@ public static class RegionDebugRenderer
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/Region/README.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Documents/docfx/modules/Region/README.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/TextureResourceManager/README.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Documents/docfx/modules/TextureResourceManager/README.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -115,9 +115,9 @@ public class HasTextureList : IExpresserComponent
 </code></pre>
 <h3 id="expressercomponentでの使用例">ExpresserComponentでの使用例</h3>
 <pre><code class="lang-csharp">[AutoGenerateConstructor]
-[DefaultExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(SpriteRenderComponent), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(Transform.HasPosition))]
+[DefaultExpresserComponent(typeof(HasTexture))]
+[DefaultExpresserComponent(typeof(SpriteRenderComponent))]
 public partial class Sprite : Object
 {
     public override bool SetUp()
@@ -128,8 +128,8 @@ public partial class Sprite : Object
     }
 }
 
-[RequiredExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
-[RequiredExpresserComponent(typeof(HasTexture), auto_member_generate: true)]
+[RequiredExpresserComponent(typeof(Transform.HasPosition))]
+[RequiredExpresserComponent(typeof(HasTexture))]
 public partial class SpriteRenderComponent : IExpresserComponent
 {
     public bool Active { get; set; } = true;
@@ -288,9 +288,9 @@ while (!TextureResourceManager.IsLoadedTextureResource(TextureCategory.character
 </code></pre>
 <h3 id="アニメーションテクスチャの管理hastexturelistを使用">アニメーションテクスチャの管理（HasTextureListを使用）</h3>
 <pre><code class="lang-csharp">[AutoGenerateConstructor]
-[DefaultExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(HasTextureList), auto_member_generate: true)]
-[DefaultExpresserComponent(typeof(AnimationRenderComponent), auto_member_generate: true)]
+[DefaultExpresserComponent(typeof(Transform.HasPosition))]
+[DefaultExpresserComponent(typeof(HasTextureList))]
+[DefaultExpresserComponent(typeof(AnimationRenderComponent))]
 public partial class AnimatedSprite : Object
 {
     public override bool SetUp()
@@ -307,8 +307,8 @@ public partial class AnimatedSprite : Object
     }
 }
 
-[RequiredExpresserComponent(typeof(Transform.HasPosition), auto_member_generate: true)]
-[RequiredExpresserComponent(typeof(HasTextureList), auto_member_generate: true)]
+[RequiredExpresserComponent(typeof(Transform.HasPosition))]
+[RequiredExpresserComponent(typeof(HasTextureList))]
 public partial class AnimationRenderComponent : IExpresserComponent
 {
     public bool Active { get; set; } = true;
@@ -623,7 +623,7 @@ YAMLベースの設定とコード生成により、大規模なプロジェク�
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/EndlessShirafu/VaNilla/blob/develop/Documents/docfx/modules/TextureResourceManager/README.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/EndlessShirafu/VaNilla/blob/feature/apply-net10-and-csharp14/Documents/docfx/modules/TextureResourceManager/README.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
